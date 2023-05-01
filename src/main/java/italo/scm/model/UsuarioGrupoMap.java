@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="usuario_role_map")
+@Table(name="usuario_grupo_map")
 public class UsuarioGrupoMap {
 
 	@Id

@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class RecursoResponse {
 
+	private Long id;
+	
 	private String nome;
 	
 	private boolean leitura;

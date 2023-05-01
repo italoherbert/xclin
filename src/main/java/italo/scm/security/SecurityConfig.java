@@ -18,7 +18,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
 	private final String[] PUBLIC = {
-		"/api/login"
+		"/api/login", 
+		"/v3/api-docs**/**", "/swagger-ui**/**"
 	};
 	
 	private final AutenticacaoFilter autenticacaoFilter;

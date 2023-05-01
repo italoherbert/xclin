@@ -5,10 +5,8 @@ import org.springframework.stereotype.Component;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
 import italo.scm.model.request.LoginRequest;
-import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor
 public class LoginValidator {
 	
 	public void validaLogin( LoginRequest request ) throws ValidationException {

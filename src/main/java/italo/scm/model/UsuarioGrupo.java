@@ -27,7 +27,7 @@ public class UsuarioGrupo {
 	private String nome;
 	
 	@OneToMany(mappedBy="grupo", cascade=CascadeType.ALL)
-	private List<UsuarioGrupoMap> usuarioRoleMapList;
+	private List<UsuarioGrupoMap> usuarioGrupoMapList;
 	
 	@OneToMany(mappedBy="grupo", cascade=CascadeType.ALL)
 	private List<Acesso> acessos;

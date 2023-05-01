@@ -35,6 +35,6 @@ public class Acesso {
 	
 	@ManyToOne( fetch=FetchType.EAGER ) 
 	@JoinColumn(name="recurso_id")
-	private UsuarioGrupo recurso;
+	private Recurso recurso;
 	
 }

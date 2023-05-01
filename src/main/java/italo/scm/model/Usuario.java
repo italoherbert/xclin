@@ -2,8 +2,11 @@ package italo.scm.model;
 
 import java.util.List;
 
+import italo.scm.enums.tipos.UsuarioPerfil;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -26,9 +29,12 @@ public class Usuario {
 	
 	private String username;
 	
-	private String password;
+	private String senha;
+	
+	@Enumerated(EnumType.STRING)
+	private UsuarioPerfil perfil;
 
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
-	private List<UsuarioGrupoMap> usuarioRoleMapList;
+	private List<UsuarioGrupoMap> usuarioGrupoMapList;
 	
 }

@@ -1,6 +1,7 @@
 package italo.scm.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +22,7 @@ public class LoginController {
 	
 	private final LoginValidator loginValidator;
 	
+	@PostMapping
 	public ResponseEntity<Object> login( @RequestBody LoginRequest request ) throws SistemaException {
 		loginValidator.validaLogin( request );
 		LoginResponse resp = loginService.login( request );

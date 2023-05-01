@@ -1,4 +1,4 @@
-package italo.scm.model.response;
+package italo.scm.model.request;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,10 +7,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuarioResponse {
+public class GrupoRequest {
 
-	private Long id;
+	private String nome;
 	
-	private String username;
-			
 }

@@ -7,10 +7,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuarioResponse {
+public class UsuarioGrupoResponse {
 
 	private Long id;
 	
-	private String username;
-			
+	private String nome;
+	
 }

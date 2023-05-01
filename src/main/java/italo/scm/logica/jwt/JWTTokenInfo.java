@@ -1,4 +1,4 @@
-package italo.scm.security;
+package italo.scm.logica.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -11,7 +11,11 @@ import italo.scm.model.response.ErroResponse;
 @ControllerAdvice
 public class SistemaExceptionHandler extends ResponseEntityExceptionHandler {
 
-	@ExceptionHandler(value = {ServiceException.class, ValidationException.class} )
+	@ExceptionHandler(value = {
+		ServiceException.class, 
+		ValidationException.class,
+		ConverterException.class
+	} )
 	protected ResponseEntity<Object> handle( Exception e, WebRequest request ) {
 		return ResponseEntity.badRequest().body( new ErroResponse( (SistemaException)e ) );
 	}

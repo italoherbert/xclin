@@ -1,4 +1,4 @@
-package italo.scm.security;
+package italo.scm.logica.jwt;
 
 import java.security.Key;
 import java.util.Base64;
@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -17,8 +18,11 @@ import io.jsonwebtoken.security.Keys;
 @Component
 public class JWTLogica {
 
-	private final static String SECRET = "italo";
-	private long expirationMS = 24 * 3600000;
+	@Value("${jwt.secret}")
+	private final static String secret = "italo";
+	
+	@Value("${jwt.tempo.expiracao}")
+	private long expirationMS;
 	
 	public String geraToken( String subject, String[] roles ) {
 		Map<String, Object> claims = new HashMap<>();
@@ -41,8 +45,8 @@ public class JWTLogica {
 	}
 	
 	public String geraToken( String subject, Map<String, Object> claims ) {
-		byte[] secret = Base64.getDecoder().decode( SECRET );
-		Key secretKey = Keys.hmacShaKeyFor( secret );
+		byte[] secretBytes = Base64.getDecoder().decode( secret );
+		Key secretKey = Keys.hmacShaKeyFor( secretBytes );
 		
 		return Jwts.builder()				
 				.setSubject( subject )
@@ -54,8 +58,8 @@ public class JWTLogica {
 	}
 	
 	public Claims extraiClaims( String token ) {
-		byte[] secret = Base64.getDecoder().decode( SECRET );
-		Key secretKey = Keys.hmacShaKeyFor( secret );
+		byte[] secretBytes = Base64.getDecoder().decode( secret );
+		Key secretKey = Keys.hmacShaKeyFor( secretBytes );
 		
 		return Jwts.parserBuilder()
 				.setSigningKey( secretKey )

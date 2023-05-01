@@ -18,7 +18,7 @@ import io.jsonwebtoken.security.Keys;
 public class JWTLogica {
 
 	private final static String SECRET = "italo";
-	private long expirationMS = 3600000;
+	private long expirationMS = 24 * 3600000;
 	
 	public String geraToken( String subject, String[] roles ) {
 		Map<String, Object> claims = new HashMap<>();

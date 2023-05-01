@@ -17,8 +17,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="role")
-public class Role {
+@Table(name="usuario_grupo")
+public class UsuarioGrupo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -26,10 +26,10 @@ public class Role {
 	
 	private String nome;
 	
-	@OneToMany(mappedBy="role", cascade=CascadeType.ALL)
-	private List<UsuarioRoleMap> usuarioRoleMap;
+	@OneToMany(mappedBy="grupo", cascade=CascadeType.ALL)
+	private List<UsuarioGrupoMap> usuarioRoleMapList;
 	
-	@OneToMany(mappedBy="role", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="grupo", cascade=CascadeType.ALL)
 	private List<Acesso> acessos;
 	
 }

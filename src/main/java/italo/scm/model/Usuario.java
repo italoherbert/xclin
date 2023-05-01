@@ -1,5 +1,7 @@
 package italo.scm.model;
 
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,6 +29,6 @@ public class Usuario {
 	private String password;
 
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
-	private UsuarioRoleMap usuarioRoleMap;
+	private List<UsuarioGrupoMap> usuarioRoleMapList;
 	
 }

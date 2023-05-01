@@ -17,7 +17,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name="usuario_role_map")
-public class UsuarioRoleMap {
+public class UsuarioGrupoMap {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class UsuarioRoleMap {
 	private Usuario usuario;
 	
 	@ManyToOne( fetch=FetchType.EAGER ) 
-	@JoinColumn(name="role_id")
-	private Role role;
+	@JoinColumn(name="grupo_id")
+	private UsuarioGrupo grupo;
 	
 }

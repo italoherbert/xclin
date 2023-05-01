@@ -30,11 +30,11 @@ public class Acesso {
 	private boolean remocao;
 	
 	@ManyToOne( fetch=FetchType.EAGER ) 
-	@JoinColumn(name="role_id")
-	private Role role;
+	@JoinColumn(name="grupo_id")
+	private UsuarioGrupo grupo;
 	
 	@ManyToOne( fetch=FetchType.EAGER ) 
 	@JoinColumn(name="recurso_id")
-	private Role recurso;
+	private UsuarioGrupo recurso;
 	
 }

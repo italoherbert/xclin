@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Login } from './bean/login';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SistemaService } from './sistema.service';
 
 @Injectable({
@@ -12,7 +12,10 @@ export class UsuarioService {
   constructor( private http : HttpClient, private sistemaService : SistemaService ) { }
 
   logar( login : Login ): Observable<any> {
-    return this.http.post( '/api/login', login );
+    let headers = new HttpHeaders();
+    headers.append( 'Content-Type', 'application/json' );
+
+    return this.http.post( '/api/login', login, { headers: headers, withCredentials: true } );
   }
 
 }

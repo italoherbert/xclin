@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
+import italo.scm.logica.HashUtil;
 import italo.scm.logica.jwt.JWTLogica;
 import italo.scm.model.Usuario;
 import italo.scm.model.UsuarioGrupo;
@@ -20,13 +21,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginService {
 
-	private UsuarioRepository usuarioRepository;
+	private final UsuarioRepository usuarioRepository;
 	
-	private JWTLogica jwtLogica;
+	private final JWTLogica jwtLogica;
+	
+	private final HashUtil hashUtil;
 	
 	public LoginResponse login( LoginRequest request ) throws ServiceException {
 		String username = request.getUsername();
-		String senha = request.getSenha();
+		String senha = hashUtil.geraHash( request.getSenha() );
 		
 		Optional<Usuario> uop = usuarioRepository.buscaPorLogin( username, senha );
 		if ( !uop.isPresent() )

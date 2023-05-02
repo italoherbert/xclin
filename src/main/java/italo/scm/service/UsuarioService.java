@@ -27,15 +27,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioService {
 	
-	private UsuarioRepository usuarioRepository;
+	private final UsuarioRepository usuarioRepository;
 	
-	private UsuarioGrupoRepository usuarioGrupoRepository;
+	private final UsuarioGrupoRepository usuarioGrupoRepository;
 	
-	private UsuarioGrupoMapRepository usuarioGrupoMapRepository;
+	private final UsuarioGrupoMapRepository usuarioGrupoMapRepository;
 	
-	private UsuarioLoader usuarioLoader;
+	private final UsuarioLoader usuarioLoader;
 	
-	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
+	private final UsuarioPerfilEnumManager usuarioPerfilEnumManager;
 		
 	@Transactional
 	public void registra( UsuarioRequest request ) throws ServiceException {

@@ -22,7 +22,7 @@ public class LoginController {
 	
 	private final LoginValidator loginValidator;
 	
-	@PostMapping
+	@PostMapping("")
 	public ResponseEntity<Object> login( @RequestBody LoginRequest request ) throws SistemaException {
 		loginValidator.validaLogin( request );
 		LoginResponse resp = loginService.login( request );

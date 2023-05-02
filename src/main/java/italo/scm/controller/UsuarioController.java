@@ -26,9 +26,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioController {
 
-	private UsuarioService usuarioService;
+	private final UsuarioService usuarioService;
 	
-	private UsuarioValidator usuarioValidator;
+	private final UsuarioValidator usuarioValidator;
 	
 	@PreAuthorize("usuarioWRITE")
 	@PostMapping("/registra")

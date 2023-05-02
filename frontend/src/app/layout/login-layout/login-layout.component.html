@@ -5,21 +5,5 @@
 <br />
 <br />
 
-<div class="d-flex justify-content-center">
-    <mat-card style="width: 32em">
-        <mat-card-header>
-            <h1>Login</h1>
-        </mat-card-header>
-        <mat-card-content>
-            <form>
-                <mat-form-field appearance="fill" class="w-100">
-                    <input matInput type="text" placeholder="Nome de usuário" />
-                </mat-form-field>
-                <mat-form-field appearance="fill" class="w-100">
-                    <input matInput type="password" placeholder="Senha" />
-                </mat-form-field>
-                <button mat-raised-button color="primary">Entrar</button>
-            </form>
-        </mat-card-content>
-    </mat-card>
-</div>
+<app-login></app-login>
+<router-outlet name="center"></router-outlet>

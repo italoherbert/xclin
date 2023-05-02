@@ -19,7 +19,7 @@ import io.jsonwebtoken.security.Keys;
 public class JWTLogica {
 
 	@Value("${jwt.secret}")
-	private final static String secret = "italo";
+	private String secret;
 	
 	@Value("${jwt.tempo.expiracao}")
 	private long expirationMS;

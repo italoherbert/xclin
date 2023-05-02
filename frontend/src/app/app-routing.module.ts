@@ -10,8 +10,10 @@ import { SistemaLayoutComponent } from './layout/sistema-layout/sistema-layout.c
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
-  { path: 'login', component: LoginLayoutComponent },
-  { path: 'lg', component: LoginComponent, outlet: 'center' },
+  { path: 'login', component: LoginLayoutComponent, children: [
+    { path: '', redirectTo: '(center:lg)', pathMatch: 'full'},
+    { path: 'lg', component: LoginComponent, outlet: 'center' },
+  ] },
   { path: 'scm', component: SistemaLayoutComponent, children: [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'home', component: HomeComponent },

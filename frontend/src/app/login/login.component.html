@@ -3,14 +3,28 @@
         <mat-card-header>
             <h1>Login</h1>
         </mat-card-header>
-        <mat-card-content>
+        <mat-card-content>            
             <mat-form-field appearance="fill" class="w-100">
-                <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="login.username" class="form-control" />
+                <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="login.username" />
+                <mat-icon matSuffix>account_circle</mat-icon>
             </mat-form-field>
             <mat-form-field appearance="fill" class="w-100">
-                <input matInput type="password" placeholder="Senha" [(ngModel)]="login.senha" class="form-control" />
-            </mat-form-field>
-            <button mat-raised-button color="primary" (click)="logar()">Entrar</button>
+                <input matInput type="password" placeholder="Senha" [(ngModel)]="login.senha" />
+                <mat-icon matSuffix>password</mat-icon>
+            </mat-form-field>            
+            <div class="d-flex align-items-center">
+                <button mat-raised-button color="primary" (click)="logar()">
+                    <mat-icon matSuffix>login</mat-icon>
+                    Entrar
+                </button>
+                <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
+            </div>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+                {{erroMsg}}
+            </div>            
         </mat-card-content>
     </mat-card>
 </div>

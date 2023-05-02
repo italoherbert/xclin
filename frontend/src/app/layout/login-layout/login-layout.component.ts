@@ -11,7 +11,7 @@ export class LoginLayoutComponent implements OnInit {
   constructor( private router : Router ) {}
 
   ngOnInit() {
-    this.router.navigate([ { outlets: { center : ['lg'] } } ] );
+    //this.router.navigate([ { outlets: { center : ['lg'] } } ] );
   }
 
 }

@@ -47,12 +47,14 @@ public class LoginService {
 				if ( acesso.isEscrita() )
 					roles.add( recurso + "WRITE" );
 				if ( acesso.isRemocao() )
-					roles.add( recurso + "REMOVE" );
+					roles.add( recurso + "DELETE" );
 			} );
 		} );
-		
+				
 		LoginResponse resp = new LoginResponse();
 		resp.setToken( jwtLogica.geraToken( username, roles ) );
+		resp.setUsername( username );
+		resp.setPerfil( u.getPerfil() ); 
 		return resp;		
 	}
 	

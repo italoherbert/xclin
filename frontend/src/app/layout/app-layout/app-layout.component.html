@@ -1,8 +1,21 @@
 <mat-toolbar color="primary">
-    <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-    </button>
-    <span>Sistema de Clínica Médica</span>
+    <mat-toolbar-row>
+        
+        <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span>Sistema de Clínica Médica</span>
+
+        <button mat-icon-button [matMenuTriggerFor]="usuario_menu" class="ms-auto">
+            <fa-icon [icon]="icons.faGear"></fa-icon>
+        </button>
+        <mat-menu #usuario_menu="matMenu">
+            <a mat-menu-item routerLink="/login">
+                Sair
+            </a>
+        </mat-menu>
+    </mat-toolbar-row>
+   
 </mat-toolbar>
 
 <mat-sidenav-container class="m-0 h-100">
@@ -22,7 +35,7 @@
                     </div>
                 </mat-expansion-panel-header>
                 <mat-nav-list>
-                    <a mat-list-item [routerLink]="[ '/scm', { outlets : { page : 'usuario-tela'} } ]">
+                    <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'usuario-tela'} } ]">
                         <div class="d-flex flex-row">
                             <fa-icon [icon]="icons.faUser"></fa-icon>
                             <div class="mx-2">Usuários</div>
@@ -47,14 +60,14 @@
                     Frameworks
                 </mat-expansion-panel-header>
                 <mat-nav-list>
-                    <a mat-list-item [routerLink]="[ '/scm', { outlets : { page : 'usuario-tela'} } ]">Spring</a>
+                    <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'usuario-tela'} } ]">Spring</a>
                     <a mat-list-item routerLink="#">Hibernate</a>
                     <a mat-list-item routerLink="#">Struts</a>
                 </mat-nav-list>
             </mat-expansion-panel>
         </mat-nav-list>
     </mat-sidenav>
-    <mat-sidenav-content>
+    <mat-sidenav-content class="p-3">
         <router-outlet name="page"></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container> 

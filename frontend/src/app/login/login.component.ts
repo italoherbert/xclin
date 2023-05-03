@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Login } from '../service/bean/login';
+import { Login } from '../bean/usuario/login';
 import { SistemaService } from '../service/sistema.service';
 import { UsuarioService } from '../service/usuario.service';
 
@@ -38,9 +38,9 @@ export class LoginComponent {
 
     this.usuarioService.logar( this.login ).subscribe({
       next: ( resp ) => {        
-        this.sistemaService.token = resp.token;
+        localStorage.setItem( "token", resp.token );
         this.showSpinner = false;
-        this.router.navigate([ '/scm', { outlets : { page: 'home' } } ]);
+        this.router.navigate([ '/app', { outlets : { page: 'home' } } ]);
       },
       error: ( erro ) => {
         this.erroMsg = this.sistemaService.mensagemErro( erro );

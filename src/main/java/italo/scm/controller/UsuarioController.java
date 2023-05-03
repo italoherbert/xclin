@@ -30,7 +30,7 @@ public class UsuarioController {
 	
 	private final UsuarioValidator usuarioValidator;
 	
-	@PreAuthorize("usuarioWRITE")
+	@PreAuthorize("hasAuthority('usuarioWRITE')")
 	@PostMapping("/registra")
 	public ResponseEntity<Object> registra( @RequestBody UsuarioRequest request ) throws SistemaException {
 		usuarioValidator.validaRegistro( request );
@@ -38,7 +38,7 @@ public class UsuarioController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PreAuthorize("usuarioWRITE")
+	@PreAuthorize("hasAuthority('usuarioWRITE')")
 	@PutMapping("/altera/{id}")
 	public ResponseEntity<Object> altera( @PathVariable Long id, @RequestBody UsuarioRequest request ) throws SistemaException {
 		usuarioValidator.validaSave( request );
@@ -46,14 +46,14 @@ public class UsuarioController {
 		return ResponseEntity.ok().build();
 	}
 	
-	@PreAuthorize("usuarioREAD")
-	@GetMapping("/get/{id}")
+	@PreAuthorize("hasAuthority('usuarioREAD')")
+	@GetMapping("/busca/{id}")
 	public ResponseEntity<Object> get( @PathVariable Long id ) throws SistemaException {
 		UsuarioResponse resp = usuarioService.get( id );
 		return ResponseEntity.ok( resp );
 	}
 	
-	@PreAuthorize("usuarioREAD")
+	@PreAuthorize("hasAuthority('usuarioREAD')")
 	@PostMapping("/filtra")
 	public ResponseEntity<Object> filtra( @RequestBody UsuarioFiltroRequest request ) throws SistemaException {
 		usuarioValidator.validaFiltro( request );
@@ -61,10 +61,10 @@ public class UsuarioController {
 		return ResponseEntity.ok( lista );
 	}
 	
-	@PreAuthorize("usuarioDELETE")
+	@PreAuthorize("hasAuthority('usuarioDELETE')")
 	@DeleteMapping("/deleta/{id}")
 	public ResponseEntity<Object> deleta( @PathVariable Long id ) throws SistemaException {
-		usuarioService.delete( id );
+		//usuarioService.delete( id );
 		return ResponseEntity.ok().build();
 	}
 	

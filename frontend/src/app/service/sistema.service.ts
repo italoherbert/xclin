@@ -6,8 +6,6 @@ import { Injectable } from '@angular/core';
 })
 export class SistemaService {
 
-  token : any;
-
   constructor() { }
 
   mensagemErro( erro : any ) {
@@ -15,7 +13,7 @@ export class SistemaService {
       case 400:
         return erro.error.mensagem;
       case 403:
-        return erro.mensagem;
+        return "Seu usuário não tem permissão para acessar este recurso.";
       default: 
         return erro.message;
     }

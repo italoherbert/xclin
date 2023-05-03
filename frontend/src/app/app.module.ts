@@ -17,22 +17,24 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppComponent } from './app.component';
+import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
+
+import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
 import { UsuarioDetalhesComponent } from './usuario/usuario-detalhes/usuario-detalhes.component';
 import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.component';
-import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
-import { SistemaLayoutComponent } from './layout/sistema-layout/sistema-layout.component';
-import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
     LoginLayoutComponent,
-    SistemaLayoutComponent,
+    AppLayoutComponent,
 
     LoginComponent,
     HomeComponent,
@@ -58,7 +60,8 @@ import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.compon
     MatSidenavModule,
     MatListModule,
     MatExpansionModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

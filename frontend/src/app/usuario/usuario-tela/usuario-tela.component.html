@@ -1,1 +1,61 @@
-<p>usuario-tela works!</p>
+<div class="d-flex flex-row justify-content-space-beetween">
+    <h1>Tela de usuários</h1>
+    <a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'usuario-save' }}]">
+        <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
+        <span class="mx-3">Novo usuário</span>
+    </a>
+</div>
+
+<br />
+
+<div> 
+    <mat-form-field appearance="fill" class="w-100">
+        <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="usuarioFiltro.usernameIni" />
+    </mat-form-field>
+    <br />
+    <div class="d-flex flex-row align-items-center">
+        <button mat-raised-button color="primary" (click)="filtra()">
+            <fa-icon [icon]="icons.faFilter"></fa-icon>
+            <span class="mx-3">Filtrar</span>
+        </button>
+        <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+        {{infoMsg}}
+    </div>
+    <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+        {{erroMsg}}
+    </div>
+</div>
+
+<div class="table-responsive mt-3" style="height: 20em">    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome de usuário</th>
+                <th>Perfil</th>
+                <th>Detalhes</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let u of usuarios">
+                <td>{{u.username}}</td>
+                <td>{{u.perfil}}</td>
+                <td>
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'usuario-detalhes/'+u.id }}]">
+                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                        detalhes
+                    </a>
+                </td>
+                <td>
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="remove(u.id)">
+                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                        remover
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

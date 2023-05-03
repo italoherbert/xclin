@@ -30,7 +30,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		String auth = request.getHeader( "Authorization" );
-		
+				
 		boolean authHeaderValido = true;
 		if ( auth == null ) {
 			authHeaderValido = false;
@@ -48,7 +48,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 					
 					List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 					for( String role : roles )
-						authorities.add( new SimpleGrantedAuthority( role ) );
+						authorities.add( new SimpleGrantedAuthority( role ) );					
 					
 					UsernamePasswordAuthenticationToken userPassToken = 
 							new UsernamePasswordAuthenticationToken( username, null, authorities );

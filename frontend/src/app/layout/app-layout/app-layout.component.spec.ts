@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SistemaLayoutComponent } from './sistema-layout.component';
+import { AppLayoutComponent } from './app-layout.component';
 
-describe('SistemaLayoutComponent', () => {
-  let component: SistemaLayoutComponent;
-  let fixture: ComponentFixture<SistemaLayoutComponent>;
+describe('AppLayoutComponent', () => {
+  let component: AppLayoutComponent;
+  let fixture: ComponentFixture<AppLayoutComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SistemaLayoutComponent ]
+      declarations: [ AppLayoutComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SistemaLayoutComponent);
+    fixture = TestBed.createComponent(AppLayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -14,15 +14,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { UsuarioFiltroComponent } from './usuario/usuario-filtro/usuario-filtro.component';
 import { UsuarioDetalhesComponent } from './usuario/usuario-detalhes/usuario-detalhes.component';
 import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
 import { SistemaLayoutComponent } from './layout/sistema-layout/sistema-layout.component';
+import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +37,9 @@ import { SistemaLayoutComponent } from './layout/sistema-layout/sistema-layout.c
     LoginComponent,
     HomeComponent,
     
-    UsuarioFiltroComponent,
     UsuarioDetalhesComponent,
-    UsuarioSaveComponent
+    UsuarioSaveComponent,
+    UsuarioTelaComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,9 @@ import { SistemaLayoutComponent } from './layout/sistema-layout/sistema-layout.c
     MatInputModule,
     MatButtonModule,
     MatIconModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule,
     MatProgressSpinnerModule
   ],
   providers: [],

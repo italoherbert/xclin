@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Login } from '../service/bean/login';
 import { SistemaService } from '../service/sistema.service';
 import { UsuarioService } from '../service/usuario.service';
 
 import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +28,7 @@ export class LoginComponent {
 
   showSpinner : boolean = false;
 
-  constructor( private usuarioService : UsuarioService, private sistemaService : SistemaService) {}
+  constructor( private router: Router, private usuarioService : UsuarioService, private sistemaService : SistemaService) {}
 
   logar() {
     this.infoMsg = null;
@@ -39,6 +40,7 @@ export class LoginComponent {
       next: ( resp ) => {        
         this.sistemaService.token = resp.token;
         this.showSpinner = false;
+        this.router.navigate([ '/scm', { outlets : { page: 'home' } } ]);
       },
       error: ( erro ) => {
         this.erroMsg = this.sistemaService.mensagemErro( erro );

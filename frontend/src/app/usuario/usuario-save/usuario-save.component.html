@@ -10,17 +10,22 @@
         <mat-card-content>
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <mat-form-field appearance="fill" class="w-100">
                             <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="usuarioSave.username"/>
                         </mat-form-field>                        
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <mat-form-field appearance="fill" class="w-100">
                             <input matInput type="password" placeholder="Senha" [(ngModel)]="usuarioSave.senha"/>
                         </mat-form-field>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
+                        <mat-form-field appearance="fill" class="w-100">
+                            <input matInput type="password" placeholder="Repita a senha" [(ngModel)]="senhaRepetida"/>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-sm-8">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-select placeholder="Escolha o perfil do usuário" [(ngModel)]="usuarioSave.perfil">
                                 <mat-option *ngFor="let p of perfis" [value]="p.name">
@@ -42,7 +47,9 @@
                     <fa-icon [icon]="icons.faSave"></fa-icon>
                     <span class="mx-3">Salvar</span>
                 </button>
+                
                 <br />
+                
                 <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'usuario-tela'} } ]">
                     <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
                     <span class="mx-3">Tela de usuários</span>

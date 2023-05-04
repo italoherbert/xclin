@@ -1,14 +1,13 @@
-<div class="d-flex flex-row justify-content-between">
-    <h1>Tela de usuários</h1>
-    <a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'usuario-save/-1' }}]">
-        <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
-        <span class="mx-3">Novo usuário</span>
-    </a>
-</div>
+<h1>Tela de usuários</h1>
+
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'usuario-save/-1' }}]">
+    <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
+    <span class="mx-3">Novo usuário</span>
+</a>
 
 <br />
 
-<div> 
+<div class="mt-3"> 
     <mat-form-field appearance="fill" class="w-100">
         <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="usuarioFiltro.usernameIni" />
     </mat-form-field>

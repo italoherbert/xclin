@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Usuario } from 'src/app/bean/usuario/usuario';
 import { SistemaService } from 'src/app/service/sistema.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
@@ -18,7 +18,8 @@ export class UsuarioDetalhesComponent implements OnInit {
   showSpinner : boolean = false;
 
   icons : any = {
-    faPenToSquare : faPenToSquare
+    faPenToSquare : faPenToSquare,
+    faCircleLeft : faCircleLeft
   }
 
   usuario : Usuario = {

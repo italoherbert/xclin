@@ -29,6 +29,8 @@ export class UsuarioSaveComponent {
     perfil: '',
   }
 
+  senhaRepetida : any = '';
+
   perfis : any[] = [];
 
   constructor( private actRoute : ActivatedRoute, private usuarioService: UsuarioService, private sistemaService: SistemaService) {}
@@ -71,6 +73,11 @@ export class UsuarioSaveComponent {
   salva() {
     this.infoMsg = null;
     this.erroMsg = null;
+
+    if ( this.usuarioSave.senha !== this.senhaRepetida ) {
+      this.erroMsg = "As senhas informadas não correspondem.";
+      return;
+    }
 
     this.showSpinner = true;
     

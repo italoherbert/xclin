@@ -19,6 +19,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
@@ -29,6 +30,9 @@ import { HomeComponent } from './home/home.component';
 import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
 import { UsuarioDetalhesComponent } from './usuario/usuario-detalhes/usuario-detalhes.component';
 import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.component';
+import { UsuarioGrupoTelaComponent } from './usuario-grupo/usuario-grupo-tela/usuario-grupo-tela.component';
+import { UsuarioGrupoDetalhesComponent } from './usuario-grupo/usuario-grupo-detalhes/usuario-grupo-detalhes.component';
+import { UsuarioGrupoSaveComponent } from './usuario-grupo/usuario-grupo-save/usuario-grupo-save.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +46,10 @@ import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.compon
     
     UsuarioDetalhesComponent,
     UsuarioSaveComponent,
-    UsuarioTelaComponent
+    UsuarioTelaComponent,
+    UsuarioGrupoTelaComponent,
+    UsuarioGrupoDetalhesComponent,
+    UsuarioGrupoSaveComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +70,8 @@ import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.compon
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatMenuModule,
-    MatSelectModule
+    MatSelectModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

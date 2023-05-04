@@ -7,6 +7,9 @@ import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.compon
 import { UsuarioDetalhesComponent } from './usuario/usuario-detalhes/usuario-detalhes.component';
 import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.component';
 import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
+import { UsuarioGrupoTelaComponent } from './usuario-grupo/usuario-grupo-tela/usuario-grupo-tela.component';
+import { UsuarioGrupoDetalhesComponent } from './usuario-grupo/usuario-grupo-detalhes/usuario-grupo-detalhes.component';
+import { UsuarioGrupoSaveComponent } from './usuario-grupo/usuario-grupo-save/usuario-grupo-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -17,7 +20,10 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent, outlet: 'page'},
     { path: 'usuario-tela', component: UsuarioTelaComponent, outlet: 'page' },
     { path: 'usuario-detalhes/:id', component: UsuarioDetalhesComponent, outlet: 'page' },
-    { path: 'usuario-save/:id', component: UsuarioSaveComponent, outlet: 'page' }
+    { path: 'usuario-save/:id', component: UsuarioSaveComponent, outlet: 'page' },
+    { path: 'usuario-grupo-tela', component: UsuarioGrupoTelaComponent, outlet: 'page' },
+    { path: 'usuario-grupo-detalhes/:id', component: UsuarioGrupoDetalhesComponent, outlet: 'page' },
+    { path: 'usuario-grupo-save/:id', component: UsuarioGrupoSaveComponent, outlet: 'page' }
   ] },
 ];
 

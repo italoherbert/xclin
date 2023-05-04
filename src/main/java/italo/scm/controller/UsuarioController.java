@@ -2,6 +2,7 @@ package italo.scm.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,27 +15,27 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
-import italo.scm.model.request.UsuarioRequest;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
+import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.edit.UsuarioEditResponse;
 import italo.scm.model.response.reg.UsuarioRegResponse;
 import italo.scm.service.UsuarioService;
 import italo.scm.validator.UsuarioValidator;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/usuario")
-@RequiredArgsConstructor
 public class UsuarioController {
 
-	private final UsuarioService usuarioService;
+	@Autowired
+	private UsuarioService usuarioService;
 	
-	private final UsuarioValidator usuarioValidator;
+	@Autowired
+	private UsuarioValidator usuarioValidator;
 	
 	@PreAuthorize("hasAuthority('usuarioWRITE')")
 	@PostMapping("/registra")
-	public ResponseEntity<Object> registra( @RequestBody UsuarioRequest request ) throws SistemaException {
+	public ResponseEntity<Object> registra( @RequestBody UsuarioSaveRequest request ) throws SistemaException {
 		usuarioValidator.validaRegistro( request );
 		usuarioService.registra( request );
 		return ResponseEntity.ok().build();
@@ -42,7 +43,7 @@ public class UsuarioController {
 	
 	@PreAuthorize("hasAuthority('usuarioWRITE')")
 	@PutMapping("/altera/{id}")
-	public ResponseEntity<Object> altera( @PathVariable Long id, @RequestBody UsuarioRequest request ) throws SistemaException {
+	public ResponseEntity<Object> altera( @PathVariable Long id, @RequestBody UsuarioSaveRequest request ) throws SistemaException {
 		usuarioValidator.validaSave( request );
 		usuarioService.altera( id, request );
 		return ResponseEntity.ok().build();
@@ -64,14 +65,14 @@ public class UsuarioController {
 	}
 	
 	@PreAuthorize("hasAuthority('usuarioREAD')")
-	@GetMapping("/get/dados/reg")
+	@GetMapping("/get/reg")
 	public ResponseEntity<Object> getDadosReg() throws SistemaException {
 		UsuarioRegResponse resp = usuarioService.getDadosReg();
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('usuarioREAD')")
-	@GetMapping("/get/dados/edit/{id}")
+	@GetMapping("/get/edit/{id}")
 	public ResponseEntity<Object> getDadosEdit( @PathVariable Long id ) throws SistemaException {
 		UsuarioEditResponse resp = usuarioService.getDadosEdit( id );
 		return ResponseEntity.ok( resp );

@@ -1,21 +1,21 @@
 package italo.scm.validator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import italo.scm.enums.UsuarioPerfilEnumManager;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
-import italo.scm.model.request.UsuarioRequest;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
-import lombok.RequiredArgsConstructor;
+import italo.scm.model.request.save.UsuarioSaveRequest;
 
 @Component
-@RequiredArgsConstructor
 public class UsuarioValidator {
 	
-	private final UsuarioPerfilEnumManager usuarioPerfilEnumManager;
+	@Autowired
+	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
 	
-	public void validaRegistro( UsuarioRequest request ) throws ValidationException {
+	public void validaRegistro( UsuarioSaveRequest request ) throws ValidationException {
 		this.validaSave( request ); 
 		
 		if ( request.getPerfil() == null )
@@ -24,7 +24,7 @@ public class UsuarioValidator {
 			throw new ValidationException( Erro.PERFIL_INVALIDO, request.getPerfil() );
 	}
 	
-	public void validaSave( UsuarioRequest request ) throws ValidationException {
+	public void validaSave( UsuarioSaveRequest request ) throws ValidationException {
 		if ( request.getUsername() == null )
 			throw new ValidationException( Erro.USERNAME_OBRIGATORIO );
 		if ( request.getUsername().isBlank() )

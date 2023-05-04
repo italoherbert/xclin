@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import italo.scm.exception.Erro;
@@ -15,17 +16,18 @@ import italo.scm.model.UsuarioGrupo;
 import italo.scm.model.request.LoginRequest;
 import italo.scm.model.response.LoginResponse;
 import italo.scm.repository.UsuarioRepository;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class LoginService {
 
-	private final UsuarioRepository usuarioRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
-	private final JWTLogica jwtLogica;
+	@Autowired
+	private JWTLogica jwtLogica;
 	
-	private final HashUtil hashUtil;
+	@Autowired
+	private HashUtil hashUtil;
 	
 	public LoginResponse login( LoginRequest request ) throws ServiceException {
 		String username = request.getUsername();
@@ -50,7 +52,7 @@ public class LoginService {
 					roles.add( recurso + "DELETE" );
 			} );
 		} );
-				
+						
 		LoginResponse resp = new LoginResponse();
 		resp.setToken( jwtLogica.geraToken( username, roles ) );
 		resp.setUsername( username );

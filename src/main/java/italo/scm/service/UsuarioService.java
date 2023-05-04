@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import italo.scm.enums.UsuarioPerfilEnumManager;
@@ -14,8 +15,8 @@ import italo.scm.loader.UsuarioLoader;
 import italo.scm.model.Usuario;
 import italo.scm.model.UsuarioGrupo;
 import italo.scm.model.UsuarioGrupoMap;
-import italo.scm.model.request.UsuarioRequest;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
+import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.edit.UsuarioEditResponse;
 import italo.scm.model.response.reg.UsuarioRegResponse;
@@ -23,24 +24,27 @@ import italo.scm.repository.UsuarioGrupoMapRepository;
 import italo.scm.repository.UsuarioGrupoRepository;
 import italo.scm.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
 public class UsuarioService {
 	
-	private final UsuarioRepository usuarioRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
-	private final UsuarioGrupoRepository usuarioGrupoRepository;
+	@Autowired
+	private UsuarioGrupoRepository usuarioGrupoRepository;
 	
-	private final UsuarioGrupoMapRepository usuarioGrupoMapRepository;
+	@Autowired
+	private UsuarioGrupoMapRepository usuarioGrupoMapRepository;
 	
-	private final UsuarioLoader usuarioLoader;
+	@Autowired
+	private UsuarioLoader usuarioLoader;
 	
-	private final UsuarioPerfilEnumManager usuarioPerfilEnumManager;
+	@Autowired
+	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
 	
 	@Transactional
-	public void registra( UsuarioRequest request ) throws ServiceException {
+	public void registra( UsuarioSaveRequest request ) throws ServiceException {
 		boolean existe = usuarioRepository.existePorUsername( request.getUsername() );
 		if ( existe )
 			throw new ServiceException( Erro.USERNAME_NAO_DISPONIVEL, request.getUsername() );
@@ -49,7 +53,7 @@ public class UsuarioService {
 		
 		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.buscaPorNome( perfil.name() );
 		if ( !grupoOp.isPresent() )
-			throw new ServiceException( Erro.GRUPO_NAO_ENCONTRADO, request.getPerfil() );
+			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO, request.getPerfil() );
 		
 		UsuarioGrupo grupo = grupoOp.get();
 		
@@ -65,12 +69,13 @@ public class UsuarioService {
 		usuarioGrupoMapRepository.save( map );					
 	}
 	
-	public void altera( Long uid, UsuarioRequest request ) throws ServiceException {
+	public void altera( Long uid, UsuarioSaveRequest request ) throws ServiceException {
 		Optional<Usuario> uop = usuarioRepository.findById( uid );
 		if ( !uop.isPresent() )
 			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );		
 		
 		Usuario u = uop.get();
+		
 		String username = request.getUsername();
 		if ( !username.equalsIgnoreCase( u.getUsername() ) ) {
 			boolean existe = usuarioRepository.existePorUsername( username );
@@ -93,7 +98,7 @@ public class UsuarioService {
 		List<UsuarioResponse> resplist = new ArrayList<>();
 		for( Usuario u : usuarios ) {
 			UsuarioResponse resp = usuarioLoader.novoResponse();
-			usuarioLoader.loadResponse( resp, u ); 
+			usuarioLoader.loadGetResponse( resp, u ); 
 			resplist.add( resp );
 		}
 		return resplist;
@@ -107,13 +112,13 @@ public class UsuarioService {
 		Usuario u = uop.get();
 		
 		UsuarioResponse resp = usuarioLoader.novoResponse();
-		usuarioLoader.loadResponse( resp, u );
+		usuarioLoader.loadGetResponse( resp, u );
 		return resp;
 	}
 	
 	public UsuarioRegResponse getDadosReg() throws ServiceException {
 		UsuarioRegResponse resp = usuarioLoader.novoUsuarioRegResponse();
-		usuarioLoader.loadRegTiposResponse( resp );
+		usuarioLoader.loadRegResponse( resp );
 		return resp;
 	}
 	
@@ -121,7 +126,7 @@ public class UsuarioService {
 		UsuarioResponse uresp = this.get( uid );
 		
 		UsuarioEditResponse resp = usuarioLoader.novoUsuarioEditResponse( uresp );
-		usuarioLoader.loadEditTiposResponse( resp );
+		usuarioLoader.loadEditResponse( resp );
 		return resp;
 	}
 	

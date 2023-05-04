@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { UsuarioFiltro } from 'src/app/bean/usuario/usuario-filtro';
 import { SistemaService } from 'src/app/service/sistema.service';
-import { UsuarioService } from 'src/app/service/usuario.service';
+
+import { UsuarioGrupoFiltro } from 'src/app/bean/usuario-grupo/usuario-grupo-filtro';
+import { UsuarioGrupoService } from 'src/app/service/usuario-grupo.service';
 
 @Component({
-  selector: 'app-usuario-tela',
-  templateUrl: './usuario-tela.component.html',
-  styleUrls: ['./usuario-tela.component.css']
+  selector: 'app-usuario-grupo-tela',
+  templateUrl: './usuario-grupo-tela.component.html',
+  styleUrls: ['./usuario-grupo-tela.component.css']
 })
-export class UsuarioTelaComponent {
+export class UsuarioGrupoTelaComponent {
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -23,13 +24,13 @@ export class UsuarioTelaComponent {
     faPlusCircle : faPlusCircle
   }
 
-  usuarioFiltro : UsuarioFiltro = {
-    usernameIni : ''
+  grupoFiltro : UsuarioGrupoFiltro = {
+    nomeIni : ''
   }
 
-  usuarios : any;
+  grupos : any;
 
-  constructor( private usuarioService: UsuarioService, private sistemaService: SistemaService) {}
+  constructor( private usuarioGrupoService: UsuarioGrupoService, private sistemaService: SistemaService) {}
 
   filtra() {
     this.infoMsg = null;
@@ -37,11 +38,11 @@ export class UsuarioTelaComponent {
 
     this.showSpinner = true;
 
-    this.usuarioService.filtraUsuarios( this.usuarioFiltro ).subscribe({
+    this.usuarioGrupoService.filtraGrupos( this.grupoFiltro ).subscribe({
       next: ( resp ) => {
-        this.usuarios = resp;
-        if ( this.usuarios.length == 0 )
-          this.infoMsg = "Nenhum usuário encontrado.";
+        this.grupos = resp;
+        if ( this.grupos.length == 0 )
+          this.infoMsg = "Nenhum grupo encontrado.";
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -57,7 +58,7 @@ export class UsuarioTelaComponent {
 
     this.showSpinner = true;
 
-    this.usuarioService.deletaUsuario( id ).subscribe({
+    this.usuarioGrupoService.deletaGrupo( id ).subscribe({
       next: ( resp ) => {
         this.filtra();
 
@@ -70,5 +71,6 @@ export class UsuarioTelaComponent {
       }
     });
   }
+
 
 }

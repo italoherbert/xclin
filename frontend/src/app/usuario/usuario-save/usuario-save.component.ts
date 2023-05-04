@@ -44,7 +44,7 @@ export class UsuarioSaveComponent {
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
     if ( id === '-1' ) {
-      this.usuarioService.getUsuarioDadosReg().subscribe({
+      this.usuarioService.getUsuarioReg().subscribe({
         next: ( resp ) => {
           this.perfis = resp.perfis;
           this.showSpinner = false;
@@ -55,7 +55,7 @@ export class UsuarioSaveComponent {
         }
       });
     } else {
-      this.usuarioService.getUsuarioDadosEdit( id ).subscribe( {
+      this.usuarioService.getUsuarioEdit( id ).subscribe( {
         next: ( resp ) => {
           this.usuarioSave.username = resp.usuario.username;
           this.usuarioSave.perfil = resp.usuario.perfil;

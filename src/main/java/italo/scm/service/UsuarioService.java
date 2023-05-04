@@ -17,6 +17,8 @@ import italo.scm.model.UsuarioGrupoMap;
 import italo.scm.model.request.UsuarioRequest;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.edit.UsuarioEditResponse;
+import italo.scm.model.response.reg.UsuarioRegResponse;
 import italo.scm.repository.UsuarioGrupoMapRepository;
 import italo.scm.repository.UsuarioGrupoRepository;
 import italo.scm.repository.UsuarioRepository;
@@ -36,7 +38,7 @@ public class UsuarioService {
 	private final UsuarioLoader usuarioLoader;
 	
 	private final UsuarioPerfilEnumManager usuarioPerfilEnumManager;
-		
+	
 	@Transactional
 	public void registra( UsuarioRequest request ) throws ServiceException {
 		boolean existe = usuarioRepository.existePorUsername( request.getUsername() );
@@ -106,6 +108,20 @@ public class UsuarioService {
 		
 		UsuarioResponse resp = usuarioLoader.novoResponse();
 		usuarioLoader.loadResponse( resp, u );
+		return resp;
+	}
+	
+	public UsuarioRegResponse getDadosReg() throws ServiceException {
+		UsuarioRegResponse resp = usuarioLoader.novoUsuarioRegResponse();
+		usuarioLoader.loadRegTiposResponse( resp );
+		return resp;
+	}
+	
+	public UsuarioEditResponse getDadosEdit( Long uid ) throws ServiceException {
+		UsuarioResponse uresp = this.get( uid );
+		
+		UsuarioEditResponse resp = usuarioLoader.novoUsuarioEditResponse( uresp );
+		usuarioLoader.loadEditTiposResponse( resp );
 		return resp;
 	}
 	

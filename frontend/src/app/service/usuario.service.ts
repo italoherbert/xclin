@@ -33,7 +33,7 @@ export class UsuarioService {
     headers = headers.append( 'Content-Type', 'application/json' );
     headers = headers.append( 'Authorization', 'Bearer '+localStorage.getItem( 'token' ) );
 
-    return this.http.post( '/api/usuario/altera/'+id, usuario, { headers: headers, withCredentials: true } );
+    return this.http.put( '/api/usuario/altera/'+id, usuario, { headers: headers, withCredentials: true } );
   }
 
   filtraUsuarios( usuarioFiltro: any ): Observable<any> {
@@ -44,12 +44,28 @@ export class UsuarioService {
     return this.http.post( '/api/usuario/filtra', usuarioFiltro, { headers: headers, withCredentials: true } );
   }
 
-  buscaUsuario( id : any ): Observable<any> {
+  getUsuario( id : any ): Observable<any> {
     let headers = new HttpHeaders();
     headers = headers.append( 'Content-Type', 'application/json' );
     headers = headers.append( 'Authorization', 'Bearer '+localStorage.getItem( 'token' ) );
 
     return this.http.get( '/api/usuario/busca/'+id, { headers: headers, withCredentials: true } );
+  }
+
+  getUsuarioDadosReg(): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append( 'Content-Type', 'application/json' );
+    headers = headers.append( 'Authorization', 'Bearer '+localStorage.getItem( 'token' ) );
+
+    return this.http.get( '/api/usuario/get/dados/reg', { headers: headers, withCredentials: true } );
+  }
+
+  getUsuarioDadosEdit( id : any ): Observable<any> {
+    let headers = new HttpHeaders();
+    headers = headers.append( 'Content-Type', 'application/json' );
+    headers = headers.append( 'Authorization', 'Bearer '+localStorage.getItem( 'token' ) );
+
+    return this.http.get( '/api/usuario/get/dados/edit/'+id, { headers: headers, withCredentials: true } );
   }
 
   deletaUsuarios( id : any ): Observable<any> {

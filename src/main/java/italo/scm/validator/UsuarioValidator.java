@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UsuarioValidator {
 	
-	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
+	private final UsuarioPerfilEnumManager usuarioPerfilEnumManager;
 	
 	public void validaRegistro( UsuarioRequest request ) throws ValidationException {
 		this.validaSave( request ); 

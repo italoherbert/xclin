@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Usuario } from 'src/app/bean/usuario/usuario';
 import { SistemaService } from 'src/app/service/sistema.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
@@ -17,10 +18,11 @@ export class UsuarioDetalhesComponent implements OnInit {
   showSpinner : boolean = false;
 
   icons : any = {
-    
+    faPenToSquare : faPenToSquare
   }
 
   usuario : Usuario = {
+    id : '',
     username : '',
     perfil: '',
     perfilLabel: ''
@@ -36,7 +38,7 @@ export class UsuarioDetalhesComponent implements OnInit {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.usuarioService.buscaUsuario( id ).subscribe({
+    this.usuarioService.getUsuario( id ).subscribe({
       next: ( resp ) => {
         this.usuario = resp;
         this.showSpinner = false;

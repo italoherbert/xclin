@@ -1,5 +1,10 @@
 package italo.scm.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import italo.scm.model.response.TipoResponse;
+
 public abstract class AbstractEnumManager<T extends Enum<T>> {  
 	
 	protected abstract T[] values();
@@ -36,6 +41,29 @@ public abstract class AbstractEnumManager<T extends Enum<T>> {
 				return valores[ i ];		
 
 		return null;
+	}
+	
+	public TipoResponse tipoResponse( T tipo ) {		
+		TipoResponse resp = new TipoResponse();
+		if ( tipo == null ) {
+			resp.setName( "" );
+			resp.setLabel( "" ); 
+		} else {
+			resp.setName( tipo.name() );
+			resp.setLabel( this.label( tipo ) );
+		}
+		
+		return resp;
+	}
+	
+	public List<TipoResponse> tipoResponses() {
+		List<TipoResponse> lista = new ArrayList<>();
+		
+		T[] values = this.values();
+		for( T t : values )
+			lista.add( this.tipoResponse( t ) );		
+			
+		return lista;
 	}
 	
 }

@@ -1,4 +1,10 @@
-<h1>Detalhes do usuário</h1>
+<div class="d-flex flex-row justify-content-between">
+    <h1>Detalhes do usuário</h1>
+    <a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'usuario-save/'+usuario.id }}]">
+        <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+        <span class="mx-3">Alterar usuário</span>
+    </a>
+</div>
 
 <br />
 

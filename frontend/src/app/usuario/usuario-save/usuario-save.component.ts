@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faCircleLeft, faSave } from '@fortawesome/free-solid-svg-icons';
+import { Usuario } from 'src/app/bean/usuario/usuario';
 import { UsuarioSave } from 'src/app/bean/usuario/usuario-save';
 import { SistemaService } from 'src/app/service/sistema.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
@@ -17,14 +19,17 @@ export class UsuarioSaveComponent {
   showSpinner : boolean = false;
 
   icons : any = {
-    
+    faSave : faSave,
+    faCircleLeft : faCircleLeft
   }
 
-  usuario : UsuarioSave = {
+  usuarioSave : UsuarioSave = {
     username : '',
     senha: '',
     perfil: '',
   }
+
+  perfis : any[] = [];
 
   constructor( private actRoute : ActivatedRoute, private usuarioService: UsuarioService, private sistemaService: SistemaService) {}
 
@@ -36,17 +41,64 @@ export class UsuarioSaveComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.usuarioService.buscaUsuario( id ).subscribe({
-      next: ( resp ) => {
-        this.usuario.username = resp.username;
-        this.usuario.perfil = resp.perfil;
-        this.showSpinner = false;
-      },
-      error: ( erro ) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
+    if ( id === '-1' ) {
+      this.usuarioService.getUsuarioDadosReg().subscribe({
+        next: ( resp ) => {
+          this.perfis = resp.perfis;
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    } else {
+      this.usuarioService.getUsuarioDadosEdit( id ).subscribe( {
+        next: ( resp ) => {
+          this.usuarioSave.username = resp.usuario.username;
+          this.usuarioSave.perfil = resp.usuario.perfil;
+          this.perfis = resp.perfis;
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      } );
+    }
+  }
+
+  salva() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+    
+    let id = this.actRoute.snapshot.paramMap.get( 'id' );
+    
+    if ( id === '-1' ) { 
+      this.usuarioService.registraUsuario( this.usuarioSave ).subscribe({
+        next: ( resp ) => {
+          this.infoMsg = "Usuário registrado com sucesso.";
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    } else {
+      this.usuarioService.alteraUsuario( id, this.usuarioSave ).subscribe({
+        next: ( resp ) => {
+          this.infoMsg = "Usuário alterado com sucesso.";
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    }
   }
 
 }

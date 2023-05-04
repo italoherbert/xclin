@@ -17,6 +17,8 @@ import italo.scm.exception.SistemaException;
 import italo.scm.model.request.UsuarioRequest;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.edit.UsuarioEditResponse;
+import italo.scm.model.response.reg.UsuarioRegResponse;
 import italo.scm.service.UsuarioService;
 import italo.scm.validator.UsuarioValidator;
 import lombok.RequiredArgsConstructor;
@@ -61,10 +63,24 @@ public class UsuarioController {
 		return ResponseEntity.ok( lista );
 	}
 	
+	@PreAuthorize("hasAuthority('usuarioREAD')")
+	@GetMapping("/get/dados/reg")
+	public ResponseEntity<Object> getDadosReg() throws SistemaException {
+		UsuarioRegResponse resp = usuarioService.getDadosReg();
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('usuarioREAD')")
+	@GetMapping("/get/dados/edit/{id}")
+	public ResponseEntity<Object> getDadosEdit( @PathVariable Long id ) throws SistemaException {
+		UsuarioEditResponse resp = usuarioService.getDadosEdit( id );
+		return ResponseEntity.ok( resp );
+	}
+	
 	@PreAuthorize("hasAuthority('usuarioDELETE')")
 	@DeleteMapping("/deleta/{id}")
 	public ResponseEntity<Object> deleta( @PathVariable Long id ) throws SistemaException {
-		//usuarioService.delete( id );
+		usuarioService.delete( id );
 		return ResponseEntity.ok().build();
 	}
 	

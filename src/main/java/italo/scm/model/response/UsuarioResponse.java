@@ -17,5 +17,5 @@ public class UsuarioResponse {
 	private UsuarioPerfil perfil;
 	
 	private String perfilLabel;
-			
+				
 }

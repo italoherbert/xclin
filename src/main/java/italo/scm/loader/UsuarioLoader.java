@@ -8,6 +8,8 @@ import italo.scm.logica.HashUtil;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.UsuarioRequest;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.edit.UsuarioEditResponse;
+import italo.scm.model.response.reg.UsuarioRegResponse;
 import lombok.RequiredArgsConstructor;
 
 @Component
@@ -31,12 +33,30 @@ public class UsuarioLoader {
 		resp.setPerfilLabel( u.getPerfil().label() ); 
 	}
 	
+	public void loadRegTiposResponse( UsuarioRegResponse resp ) throws LoaderException {
+		resp.setPerfis( usuarioPerfilEnumManager.tipoResponses() ); 
+	}
+	
+	public void loadEditTiposResponse( UsuarioEditResponse resp ) throws LoaderException {
+		resp.setPerfis( usuarioPerfilEnumManager.tipoResponses() ); 
+	}
+		
 	public Usuario novoBean() {
 		return new Usuario();
 	}
 	
 	public UsuarioResponse novoResponse() {
 		return new UsuarioResponse();
+	}
+	
+	public UsuarioRegResponse novoUsuarioRegResponse() {
+		return new UsuarioRegResponse();
+	}
+	
+	public UsuarioEditResponse novoUsuarioEditResponse( UsuarioResponse uresp ) {
+		UsuarioEditResponse resp = new UsuarioEditResponse();
+		resp.setUsuario( uresp ); 
+		return resp;
 	}
 	
 }

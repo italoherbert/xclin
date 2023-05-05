@@ -71,7 +71,7 @@ public class UsuarioGrupoService {
 				acesso = acessoLoader.novoBean( grupo, recurso );
 
 			AcessoResponse aresp = acessoLoader.novoAcessoResponse( grupo, recurso );
-			acessoLoader.loadGetResponse( aresp, acesso );
+			acessoLoader.loadResponse( aresp, acesso );
 			acessosResp.add( aresp );
 		}		
 		
@@ -115,7 +115,7 @@ public class UsuarioGrupoService {
 		
 		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.buscaPorNome( nome );
 		if ( grupoOp.isPresent() )
-			throw new ServiceException( Erro.USUARIO_GRUPO_JA_EXISTE, nome );
+			throw new ServiceException( Erro.USUARIO_GRUPO_JA_EXISTE );
 		
 		UsuarioGrupo grupo = usuarioGrupoLoader.novoBean();
 		usuarioGrupoLoader.loadBean( grupo, request );
@@ -154,7 +154,7 @@ public class UsuarioGrupoService {
 		List<UsuarioGrupoResponse> respList = new ArrayList<>();
 		for( UsuarioGrupo g : grupos ) {
 			UsuarioGrupoResponse resp = usuarioGrupoLoader.novoResponse();
-			usuarioGrupoLoader.loadGetResponse( resp, g );
+			usuarioGrupoLoader.loadResponse( resp, g );
 			respList.add( resp );
 		}
 		return respList;
@@ -168,7 +168,7 @@ public class UsuarioGrupoService {
 		UsuarioGrupo grupo = grupoOp.get();
 		
 		UsuarioGrupoResponse resp = usuarioGrupoLoader.novoResponse();
-		usuarioGrupoLoader.loadGetResponse( resp, grupo );
+		usuarioGrupoLoader.loadResponse( resp, grupo );
 		return resp;
 	}
 	
@@ -181,14 +181,14 @@ public class UsuarioGrupoService {
 		List<Acesso> acessos = grupo.getAcessos(); 
 		
 		UsuarioGrupoResponse grupoResp = usuarioGrupoLoader.novoResponse();
-		usuarioGrupoLoader.loadGetResponse( grupoResp, grupo );
+		usuarioGrupoLoader.loadResponse( grupoResp, grupo );
 				
 		List<AcessoResponse> acessosResp = new ArrayList<>();
 		for( Acesso a : acessos ) {
 			Recurso recurso = a.getRecurso();
 			
 			AcessoResponse aresp = acessoLoader.novoAcessoResponse( grupo, recurso );
-			acessoLoader.loadGetResponse( aresp, a );
+			acessoLoader.loadResponse( aresp, a );
 			
 			acessosResp.add( aresp );
 		}
@@ -207,14 +207,14 @@ public class UsuarioGrupoService {
 		List<Acesso> acessos = grupo.getAcessos(); 
 		
 		UsuarioGrupoResponse grupoResp = usuarioGrupoLoader.novoResponse();
-		usuarioGrupoLoader.loadGetResponse( grupoResp, grupo );
+		usuarioGrupoLoader.loadResponse( grupoResp, grupo );
 				
 		List<AcessoResponse> acessosResp = new ArrayList<>();
 		for( Acesso a : acessos ) {
 			Recurso recurso = a.getRecurso();
 			
 			AcessoResponse aresp = acessoLoader.novoAcessoResponse( grupo, recurso );
-			acessoLoader.loadGetResponse( aresp, a );
+			acessoLoader.loadResponse( aresp, a );
 			
 			acessosResp.add( aresp );
 		}

@@ -1,3 +1,3 @@
 export interface UsuarioFiltro {
-    usernameIni : any;
+    usernameIni : string;
 }

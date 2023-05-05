@@ -18,7 +18,7 @@ public class AcessoLoader {
 		a.setRemocao( request.isRemocao() );
 	}
 			
-	public void loadGetResponse( AcessoResponse resp, Acesso a ) throws LoaderException {
+	public void loadResponse( AcessoResponse resp, Acesso a ) throws LoaderException {
 		resp.setLeitura( a.isLeitura() );
 		resp.setEscrita( a.isEscrita() );
 		resp.setRemocao( a.isRemocao() );

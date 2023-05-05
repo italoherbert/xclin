@@ -1,4 +1,4 @@
 
 export interface UsuarioGrupoSave {
-    nome : any;
+    nome : string;
 }

@@ -1,5 +1,5 @@
 export interface UsuarioSave {
-    username : any;
-    senha: any;
-    perfil: any;
+    username : string;
+    senha: string;
+    perfil: string;
 }

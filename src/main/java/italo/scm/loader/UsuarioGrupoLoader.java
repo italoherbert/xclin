@@ -20,7 +20,7 @@ public class UsuarioGrupoLoader {
 		g.setNome( request.getNome() ) ;
 	}
 	
-	public void loadGetResponse( UsuarioGrupoResponse resp, UsuarioGrupo g ) throws LoaderException {
+	public void loadResponse( UsuarioGrupoResponse resp, UsuarioGrupo g ) throws LoaderException {
 		resp.setId( g.getId() );
 		resp.setNome( g.getNome() );
 	}

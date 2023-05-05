@@ -34,6 +34,9 @@ import { UsuarioGrupoTelaComponent } from './usuario-grupo/usuario-grupo-tela/us
 import { UsuarioGrupoDetalhesComponent } from './usuario-grupo/usuario-grupo-detalhes/usuario-grupo-detalhes.component';
 import { UsuarioGrupoSaveComponent } from './usuario-grupo/usuario-grupo-save/usuario-grupo-save.component';
 import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-acessos/usuario-grupo-acessos.component';
+import { RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
+import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
+import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-aces
     UsuarioGrupoTelaComponent,
     UsuarioGrupoDetalhesComponent,
     UsuarioGrupoSaveComponent,
-    UsuarioGrupoAcessosComponent
+    UsuarioGrupoAcessosComponent,
+    RecursoTelaComponent,
+    RecursoDetalhesComponent,
+    RecursoSaveComponent
   ],
   imports: [
     BrowserModule,

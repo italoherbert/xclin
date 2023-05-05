@@ -47,7 +47,7 @@
                             <div class="mx-2">Grupos</div>
                         </div>
                     </a>
-                    <a mat-list-item routerLink="#">
+                    <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'recurso-tela' } } ]">
                         <div class="d-flex flex-row">
                             <fa-icon [icon]="icons.faBox"></fa-icon>
                             <div class="mx-2">Recursos</div>

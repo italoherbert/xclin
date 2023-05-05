@@ -1,4 +1,4 @@
-<h1>Registro/Alteração de grupo</h1>
+<h1>Registro/Alteração de recurso</h1>
 
 <br />
 
@@ -15,8 +15,8 @@
             <div class="row">
                 <div class="col-sm-8">
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Grupo de usuário</mat-label>
-                        <input matInput type="text" placeholder="Nome de grupo" [(ngModel)]="grupoSave.nome"/>
+                        <mat-label>Nome do recurso</mat-label>
+                        <input matInput type="text" placeholder="Nome de grupo" [(ngModel)]="recursoSave.nome"/>
                     </mat-form-field>                        
                 </div>                                      
             </div>
@@ -35,9 +35,9 @@
             
             <br />
             
-            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-tela'} } ]">
+            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'recurso-tela'} } ]">
                 <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
-                <span class="mx-3">Tela de grupos</span>
+                <span class="mx-3">Tela de recursos</span>
             </a>
         </mat-card-content>
     </mat-card>

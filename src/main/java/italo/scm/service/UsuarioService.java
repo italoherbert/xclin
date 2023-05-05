@@ -98,7 +98,7 @@ public class UsuarioService {
 		List<UsuarioResponse> resplist = new ArrayList<>();
 		for( Usuario u : usuarios ) {
 			UsuarioResponse resp = usuarioLoader.novoResponse();
-			usuarioLoader.loadGetResponse( resp, u ); 
+			usuarioLoader.loadResponse( resp, u ); 
 			resplist.add( resp );
 		}
 		return resplist;
@@ -112,7 +112,7 @@ public class UsuarioService {
 		Usuario u = uop.get();
 		
 		UsuarioResponse resp = usuarioLoader.novoResponse();
-		usuarioLoader.loadGetResponse( resp, u );
+		usuarioLoader.loadResponse( resp, u );
 		return resp;
 	}
 	

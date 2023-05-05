@@ -27,7 +27,7 @@ public class UsuarioLoader {
 		u.setSenha( hashUtil.geraHash( request.getSenha() ) ); 
 	}
 	
-	public void loadGetResponse( UsuarioResponse resp, Usuario u ) throws LoaderException {
+	public void loadResponse( UsuarioResponse resp, Usuario u ) throws LoaderException {
 		resp.setId( u.getId() );
 		resp.setUsername( u.getUsername() ); 
 		resp.setPerfil( u.getPerfil() );

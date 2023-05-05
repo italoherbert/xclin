@@ -17,7 +17,7 @@ public class AcessoLoader {
 		a.setEscrita( request.isEscrita() );
 		a.setRemocao( request.isRemocao() );
 	}
-	
+			
 	public void loadGetResponse( AcessoResponse resp, Acesso a ) throws LoaderException {
 		resp.setLeitura( a.isLeitura() );
 		resp.setEscrita( a.isEscrita() );
@@ -28,6 +28,9 @@ public class AcessoLoader {
 		Acesso a = new Acesso();
 		a.setGrupo( g );
 		a.setRecurso( r );		
+		a.setLeitura( false );
+		a.setEscrita( false );
+		a.setRemocao( false );
 		return a;
 	}
 	
@@ -39,5 +42,5 @@ public class AcessoLoader {
 		resp.setRecursoNome( r.getNome() ); 
 		return resp;
 	}
-	
+		
 }

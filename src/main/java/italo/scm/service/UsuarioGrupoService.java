@@ -15,13 +15,18 @@ import italo.scm.model.Acesso;
 import italo.scm.model.Recurso;
 import italo.scm.model.UsuarioGrupo;
 import italo.scm.model.request.filtro.UsuarioGrupoFiltroRequest;
+import italo.scm.model.request.save.AcessoListaSaveRequest;
+import italo.scm.model.request.save.AcessoSaveRequest;
 import italo.scm.model.request.save.UsuarioGrupoSaveRequest;
 import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
 import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
 import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
 import italo.scm.model.response.reg.UsuarioGrupoRegResponse;
+import italo.scm.repository.AcessoRepository;
+import italo.scm.repository.RecursoRepository;
 import italo.scm.repository.UsuarioGrupoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioGrupoService {
@@ -30,10 +35,82 @@ public class UsuarioGrupoService {
 	private UsuarioGrupoRepository usuarioGrupoRepository;
 	
 	@Autowired
+	private RecursoRepository recursoRepository;
+	
+	@Autowired
+	private AcessoRepository acessoRepository;
+	
+	@Autowired
 	private UsuarioGrupoLoader usuarioGrupoLoader;
 	
 	@Autowired
 	private AcessoLoader acessoLoader;
+	
+	@Transactional
+	public List<AcessoResponse> sincronizaAcessos( Long id ) throws ServiceException {
+		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.findById( id );
+		if ( !grupoOp.isPresent() )
+			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO );
+		
+		UsuarioGrupo grupo = grupoOp.get();
+		List<Acesso> acessos = grupo.getAcessos();
+		int asize = acessos.size();
+		
+		List<AcessoResponse> acessosResp = new ArrayList<>();
+		
+		List<Recurso> recursos = recursoRepository.findAll();				
+		for( Recurso recurso : recursos ) {	
+			Acesso acesso = null;
+			for( int i = 0; acesso == null && i < asize; i++ ) {
+				Acesso a = acessos.get( i );
+				Recurso r = a.getRecurso();
+				if ( recurso.getNome().equalsIgnoreCase( r.getNome() ) )
+					acesso = a;				
+			}
+						
+			if ( acesso == null )
+				acesso = acessoLoader.novoBean( grupo, recurso );
+
+			acessoRepository.save( acesso );
+
+			AcessoResponse aresp = acessoLoader.novoAcessoResponse( grupo, recurso );
+			acessoLoader.loadGetResponse( aresp, acesso );
+			acessosResp.add( aresp );
+		}		
+		
+		return acessosResp;
+	}
+	
+	@Transactional
+	public void salvaAcessos( Long grupoId, AcessoListaSaveRequest request ) throws ServiceException {
+		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.findById( grupoId );
+		if ( !grupoOp.isPresent() )
+			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO );
+		
+		UsuarioGrupo grupo = grupoOp.get();
+		
+		List<AcessoSaveRequest> acessoListaRequest = request.getAcessos();
+		for( AcessoSaveRequest acessoRequest : acessoListaRequest ) {
+			Long recursoId = acessoRequest.getRecursoId();
+			
+			Optional<Recurso> recursoOp = recursoRepository.findById( recursoId );
+			if ( !recursoOp.isPresent() )
+				throw new ServiceException( Erro.ACESSO_RECURSO_NAO_ENCONTRADO, ""+recursoId );
+			
+			Recurso recurso = recursoOp.get();
+			
+			Optional<Acesso> acessoOp = acessoRepository.busca( grupoId, recursoId );
+			if ( !acessoOp.isPresent() ) {
+				String grupoNome = grupo.getNome();
+				String recursoNome = recurso.getNome();
+				throw new ServiceException( Erro.ACESSO_NAO_ENCONTRADO, grupoNome, recursoNome );
+			}
+			
+			Acesso acesso = acessoOp.get();
+			acessoLoader.loadBean( acesso, acessoRequest );
+			acessoRepository.save( acesso );
+		}
+	}
 		
 	public void registra( UsuarioGrupoSaveRequest request ) throws ServiceException {
 		String nome = request.getNome();

@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 import { UsuarioGrupoFiltro } from 'src/app/bean/usuario-grupo/usuario-grupo-filtro';
 import { UsuarioGrupoService } from 'src/app/service/usuario-grupo.service';
+
+
 
 @Component({
   selector: 'app-usuario-grupo-tela',
@@ -30,7 +34,10 @@ export class UsuarioGrupoTelaComponent {
 
   grupos : any;
 
-  constructor( private usuarioGrupoService: UsuarioGrupoService, private sistemaService: SistemaService) {}
+  constructor( 
+    private usuarioGrupoService: UsuarioGrupoService, 
+    private sistemaService: SistemaService,
+    private matDialog : MatDialog) {}
 
   filtra() {
     this.infoMsg = null;
@@ -50,6 +57,15 @@ export class UsuarioGrupoTelaComponent {
         this.showSpinner = false;
       }
     });
+  }
+
+  mostraRemoveDialog( id : any ) {
+    let dialogRef = this.matDialog.open( UsuarioGrupoRemoveDialog );
+    dialogRef.afterClosed().subscribe( 
+      (result) => {
+        if ( result === true )
+          this.remove( id );
+    } );
   }
 
   remove( id : any ) {
@@ -72,5 +88,13 @@ export class UsuarioGrupoTelaComponent {
     });
   }
 
+
+}
+
+@Component({
+  selector: 'usuario-grupo-remove-dialog',
+  templateUrl: 'usuario-grupo-remove-dialog.html',
+})
+export class UsuarioGrupoRemoveDialog {
 
 }

@@ -11,7 +11,6 @@ import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
 import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
 import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
-import italo.scm.model.response.reg.UsuarioGrupoRegResponse;
 
 @Component
 public class UsuarioGrupoLoader {
@@ -32,11 +31,7 @@ public class UsuarioGrupoLoader {
 	public void loadEditResponse( UsuarioGrupoEditResponse resp ) throws LoaderException {
 
 	}
-	
-	public void loadRegResponse( UsuarioGrupoRegResponse resp ) throws LoaderException {
-		
-	}
-				
+					
 	public UsuarioGrupo novoBean() {
 		return new UsuarioGrupo();
 	}
@@ -60,10 +55,6 @@ public class UsuarioGrupoLoader {
 		resp.setAcessos( acessosResp );
 		return resp;
 	}
-	
-	public UsuarioGrupoRegResponse novoRegResponse() {
-		return new UsuarioGrupoRegResponse();
-	}
-	
+		
 }
 

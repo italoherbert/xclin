@@ -29,26 +29,15 @@ export class UsuarioGrupoSaveComponent {
 
   constructor( private actRoute : ActivatedRoute, private usuarioGrupoService: UsuarioGrupoService, private sistemaService: SistemaService) {}
 
-  ngOnInit() {
-    this.infoMsg = null;
-    this.erroMsg = null;
-
-    this.showSpinner = true;
-
+  ngOnInit() {    
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    if ( id === '-1' ) {
-      this.usuarioGrupoService.getGrupoReg().subscribe({
-        next: ( resp ) => {
-          this.grupoSave.nome = resp.grupo.nome;
-          this.showSpinner = false;
-        },
-        error: ( erro ) => {
-          this.erroMsg = this.sistemaService.mensagemErro( erro );
-          this.showSpinner = false;
-        }
-      });
-    } else {
+    if ( id !== '-1' ) {      
+      this.infoMsg = null;
+      this.erroMsg = null;
+
+      this.showSpinner = true;
+
       this.usuarioGrupoService.getGrupoEdit( id ).subscribe( {
         next: ( resp ) => {
           this.grupoSave.nome = resp.grupo.nome;

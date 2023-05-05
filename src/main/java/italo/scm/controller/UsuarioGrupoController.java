@@ -22,7 +22,6 @@ import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
 import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
 import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
-import italo.scm.model.response.reg.UsuarioGrupoRegResponse;
 import italo.scm.service.UsuarioGrupoService;
 import italo.scm.validator.UsuarioGrupoValidator;
 
@@ -95,13 +94,6 @@ public class UsuarioGrupoController {
 		return ResponseEntity.ok( resp );
 	}
 	
-	@PreAuthorize("hasAuthority('usuarioGrupoREAD')")
-	@GetMapping("/get/reg")
-	public ResponseEntity<Object> getReg() throws SistemaException {
-		UsuarioGrupoRegResponse resp = usuarioGrupoService.getReg();
-		return ResponseEntity.ok( resp );
-	}
-		
 	@PreAuthorize("hasAuthority('usuarioGrupoDELETE')")
 	@DeleteMapping("/deleta/{id}") 
 	public ResponseEntity<Object> deleta( @PathVariable Long id ) throws SistemaException {

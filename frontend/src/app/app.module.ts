@@ -20,6 +20,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
@@ -27,14 +28,14 @@ import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
-import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
+import { UsuarioRemoveDialog, UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
 import { UsuarioDetalhesComponent } from './usuario/usuario-detalhes/usuario-detalhes.component';
 import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.component';
-import { UsuarioGrupoTelaComponent } from './usuario-grupo/usuario-grupo-tela/usuario-grupo-tela.component';
+import { UsuarioGrupoRemoveDialog, UsuarioGrupoTelaComponent } from './usuario-grupo/usuario-grupo-tela/usuario-grupo-tela.component';
 import { UsuarioGrupoDetalhesComponent } from './usuario-grupo/usuario-grupo-detalhes/usuario-grupo-detalhes.component';
 import { UsuarioGrupoSaveComponent } from './usuario-grupo/usuario-grupo-save/usuario-grupo-save.component';
 import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-acessos/usuario-grupo-acessos.component';
-import { RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
+import { RecursoRemoveDialog, RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
 import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
 import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
 
@@ -57,7 +58,11 @@ import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.compon
     UsuarioGrupoAcessosComponent,
     RecursoTelaComponent,
     RecursoDetalhesComponent,
-    RecursoSaveComponent
+    RecursoSaveComponent,
+
+    UsuarioGrupoRemoveDialog,
+    UsuarioRemoveDialog,
+    RecursoRemoveDialog
   ],
   imports: [
     BrowserModule,
@@ -79,7 +84,8 @@ import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.compon
     MatProgressSpinnerModule,
     MatMenuModule,
     MatSelectModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,8 +9,8 @@
 
 <div class="mt-3"> 
     <mat-form-field appearance="fill" class="w-100">
-        <mat-label>Nome do grupo</mat-label>
-        <input matInput type="text" placeholder="Nome do grupo" [(ngModel)]="recursoFiltro.nomeIni" />
+        <mat-label>Nome do recurso</mat-label>
+        <input matInput type="text" placeholder="Nome do recurso" [(ngModel)]="recursoFiltro.nomeIni" />
     </mat-form-field>
     <br />
     <div class="d-flex flex-row align-items-center">
@@ -48,7 +48,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="remove(r.id)">
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(r.id)">
                         <fa-icon [icon]="icons.faTrashCan"></fa-icon>
                         remover
                     </a>

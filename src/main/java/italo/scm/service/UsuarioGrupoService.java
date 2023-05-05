@@ -22,7 +22,6 @@ import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
 import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
 import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
-import italo.scm.model.response.reg.UsuarioGrupoRegResponse;
 import italo.scm.repository.AcessoRepository;
 import italo.scm.repository.RecursoRepository;
 import italo.scm.repository.UsuarioGrupoRepository;
@@ -223,13 +222,7 @@ public class UsuarioGrupoService {
 		usuarioGrupoLoader.loadEditResponse( resp ); 
 		return resp;
 	}
-	
-	public UsuarioGrupoRegResponse getReg() throws ServiceException {		
-		UsuarioGrupoRegResponse resp = usuarioGrupoLoader.novoRegResponse();
-		usuarioGrupoLoader.loadRegResponse( resp );
-		return resp;
-	}
-	
+		
 	public void deleta( Long id ) throws ServiceException {
 		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.findById( id );
 		if ( !grupoOp.isPresent() )

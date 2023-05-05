@@ -1,11 +1,22 @@
 <h1>Detalhes do usuário</h1>
 
-<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-save/'+grupoDetalhes.grupo.id }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-save/'+grupoDetalhes.grupo.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Alterar grupo</span>
 </a>
 
+<span class="p-2"></span>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-acessos/'+grupoDetalhes.grupo.id }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Alterar acessos</span>
+</a>
+
 <br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
 
 <div class="d-flex justify-content-center mt-3">
     <mat-card style="width: 50em">
@@ -30,10 +41,24 @@
                     </div>
                 </div>                    
             </div>
-            <br />
-            <div class="row">
-                <h1>Acessos</h1>
 
+            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-tela'} } ]">
+                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                <span class="mx-3">Tela de grupos</span>
+            </a>
+        </mat-card-content>
+    </mat-card>
+</div>
+    
+<br />
+
+<div class="d-flex justify-content-center">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Acessos</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
                 <div class="table-responsive">
                     <table class="table">
                         <thead>
@@ -64,7 +89,7 @@
             
             <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-tela'} } ]">
                 <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
-                <span class="mx-3">Tela de usuários</span>
+                <span class="mx-3">Tela de grupos</span>
             </a>
         </mat-card-content>
     </mat-card>

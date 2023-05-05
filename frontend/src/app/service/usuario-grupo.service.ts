@@ -27,6 +27,23 @@ export class UsuarioGrupoService {
     return this.http.put( '/api/usuario/grupo/altera/'+id, grupo, { headers: headers, withCredentials: true } )
   }
 
+  sincronizaAcessos( id : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/usuario/grupo/acessos/sincroniza/'+id, { headers: headers, withCredentials: true } );
+  }
+
+  salvaAcessos( id: any, acessosSave : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.post( '/api/usuario/grupo/acessos/salva/'+id, acessosSave, { headers: headers, withCredentials: true } );
+  }
+
   filtraGrupos( filtro : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',

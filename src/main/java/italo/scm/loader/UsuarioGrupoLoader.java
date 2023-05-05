@@ -29,14 +29,14 @@ public class UsuarioGrupoLoader {
 
 	}
 	
-	public void loadRegResponse( UsuarioGrupoRegResponse resp ) throws LoaderException {
-		
-	}
-	
 	public void loadEditResponse( UsuarioGrupoEditResponse resp ) throws LoaderException {
 
 	}
-			
+	
+	public void loadRegResponse( UsuarioGrupoRegResponse resp ) throws LoaderException {
+		
+	}
+				
 	public UsuarioGrupo novoBean() {
 		return new UsuarioGrupo();
 	}
@@ -44,25 +44,25 @@ public class UsuarioGrupoLoader {
 	public UsuarioGrupoResponse novoResponse() {
 		return new UsuarioGrupoResponse();
 	}
-	
-	public UsuarioGrupoRegResponse novoRegResponse() {
-		return new UsuarioGrupoRegResponse();
-	}
-	
-	public UsuarioGrupoEditResponse novoEditResponse( 
-			UsuarioGrupoResponse gresp, List<AcessoResponse> acessosResp ) {
-		UsuarioGrupoEditResponse resp = new UsuarioGrupoEditResponse();
-		resp.setGrupo( gresp ); 
-		resp.setAcessos( acessosResp ); 
-		return resp;
-	}
-	
+			
 	public UsuarioGrupoDetalhesResponse novoDetalhesResponse( 
 			UsuarioGrupoResponse gresp, List<AcessoResponse> acessosResp ) {
 		UsuarioGrupoDetalhesResponse resp = new UsuarioGrupoDetalhesResponse();
 		resp.setGrupo( gresp );
 		resp.setAcessos( acessosResp );
 		return resp;
+	}
+	
+	public UsuarioGrupoEditResponse novoEditResponse( 
+			UsuarioGrupoResponse gresp, List<AcessoResponse> acessosResp ) {
+		UsuarioGrupoEditResponse resp = new UsuarioGrupoEditResponse();
+		resp.setGrupo( gresp );
+		resp.setAcessos( acessosResp );
+		return resp;
+	}
+	
+	public UsuarioGrupoRegResponse novoRegResponse() {
+		return new UsuarioGrupoRegResponse();
 	}
 	
 }

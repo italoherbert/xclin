@@ -36,8 +36,8 @@ public class UsuarioGrupoController {
 	@Autowired
 	private UsuarioGrupoValidator usuarioGrupoValidator;
 	
-	@PreAuthorize("hasAuthority('usuarioGrupoWRITE')")
-	@PostMapping("/acessos/sincroniza/{id}")
+	@PreAuthorize("hasAuthority('usuarioGrupoREAD')")
+	@GetMapping("/acessos/sincroniza/{id}")
 	public ResponseEntity<Object> sincronizaAcessos( @PathVariable Long id ) throws SistemaException {
 		List<AcessoResponse> lista = usuarioGrupoService.sincronizaAcessos( id );
 		return ResponseEntity.ok( lista );

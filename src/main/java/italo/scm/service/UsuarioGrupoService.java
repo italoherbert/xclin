@@ -46,7 +46,6 @@ public class UsuarioGrupoService {
 	@Autowired
 	private AcessoLoader acessoLoader;
 	
-	@Transactional
 	public List<AcessoResponse> sincronizaAcessos( Long id ) throws ServiceException {
 		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.findById( id );
 		if ( !grupoOp.isPresent() )
@@ -70,8 +69,6 @@ public class UsuarioGrupoService {
 						
 			if ( acesso == null )
 				acesso = acessoLoader.novoBean( grupo, recurso );
-
-			acessoRepository.save( acesso );
 
 			AcessoResponse aresp = acessoLoader.novoAcessoResponse( grupo, recurso );
 			acessoLoader.loadGetResponse( aresp, acesso );
@@ -99,14 +96,15 @@ public class UsuarioGrupoService {
 			
 			Recurso recurso = recursoOp.get();
 			
+			Acesso acesso;
+			
 			Optional<Acesso> acessoOp = acessoRepository.busca( grupoId, recursoId );
-			if ( !acessoOp.isPresent() ) {
-				String grupoNome = grupo.getNome();
-				String recursoNome = recurso.getNome();
-				throw new ServiceException( Erro.ACESSO_NAO_ENCONTRADO, grupoNome, recursoNome );
+			if ( acessoOp.isPresent() ) {
+				acesso = acessoOp.get();
+			} else {
+				acesso = acessoLoader.novoBean( grupo, recurso );
 			}
 			
-			Acesso acesso = acessoOp.get();
 			acessoLoader.loadBean( acesso, acessoRequest );
 			acessoRepository.save( acesso );
 		}

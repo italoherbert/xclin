@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faRotate, faSave } from '@fortawesome/free-solid-svg-icons';
-import { UsuarioGrupoAcessosSave } from 'src/app/bean/usuario-grupo/usuario-grupo-acessos-save';
 import { UsuarioGrupoSave } from 'src/app/bean/usuario-grupo/usuario-grupo-save';
 import { SistemaService } from 'src/app/service/sistema.service';
 import { UsuarioGrupoService } from 'src/app/service/usuario-grupo.service';
@@ -12,11 +11,9 @@ import { UsuarioGrupoService } from 'src/app/service/usuario-grupo.service';
   styleUrls: ['./usuario-grupo-save.component.css']
 })
 export class UsuarioGrupoSaveComponent {
-  infoGrupoMsg : any = null;
-  erroGrupoMsg : any = null;
-
-  infoAcessosMsg : any = null;
-  erroAcessosMsg : any = null;
+ 
+  infoMsg : any = null;
+  erroMsg : any = null;
 
   showSpinner : boolean = false;
 
@@ -30,15 +27,11 @@ export class UsuarioGrupoSaveComponent {
     nome: ''
   }
 
-  acessosSave : UsuarioGrupoAcessosSave = {
-    acessos : []
-  }
-
   constructor( private actRoute : ActivatedRoute, private usuarioGrupoService: UsuarioGrupoService, private sistemaService: SistemaService) {}
 
   ngOnInit() {
-    this.infoGrupoMsg = null;
-    this.erroGrupoMsg = null;
+    this.infoMsg = null;
+    this.erroMsg = null;
 
     this.showSpinner = true;
 
@@ -51,7 +44,7 @@ export class UsuarioGrupoSaveComponent {
           this.showSpinner = false;
         },
         error: ( erro ) => {
-          this.erroGrupoMsg = this.sistemaService.mensagemErro( erro );
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
           this.showSpinner = false;
         }
       });
@@ -59,12 +52,11 @@ export class UsuarioGrupoSaveComponent {
       this.usuarioGrupoService.getGrupoEdit( id ).subscribe( {
         next: ( resp ) => {
           this.grupoSave.nome = resp.grupo.nome;
-          this.acessosSave.acessos = resp.acessos;
           this.showSpinner = false;
         },
         error: ( erro ) => {
           console.log( erro );
-          this.erroGrupoMsg = this.sistemaService.mensagemErro( erro );
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
           this.showSpinner = false;
         }
       } );
@@ -72,8 +64,8 @@ export class UsuarioGrupoSaveComponent {
   }
 
   salva() {
-    this.infoGrupoMsg = null;
-    this.erroGrupoMsg = null;
+    this.infoMsg = null;
+    this.erroMsg = null;
 
     this.showSpinner = true;
     
@@ -82,34 +74,25 @@ export class UsuarioGrupoSaveComponent {
     if ( id === '-1' ) { 
       this.usuarioGrupoService.registraGrupo( this.grupoSave ).subscribe({
         next: ( resp ) => {
-          this.infoGrupoMsg = "Grupo registrado com sucesso.";
+          this.infoMsg = "Grupo registrado com sucesso.";
           this.showSpinner = false;
         },
         error: ( erro ) => {
-          this.erroGrupoMsg = this.sistemaService.mensagemErro( erro );
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
           this.showSpinner = false;
         }
       });
     } else {
       this.usuarioGrupoService.alteraGrupo( id, this.grupoSave ).subscribe({
         next: ( resp ) => {
-          this.infoGrupoMsg = "Grupo alterado com sucesso.";
+          this.infoMsg = "Grupo alterado com sucesso.";
           this.showSpinner = false;
         },
         error: ( erro ) => {
-          this.erroGrupoMsg = this.sistemaService.mensagemErro( erro );
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
           this.showSpinner = false;
         }
       });
     }
   }
-
-  sincronizaAcessos() {
-
-  }
-
-  salvaAcessos() {
-
-  }
-
 }

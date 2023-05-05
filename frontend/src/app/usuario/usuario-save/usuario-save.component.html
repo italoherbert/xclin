@@ -3,6 +3,10 @@
 <br />
 
 <div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center">
     <mat-card>
         <mat-card-header>
             <h1>Formulário</h1>
@@ -46,10 +50,13 @@
                 {{erroMsg}}
             </div>
 
-            <button mat-raised-button color="primary" (click)="salva()">
-                <fa-icon [icon]="icons.faSave"></fa-icon>
-                <span class="mx-3">Salvar</span>
-            </button>
+            <div class="d-flex align-items-center">
+                <button mat-raised-button color="primary" (click)="salva()">
+                    <fa-icon [icon]="icons.faSave"></fa-icon>
+                    <span class="mx-3">Salvar</span>
+                </button>
+                <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
+            </div>
             
             <br />
             

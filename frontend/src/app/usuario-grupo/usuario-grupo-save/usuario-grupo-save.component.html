@@ -3,6 +3,10 @@
 <br />
 
 <div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center">
     <mat-card style="width: 50em">
         <mat-card-header>
             <h1>Formulário</h1>
@@ -17,11 +21,11 @@
                 </div>                                      
             </div>
             
-            <div *ngIf="infoGrupoMsg !== null" class="alert alert-success mb-2">
-                {{infoGrupoMsg}}
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
             </div>
-            <div *ngIf="erroGrupoMsg !== null" class="alert alert-danger mb-2">
-                {{erroGrupoMsg}}
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
             </div>
 
             <button mat-raised-button color="primary" (click)="salva()">
@@ -35,61 +39,6 @@
                 <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
                 <span class="mx-3">Tela de grupos</span>
             </a>
-        </mat-card-content>
-    </mat-card>
-</div>
-
-<br />
-
-<div class="d-flex justify-content-center">
-    <mat-card style="width: 50em">
-        <mat-card-header>
-            <h1>Acessos</h1>
-        </mat-card-header>
-        <mat-card-content>
-            <button mat-raised-button color="primary" class="mt-3" (click)="sincronizaAcessos()">
-                <fa-icon [icon]="icons.faRotate"></fa-icon>
-                <span class="mx-3">Sincronizar</span>
-            </button>
-            
-            <div class="table-responsive mt-3" style="height: 20em">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Recurso</th>
-                            <th>Leitura</th>
-                            <th>Escrita</th>
-                            <th>Remocao</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let a of acessosSave.acessos">
-                            <td>{{a.recursoNome}}</td>
-                            <td>
-                                <mat-checkbox [(ngModel)]="a.leitura" color="primary"></mat-checkbox>
-                            </td>
-                            <td>
-                                <mat-checkbox [(ngModel)]="a.escrita" color="primary"></mat-checkbox>
-                            </td>
-                            <td>
-                                <mat-checkbox [(ngModel)]="a.remocao" color="primary"></mat-checkbox>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div *ngIf="infoAcessosMsg !== null" class="alert alert-success my-2">
-                {{infoAcessosMsg}}
-            </div>
-            <div *ngIf="erroAcessosMsg !== null" class="alert alert-danger my-2">
-                {{erroAcessosMsg}}
-            </div>
-
-            <button mat-raised-button color="primary" (click)="salvaAcessos()">
-                <fa-icon [icon]="icons.faSave"></fa-icon>
-                <span class="mx-3">Salvar acessos</span>
-            </button>            
         </mat-card-content>
     </mat-card>
 </div>

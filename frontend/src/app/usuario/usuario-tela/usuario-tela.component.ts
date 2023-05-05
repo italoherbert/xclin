@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+
 import { UsuarioFiltro } from 'src/app/bean/usuario/usuario-filtro';
 import { SistemaService } from 'src/app/service/sistema.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
@@ -29,7 +31,10 @@ export class UsuarioTelaComponent {
 
   usuarios : any;
 
-  constructor( private usuarioService: UsuarioService, private sistemaService: SistemaService) {}
+  constructor( 
+    private matDialog: MatDialog,
+    private usuarioService: UsuarioService, 
+    private sistemaService: SistemaService) {}
 
   filtra() {
     this.infoMsg = null;
@@ -70,5 +75,23 @@ export class UsuarioTelaComponent {
       }
     });
   }
+
+  mostraRemoveDialog( id : any ) {
+    let dialogRef = this.matDialog.open( UsuarioRemoveDialog );
+    dialogRef.afterClosed().subscribe( (result) => {
+      if ( result === true )
+        this.remove( id );
+    } );
+    
+  }
+
+}
+
+
+@Component({
+  selector: 'usuario-remove-dialog',
+  templateUrl: 'usuario-remove-dialog.html',
+})
+export class UsuarioRemoveDialog {
 
 }

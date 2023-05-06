@@ -79,24 +79,24 @@ public class UsuarioGrupoVinculoService {
 		List<UsuarioGrupoResponse> gruposResp = new ArrayList<>();
 		List<Boolean> vinculadosFlagsResp = new ArrayList<>();
 		
-		List<UsuarioGrupoVinculo> vinculosTodos = usuarioGrupoVinculoRepository.findAll();
-		for( UsuarioGrupoVinculo vinculo : vinculosTodos ) {
+		List<UsuarioGrupo> gruposTodos = usuarioGrupoRepository.findAll();
+		for( UsuarioGrupo grupo : gruposTodos ) {
 			boolean adicionado = false;
-			
+						
 			int size = vinculosAdicionados.size();
 			for( int i = 0; !adicionado && i < size; i++ ) {
 				UsuarioGrupoVinculo vadd = vinculosAdicionados.get( i );
-				if ( vadd.getId() == vinculo.getId() )
+				UsuarioGrupo vgrupo = vadd.getGrupo();
+				if ( vgrupo.getId() == grupo.getId() )
 					adicionado = true;;
 			}
-			
-			UsuarioGrupo grupo = vinculo.getGrupo();
-			
+						
 			UsuarioGrupoResponse grupoResp = usuarioGrupoLoader.novoResponse();
 			usuarioGrupoLoader.loadResponse( grupoResp, grupo );
 			
 			gruposResp.add( grupoResp );
 			vinculadosFlagsResp.add( adicionado );
+			System.out.println( grupo.getNome() );
 		}						
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();

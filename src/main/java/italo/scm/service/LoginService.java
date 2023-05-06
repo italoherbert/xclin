@@ -40,7 +40,7 @@ public class LoginService {
 		List<String> roles = new ArrayList<>();
 		
 		Usuario u = uop.get();
-		u.getUsuarioGrupoMapList().forEach( ( map ) -> {
+		u.getUsuarioGrupoVinculos().forEach( ( map ) -> {
 			UsuarioGrupo grupo = map.getGrupo();
 			grupo.getAcessos().forEach( ( acesso ) -> {
 				String recurso = acesso.getRecurso().getNome();

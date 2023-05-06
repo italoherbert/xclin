@@ -11,17 +11,20 @@ import italo.scm.enums.UsuarioPerfilEnumManager;
 import italo.scm.enums.tipos.UsuarioPerfil;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
+import italo.scm.loader.UsuarioGrupoVinculoLoader;
 import italo.scm.loader.UsuarioLoader;
 import italo.scm.model.Usuario;
 import italo.scm.model.UsuarioGrupo;
-import italo.scm.model.UsuarioGrupoMap;
+import italo.scm.model.UsuarioGrupoVinculo;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
+import italo.scm.model.request.save.UsuarioGrupoVinculoListaSaveRequest;
+import italo.scm.model.request.save.UsuarioGrupoVinculoSaveRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.edit.UsuarioEditResponse;
 import italo.scm.model.response.reg.UsuarioRegResponse;
-import italo.scm.repository.UsuarioGrupoMapRepository;
 import italo.scm.repository.UsuarioGrupoRepository;
+import italo.scm.repository.UsuarioGrupoVinculoRepository;
 import italo.scm.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
 
@@ -35,13 +38,51 @@ public class UsuarioService {
 	private UsuarioGrupoRepository usuarioGrupoRepository;
 	
 	@Autowired
-	private UsuarioGrupoMapRepository usuarioGrupoMapRepository;
+	private UsuarioGrupoVinculoRepository usuarioGrupoVinculoRepository;
+	
+	@Autowired
+	private UsuarioGrupoVinculoRepository usuarioGrupoMapRepository;
 	
 	@Autowired
 	private UsuarioLoader usuarioLoader;
 	
 	@Autowired
+	private UsuarioGrupoVinculoLoader usuarioGrupoVinculoLoader;
+	
+	@Autowired
 	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
+
+	@Transactional
+	public void salvaGrupoVinculos( Long usuarioId, UsuarioGrupoVinculoListaSaveRequest request ) throws ServiceException {
+		Optional<Usuario> usuarioOp = usuarioRepository.findById( usuarioId );
+		if ( !usuarioOp.isPresent() )
+			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );
+		
+		Usuario usuario = usuarioOp.get();
+		
+		List<UsuarioGrupoVinculoSaveRequest> vinculoListaRequest = request.getVinculos();
+		for( UsuarioGrupoVinculoSaveRequest vinculoRequest : vinculoListaRequest ) {
+			Long grupoId = vinculoRequest.getGrupoId();
+			
+			Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.findById( grupoId );
+			if ( !grupoOp.isPresent() )
+				throw new ServiceException( Erro.VINCULO_USUARIO_GRUPO_NAO_ENCONTRADO, ""+grupoId );
+			
+			UsuarioGrupo grupo = grupoOp.get();
+			
+			UsuarioGrupoVinculo vinculo;
+			
+			Optional<UsuarioGrupoVinculo> vinculoOp = usuarioGrupoVinculoRepository.busca( usuarioId, grupoId );
+			if ( vinculoOp.isPresent() ) {
+				vinculo = vinculoOp.get();
+			} else {
+				vinculo = usuarioGrupoVinculoLoader.novoBean( usuario, grupo );
+			}
+			
+			usuarioGrupoVinculoLoader.loadBean( vinculo, vinculoRequest );
+			usuarioGrupoVinculoRepository.save( vinculo );
+		}
+	}
 	
 	@Transactional
 	public void registra( UsuarioSaveRequest request ) throws ServiceException {
@@ -62,7 +103,7 @@ public class UsuarioService {
 		
 		usuarioRepository.save( u );
 			
-		UsuarioGrupoMap map = new UsuarioGrupoMap();
+		UsuarioGrupoVinculo map = new UsuarioGrupoVinculo();
 		map.setUsuario( u ); 
 		map.setGrupo( grupo );
 		

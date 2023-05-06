@@ -1,0 +1,30 @@
+<h1>Grupos do usuário</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Add ou remover grupos</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Nome de usuário:
+                    </div>
+                    <div class="fs-3 text-black">
+                        {{usuario.username}}
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

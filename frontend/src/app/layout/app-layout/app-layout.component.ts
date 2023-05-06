@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faBox, faCircleUser, faGear, faUser, faUserGroup } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -14,6 +15,13 @@ export class AppLayoutComponent {
     faBox : faBox,
     faCircleUser : faCircleUser,
     faGear : faGear
+  }
+
+  constructor( private router : Router ) {}
+
+  logout() {
+    localStorage.clear();
+    this.router.navigate( [ '/login' ] );
   }
 
 }

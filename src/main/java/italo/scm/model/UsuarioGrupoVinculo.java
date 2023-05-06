@@ -16,8 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="usuario_grupo_map")
-public class UsuarioGrupoMap {
+@Table(name="usuario_grupo_vinculo")
+public class UsuarioGrupoVinculo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

@@ -13,7 +13,7 @@ insert into recurso ( nome ) values
 ('usuarioGrupo'),
 ('recurso');
 
-insert into usuario_grupo_map ( usuario_id, grupo_id ) values 
+insert into usuario_grupo_vinculo ( usuario_id, grupo_id ) values 
 ( (select id from usuario where username='raiz'), (select id from usuario_grupo where nome='RAIZ') ),
 ( (select id from usuario where username='admin'), (select id from usuario_grupo where nome='ADMIN') ),
 ( (select id from usuario where username='diretor'), (select id from usuario_grupo where nome='DIRETOR') ),

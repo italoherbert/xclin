@@ -14,7 +14,7 @@ public class UsuarioValidator {
 	
 	@Autowired
 	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
-	
+		
 	public void validaRegistro( UsuarioSaveRequest request ) throws ValidationException {
 		this.validaSave( request ); 
 		

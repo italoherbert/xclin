@@ -1,8 +1,15 @@
 <h1>Detalhes do usuário</h1>
 
-<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'usuario-save/'+usuario.id }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'usuario-save/'+usuario.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Alterar usuário</span>
+</a>
+
+<span class="p-2"></span>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupos-edit/'+usuario.id }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Ver grupos</span>
 </a>
 
 <br />

@@ -10,7 +10,7 @@
             <fa-icon [icon]="icons.faGear"></fa-icon>
         </button>
         <mat-menu #usuario_menu="matMenu">
-            <a mat-menu-item routerLink="/login">
+            <a mat-menu-item [routerLink]="[]" (click)="logout()">
                 Sair
             </a>
         </mat-menu>

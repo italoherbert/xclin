@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
+import italo.scm.model.request.save.UsuarioGrupoVinculoListaSaveRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.edit.UsuarioEditResponse;
@@ -32,6 +33,16 @@ public class UsuarioController {
 	
 	@Autowired
 	private UsuarioValidator usuarioValidator;
+	
+	@PreAuthorize("hasAuthority('usuarioWRITE')")
+	@PutMapping("/salva/vinculos/grupos/{id}")
+	public ResponseEntity<Object> salvaGrupoVinculos( 
+			@PathVariable Long id, 
+			@RequestBody UsuarioGrupoVinculoListaSaveRequest request ) 
+					throws SistemaException {		
+		usuarioService.salvaGrupoVinculos( id, request );
+		return ResponseEntity.ok().build();		
+	}
 	
 	@PreAuthorize("hasAuthority('usuarioWRITE')")
 	@PostMapping("/registra")

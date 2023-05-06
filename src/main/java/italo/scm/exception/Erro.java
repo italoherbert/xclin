@@ -15,6 +15,7 @@ public interface Erro {
 	public final static String USUARIO_GRUPO_NAO_ENCONTRADO = "Grupo não encontrado.";
 	public final static String RECURSO_NAO_ENCONTRADO = "Recurso não encontrado.";
 	public final static String ACESSO_RECURSO_NAO_ENCONTRADO = "Não foi possível encontrar o recurso pelo ID: $1";
+	public final static String VINCULO_USUARIO_GRUPO_NAO_ENCONTRADO = "Não foi possível encontrar o grupo de usuário pelo ID: $1";
 	
 	public final static String USUARIO_JA_EXISTE = "Já existe um outro usuário com o username informado.";
 	public final static String USUARIO_GRUPO_JA_EXISTE = "Já existe um outro grupo de usuário com o nome informado.";

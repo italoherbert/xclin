@@ -38,6 +38,7 @@ import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-aces
 import { RecursoRemoveDialog, RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
 import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
 import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
+import { UsuarioGruposEditComponent } from './usuario/usuario-grupos-edit/usuario-grupos-edit.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.compon
 
     UsuarioGrupoRemoveDialog,
     UsuarioRemoveDialog,
-    RecursoRemoveDialog
+    RecursoRemoveDialog,
+    UsuarioGruposEditComponent,
   ],
   imports: [
     BrowserModule,

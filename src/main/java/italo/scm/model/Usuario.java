@@ -35,6 +35,6 @@ public class Usuario {
 	private UsuarioPerfil perfil;
 
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
-	private List<UsuarioGrupoMap> usuarioGrupoMapList;
+	private List<UsuarioGrupoVinculo> usuarioGrupoVinculos;
 	
 }

@@ -21,6 +21,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
@@ -38,7 +39,7 @@ import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-aces
 import { RecursoRemoveDialog, RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
 import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
 import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
-import { UsuarioGruposEditComponent } from './usuario/usuario-grupos-edit/usuario-grupos-edit.component';
+import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vinculos-save/usuario-grupo-vinculos-save.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,7 @@ import { UsuarioGruposEditComponent } from './usuario/usuario-grupos-edit/usuari
     UsuarioGrupoRemoveDialog,
     UsuarioRemoveDialog,
     RecursoRemoveDialog,
-    UsuarioGruposEditComponent,
+    UsuarioGrupoVinculosSaveComponent,
   ],
   imports: [
     BrowserModule,
@@ -87,7 +88,8 @@ import { UsuarioGruposEditComponent } from './usuario/usuario-grupos-edit/usuari
     MatMenuModule,
     MatSelectModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatChipsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

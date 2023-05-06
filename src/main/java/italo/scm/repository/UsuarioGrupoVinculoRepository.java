@@ -12,4 +12,6 @@ public interface UsuarioGrupoVinculoRepository extends JpaRepository<UsuarioGrup
 	@Query("select v from UsuarioGrupoVinculo v where v.usuario.id=?1 and v.grupo.id=?2")
 	Optional<UsuarioGrupoVinculo> busca( Long usuarioId, Long grupoId );
 	
+	void deleteByUsuarioId( Long usuarioId );
+	
 }

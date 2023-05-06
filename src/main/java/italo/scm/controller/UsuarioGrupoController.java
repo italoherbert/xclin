@@ -16,9 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
 import italo.scm.model.request.filtro.UsuarioGrupoFiltroRequest;
-import italo.scm.model.request.save.AcessoListaSaveRequest;
 import italo.scm.model.request.save.UsuarioGrupoSaveRequest;
-import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
 import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
 import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
@@ -34,20 +32,6 @@ public class UsuarioGrupoController {
 	
 	@Autowired
 	private UsuarioGrupoValidator usuarioGrupoValidator;
-	
-	@PreAuthorize("hasAuthority('usuarioGrupoREAD')")
-	@GetMapping("/acessos/sincroniza/{id}")
-	public ResponseEntity<Object> sincronizaAcessos( @PathVariable Long id ) throws SistemaException {
-		List<AcessoResponse> lista = usuarioGrupoService.sincronizaAcessos( id );
-		return ResponseEntity.ok( lista );
-	}
-	
-	@PreAuthorize("hasAuthority('usuarioGrupoWRITE')")
-	@PostMapping("/acessos/salva/{id}")
-	public ResponseEntity<Object> salvaAcessos( @PathVariable Long id, @RequestBody AcessoListaSaveRequest request ) throws SistemaException {
-		usuarioGrupoService.salvaAcessos( id, request );
-		return ResponseEntity.ok().build();
-	}
 	
 	@PreAuthorize("hasAuthority('usuarioGrupoWRITE')")
 	@PostMapping("/registra")

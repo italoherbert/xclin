@@ -14,7 +14,7 @@ import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-aces
 import { RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
 import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
 import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
-import { UsuarioGruposEditComponent } from './usuario/usuario-grupos-edit/usuario-grupos-edit.component';
+import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vinculos-save/usuario-grupo-vinculos-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -26,7 +26,7 @@ const routes: Routes = [
     { path: 'usuario-tela', component: UsuarioTelaComponent, outlet: 'page' },
     { path: 'usuario-detalhes/:id', component: UsuarioDetalhesComponent, outlet: 'page' },
     { path: 'usuario-save/:id', component: UsuarioSaveComponent, outlet: 'page' },
-    { path: 'usuario-grupos-edit/:id', component: UsuarioGruposEditComponent, outlet: 'page' },
+    { path: 'usuario-grupos-vinculos-save/:id', component: UsuarioGrupoVinculosSaveComponent, outlet: 'page' },
 
     { path: 'usuario-grupo-tela', component: UsuarioGrupoTelaComponent, outlet: 'page' },
     { path: 'usuario-grupo-detalhes/:id', component: UsuarioGrupoDetalhesComponent, outlet: 'page' },

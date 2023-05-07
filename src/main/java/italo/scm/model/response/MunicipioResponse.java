@@ -7,18 +7,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class EnderecoResponse {
+public class MunicipioResponse {
 
 	private Long id;
 	
-	private String logradouro;
-	
-	private String numero;
-	
-	private String bairro;
-	
-	private int codigoCidade;
-	
-	private int codigoUf;
+	private String nome;
 	
 }

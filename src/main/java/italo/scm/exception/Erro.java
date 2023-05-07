@@ -29,7 +29,6 @@ public interface Erro {
 	public final static String CLINICA_JA_EXISTE = "Já existe uma clínica registrada com o nome informado.";
 
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
-	public final static String USUARIO_GRUPO_NOME_NAO_DISPONIVEL = "Já existe um grupo de usuário com username: $1.";
 	
 	public final static String PERFIL_INVALIDO = "Perfil inválido: $1";
 	

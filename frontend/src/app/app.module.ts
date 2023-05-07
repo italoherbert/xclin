@@ -40,6 +40,9 @@ import { RecursoRemoveDialog, RecursoTelaComponent } from './recurso/recurso-tel
 import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
 import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
 import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vinculos-save/usuario-grupo-vinculos-save.component';
+import { ClinicaRemoveDialog, ClinicaTelaComponent } from './clinica/clinica-tela/clinica-tela.component';
+import { ClinicaSaveComponent } from './clinica/clinica-save/clinica-save.component';
+import { ClinicaDetalhesComponent } from './clinica/clinica-detalhes/clinica-detalhes.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,10 @@ import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vincu
     UsuarioRemoveDialog,
     RecursoRemoveDialog,
     UsuarioGrupoVinculosSaveComponent,
+    ClinicaTelaComponent,
+    ClinicaSaveComponent,
+    ClinicaDetalhesComponent,
+    ClinicaRemoveDialog
   ],
   imports: [
     BrowserModule,

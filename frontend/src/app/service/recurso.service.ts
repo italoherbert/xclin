@@ -10,7 +10,7 @@ import { RecursoSave } from '../bean/recurso/recurso-save';
 })
 export class RecursoService {
 
-  constructor( private http: HttpClient) { }
+  constructor( private http: HttpClient ) { }
 
   registraRecurso( recursoSave: RecursoSave ): Observable<any> {
     let headers = new HttpHeaders({

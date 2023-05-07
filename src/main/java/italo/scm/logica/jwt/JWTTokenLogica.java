@@ -38,8 +38,8 @@ public class JWTTokenLogica {
 	public String geraToken( String subject, List<String> roles, Long uid, Long cid ) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put( "roles", this.rolesToClaim( roles ) );	
-		claims.put( "uid", uid );
-		claims.put( "cid", cid );
+		claims.put( "usuarioId", uid );
+		claims.put( "clinicaId", cid );
 		return this.geraToken( subject, claims );
 	}
 	

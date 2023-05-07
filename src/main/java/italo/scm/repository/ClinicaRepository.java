@@ -10,13 +10,13 @@ import italo.scm.model.Clinica;
 
 public interface ClinicaRepository extends JpaRepository<Clinica, Long> {
 
-	@Query("select count(*)=1 from Clinica c where lower(c.nome)=lower(?1)")
+	@Query("select count(*)=1 from Clinica c where lower_unaccent(c.nome)=lower_unaccent(?1)")
 	public boolean existePorNome( String nome );
 	
-	@Query("select c from Clinica c where lower(c.nome)=lower(?1)")
+	@Query("select c from Clinica c where lower_unaccent(c.nome)=lower_unaccent(?1)")
 	public Optional<Clinica> buscaPorNome( String nome );
 	
-	@Query("select c from Clinica c where lower(c.nome) like lower(?1)")
+	@Query("select c from Clinica c where lower_unaccent(c.nome) like lower_unaccent(?1)")
 	public List<Clinica> filtra( String nomeIni );
 	
 }

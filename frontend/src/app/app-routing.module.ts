@@ -15,6 +15,9 @@ import { RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.compon
 import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
 import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
 import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vinculos-save/usuario-grupo-vinculos-save.component';
+import { ClinicaTelaComponent } from './clinica/clinica-tela/clinica-tela.component';
+import { ClinicaDetalhesComponent } from './clinica/clinica-detalhes/clinica-detalhes.component';
+import { ClinicaSaveComponent } from './clinica/clinica-save/clinica-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -35,7 +38,11 @@ const routes: Routes = [
 
     { path: 'recurso-tela', component: RecursoTelaComponent, outlet: 'page' },
     { path: 'recurso-detalhes/:id', component: RecursoDetalhesComponent, outlet: 'page' },
-    { path: 'recurso-save/:id', component: RecursoSaveComponent, outlet: 'page' }
+    { path: 'recurso-save/:id', component: RecursoSaveComponent, outlet: 'page' },
+
+    { path: 'clinica-tela', component: ClinicaTelaComponent, outlet: 'page' },
+    { path: 'clinica-detalhes/:id', component: ClinicaDetalhesComponent, outlet: 'page' },
+    { path: 'clinica-save/:id', component: ClinicaSaveComponent, outlet: 'page' }
   ] },
 ];
 

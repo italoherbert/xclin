@@ -9,13 +9,13 @@ import italo.scm.model.response.EnderecoResponse;
 
 @Component
 public class EnderecoLoader {
-
+	
 	public void loadBean( Endereco e, EnderecoSaveRequest request ) throws LoaderException {
 		e.setLogradouro( request.getLogradouro() );
 		e.setNumero( request.getNumero() );
 		e.setBairro( request.getBairro() );
-		e.setCidade( request.getCidade() );
-		e.setUf( request.getUf() );
+		e.setCodigoCidade( request.getCodigoCidade() );
+		e.setCodigoUf( request.getCodigoUf() );		
 	}
 	
 	public void loadResponse( EnderecoResponse resp, Endereco e ) throws LoaderException {
@@ -23,8 +23,8 @@ public class EnderecoLoader {
 		resp.setLogradouro( e.getLogradouro() );
 		resp.setNumero( e.getNumero() );
 		resp.setBairro( e.getBairro() );
-		resp.setCidade( e.getCidade() );
-		resp.setUf( e.getUf() );
+		resp.setCodigoCidade( e.getCodigoCidade() );
+		resp.setCodigoUf( e.getCodigoUf() );		
 	}
 	
 	public Endereco novoBean() {

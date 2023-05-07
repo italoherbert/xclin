@@ -16,7 +16,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 
 @Component
-public class JWTLogica {
+public class JWTTokenLogica {
 
 	@Value("${jwt.secret}")
 	private String secret;
@@ -24,15 +24,22 @@ public class JWTLogica {
 	@Value("${jwt.tempo.expiracao}")
 	private long expirationMS;
 	
+	public JWTTokenInfo authorizationHeaderTokenInfo( String authorizationHeader ) {
+		String token = authorizationHeader.substring( 7 );
+		return this.tokenInfo( token );
+	}
+	
 	public String geraToken( String subject, String[] roles ) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put( "roles", this.rolesToClaim( roles ) );		
 		return this.geraToken( subject, claims );
 	}
 	
-	public String geraToken( String subject, List<String> roles ) {
+	public String geraToken( String subject, List<String> roles, Long uid, Long cid ) {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put( "roles", this.rolesToClaim( roles ) );		
+		claims.put( "roles", this.rolesToClaim( roles ) );	
+		claims.put( "uid", uid );
+		claims.put( "cid", cid );
 		return this.geraToken( subject, claims );
 	}
 	
@@ -40,8 +47,12 @@ public class JWTLogica {
 		Claims claims = this.extraiClaims( token );
 		boolean expirado = ( claims.getExpiration().before( new Date() ) );
 		String subject = claims.getSubject();
+		
+		Long uid = Long.parseLong( String.valueOf( claims.get( "usuarioId" ) ) );
+		Long cid = Long.parseLong( String.valueOf( claims.get( "clinicaId" ) ) );
+		 
 		String[] roles = this.claimToRoles( claims.get( "roles" ) );
-		return new JWTTokenInfo( subject, roles, expirado );
+		return new JWTTokenInfo( subject, roles, uid, cid, expirado );
 	}
 	
 	public String geraToken( String subject, Map<String, Object> claims ) {

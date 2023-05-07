@@ -14,7 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
-import italo.scm.logica.jwt.JWTLogica;
+import italo.scm.logica.jwt.JWTTokenLogica;
 import italo.scm.logica.jwt.JWTTokenInfo;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AutenticacaoFilter extends OncePerRequestFilter {
 
 	@Autowired
-	private JWTLogica jwtLogica;
+	private JWTTokenLogica jwtLogica;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

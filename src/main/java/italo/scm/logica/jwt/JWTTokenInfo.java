@@ -13,6 +13,8 @@ public class JWTTokenInfo {
 
 	private String subject;
 	private String[] roles;
+	private Long usuarioId;
+	private Long clinicaId;
 	
 	private boolean expirado;
 	

@@ -21,7 +21,7 @@ public class ClinicaValidator {
 			throw new ValidationException( Erro.TELEFONE_OBRIGATORIO );
 	}
 	
-	public void validaSave( ClinicaFiltroRequest request ) throws ValidationException {
+	public void validaFiltro( ClinicaFiltroRequest request ) throws ValidationException {
 		if ( request.getNomeIni() == null )
 			throw new ValidationException( Erro.CLINICA_NOME_INI_OBRIGATORIO );
 		if ( request.getNomeIni().isBlank() )

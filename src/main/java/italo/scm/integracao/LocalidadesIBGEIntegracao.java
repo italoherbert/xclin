@@ -16,6 +16,12 @@ public interface LocalidadesIBGEIntegracao {
 	public List<UFResponse> listaUFs();
 	
 	@GetMapping("/estados/{ufid}/municipios")
-	public List<MunicipioResponse> listaMunicipios( @PathVariable Long ufid );
+	public List<MunicipioResponse> listaMunicipios( @PathVariable int ufid );
+	
+	@GetMapping("/estados/{ufid}")
+	public UFResponse getUfPorId( @PathVariable int ufid );
+	
+	@GetMapping("/municipios/{mid}")
+	public MunicipioResponse getMunicipioPorId( @PathVariable int mid );
 	
 }

@@ -20,6 +20,8 @@ import italo.scm.logica.jwt.JWTTokenLogica;
 import italo.scm.model.request.filtro.ClinicaFiltroRequest;
 import italo.scm.model.request.save.ClinicaSaveRequest;
 import italo.scm.model.response.ClinicaResponse;
+import italo.scm.model.response.edit.ClinicaEditResponse;
+import italo.scm.model.response.reg.ClinicaRegResponse;
 import italo.scm.service.ClinicaService;
 import italo.scm.validator.ClinicaValidator;
 
@@ -39,7 +41,7 @@ public class ClinicaController {
 	@PreAuthorize("hasAuthority('clinicaWRITE')")
 	@PostMapping("/registra")
 	public ResponseEntity<Object> registra( 
-			@RequestHeader( "Authorization") String authHeader,
+			@RequestHeader( "Authorization" ) String authHeader,
 			@RequestBody ClinicaSaveRequest request ) throws SistemaException {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
@@ -72,13 +74,27 @@ public class ClinicaController {
 	
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Object> get( 
-			@PathVariable Long id ) throws SistemaException {
-		
+	public ResponseEntity<Object> get( @PathVariable Long id ) throws SistemaException {
 		ClinicaResponse resp = clinicaService.get( id );
 		return ResponseEntity.ok( resp );
 	}
 	
+	@PreAuthorize("hasAuthority('clinicaREAD')")
+	@GetMapping("/get/edit/{id}")
+	public ResponseEntity<Object> getEdit( 
+			@PathVariable Long id ) throws SistemaException {
+		
+		ClinicaEditResponse resp = clinicaService.getEdit( id );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('clinicaREAD')")
+	@GetMapping("/get/reg")
+	public ResponseEntity<Object> getReg() throws SistemaException {
+		ClinicaRegResponse resp = clinicaService.getReg();
+		return ResponseEntity.ok( resp );
+	}
+		
 	@PreAuthorize("hasAuthority('clinicaDELETE')")
 	@GetMapping("/deleta/{id}")
 	public ResponseEntity<Object> deleta( 

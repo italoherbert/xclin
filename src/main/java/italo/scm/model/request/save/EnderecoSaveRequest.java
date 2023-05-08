@@ -15,7 +15,7 @@ public class EnderecoSaveRequest {
 	
 	private String bairro;
 	
-	private int codigoCidade;
+	private int codigoMunicipio;
 	
 	private int codigoUf;
 	

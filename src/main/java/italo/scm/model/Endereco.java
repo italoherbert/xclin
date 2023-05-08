@@ -26,7 +26,7 @@ public class Endereco {
 	
 	private String bairro;
 	
-	private int codigoCidade;
+	private int codigoMunicipio;
 	
 	private int codigoUf;
 	

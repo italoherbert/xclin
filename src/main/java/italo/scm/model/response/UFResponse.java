@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class UFResponse {
 
-	private Long id;
+	private int id;
 	
 	private String nome;
 	

@@ -1,8 +1,10 @@
+import { Municipio } from "./municipio";
+import { Uf } from "./uf";
 
 export interface EnderecoSave {
     logradouro : string,
     numero : string;
     bairro : string;
-    cidade : string;
-    uf : string;
+    municipio : Municipio;
+    uf : Uf;
 }

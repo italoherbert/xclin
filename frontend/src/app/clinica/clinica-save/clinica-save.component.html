@@ -43,24 +43,32 @@
                         <input matInput type="text" placeholder="Número" [(ngModel)]="clinicaSave.endereco.numero"/>
                     </mat-form-field>                        
                 </div>  
-                <div class="col-sm-6">
+                <div class="col-sm-8">
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Bairro</mat-label>
                         <input matInput type="text" placeholder="Bairro" [(ngModel)]="clinicaSave.endereco.bairro"/>
                     </mat-form-field>                        
-                </div>  
-                <div class="col-sm-6">
-                    <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Cidade</mat-label>
-                        <input matInput type="text" placeholder="Cidade" [(ngModel)]="clinicaSave.endereco.cidade"/>
-                    </mat-form-field>                        
-                </div>  
-                <div class="col-sm-6">
-                    <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>UF</mat-label>
-                        <input matInput type="text" placeholder="Estado" [(ngModel)]="clinicaSave.endereco.uf"/>
-                    </mat-form-field>                        
                 </div>                                      
+                <div class="col-sm-6">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Unidade Federativa</mat-label>
+                        <mat-select placeholder="Escolha a UF" [(ngModel)]="clinicaSave.endereco.uf.id" (selectionChange)="ufSelectionChange($event.value)">
+                            <mat-option *ngFor="let uf of ufs" [value]="uf.id">
+                                {{uf.nome}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>                      
+                </div>                    
+                <div class="col-sm-6">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Municipio</mat-label>
+                        <mat-select placeholder="Escolha o município" [(ngModel)]="clinicaSave.endereco.municipio.id">
+                            <mat-option *ngFor="let c of municipios" [value]="c.id">
+                                {{c.nome}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>                        
+                </div>                
             </div>
             
             <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">

@@ -47,6 +47,22 @@ export class ClinicaService {
     return this.http.get( '/api/clinica/get/'+id, { headers: headers, withCredentials: true } )
   }
 
+  getRegClinica(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/clinica/get/reg', { headers: headers, withCredentials: true } )
+  }
+
+  getEditClinica( id : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/clinica/get/edit/'+id, { headers: headers, withCredentials: true } )
+  }
+
   deletaClinica( id : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

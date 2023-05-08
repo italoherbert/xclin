@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class MunicipioResponse {
 
-	private Long id;
+	private int id;
 	
 	private String nome;
 	

@@ -14,12 +14,16 @@ public interface Erro {
 	public final static String USUARIO_GRUPO_NOME_INI_OBRIGATORIO = "O início do nome do grupo de usuário é um campo de preenchimento obrigatório.";
 	public final static String CLINICA_NOME_INI_OBRIGATORIO = "O início do nome da clínica é um campo de preenchimento obrigatório.";
 
+	public final static String ENDERECO_NULL = "Objeto endereço não informado.";
+	
 	public final static String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
 	public final static String USUARIO_GRUPO_NAO_ENCONTRADO = "Grupo não encontrado.";
 	public final static String RECURSO_NAO_ENCONTRADO = "Recurso não encontrado.";
 	public final static String ACESSO_RECURSO_NAO_ENCONTRADO = "Não foi possível encontrar o recurso pelo ID: $1";
 	public final static String VINCULO_USUARIO_GRUPO_NAO_ENCONTRADO = "Não foi possível encontrar o grupo de usuário pelo ID: $1";
 	public final static String CLINICA_NAO_ENCONTRADA = "Clínica não encontrada.";
+	public final static String MUNICIPIO_NAO_ENCONTRADO = "Município não encontrado.";
+	public final static String UF_NAO_ENCONTRADA = "Unidade Federetiva não encontrada.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	

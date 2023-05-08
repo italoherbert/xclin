@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faRotate, faSave } from '@fortawesome/free-solid-svg-icons';
 import { ClinicaSave } from 'src/app/bean/clinica/clinica-save';
 import { ClinicaService } from 'src/app/service/clinica.service';
+import { LocalidadeService } from 'src/app/service/localidade.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
@@ -31,28 +32,52 @@ export class ClinicaSaveComponent {
       logradouro : '',
       numero: '',
       bairro: '',
-      cidade: '',
-      uf: ''
+      municipio: {
+        id: 0,
+        nome: ''
+      },
+      uf: {
+        id: 0,
+        nome: ''
+      }
     }
   }
 
+  ufs : any[] = [];
+  municipios : any[] = [];
+
   constructor( 
     private actRoute : ActivatedRoute, 
-    private clinicaService: ClinicaService, 
-    private sistemaService: SistemaService) {}
+    private clinicaService: ClinicaService,
+    private localidadeService: LocalidadeService, 
+    private sistemaService: SistemaService ) {}
 
   ngOnInit() {    
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    if ( id !== '-1' ) {
-      this.infoMsg = null;
-      this.erroMsg = null;
-
-      this.showSpinner = true;
-
-      this.clinicaService.getClinica( id ).subscribe( {
+    if ( id === '-1' ) {
+      this.clinicaService.getRegClinica().subscribe({
+        next: (resp) => {
+          this.ufs = resp.ufs;
+          this.showSpinner = false;
+        }, 
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    } else {      
+      this.clinicaService.getEditClinica( id ).subscribe( {
         next: ( resp ) => {
-          this.clinicaSave = resp;
+          this.ufs = resp.ufs;
+          this.municipios = resp.municipios;
+          this.clinicaSave = resp.clinica;
+
           this.showSpinner = false;
         },
         error: ( erro ) => {
@@ -97,5 +122,18 @@ export class ClinicaSaveComponent {
     }
   }
 
+  ufSelectionChange( ufid : number ) {
+    this.showSpinner = true;
+    this.localidadeService.getMunicipios( ufid ).subscribe( {
+      next: (resp) => {
+        this.municipios = resp;
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    } );
+  }
 
 }

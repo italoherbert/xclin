@@ -52,7 +52,7 @@
                 <div class="col-sm-6">
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Unidade Federativa</mat-label>
-                        <mat-select placeholder="Escolha a UF" [(ngModel)]="clinicaSave.endereco.uf.id" (selectionChange)="ufSelectionChange($event.value)">
+                        <mat-select placeholder="Escolha a UF" [(ngModel)]="clinicaSave.endereco.codigoUf" (selectionChange)="ufSelectionChange($event.value)">
                             <mat-option *ngFor="let uf of ufs" [value]="uf.id">
                                 {{uf.nome}}
                             </mat-option>
@@ -62,7 +62,7 @@
                 <div class="col-sm-6">
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Municipio</mat-label>
-                        <mat-select placeholder="Escolha o município" [(ngModel)]="clinicaSave.endereco.municipio.id">
+                        <mat-select placeholder="Escolha o município" [(ngModel)]="clinicaSave.endereco.codigoMunicipio">
                             <mat-option *ngFor="let c of municipios" [value]="c.id">
                                 {{c.nome}}
                             </mat-option>

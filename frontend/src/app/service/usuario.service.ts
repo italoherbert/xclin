@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Login } from '../bean/login';
 import { UsuarioSave } from '../bean/usuario/usuario-save';
-import { UsuarioGrupoVinculosSave } from '../bean/usuario/usuario-grupo-vinculos-save';
+import { UsuarioGrupoVinculosSave } from '../bean/usuario/usuario-grupo-vinculos';
 
 @Injectable({
   providedIn: 'root'

@@ -26,7 +26,7 @@ export class UsuarioService {
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/usuario/grupo/vinculos/vinculados/'+id, { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/usuario/grupo/vinculos/get/'+id, { headers: headers, withCredentials: true } );
   }
 
   salvaUsuarioGrupoVinculados( id : any, vinculosSave : UsuarioGrupoVinculosSave ): Observable<any> {

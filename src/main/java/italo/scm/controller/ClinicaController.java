@@ -73,6 +73,13 @@ public class ClinicaController {
 	}
 	
 	@PreAuthorize("hasAuthority('clinicaREAD')")
+	@GetMapping("/filtra/pornome/{nomeIni}")
+	public ResponseEntity<Object> filtra( @PathVariable String nomeIni ) throws SistemaException {		
+		List<ClinicaResponse> lista = clinicaService.filtraPorNome( nomeIni );
+		return ResponseEntity.ok( lista );
+	}
+	
+	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> get( @PathVariable Long id ) throws SistemaException {
 		ClinicaResponse resp = clinicaService.get( id );

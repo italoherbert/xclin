@@ -1,7 +1,9 @@
-package italo.scm.model.response;
+package italo.scm.model.response.load;
 
 import java.util.List;
 
+import italo.scm.model.response.UsuarioGrupoResponse;
+import italo.scm.model.response.UsuarioResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuarioGrupoVinculadosResponse {
+public class UsuarioGrupoVinculosLoadResponse {
 	
 	private UsuarioResponse usuario;
 	

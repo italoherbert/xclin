@@ -14,10 +14,10 @@ import italo.scm.loader.UsuarioLoader;
 import italo.scm.model.Usuario;
 import italo.scm.model.UsuarioGrupo;
 import italo.scm.model.UsuarioGrupoVinculo;
-import italo.scm.model.request.save.UsuarioGrupoVinculadoListSaveRequest;
+import italo.scm.model.request.save.UsuarioGrupoVinculoListaSaveRequest;
 import italo.scm.model.response.UsuarioGrupoResponse;
-import italo.scm.model.response.UsuarioGrupoVinculadosResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.UsuarioGrupoVinculosLoadResponse;
 import italo.scm.repository.UsuarioGrupoRepository;
 import italo.scm.repository.UsuarioGrupoVinculoRepository;
 import italo.scm.repository.UsuarioRepository;
@@ -42,7 +42,7 @@ public class UsuarioGrupoVinculoService {
 	private UsuarioGrupoLoader usuarioGrupoLoader;
 		 
 	@Transactional
-	public void salva( Long usuarioId, UsuarioGrupoVinculadoListSaveRequest request ) throws ServiceException {
+	public void salva( Long usuarioId, UsuarioGrupoVinculoListaSaveRequest request ) throws ServiceException {
 		Optional<Usuario> usuarioOp = usuarioRepository.findById( usuarioId );
 		if ( !usuarioOp.isPresent() )
 			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );
@@ -68,7 +68,7 @@ public class UsuarioGrupoVinculoService {
 		}
 	}
 	
-	public UsuarioGrupoVinculadosResponse vinculados( Long id ) throws ServiceException {
+	public UsuarioGrupoVinculosLoadResponse vinculados( Long id ) throws ServiceException {
 		Optional<Usuario> uop = usuarioRepository.findById( id );
 		if ( !uop.isPresent() )
 			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );
@@ -102,7 +102,7 @@ public class UsuarioGrupoVinculoService {
 		UsuarioResponse uresp = usuarioLoader.novoResponse();
 		usuarioLoader.loadResponse( uresp, usuario );
 		
-		UsuarioGrupoVinculadosResponse resp = new UsuarioGrupoVinculadosResponse();
+		UsuarioGrupoVinculosLoadResponse resp = new UsuarioGrupoVinculosLoadResponse();
 		resp.setUsuario( uresp );
 		resp.setGrupos( gruposResp );
 		resp.setVinculadosFlags( vinculadosFlagsResp  ); 

@@ -39,6 +39,14 @@ export class ClinicaService {
     return this.http.post( '/api/clinica/filtra', filtro, { headers: headers, withCredentials: true } )
   }
 
+  filtraClinicasPorNome( nomeIni : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/clinica/filtra/pornome/'+nomeIni, { headers: headers, withCredentials: true } )
+  }
+
   getClinica( id : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

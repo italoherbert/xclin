@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
-import italo.scm.model.request.save.UsuarioGrupoVinculadoListSaveRequest;
-import italo.scm.model.response.UsuarioGrupoVinculadosResponse;
+import italo.scm.model.request.save.UsuarioGrupoVinculoListaSaveRequest;
+import italo.scm.model.response.load.UsuarioGrupoVinculosLoadResponse;
 import italo.scm.service.UsuarioGrupoVinculoService;
 
 @RestController
@@ -26,16 +26,16 @@ public class UsuarioGrupoVinculoController {
 	@PutMapping("/salva/{id}")
 	public ResponseEntity<Object> salva( 
 			@PathVariable Long id, 
-			@RequestBody UsuarioGrupoVinculadoListSaveRequest request ) 
+			@RequestBody UsuarioGrupoVinculoListaSaveRequest request ) 
 					throws SistemaException {		
 		usuarioGrupoVinculoService.salva( id, request );
 		return ResponseEntity.ok().build();		
 	}
 	
 	@PreAuthorize("hasAuthority('usuarioREAD')")
-	@GetMapping("/vinculados/{id}")
+	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> vinculados( @PathVariable Long id ) throws SistemaException {
-		UsuarioGrupoVinculadosResponse resp = usuarioGrupoVinculoService.vinculados( id );
+		UsuarioGrupoVinculosLoadResponse resp = usuarioGrupoVinculoService.vinculados( id );
 		return ResponseEntity.ok( resp );
 	}
 	

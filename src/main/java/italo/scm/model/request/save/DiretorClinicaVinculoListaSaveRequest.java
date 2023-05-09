@@ -9,8 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuarioGrupoVinculadoListSaveRequest {
+public class DiretorClinicaVinculoListaSaveRequest {
 
-	private List<Long> grupos;
+	private List<Long> clinicas;
 	
 }

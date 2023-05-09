@@ -86,13 +86,13 @@ public class DiretorService {
 		List<Diretor> diretores;
 		if ( nomeIni.equals( "*" ) ) {
 			if ( request.isIncluirClinica() ) {
-				diretores = diretorRepository.filtraPorClinica( clinicaNomeIni+"%" );
+				diretores = diretorRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
 			} else {
 				diretores = diretorRepository.findAll();
 			}
 		} else {
 			if ( request.isIncluirClinica() ) {
-				diretores = diretorRepository.filtra( nomeIni+"%", clinicaNomeIni+"%" );
+				diretores = diretorRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
 			} else {
 				diretores = diretorRepository.filtraPorNome( nomeIni+"%" );
 			}

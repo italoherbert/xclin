@@ -1,14 +1,14 @@
 package italo.scm.enums.tipos;
 
 public enum UsuarioPerfil {
-	RAIZ, ADMIN, DIRETOR, MEDICO, RECEPCIONISTA;
+	RAIZ, ADMIN, DIRETOR, PROFISSIONAL, RECEPCIONISTA;
 	
 	public String label() {
 		switch( this ) {
 			case RAIZ: return "Raiz";
-			case ADMIN: return "Admin";
-			case DIRETOR: return "Diretor";
-			case MEDICO: return "Médico";
+			case ADMIN: return "Administrador(a)";
+			case DIRETOR: return "Diretor(a)";
+			case PROFISSIONAL: return "Profissional";
 			case RECEPCIONISTA: return "Recepcionista";
 		}
 		return null;

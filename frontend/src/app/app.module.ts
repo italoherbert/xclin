@@ -22,6 +22,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
@@ -105,7 +106,8 @@ import { DiretorClinicaVinculosComponent } from './diretor/diretor-clinica-vincu
     MatSelectModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatChipsModule
+    MatChipsModule,
+    MatDividerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

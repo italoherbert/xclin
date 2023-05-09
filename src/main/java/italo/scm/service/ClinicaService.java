@@ -99,7 +99,18 @@ public class ClinicaService {
 		if ( nomeIni.equals( "*" ) ) {
 			clinicas = clinicaRepository.findAll();
 		} else {
-			clinicas = clinicaRepository.filtra( nomeIni+"%" );
+			clinicas = clinicaRepository.filtra( "%"+nomeIni+"%" );
+		}
+		
+		return this.clinicasToResponse( clinicas );
+	}
+	
+	public List<ClinicaResponse> filtraPorNome( String nomeIni ) throws ServiceException {		
+		List<Clinica> clinicas;
+		if ( nomeIni.equals( "*" ) ) {
+			clinicas = clinicaRepository.findAll();
+		} else {
+			clinicas = clinicaRepository.filtra( "%"+nomeIni+"%" );
 		}
 		
 		return this.clinicasToResponse( clinicas );

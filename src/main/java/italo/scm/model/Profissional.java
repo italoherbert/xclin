@@ -42,7 +42,7 @@ public class Profissional {
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	
-	@OneToMany(mappedBy="diretor", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="profissional", cascade=CascadeType.ALL)
 	private List<ProfissionalClinicaVinculo> profissionalClinicaVinculos;
 	
 }

@@ -1,7 +1,10 @@
 package italo.scm.enums;
 
+import org.springframework.stereotype.Component;
+
 import italo.scm.enums.tipos.ProfissionalFuncao;
 
+@Component
 public class ProfissionalFuncaoEnumManager extends AbstractEnumManager<ProfissionalFuncao> {
 
 	@Override

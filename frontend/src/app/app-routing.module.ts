@@ -18,6 +18,9 @@ import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vincu
 import { ClinicaTelaComponent } from './clinica/clinica-tela/clinica-tela.component';
 import { ClinicaDetalhesComponent } from './clinica/clinica-detalhes/clinica-detalhes.component';
 import { ClinicaSaveComponent } from './clinica/clinica-save/clinica-save.component';
+import { DiretorTelaComponent } from './diretor/diretor-tela/diretor-tela.component';
+import { DiretorDetalhesComponent } from './diretor/diretor-detalhes/diretor-detalhes.component';
+import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -42,7 +45,12 @@ const routes: Routes = [
 
     { path: 'clinica-tela', component: ClinicaTelaComponent, outlet: 'page' },
     { path: 'clinica-detalhes/:id', component: ClinicaDetalhesComponent, outlet: 'page' },
-    { path: 'clinica-save/:id', component: ClinicaSaveComponent, outlet: 'page' }
+    { path: 'clinica-save/:id', component: ClinicaSaveComponent, outlet: 'page' },
+
+    { path: 'diretor-tela', component: DiretorTelaComponent, outlet: 'page' },
+    { path: 'diretor-detalhes/:id', component: DiretorDetalhesComponent, outlet: 'page' },
+    { path: 'diretor-save/:id', component: DiretorSaveComponent, outlet: 'page' },
+
   ] },
 ];
 

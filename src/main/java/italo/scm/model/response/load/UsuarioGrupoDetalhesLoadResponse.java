@@ -1,4 +1,4 @@
-package italo.scm.model.response.detalhes;
+package italo.scm.model.response.load;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuarioGrupoDetalhesResponse {
+public class UsuarioGrupoDetalhesLoadResponse {
 
 	private UsuarioGrupoResponse grupo;
 	

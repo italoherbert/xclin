@@ -1,4 +1,4 @@
-package italo.scm.model.response.reg;
+package italo.scm.model.response.load;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClinicaRegResponse {
+public class ClinicaRegLoadResponse {
 
 	private List<UFResponse> ufs;
 	

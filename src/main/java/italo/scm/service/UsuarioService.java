@@ -18,8 +18,8 @@ import italo.scm.model.UsuarioGrupoVinculo;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.edit.UsuarioEditResponse;
-import italo.scm.model.response.reg.UsuarioRegResponse;
+import italo.scm.model.response.load.UsuarioEditLoadResponse;
+import italo.scm.model.response.load.UsuarioRegLoadResponse;
 import italo.scm.repository.UsuarioGrupoRepository;
 import italo.scm.repository.UsuarioGrupoVinculoRepository;
 import italo.scm.repository.UsuarioRepository;
@@ -44,7 +44,7 @@ public class UsuarioService {
 	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
 		
 	@Transactional
-	public void registra( UsuarioSaveRequest request ) throws ServiceException {
+	public void registra( Long logadoUID, UsuarioSaveRequest request ) throws ServiceException {
 		boolean existe = usuarioRepository.existePorUsername( request.getUsername() );
 		if ( existe )
 			throw new ServiceException( Erro.USERNAME_NAO_DISPONIVEL, request.getUsername() );
@@ -57,7 +57,13 @@ public class UsuarioService {
 		
 		UsuarioGrupo grupo = grupoOp.get();
 		
-		Usuario u = usuarioLoader.novoBean();
+		Optional<Usuario> uop = usuarioRepository.findById( logadoUID );
+		if ( !uop.isPresent() )
+			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
+		
+		Usuario usuarioLogado = uop.get();
+		
+		Usuario u = usuarioLoader.novoBean( usuarioLogado );
 		usuarioLoader.loadBean( u, request );
 		
 		usuarioRepository.save( u );
@@ -116,16 +122,16 @@ public class UsuarioService {
 		return resp;
 	}
 	
-	public UsuarioRegResponse getDadosReg() throws ServiceException {
-		UsuarioRegResponse resp = usuarioLoader.novoUsuarioRegResponse();
+	public UsuarioRegLoadResponse getRegLoad() throws ServiceException {
+		UsuarioRegLoadResponse resp = usuarioLoader.novoUsuarioRegResponse();
 		usuarioLoader.loadRegResponse( resp );
 		return resp;
 	}
 	
-	public UsuarioEditResponse getDadosEdit( Long uid ) throws ServiceException {
+	public UsuarioEditLoadResponse getEditLoad( Long uid ) throws ServiceException {
 		UsuarioResponse uresp = this.get( uid );
 		
-		UsuarioEditResponse resp = usuarioLoader.novoUsuarioEditResponse( uresp );
+		UsuarioEditLoadResponse resp = usuarioLoader.novoUsuarioEditResponse( uresp );
 		usuarioLoader.loadEditResponse( resp );
 		return resp;
 	}

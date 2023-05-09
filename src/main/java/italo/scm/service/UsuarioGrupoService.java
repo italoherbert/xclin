@@ -18,8 +18,8 @@ import italo.scm.model.request.filtro.UsuarioGrupoFiltroRequest;
 import italo.scm.model.request.save.UsuarioGrupoSaveRequest;
 import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
-import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
-import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
+import italo.scm.model.response.load.UsuarioGrupoDetalhesLoadResponse;
+import italo.scm.model.response.load.UsuarioGrupoEditLoadResponse;
 import italo.scm.repository.UsuarioGrupoRepository;
 
 @Service
@@ -96,7 +96,7 @@ public class UsuarioGrupoService {
 		return resp;
 	}
 	
-	public UsuarioGrupoDetalhesResponse getDetalhes( Long id ) throws ServiceException {
+	public UsuarioGrupoDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
 		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.findById( id );
 		if ( !grupoOp.isPresent() )
 			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO );
@@ -117,12 +117,12 @@ public class UsuarioGrupoService {
 			acessosResp.add( aresp );
 		}
 		
-		UsuarioGrupoDetalhesResponse resp = usuarioGrupoLoader.novoDetalhesResponse( grupoResp, acessosResp );
+		UsuarioGrupoDetalhesLoadResponse resp = usuarioGrupoLoader.novoDetalhesResponse( grupoResp, acessosResp );
 		usuarioGrupoLoader.loadDetalhesResponse( resp, grupo ); 
 		return resp;
 	}
 	
-	public UsuarioGrupoEditResponse getEdit( Long id ) throws ServiceException {
+	public UsuarioGrupoEditLoadResponse getEditLoad( Long id ) throws ServiceException {
 		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.findById( id );
 		if ( !grupoOp.isPresent() )
 			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO );
@@ -143,7 +143,7 @@ public class UsuarioGrupoService {
 			acessosResp.add( aresp );
 		}
 		
-		UsuarioGrupoEditResponse resp = usuarioGrupoLoader.novoEditResponse( grupoResp, acessosResp );
+		UsuarioGrupoEditLoadResponse resp = usuarioGrupoLoader.novoEditResponse( grupoResp, acessosResp );
 		usuarioGrupoLoader.loadEditResponse( resp ); 
 		return resp;
 	}

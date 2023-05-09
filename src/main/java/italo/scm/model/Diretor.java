@@ -2,11 +2,9 @@ package italo.scm.model;
 
 import java.util.List;
 
-import italo.scm.enums.tipos.UsuarioPerfil;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -22,25 +20,20 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="usuario")
-public class Usuario {
+@Table(name="diretor")
+public class Diretor {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	
-	private String username;
-	
-	private String senha;
-	
-	@Enumerated(EnumType.STRING)
-	private UsuarioPerfil perfil;
-	
-	@OneToOne
-	@JoinColumn(name="criador_id")
-	private Usuario criador;
 
-	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
-	private List<UsuarioGrupoVinculo> usuarioGrupoVinculos;
-		
+	private String nome;
+	
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
+	
+	@OneToMany(mappedBy="diretor", cascade=CascadeType.ALL)
+	private List<DiretorClinicaVinculo> diretorClinicaVinculos;
+	
 }

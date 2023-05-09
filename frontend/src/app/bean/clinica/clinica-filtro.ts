@@ -1,4 +1,4 @@
 
 export interface ClinicaFiltro {
-    nomeIni : string;
+    nomeIni: string;
 }

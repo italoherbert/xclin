@@ -20,8 +20,8 @@ import italo.scm.logica.jwt.JWTTokenLogica;
 import italo.scm.model.request.filtro.ClinicaFiltroRequest;
 import italo.scm.model.request.save.ClinicaSaveRequest;
 import italo.scm.model.response.ClinicaResponse;
-import italo.scm.model.response.edit.ClinicaEditResponse;
-import italo.scm.model.response.reg.ClinicaRegResponse;
+import italo.scm.model.response.load.ClinicaEditLoadResponse;
+import italo.scm.model.response.load.ClinicaRegLoadResponse;
 import italo.scm.service.ClinicaService;
 import italo.scm.validator.ClinicaValidator;
 
@@ -81,17 +81,17 @@ public class ClinicaController {
 	
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/get/edit/{id}")
-	public ResponseEntity<Object> getEdit( 
+	public ResponseEntity<Object> getEditLoad( 
 			@PathVariable Long id ) throws SistemaException {
 		
-		ClinicaEditResponse resp = clinicaService.getEdit( id );
+		ClinicaEditLoadResponse resp = clinicaService.getEditLoad( id );
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/get/reg")
-	public ResponseEntity<Object> getReg() throws SistemaException {
-		ClinicaRegResponse resp = clinicaService.getReg();
+	public ResponseEntity<Object> getRegLoad() throws SistemaException {
+		ClinicaRegLoadResponse resp = clinicaService.getRegLoad();
 		return ResponseEntity.ok( resp );
 	}
 		

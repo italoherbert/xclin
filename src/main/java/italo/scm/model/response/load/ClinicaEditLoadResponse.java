@@ -1,4 +1,4 @@
-package italo.scm.model.response.edit;
+package italo.scm.model.response.load;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClinicaEditResponse {
+public class ClinicaEditLoadResponse {
 	
 	private ClinicaResponse clinica;
 

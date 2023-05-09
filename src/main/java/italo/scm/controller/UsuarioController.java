@@ -11,15 +11,18 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
+import italo.scm.logica.jwt.JWTTokenInfo;
+import italo.scm.logica.jwt.JWTTokenLogica;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.edit.UsuarioEditResponse;
-import italo.scm.model.response.reg.UsuarioRegResponse;
+import italo.scm.model.response.load.UsuarioEditLoadResponse;
+import italo.scm.model.response.load.UsuarioRegLoadResponse;
 import italo.scm.service.UsuarioService;
 import italo.scm.validator.UsuarioValidator;
 
@@ -33,11 +36,20 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioValidator usuarioValidator;
 	
+	@Autowired
+	private JWTTokenLogica jwtTokenLogica;
+	
 	@PreAuthorize("hasAuthority('usuarioWRITE')")
 	@PostMapping("/registra")
-	public ResponseEntity<Object> registra( @RequestBody UsuarioSaveRequest request ) throws SistemaException {
+	public ResponseEntity<Object> registra(  
+			@RequestHeader( "Authorization" ) String authHeader,
+			@RequestBody UsuarioSaveRequest request ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
 		usuarioValidator.validaRegistro( request );
-		usuarioService.registra( request );
+		usuarioService.registra( logadoUID, request );
 		return ResponseEntity.ok().build();
 	}
 	
@@ -66,15 +78,15 @@ public class UsuarioController {
 	
 	@PreAuthorize("hasAuthority('usuarioREAD')")
 	@GetMapping("/get/reg")
-	public ResponseEntity<Object> getDadosReg() throws SistemaException {
-		UsuarioRegResponse resp = usuarioService.getDadosReg();
+	public ResponseEntity<Object> getRegLoad() throws SistemaException {
+		UsuarioRegLoadResponse resp = usuarioService.getRegLoad();
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('usuarioREAD')")
 	@GetMapping("/get/edit/{id}")
-	public ResponseEntity<Object> getDadosEdit( @PathVariable Long id ) throws SistemaException {
-		UsuarioEditResponse resp = usuarioService.getDadosEdit( id );
+	public ResponseEntity<Object> getEditLoad( @PathVariable Long id ) throws SistemaException {
+		UsuarioEditLoadResponse resp = usuarioService.getEditLoad( id );
 		return ResponseEntity.ok( resp );
 	}
 	

@@ -14,8 +14,8 @@ import italo.scm.model.response.EnderecoResponse;
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.UFResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.edit.ClinicaEditResponse;
-import italo.scm.model.response.reg.ClinicaRegResponse;
+import italo.scm.model.response.load.ClinicaEditLoadResponse;
+import italo.scm.model.response.load.ClinicaRegLoadResponse;
 
 @Component
 public class ClinicaLoader {
@@ -32,7 +32,7 @@ public class ClinicaLoader {
 		resp.setTelefone( c.getTelefone() );
 		resp.setEmail( c.getEmail() ); 
 	}
-	
+		
 	public Clinica novoBean( Endereco ender, Usuario criador ) {
 		Clinica clinica = new Clinica();
 		clinica.setEndereco( ender );
@@ -47,18 +47,18 @@ public class ClinicaLoader {
 		return resp;
 	}
 	
-	public ClinicaRegResponse novoRegResponse( List<UFResponse> ufs ) {
-		ClinicaRegResponse resp = new ClinicaRegResponse();
+	public ClinicaRegLoadResponse novoRegResponse( List<UFResponse> ufs ) {
+		ClinicaRegLoadResponse resp = new ClinicaRegLoadResponse();
 		resp.setUfs( ufs );
 		return resp;
 	}
 	
-	public ClinicaEditResponse novoEditResponse( 
+	public ClinicaEditLoadResponse novoEditResponse( 
 			ClinicaResponse clinica, 
 			List<UFResponse> ufs, 
 			List<MunicipioResponse> municipios ) {
 		
-		ClinicaEditResponse resp = new ClinicaEditResponse();
+		ClinicaEditLoadResponse resp = new ClinicaEditLoadResponse();
 		resp.setClinica( clinica ); 
 		resp.setUfs( ufs );
 		resp.setMunicipios( municipios ); 

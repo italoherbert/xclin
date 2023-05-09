@@ -1,16 +1,21 @@
 package italo.scm.loader;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import italo.scm.enums.UsuarioPerfilEnumManager;
+import italo.scm.enums.tipos.UsuarioPerfil;
 import italo.scm.exception.LoaderException;
 import italo.scm.logica.HashUtil;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.save.UsuarioSaveRequest;
+import italo.scm.model.response.TipoResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.edit.UsuarioEditResponse;
-import italo.scm.model.response.reg.UsuarioRegResponse;
+import italo.scm.model.response.load.UsuarioEditLoadResponse;
+import italo.scm.model.response.load.UsuarioRegLoadResponse;
 
 @Component
 public class UsuarioLoader {
@@ -34,28 +39,36 @@ public class UsuarioLoader {
 		resp.setPerfilLabel( u.getPerfil().label() ); 
 	}
 	
-	public void loadRegResponse( UsuarioRegResponse resp ) throws LoaderException {
-		resp.setPerfis( usuarioPerfilEnumManager.tipoResponses() ); 
+	public void loadRegResponse( UsuarioRegLoadResponse resp ) throws LoaderException {
+		List<TipoResponse> usuarios = new ArrayList<>();
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.RAIZ ) );
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.ADMIN ) );
+		resp.setPerfis( usuarios ); 
 	}
 	
-	public void loadEditResponse( UsuarioEditResponse resp ) throws LoaderException {
-		resp.setPerfis( usuarioPerfilEnumManager.tipoResponses() ); 
+	public void loadEditResponse( UsuarioEditLoadResponse resp ) throws LoaderException {
+		List<TipoResponse> usuarios = new ArrayList<>();
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.RAIZ ) );
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.ADMIN ) );
+		resp.setPerfis( usuarios ); 
 	}
 		
-	public Usuario novoBean() {
-		return new Usuario();
+	public Usuario novoBean( Usuario criador ) {
+		Usuario usuario = new Usuario();
+		usuario.setCriador( criador ); 
+		return usuario;
 	}
 	
 	public UsuarioResponse novoResponse() {
 		return new UsuarioResponse();
 	}
 	
-	public UsuarioRegResponse novoUsuarioRegResponse() {
-		return new UsuarioRegResponse();
+	public UsuarioRegLoadResponse novoUsuarioRegResponse() {
+		return new UsuarioRegLoadResponse();
 	}
 	
-	public UsuarioEditResponse novoUsuarioEditResponse( UsuarioResponse uresp ) {
-		UsuarioEditResponse resp = new UsuarioEditResponse();
+	public UsuarioEditLoadResponse novoUsuarioEditResponse( UsuarioResponse uresp ) {
+		UsuarioEditLoadResponse resp = new UsuarioEditLoadResponse();
 		resp.setUsuario( uresp ); 
 		return resp;
 	}

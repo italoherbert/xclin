@@ -43,6 +43,9 @@ import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vincu
 import { ClinicaRemoveDialog, ClinicaTelaComponent } from './clinica/clinica-tela/clinica-tela.component';
 import { ClinicaSaveComponent } from './clinica/clinica-save/clinica-save.component';
 import { ClinicaDetalhesComponent } from './clinica/clinica-detalhes/clinica-detalhes.component';
+import { DiretorRemoveDialog, DiretorTelaComponent } from './diretor/diretor-tela/diretor-tela.component';
+import { DiretorDetalhesComponent } from './diretor/diretor-detalhes/diretor-detalhes.component';
+import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +75,11 @@ import { ClinicaDetalhesComponent } from './clinica/clinica-detalhes/clinica-det
     ClinicaTelaComponent,
     ClinicaSaveComponent,
     ClinicaDetalhesComponent,
-    ClinicaRemoveDialog
+    ClinicaRemoveDialog,
+    DiretorTelaComponent,
+    DiretorDetalhesComponent,
+    DiretorSaveComponent,
+    DiretorRemoveDialog
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,6 @@ import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.logica.HashUtil;
 import italo.scm.logica.jwt.JWTTokenLogica;
-import italo.scm.model.Clinica;
 import italo.scm.model.Usuario;
 import italo.scm.model.UsuarioGrupo;
 import italo.scm.model.request.LoginRequest;
@@ -53,14 +52,9 @@ public class LoginService {
 					roles.add( recurso + "DELETE" );
 			} );
 		} );
-		
-		Long cid = -1L;
-		Clinica c = u.getClinica();
-		if ( c != null )
-			cid = c.getId();
-						
+								
 		LoginResponse resp = new LoginResponse();
-		resp.setToken( jwtLogica.geraToken( username, roles, u.getId(), cid ) );
+		resp.setToken( jwtLogica.geraToken( username, roles, u.getId(), -1L ) );
 		resp.setUsername( username );
 		resp.setPerfil( u.getPerfil() ); 
 		return resp;		

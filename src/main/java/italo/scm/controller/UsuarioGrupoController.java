@@ -18,8 +18,8 @@ import italo.scm.exception.SistemaException;
 import italo.scm.model.request.filtro.UsuarioGrupoFiltroRequest;
 import italo.scm.model.request.save.UsuarioGrupoSaveRequest;
 import italo.scm.model.response.UsuarioGrupoResponse;
-import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
-import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
+import italo.scm.model.response.load.UsuarioGrupoDetalhesLoadResponse;
+import italo.scm.model.response.load.UsuarioGrupoEditLoadResponse;
 import italo.scm.service.UsuarioGrupoService;
 import italo.scm.validator.UsuarioGrupoValidator;
 
@@ -66,15 +66,15 @@ public class UsuarioGrupoController {
 	
 	@PreAuthorize("hasAuthority('usuarioGrupoREAD')")
 	@GetMapping("/get/detalhes/{id}")
-	public ResponseEntity<Object> getDetalhes( @PathVariable Long id ) throws SistemaException {
-		UsuarioGrupoDetalhesResponse resp = usuarioGrupoService.getDetalhes( id );
+	public ResponseEntity<Object> getDetalhesLoad( @PathVariable Long id ) throws SistemaException {
+		UsuarioGrupoDetalhesLoadResponse resp = usuarioGrupoService.getDetalhesLoad( id );
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('usuarioGrupoREAD')")
 	@GetMapping("/get/edit/{id}")
-	public ResponseEntity<Object> getEdit( @PathVariable Long id ) throws SistemaException {
-		UsuarioGrupoEditResponse resp = usuarioGrupoService.getEdit( id );
+	public ResponseEntity<Object> getEditLoad( @PathVariable Long id ) throws SistemaException {
+		UsuarioGrupoEditLoadResponse resp = usuarioGrupoService.getEditLoad( id );
 		return ResponseEntity.ok( resp );
 	}
 	

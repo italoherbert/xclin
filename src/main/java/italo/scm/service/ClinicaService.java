@@ -7,8 +7,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.integracao.LocalidadesIBGEIntegracao;
@@ -25,8 +23,8 @@ import italo.scm.model.response.EnderecoResponse;
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.UFResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.edit.ClinicaEditResponse;
-import italo.scm.model.response.reg.ClinicaRegResponse;
+import italo.scm.model.response.load.ClinicaEditLoadResponse;
+import italo.scm.model.response.load.ClinicaRegLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.UsuarioRepository;
 
@@ -104,40 +102,9 @@ public class ClinicaService {
 			clinicas = clinicaRepository.filtra( nomeIni+"%" );
 		}
 		
-		List<ClinicaResponse> lista = new ArrayList<>();
-		for( Clinica c : clinicas ) {
-			Endereco e = c.getEndereco();
-			
-			MunicipioResponse municipio;
-			UFResponse uf;
-			
-			try {
-				municipio = localidadesIBGEIntegracao.getMunicipioPorId( e.getCodigoMunicipio() );					
-			} catch ( Exception ex ) {
-				throw new ServiceException( Erro.MUNICIPIO_NAO_ENCONTRADO );
-			}
-				
-			try {
-				uf = localidadesIBGEIntegracao.getUfPorId( e.getCodigoUf() );
-			} catch ( Exception ex ) {
-				throw new ServiceException( Erro.UF_NAO_ENCONTRADA );
-			}
-			
-			EnderecoResponse eresp = enderecoLoader.novoResponse( municipio, uf );
-			enderecoLoader.loadResponse( eresp, c.getEndereco() ); 
-			
-			UsuarioResponse uresp = usuarioLoader.novoResponse();
-			usuarioLoader.loadResponse( uresp, c.getCriador() ); 
-			
-			ClinicaResponse resp = clinicaLoader.novoResponse( eresp, uresp );
-			clinicaLoader.loadResponse( resp, c );
-									
-			lista.add( resp );
-		}
-		
-		return lista;
+		return this.clinicasToResponse( clinicas );
 	}
-	
+		
 	public ClinicaResponse get( Long id ) throws ServiceException {
 		Optional<Clinica> cop = clinicaRepository.findById( id );
 		if ( !cop.isPresent() )
@@ -173,7 +140,7 @@ public class ClinicaService {
 		return resp;
 	}
 	
-	public ClinicaEditResponse getEdit( Long id ) throws ServiceException {
+	public ClinicaEditLoadResponse getEditLoad( Long id ) throws ServiceException {
 		Optional<Clinica> cop = clinicaRepository.findById( id );
 		if ( !cop.isPresent() )
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
@@ -210,23 +177,58 @@ public class ClinicaService {
 		List<UFResponse> ufs = localidadesIBGEIntegracao.listaUFs();
 		List<MunicipioResponse> municipios = localidadesIBGEIntegracao.listaMunicipios( codUf );
 		
-		ClinicaEditResponse resp = clinicaLoader.novoEditResponse( cresp, ufs, municipios );		
+		ClinicaEditLoadResponse resp = clinicaLoader.novoEditResponse( cresp, ufs, municipios );		
 		return resp;
 	}
 	
-	public ClinicaRegResponse getReg() throws ServiceException {		
+	public ClinicaRegLoadResponse getRegLoad() throws ServiceException {		
 		List<UFResponse> ufs = localidadesIBGEIntegracao.listaUFs();
 		
-		ClinicaRegResponse resp = clinicaLoader.novoRegResponse( ufs );		
+		ClinicaRegLoadResponse resp = clinicaLoader.novoRegResponse( ufs );		
 		return resp;
 	}
-	
+		
 	public void deleta( Long id ) throws ServiceException {
 		boolean existe = clinicaRepository.existsById( id );
 		if ( !existe )
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
 		
 		clinicaRepository.deleteById( id ); 
+	}
+	
+	private List<ClinicaResponse> clinicasToResponse( List<Clinica> clinicas ) throws ServiceException {
+		List<ClinicaResponse> lista = new ArrayList<>();
+		for( Clinica c : clinicas ) {
+			Endereco e = c.getEndereco();
+			
+			MunicipioResponse municipio;
+			UFResponse uf;
+			
+			try {
+				municipio = localidadesIBGEIntegracao.getMunicipioPorId( e.getCodigoMunicipio() );					
+			} catch ( Exception ex ) {
+				throw new ServiceException( Erro.MUNICIPIO_NAO_ENCONTRADO );
+			}
+				
+			try {
+				uf = localidadesIBGEIntegracao.getUfPorId( e.getCodigoUf() );
+			} catch ( Exception ex ) {
+				throw new ServiceException( Erro.UF_NAO_ENCONTRADA );
+			}
+			
+			EnderecoResponse eresp = enderecoLoader.novoResponse( municipio, uf );
+			enderecoLoader.loadResponse( eresp, c.getEndereco() ); 
+			
+			UsuarioResponse uresp = usuarioLoader.novoResponse();
+			usuarioLoader.loadResponse( uresp, c.getCriador() ); 
+			
+			ClinicaResponse resp = clinicaLoader.novoResponse( eresp, uresp );
+			clinicaLoader.loadResponse( resp, c );
+									
+			lista.add( resp );
+		}
+		
+		return lista;
 	}
 	
 }

@@ -9,8 +9,8 @@ import italo.scm.model.UsuarioGrupo;
 import italo.scm.model.request.save.UsuarioGrupoSaveRequest;
 import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
-import italo.scm.model.response.detalhes.UsuarioGrupoDetalhesResponse;
-import italo.scm.model.response.edit.UsuarioGrupoEditResponse;
+import italo.scm.model.response.load.UsuarioGrupoDetalhesLoadResponse;
+import italo.scm.model.response.load.UsuarioGrupoEditLoadResponse;
 
 @Component
 public class UsuarioGrupoLoader {
@@ -24,11 +24,11 @@ public class UsuarioGrupoLoader {
 		resp.setNome( g.getNome() );
 	}
 		
-	public void loadDetalhesResponse( UsuarioGrupoDetalhesResponse resp, UsuarioGrupo g ) throws LoaderException {
+	public void loadDetalhesResponse( UsuarioGrupoDetalhesLoadResponse resp, UsuarioGrupo g ) throws LoaderException {
 
 	}
 	
-	public void loadEditResponse( UsuarioGrupoEditResponse resp ) throws LoaderException {
+	public void loadEditResponse( UsuarioGrupoEditLoadResponse resp ) throws LoaderException {
 
 	}
 					
@@ -40,17 +40,17 @@ public class UsuarioGrupoLoader {
 		return new UsuarioGrupoResponse();
 	}
 			
-	public UsuarioGrupoDetalhesResponse novoDetalhesResponse( 
+	public UsuarioGrupoDetalhesLoadResponse novoDetalhesResponse( 
 			UsuarioGrupoResponse gresp, List<AcessoResponse> acessosResp ) {
-		UsuarioGrupoDetalhesResponse resp = new UsuarioGrupoDetalhesResponse();
+		UsuarioGrupoDetalhesLoadResponse resp = new UsuarioGrupoDetalhesLoadResponse();
 		resp.setGrupo( gresp );
 		resp.setAcessos( acessosResp );
 		return resp;
 	}
 	
-	public UsuarioGrupoEditResponse novoEditResponse( 
+	public UsuarioGrupoEditLoadResponse novoEditResponse( 
 			UsuarioGrupoResponse gresp, List<AcessoResponse> acessosResp ) {
-		UsuarioGrupoEditResponse resp = new UsuarioGrupoEditResponse();
+		UsuarioGrupoEditLoadResponse resp = new UsuarioGrupoEditLoadResponse();
 		resp.setGrupo( gresp );
 		resp.setAcessos( acessosResp );
 		return resp;

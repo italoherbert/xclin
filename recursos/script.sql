@@ -9,7 +9,8 @@ insert into recurso ( nome ) values
 ('usuario'),
 ('usuarioGrupo'),
 ('recurso'),
-('clinica');
+('clinica'),
+('diretor');
 
 insert into usuario_grupo_vinculo ( usuario_id, grupo_id ) values 
 ( (select id from usuario where username='raiz'), (select id from usuario_grupo where nome='RAIZ') ),
@@ -20,6 +21,7 @@ insert into acesso ( grupo_id, recurso_id, leitura, escrita, remocao ) values
 ( (select id from usuario_grupo where nome='RAIZ'), (select id from recurso where nome='usuarioGrupo'), true, true, true ),
 ( (select id from usuario_grupo where nome='RAIZ'), (select id from recurso where nome='recurso'), true, true, true ),
 ( (select id from usuario_grupo where nome='RAIZ'), (select id from recurso where nome='clinica'), true, true, true ),
+( (select id from usuario_grupo where nome='RAIZ'), (select id from recurso where nome='diretor'), true, true, true ),
 
 ( (select id from usuario_grupo where nome='ADMIN'), (select id from recurso where nome='usuario'), true, true, false ),
 ( (select id from usuario_grupo where nome='ADMIN'), (select id from recurso where nome='usuarioGrupo'), true, false, false ),

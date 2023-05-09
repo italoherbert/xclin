@@ -1,17 +1,17 @@
 package italo.scm.model;
 
-import java.util.List;
+import java.util.Date;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,8 +20,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="clinica")
-public class Clinica {
+@Table(name="pessoa")
+public class Pessoa {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -33,15 +33,15 @@ public class Clinica {
 	
 	private String email;
 	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private String cpf;
+	
+	private String rg;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataNascimento;
+	
+	@OneToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
-	
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-	@JoinColumn(name="usuario_id")
-	private Usuario criador;
-		
-	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
-	private List<DiretorClinicaVinculo> diretorClinicaVinculos;
 	
 }

@@ -19,9 +19,9 @@ public class UsuarioGrupoValidator {
 	
 	public void validaFiltro( UsuarioGrupoFiltroRequest request ) throws ValidationException {
 		if ( request.getNomeIni() == null )
-			throw new ValidationException( Erro.USUARIO_GRUPO_NOME_INI_OBRIGATORIO );
+			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
 		if ( request.getNomeIni().isBlank() )
-			throw new ValidationException( Erro.USUARIO_GRUPO_NOME_INI_OBRIGATORIO );
+			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
 		
 	}
 	

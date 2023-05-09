@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
-import { UsuarioGrupo } from 'src/app/bean/usuario-grupo/usuario-grupo';
-import { UsuarioGrupoSave } from 'src/app/bean/usuario-grupo/usuario-grupo-save';
-import { UsuarioGrupoVinculosSave } from 'src/app/bean/usuario/usuario-grupo-vinculos-save';
+import { UsuarioGrupoVinculosSave } from 'src/app/bean/usuario/usuario-grupo-vinculos';
 import { SistemaService } from 'src/app/service/sistema.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
 
 @Component({
-  selector: 'app-usuario-grupo-vinculos-save',
-  templateUrl: './usuario-grupo-vinculos-save.component.html',
-  styleUrls: ['./usuario-grupo-vinculos-save.component.css']
+  selector: 'app-usuario-grupo-vinculos',
+  templateUrl: './usuario-grupo-vinculos.component.html',
+  styleUrls: ['./usuario-grupo-vinculos.component.css']
 })
-export class UsuarioGrupoVinculosSaveComponent {
+export class UsuarioGrupoVinculosComponent {
 
   infoMsg : any = null;
   erroMsg : any = null;

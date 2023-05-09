@@ -39,13 +39,14 @@ import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-aces
 import { RecursoRemoveDialog, RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
 import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
 import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
-import { UsuarioGrupoVinculosSaveComponent } from './usuario/usuario-grupo-vinculos-save/usuario-grupo-vinculos-save.component';
+import { UsuarioGrupoVinculosComponent } from './usuario/usuario-grupo-vinculos/usuario-grupo-vinculos.component';
 import { ClinicaRemoveDialog, ClinicaTelaComponent } from './clinica/clinica-tela/clinica-tela.component';
 import { ClinicaSaveComponent } from './clinica/clinica-save/clinica-save.component';
 import { ClinicaDetalhesComponent } from './clinica/clinica-detalhes/clinica-detalhes.component';
 import { DiretorRemoveDialog, DiretorTelaComponent } from './diretor/diretor-tela/diretor-tela.component';
 import { DiretorDetalhesComponent } from './diretor/diretor-detalhes/diretor-detalhes.component';
 import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.component';
+import { DiretorClinicaVinculosComponent } from './diretor/diretor-clinica-vinculos/diretor-clinica-vinculos.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,7 @@ import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.compon
     UsuarioGrupoRemoveDialog,
     UsuarioRemoveDialog,
     RecursoRemoveDialog,
-    UsuarioGrupoVinculosSaveComponent,
+    UsuarioGrupoVinculosComponent,
     ClinicaTelaComponent,
     ClinicaSaveComponent,
     ClinicaDetalhesComponent,
@@ -79,7 +80,8 @@ import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.compon
     DiretorTelaComponent,
     DiretorDetalhesComponent,
     DiretorSaveComponent,
-    DiretorRemoveDialog
+    DiretorRemoveDialog,
+    DiretorClinicaVinculosComponent
   ],
   imports: [
     BrowserModule,

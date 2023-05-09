@@ -27,7 +27,7 @@ export class DiretorTelaComponent {
   diretorFiltro : DiretorFiltro = {
     nomeIni : '',
     clinicaNomeIni: '',
-    incluirClinica: true
+    incluirClinica: false
   }
 
   diretores : any;

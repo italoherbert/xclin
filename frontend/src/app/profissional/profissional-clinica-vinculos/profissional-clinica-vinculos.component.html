@@ -1,1 +1,83 @@
-<p>profissional-clinica-vinculos works!</p>
+<h1>Vínculos diretor/clínica</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Vincular</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Nome do profissional:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{profissional.nome}}
+                    </div>
+                </div>                
+            </div>
+
+            <div class="py-3">
+                <div class="fs-6 text-secondary">
+                    Suas clínicas
+                </div>
+                <mat-chip-listbox multiple="true">
+                    <mat-chip-option *ngFor="let id of clinicasIDs; index as i" 
+                            (removed)="chipsClinicaRemovida( $event, i )"> 
+                        {{ clinicasNomes[ i ] }}
+                        <button matChipRemove>
+                            <mat-icon>cancel</mat-icon>
+                        </button> 
+                    </mat-chip-option>
+                </mat-chip-listbox>         
+            </div>
+
+            <button mat-raised-button color="primary" (click)="salva()">
+                <fa-icon [icon]="icons.faSave"></fa-icon>
+                <span class="mx-3">Salvar</span>
+            </button>
+
+            <br />
+            <br />
+            
+            <div class="py-3">
+                <div class="fs-6 text-secondary">
+                    Adicione outras clínicas
+                </div>
+                <mat-chip-listbox>
+                    <mat-chip-option color="primary" *ngFor="let id of filtroClinicasIDs; index as i" 
+                            selectable="false"
+                            (removed)="chipsClinicaAdicionada( $event, i )"> 
+                        {{ filtroClinicasNomes[ i ] }}
+                        <button matChipRemove>
+                            <mat-icon>add</mat-icon>
+                        </button> 
+                    </mat-chip-option>
+                </mat-chip-listbox>         
+            </div>
+            
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-label>Nome da clínica</mat-label>
+                <input matInput type="text" placeholder="Nome da clínica" [(ngModel)]="filtroClinicaNomeIni" />                    
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" (click)="filtraClinicas()">
+                <fa-icon [icon]="icons.faFilter"></fa-icon>                    
+                <span class="mx-3">Filtrar</span>
+            </button>            
+        </mat-card-content>
+    </mat-card>
+</div>

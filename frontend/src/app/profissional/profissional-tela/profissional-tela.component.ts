@@ -47,7 +47,7 @@ export class ProfissionalTelaComponent {
       next: ( resp ) => {
         this.profissionais = resp;
         if ( this.profissionais.length == 0 )
-          this.infoMsg = "Nenhum usuário encontrado.";
+          this.infoMsg = "Nenhum profissional encontrado.";
         this.showSpinner = false;
       },
       error: ( erro ) => {

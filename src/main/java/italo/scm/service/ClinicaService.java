@@ -87,8 +87,8 @@ public class ClinicaService {
 				throw new ServiceException( Erro.CLINICA_JA_EXISTE );
 		}
 		
-		enderecoLoader.loadBean( c.getEndereco(), request.getEndereco() ); 
-				
+		enderecoLoader.loadBean( c.getEndereco(), request.getEndereco() ); 		
+		
 		clinicaRepository.save( c );		
 	}
 	

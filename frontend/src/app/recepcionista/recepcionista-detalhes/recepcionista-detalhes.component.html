@@ -1,0 +1,68 @@
+<h1>Detalhes do recepcionista</h1>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'recepcionista-save/'+recepcionistaDetalhes.id }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Alterar recepcionista</span>
+</a>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Informações</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="row">
+                <div class="col-sm-10 my-3">
+                    <div class="fs-6 text-secondary">
+                        Nome:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{recepcionistaDetalhes.nome}}
+                    </div>
+                </div>
+                <div class="col-sm-8 my-3">
+                    <div class="fs-6 text-secondary">
+                        Clínica:
+                    </div>
+                    <div class="fs-5 text-black">
+                       {{recepcionistaDetalhes.clinicaNome}}                     
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Nome de usuário:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{recepcionistaDetalhes.usuario.username}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Perfil:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{recepcionistaDetalhes.usuario.perfilLabel}}
+                    </div>
+                </div>                
+            </div>
+            
+            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela'} } ]">
+                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                <span class="mx-3">Tela de recepcionistas</span>
+            </a>
+        </mat-card-content>
+    </mat-card>
+</div>

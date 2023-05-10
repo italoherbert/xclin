@@ -101,11 +101,14 @@ public class ProfissionalService {
 				throw new ServiceException( Erro.USUARIO_JA_EXISTE );
 		}
 		
+		usuarioLoader.loadBean( u, request.getUsuario() );
+		
 		if ( completo ) {
 			profissionalLoader.loadBean( p, request ); 
 		} else {
 			profissionalLoader.loadParcialBean( p, request );
 		}
+		
 		profissionalRepository.save( p );
 	}
 		

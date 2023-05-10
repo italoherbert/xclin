@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBox, faChevronDown, faChevronUp, faCircleLeft, faCircleUser, faGear, faHouseChimneyMedical, faUser, faUserGroup, faUserNurse } from '@fortawesome/free-solid-svg-icons';
+import { faBox, faChevronDown, faChevronUp, faCircleLeft, faCircleUser, faGear, faHouseChimneyMedical, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-layout',
@@ -19,7 +19,9 @@ export class AppLayoutComponent {
     faChevronUp : faChevronUp,
     faChevronDown : faChevronDown,
     faCircleLeft : faCircleLeft,
-    faUserNurse : faUserNurse    
+    faUserNurse : faUserNurse,
+    faUserDoctor : faUserDoctor,
+    faUserTie : faUserTie   
   }
 
   usuarioMenuShow : boolean = false;

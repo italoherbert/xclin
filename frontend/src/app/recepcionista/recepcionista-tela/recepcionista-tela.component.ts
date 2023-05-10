@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { DiretorFiltro } from 'src/app/bean/diretor/diretor-filtro';
-import { DiretorService } from 'src/app/service/diretor.service';
+import { RecepcionistaFiltro } from 'src/app/bean/recepcionista/recepcionista-filtro';
+import { RecepcionistaService } from 'src/app/service/recepcionista.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
-  selector: 'app-diretor-tela',
-  templateUrl: './diretor-tela.component.html',
-  styleUrls: ['./diretor-tela.component.css']
+  selector: 'app-recepcionista-tela',
+  templateUrl: './recepcionista-tela.component.html',
+  styleUrls: ['./recepcionista-tela.component.css']
 })
-export class DiretorTelaComponent {
+export class RecepcionistaTelaComponent {
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -24,17 +24,17 @@ export class DiretorTelaComponent {
     faPlusCircle : faPlusCircle
   }
 
-  diretorFiltro : DiretorFiltro = {
+  recepcionistaFiltro : RecepcionistaFiltro = {
     nomeIni : '',
     clinicaNomeIni: '',
     incluirClinica: false
   }
 
-  diretores : any;
+  recepcionistas : any;
 
   constructor( 
     private matDialog: MatDialog,
-    private diretorService: DiretorService, 
+    private recepcionistaService: RecepcionistaService, 
     private sistemaService: SistemaService) {}
 
   filtra() {
@@ -43,11 +43,11 @@ export class DiretorTelaComponent {
 
     this.showSpinner = true;
 
-    this.diretorService.filtraDiretores( this.diretorFiltro ).subscribe({
+    this.recepcionistaService.filtraRecepcionistas( this.recepcionistaFiltro ).subscribe({
       next: ( resp ) => {
-        this.diretores = resp;
-        if ( this.diretores.length == 0 )
-          this.infoMsg = "Nenhum diretor encontrado.";
+        this.recepcionistas = resp;
+        if ( this.recepcionistas.length == 0 )
+          this.infoMsg = "Nenhum recepcionista encontrado.";
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -63,11 +63,11 @@ export class DiretorTelaComponent {
 
     this.showSpinner = true;
 
-    this.diretorService.deletaDiretor( id ).subscribe({
+    this.recepcionistaService.deletaRecepcionista( id ).subscribe({
       next: ( resp ) => {
         this.filtra();
 
-        this.infoMsg = 'Diretor deletado com sucesso!';
+        this.infoMsg = 'Recepcionista deletado com sucesso!';
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -78,7 +78,7 @@ export class DiretorTelaComponent {
   }
 
   mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open(DiretorRemoveDialog );
+    let dialogRef = this.matDialog.open(RecepcionistaRemoveDialog );
     dialogRef.afterClosed().subscribe( (result) => {
       if ( result === true )
         this.remove( id );
@@ -90,9 +90,9 @@ export class DiretorTelaComponent {
 
 
 @Component({
-  selector: 'diretor-remove-dialog',
-  templateUrl: 'diretor-remove-dialog.html',
+  selector: 'recepcionista-remove-dialog',
+  templateUrl: 'recepcionista-remove-dialog.html',
 })
-export class DiretorRemoveDialog {
+export class RecepcionistaRemoveDialog {
 
 }

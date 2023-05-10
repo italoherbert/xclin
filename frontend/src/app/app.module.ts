@@ -52,6 +52,9 @@ import { ProfissionalRemoveDialog, ProfissionalTelaComponent } from './profissio
 import { ProfissionalDetalhesComponent } from './profissional/profissional-detalhes/profissional-detalhes.component';
 import { ProfissionalSaveComponent } from './profissional/profissional-save/profissional-save.component';
 import { ProfissionalClinicaVinculosComponent } from './profissional/profissional-clinica-vinculos/profissional-clinica-vinculos.component';
+import { RecepcionistaRemoveDialog, RecepcionistaTelaComponent } from './recepcionista/recepcionista-tela/recepcionista-tela.component';
+import { RecepcionistaDetalhesComponent } from './recepcionista/recepcionista-detalhes/recepcionista-detalhes.component';
+import { RecepcionistaSaveComponent } from './recepcionista/recepcionista-save/recepcionista-save.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +94,11 @@ import { ProfissionalClinicaVinculosComponent } from './profissional/profissiona
     ProfissionalDetalhesComponent,
     ProfissionalSaveComponent,
     ProfissionalClinicaVinculosComponent,
-    ProfissionalRemoveDialog
+    ProfissionalRemoveDialog,
+    RecepcionistaTelaComponent,
+    RecepcionistaDetalhesComponent,
+    RecepcionistaSaveComponent,
+    RecepcionistaRemoveDialog
   ],
   imports: [
     BrowserModule,

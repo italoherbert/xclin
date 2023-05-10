@@ -72,8 +72,14 @@
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'profissional-tela' } } ]">
                 <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUserNurse"></fa-icon>
+                    <fa-icon [icon]="icons.faUserDoctor"></fa-icon>
                     <div class="mx-2">Profissional</div>
+                </div>
+            </mat-list-item> 
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela' } } ]">
+                <div class="d-flex flex-row">
+                    <fa-icon [icon]="icons.faUserTie"></fa-icon>
+                    <div class="mx-2">Recepcionista</div>
                 </div>
             </mat-list-item>            
         </mat-nav-list>

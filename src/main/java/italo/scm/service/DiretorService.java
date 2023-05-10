@@ -91,7 +91,9 @@ public class DiretorService {
 				throw new ServiceException( Erro.USUARIO_JA_EXISTE );
 		}
 		
-		diretorLoader.loadBean( d, request );		
+		usuarioLoader.loadBean( u, request.getUsuario() ); 
+		diretorLoader.loadBean( d, request );
+		
 		diretorRepository.save( d );
 	}
 		

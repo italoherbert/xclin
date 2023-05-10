@@ -27,6 +27,7 @@ public interface Erro {
 	public final static String UF_NAO_ENCONTRADA = "Unidade Federetiva não encontrada.";
 	public final static String DIRETOR_NAO_ENCONTRADO = "Diretor não encontrado.";
 	public final static String PROFISSIONAL_NAO_ENCONTRADO = "Profissional não encontrado.";
+	public final static String RECEPCIONISTA_NAO_ENCONTRADO = "Recepcionista não encontrado(a).";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	
@@ -36,6 +37,7 @@ public interface Erro {
 	public final static String CLINICA_JA_EXISTE = "Já existe uma clínica registrada com o nome informado.";
 	public final static String DIRETOR_JA_EXISTE = "Já existe um diretor registrado com o nome informado.";
 	public final static String PROFISSIONAL_JA_EXISTE = "Já existe um profissional registrado com o nome informado.";
+	public final static String RECEPCIONISTA_JA_EXISTE = "Já existe um(a) recepcionista registrado com o nome informado.";
 
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	

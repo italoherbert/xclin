@@ -46,7 +46,12 @@ public class ProfissionalService {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorNome( nome );
 		if ( profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_JA_EXISTE );
-				
+		
+		String username = request.getUsuario().getUsername();
+		boolean existeUsuario = usuarioRepository.existePorUsername( username );
+		if ( existeUsuario )
+			throw new ServiceException( Erro.USUARIO_JA_EXISTE );
+		
 		Optional<Usuario> uop = usuarioRepository.findById( logadoUID );
 		if ( !uop.isPresent() )
 			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
@@ -62,13 +67,22 @@ public class ProfissionalService {
 		
 		profissionalRepository.save( p );					
 	}
-		
-	public void altera( Long uid, ProfissionalSaveRequest request ) throws ServiceException {
+			
+	public void alteraCompleto( Long uid, ProfissionalSaveRequest request ) throws ServiceException {
+		this.altera( uid, true, request);
+	}
+	
+	public void alteraParcial( Long uid, ProfissionalSaveRequest request ) throws ServiceException {
+		this.altera( uid, false, request );
+	}
+	
+	private void altera( Long uid, boolean completo, ProfissionalSaveRequest request ) throws ServiceException {
 		Optional<Profissional> dop = profissionalRepository.findById( uid );
 		if ( !dop.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );		
 		
 		Profissional p = dop.get();
+		Usuario u = p.getUsuario();
 		
 		String nome = request.getNome();
 		if ( !nome.equalsIgnoreCase( p.getNome() ) ) {
@@ -77,7 +91,18 @@ public class ProfissionalService {
 				throw new ServiceException( Erro.PROFISSIONAL_JA_EXISTE );
 		}
 		
-		profissionalLoader.loadBean( p, request );		
+		String username = request.getUsuario().getUsername();
+		if ( !username.equalsIgnoreCase( u.getUsername() ) ) {
+			boolean existe = usuarioRepository.existePorUsername( username );
+			if ( existe )
+				throw new ServiceException( Erro.USUARIO_JA_EXISTE );
+		}
+		
+		if ( completo ) {
+			profissionalLoader.loadBean( p, request ); 
+		} else {
+			profissionalLoader.loadParcialBean( p, request );
+		}
 		profissionalRepository.save( p );
 	}
 		

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -55,12 +56,23 @@ public class ProfissionalController {
 	
 	@PreAuthorize("hasAuthority('profissionalWRITE')")
 	@PutMapping("/altera/{id}")
-	public ResponseEntity<Object> altera( 
+	public ResponseEntity<Object> alteraCompleto( 
 			@PathVariable Long id, 
 			@RequestBody ProfissionalSaveRequest request ) throws SistemaException {
 		
 		profissionalValidator.validaSave( request );
-		profissionalService.altera( id, request );
+		profissionalService.alteraCompleto( id, request );
+		return ResponseEntity.ok().build(); 	
+	}
+	
+	@PreAuthorize("hasAuthority('profissionalWRITE')")
+	@PatchMapping("/altera/parcial/{id}")
+	public ResponseEntity<Object> alteraParcial( 
+			@PathVariable Long id, 
+			@RequestBody ProfissionalSaveRequest request ) throws SistemaException {
+		
+		profissionalValidator.validaSave( request );
+		profissionalService.alteraParcial( id, request );
 		return ResponseEntity.ok().build(); 	
 	}
 	

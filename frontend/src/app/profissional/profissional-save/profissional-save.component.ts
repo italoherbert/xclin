@@ -105,7 +105,7 @@ export class ProfissionalSaveComponent {
         }
       });
     } else {
-      this.profissionalService.alteraProfissional( id, this.profissionalSave ).subscribe({
+      this.profissionalService.alteraParcialProfissional( id, this.profissionalSave ).subscribe({
         next: ( resp ) => {
           this.infoMsg = "Profissional alterado com sucesso.";
           this.showSpinner = false;

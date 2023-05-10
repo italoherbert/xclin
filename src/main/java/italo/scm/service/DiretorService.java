@@ -44,17 +44,22 @@ public class DiretorService {
 		Optional<Diretor> diretorOp = diretorRepository.buscaPorNome( nome );
 		if ( diretorOp.isPresent() )
 			throw new ServiceException( Erro.DIRETOR_JA_EXISTE );
+
+		String username = request.getUsuario().getUsername();
+		boolean existeUsuario = usuarioRepository.existePorUsername( username );
+		if ( existeUsuario )
+			throw new ServiceException( Erro.USUARIO_JA_EXISTE );
 				
 		Optional<Usuario> uop = usuarioRepository.findById( logadoUID );
 		if ( !uop.isPresent() )
 			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
 		
 		Usuario usuarioLogado = uop.get();
-					
+							
 		Usuario u = usuarioLoader.novoBean( usuarioLogado );
 		usuarioLoader.loadBean( u, request.getUsuario() );
 		u.setPerfil( UsuarioPerfil.DIRETOR );
-		
+					
 		Diretor d = diretorLoader.novoBean( u );
 		diretorLoader.loadBean( d, request );
 		
@@ -67,12 +72,20 @@ public class DiretorService {
 			throw new ServiceException( Erro.DIRETOR_NAO_ENCONTRADO );		
 		
 		Diretor d = dop.get();
+		Usuario u = d.getUsuario();
 		
 		String nome = request.getNome();
 		if ( !nome.equalsIgnoreCase( d.getNome() ) ) {
 			boolean existe = diretorRepository.existePorNome( nome );
 			if ( existe )
 				throw new ServiceException( Erro.DIRETOR_JA_EXISTE );
+		}
+		
+		String username = request.getUsuario().getUsername();
+		if ( !username.equalsIgnoreCase( u.getUsername() ) ) {
+			boolean existe = usuarioRepository.existePorUsername( username );
+			if ( existe )
+				throw new ServiceException( Erro.USUARIO_JA_EXISTE );
 		}
 		
 		diretorLoader.loadBean( d, request );		

@@ -13,9 +13,12 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("select u from Usuario u where u.username=?1 and u.senha=?2")
 	public Optional<Usuario> buscaPorLogin( String username, String senha );
 	
-	@Query("select count(*)=1 from Usuario u where lower(u.username)=?1")
-	public boolean existePorUsername( String username ); 
+	@Query("select u from Usuario u where lower(u.username)=lower(?1)")
+	public Optional<Usuario> buscaPorUsername( String username ); 
 	
+	@Query("select count(*)=1 from Usuario u where lower(u.username)=lower(?1)")
+	public boolean existePorUsername( String username ); 
+		
 	@Query("select u from Usuario u where lower(u.username) like lower(?1)")
 	public List<Usuario> buscaPorUsernameIni( String usernameIni );
 	

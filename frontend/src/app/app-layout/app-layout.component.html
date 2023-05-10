@@ -69,6 +69,12 @@
                     <fa-icon [icon]="icons.faUserNurse"></fa-icon>
                     <div class="mx-2">Diretores</div>
                 </div>
+            </mat-list-item>
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'profissional-tela' } } ]">
+                <div class="d-flex flex-row">
+                    <fa-icon [icon]="icons.faUserNurse"></fa-icon>
+                    <div class="mx-2">Profissional</div>
+                </div>
             </mat-list-item>            
         </mat-nav-list>
     </mat-sidenav>

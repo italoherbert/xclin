@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faSave } from '@fortawesome/free-solid-svg-icons';
-import { DiretorSave } from 'src/app/bean/diretor/diretor-save';
-import { DiretorService } from 'src/app/service/diretor.service';
+import { ProfissionalSave } from 'src/app/bean/profissional/profissional-save';
+import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
-  selector: 'app-diretor-save',
-  templateUrl: './diretor-save.component.html',
-  styleUrls: ['./diretor-save.component.css']
+  selector: 'app-profissional-save',
+  templateUrl: './profissional-save.component.html',
+  styleUrls: ['./profissional-save.component.css']
 })
-export class DiretorSaveComponent {
-  
+export class ProfissionalSaveComponent {
+
   infoMsg : any = null;
   erroMsg : any = null;
 
@@ -22,8 +22,12 @@ export class DiretorSaveComponent {
     faCircleLeft : faCircleLeft
   }
 
-  diretorSave : DiretorSave = {
+  profissionalSave : ProfissionalSave = {
     nome: '',
+    funcao: '',
+    tempoConsulta: 0,
+    tempoConsultaRetorno: 0,
+    valorConsulta: 0,
     usuario: {
       username: '',
       senha: '',
@@ -34,38 +38,53 @@ export class DiretorSaveComponent {
 
   senhaRepetida : any = '';
 
+  funcoes : any[] = [];
+
   constructor(
     private actRoute : ActivatedRoute, 
-    private diretorService: DiretorService, 
+    private profissionalService: ProfissionalService, 
     private sistemaService: SistemaService) {}
 
   ngOnInit() {    
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    if ( id != '-1' ) {
-      this.infoMsg = null;
-      this.erroMsg = null;
-
-      this.showSpinner = true;
-      
-      this.diretorService.getDiretor( id ).subscribe( {
-        next: ( resp ) => {
-          this.diretorSave = resp;
+    if ( id == '-1' ) {        
+      this.profissionalService.getProfissionalReg().subscribe( {
+        next: (resp) => {
+          this.funcoes = resp.funcoes;
           this.showSpinner = false;
         },
-        error: ( erro ) => {
+        error: (erro) => {
           this.erroMsg = this.sistemaService.mensagemErro( erro );
           this.showSpinner = false;
         }
       } );
-    }
+    } else {
+      this.profissionalService.getProfissionalEdit( id ).subscribe( {
+        next: (resp) => {
+          this.profissionalSave = resp.profissional;
+          this.funcoes = resp.funcoes;
+
+          this.showSpinner = false;
+        },
+        error: (erro) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      } );
+    }    
   }
 
   salva() {
     this.infoMsg = null;
     this.erroMsg = null;
 
-    if ( this.diretorSave.usuario.senha !== this.senhaRepetida ) {
+    if ( this.profissionalSave.usuario.senha !== this.senhaRepetida ) {
       this.erroMsg = "As senhas informadas não correspondem.";
       return;
     }
@@ -75,9 +94,9 @@ export class DiretorSaveComponent {
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
     
     if ( id === '-1' ) { 
-      this.diretorService.registraDiretor( this.diretorSave ).subscribe({
+      this.profissionalService.registraProfissional( this.profissionalSave ).subscribe({
         next: ( resp ) => {
-          this.infoMsg = "Diretor registrado com sucesso.";
+          this.infoMsg = "Profissional registrado com sucesso.";
           this.showSpinner = false;
         },
         error: ( erro ) => {
@@ -86,9 +105,9 @@ export class DiretorSaveComponent {
         }
       });
     } else {
-      this.diretorService.alteraDiretor( id, this.diretorSave ).subscribe({
+      this.profissionalService.alteraProfissional( id, this.profissionalSave ).subscribe({
         next: ( resp ) => {
-          this.infoMsg = "Diretor alterado com sucesso.";
+          this.infoMsg = "Profissional alterado com sucesso.";
           this.showSpinner = false;
         },
         error: ( erro ) => {
@@ -100,4 +119,3 @@ export class DiretorSaveComponent {
   }
 
 }
-

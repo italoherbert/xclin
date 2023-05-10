@@ -25,8 +25,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { AppComponent } from './app.component';
-import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
-import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
+import { LoginLayoutComponent } from './login-layout/login-layout.component';
+import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 
@@ -48,6 +48,10 @@ import { DiretorRemoveDialog, DiretorTelaComponent } from './diretor/diretor-tel
 import { DiretorDetalhesComponent } from './diretor/diretor-detalhes/diretor-detalhes.component';
 import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.component';
 import { DiretorClinicaVinculosComponent } from './diretor/diretor-clinica-vinculos/diretor-clinica-vinculos.component';
+import { ProfissionalRemoveDialog, ProfissionalTelaComponent } from './profissional/profissional-tela/profissional-tela.component';
+import { ProfissionalDetalhesComponent } from './profissional/profissional-detalhes/profissional-detalhes.component';
+import { ProfissionalSaveComponent } from './profissional/profissional-save/profissional-save.component';
+import { ProfissionalClinicaVinculosComponent } from './profissional/profissional-clinica-vinculos/profissional-clinica-vinculos.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +86,12 @@ import { DiretorClinicaVinculosComponent } from './diretor/diretor-clinica-vincu
     DiretorDetalhesComponent,
     DiretorSaveComponent,
     DiretorRemoveDialog,
-    DiretorClinicaVinculosComponent
+    DiretorClinicaVinculosComponent,
+    ProfissionalTelaComponent,
+    ProfissionalDetalhesComponent,
+    ProfissionalSaveComponent,
+    ProfissionalClinicaVinculosComponent,
+    ProfissionalRemoveDialog
   ],
   imports: [
     BrowserModule,

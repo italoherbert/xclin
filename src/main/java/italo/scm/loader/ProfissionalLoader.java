@@ -33,6 +33,8 @@ public class ProfissionalLoader {
 		resp.setTempoConsulta( p.getTempoConsulta() );
 		resp.setTempoConsultaRetorno( p.getTempoConsultaRetorno() );
 		resp.setValorConsulta( p.getValorConsulta() );
+		resp.setFuncao( p.getFuncao() ); 
+		resp.setFuncaoLabel( p.getFuncao().label() ); 
 	}
 	
 	public void loadRegResponse( ProfissionalRegLoadResponse resp ) throws LoaderException {

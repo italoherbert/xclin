@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
-import { LoginLayoutComponent } from './layout/login-layout/login-layout.component';
+import { LoginLayoutComponent } from './login-layout/login-layout.component';
 import { HomeComponent } from './home/home.component';
 import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
 import { UsuarioDetalhesComponent } from './usuario/usuario-detalhes/usuario-detalhes.component';
 import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.component';
-import { AppLayoutComponent } from './layout/app-layout/app-layout.component';
+import { AppLayoutComponent } from './app-layout/app-layout.component';
 import { UsuarioGrupoTelaComponent } from './usuario-grupo/usuario-grupo-tela/usuario-grupo-tela.component';
 import { UsuarioGrupoDetalhesComponent } from './usuario-grupo/usuario-grupo-detalhes/usuario-grupo-detalhes.component';
 import { UsuarioGrupoSaveComponent } from './usuario-grupo/usuario-grupo-save/usuario-grupo-save.component';
@@ -22,6 +22,10 @@ import { DiretorTelaComponent } from './diretor/diretor-tela/diretor-tela.compon
 import { DiretorDetalhesComponent } from './diretor/diretor-detalhes/diretor-detalhes.component';
 import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.component';
 import { DiretorClinicaVinculosComponent } from './diretor/diretor-clinica-vinculos/diretor-clinica-vinculos.component';
+import { ProfissionalTelaComponent } from './profissional/profissional-tela/profissional-tela.component';
+import { ProfissionalDetalhesComponent } from './profissional/profissional-detalhes/profissional-detalhes.component';
+import { ProfissionalSaveComponent } from './profissional/profissional-save/profissional-save.component';
+import { ProfissionalClinicaVinculosComponent } from './profissional/profissional-clinica-vinculos/profissional-clinica-vinculos.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -52,6 +56,11 @@ const routes: Routes = [
     { path: 'diretor-detalhes/:id', component: DiretorDetalhesComponent, outlet: 'page' },
     { path: 'diretor-save/:id', component: DiretorSaveComponent, outlet: 'page' },
     { path: 'diretor-clinica-vinculos/:id', component: DiretorClinicaVinculosComponent, outlet: 'page' },
+
+    { path: 'profissional-tela', component: ProfissionalTelaComponent, outlet: 'page' },
+    { path: 'profissional-detalhes/:id', component: ProfissionalDetalhesComponent, outlet: 'page' },
+    { path: 'profissional-save/:id', component: ProfissionalSaveComponent, outlet: 'page' },
+    { path: 'profissional-clinica-vinculos/:id', component: ProfissionalClinicaVinculosComponent, outlet: 'page' },
 
   ] },
 ];

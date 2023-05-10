@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
-import { Diretor } from 'src/app/bean/diretor/diretor';
-import { DiretorService } from 'src/app/service/diretor.service';
+import { Profissional } from 'src/app/bean/profissional/profissional';
+import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
-  selector: 'app-diretor-detalhes',
-  templateUrl: './diretor-detalhes.component.html',
-  styleUrls: ['./diretor-detalhes.component.css']
+  selector: 'app-profissional-detalhes',
+  templateUrl: './profissional-detalhes.component.html',
+  styleUrls: ['./profissional-detalhes.component.css']
 })
-export class DiretorDetalhesComponent {
-  
+export class ProfissionalDetalhesComponent {
+
   infoMsg : any = null;
   erroMsg : any = null;
 
@@ -22,9 +22,14 @@ export class DiretorDetalhesComponent {
     faCircleLeft : faCircleLeft
   }
 
-  diretor : Diretor = {
+  profissional : Profissional = {
     id : 0,
     nome : '',
+    tempoConsulta: 0,
+    tempoConsultaRetorno: 0,
+    valorConsulta: 0,
+    funcao : '',
+    funcaoLabel: '',
     usuario: {
       id: 0,
       username: '',
@@ -35,7 +40,7 @@ export class DiretorDetalhesComponent {
 
   constructor( 
     private actRoute : ActivatedRoute, 
-    private diretorService: DiretorService, 
+    private profissionalService: ProfissionalService, 
     private sistemaService: SistemaService) {}
 
   ngOnInit() {
@@ -46,9 +51,9 @@ export class DiretorDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.diretorService.getDiretor( id ).subscribe({
+    this.profissionalService.getProfissional( id ).subscribe({
       next: ( resp ) => {
-        this.diretor = resp;
+        this.profissional = resp;
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -57,6 +62,5 @@ export class DiretorDetalhesComponent {
       }
     });
   }
-  
-}
 
+}

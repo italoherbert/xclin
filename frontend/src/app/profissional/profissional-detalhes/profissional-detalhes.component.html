@@ -1,0 +1,99 @@
+<h1>Detalhes do profissional</h1>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-save/'+profissional.id }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Alterar profissional</span>
+</a>
+
+<span class="p-2"></span>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-clinica-vinculos/'+profissional.id }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Ver clinicas</span>
+</a>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Informações</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Nome:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{profissional.nome}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Função:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{profissional.funcaoLabel}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Tempo de consulta estimado:
+                    </div>
+                    <div class="fs-5 text-success">
+                        {{profissional.tempoConsulta}} minutos
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Tempo de consulta retorno estimado:
+                    </div>
+                    <div class="fs-5 text-success">
+                        {{profissional.tempoConsultaRetorno}} minutos
+                    </div>
+                </div>
+                <div class="col-sm-8 my-3">
+                    <div class="fs-6 text-secondary">
+                        Valor da consulta:
+                    </div>
+                    <div class="fs-5 text-danger">
+                        {{profissional.valorConsulta | currency : 'BRL' }}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Nome de usuário:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{profissional.usuario.username}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Perfil:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{profissional.usuario.perfilLabel}}
+                    </div>
+                </div>
+            </div>
+            
+            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'profissional-tela'} } ]">
+                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                <span class="mx-3">Tela de profissionais</span>
+            </a>
+        </mat-card-content>
+    </mat-card>
+</div>

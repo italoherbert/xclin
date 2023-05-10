@@ -76,7 +76,6 @@ export class ProfissionalService {
 
   getProfissionalReg(): Observable<any> {
     let headers = new HttpHeaders({
-      'Content-Type' : 'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
@@ -85,10 +84,16 @@ export class ProfissionalService {
 
   getProfissionalEdit( id : any ): Observable<any> {
     let headers = new HttpHeaders({
-      'Content-Type' : 'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
     return this.http.get( '/api/profissional/get/edit/'+id, { headers: headers, withCredentials: true } );
+  }
+
+  getProfissionalDetalhes( id : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/profissional/get/detalhes/'+id, { headers: headers, withCredentials: true } );
   }
 
   deletaProfissional( id : any ): Observable<any> {

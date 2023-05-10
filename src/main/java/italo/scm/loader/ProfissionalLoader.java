@@ -1,5 +1,7 @@
 package italo.scm.loader;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -8,8 +10,11 @@ import italo.scm.exception.LoaderException;
 import italo.scm.model.Profissional;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
+import italo.scm.model.response.DiretorResponse;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
+import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.ProfissionalRegLoadResponse;
 
@@ -69,6 +74,14 @@ public class ProfissionalLoader {
 	public ProfissionalEditLoadResponse novoEditLoadResponse( ProfissionalResponse presp ) {
 		ProfissionalEditLoadResponse resp = new ProfissionalEditLoadResponse();
 		resp.setProfissional( presp );
+		return resp;
+	}
+	
+	public ProfissionalDetalhesLoadResponse novoDetalhesResponse( 
+			ProfissionalResponse profissional, List<String> clinicas ) {
+		ProfissionalDetalhesLoadResponse resp = new ProfissionalDetalhesLoadResponse();
+		resp.setProfissional( profissional );
+		resp.setClinicas( clinicas ); 
 		return resp;
 	}
 

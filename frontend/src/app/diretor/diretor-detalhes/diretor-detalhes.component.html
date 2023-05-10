@@ -1,13 +1,13 @@
 <h1>Detalhes do diretor</h1>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'diretor-save/'+diretor.id }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'diretor-save/'+diretorDetalhes.diretor.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Alterar diretor</span>
 </a>
 
 <span class="p-2"></span>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'diretor-clinica-vinculos/'+diretor.id }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'diretor-clinica-vinculos/'+diretorDetalhes.diretor.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Ver clinicas</span>
 </a>
@@ -37,7 +37,7 @@
                         Nome:
                     </div>
                     <div class="fs-5 text-black">
-                        {{diretor.nome}}
+                        {{diretorDetalhes.diretor.nome}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -45,7 +45,7 @@
                         Nome de usuário:
                     </div>
                     <div class="fs-5 text-black">
-                        {{diretor.usuario.username}}
+                        {{diretorDetalhes.diretor.usuario.username}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -53,7 +53,21 @@
                         Perfil:
                     </div>
                     <div class="fs-5 text-black">
-                        {{diretor.usuario.perfilLabel}}
+                        {{diretorDetalhes.diretor.usuario.perfilLabel}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Clínicas:
+                    </div>
+                    <div class="fs-5 text-black">
+                        <mat-chip-listbox>
+                            <mat-chip-option *ngFor="let clinica of diretorDetalhes.clinicas"
+                                    [selectable]="false"
+                                    [selected]="true">
+                                {{clinica}}
+                            </mat-chip-option>
+                        </mat-chip-listbox>                        
                     </div>
                 </div>
             </div>

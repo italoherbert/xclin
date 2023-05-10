@@ -65,6 +65,14 @@ export class DiretorService {
     return this.http.get( '/api/diretor/get/'+id, { headers: headers, withCredentials: true } )
   }
 
+  getDiretorDetalhes( id : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/diretor/get/detalhes/'+id, { headers: headers, withCredentials: true } )
+  }
+
   deletaDiretor( id : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Diretor } from 'src/app/bean/diretor/diretor';
+import { DiretorDetalhes } from 'src/app/bean/diretor/diretor-detalhes';
 import { DiretorService } from 'src/app/service/diretor.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
@@ -22,15 +23,18 @@ export class DiretorDetalhesComponent {
     faCircleLeft : faCircleLeft
   }
 
-  diretor : Diretor = {
-    id : 0,
-    nome : '',
-    usuario: {
+  diretorDetalhes : DiretorDetalhes = {
+    diretor: {
       id: 0,
-      username: '',
-      perfil: '',
-      perfilLabel: ''
-    }
+      nome : '',
+      usuario: {
+        id: 0,
+        username: '',
+        perfil: '',
+        perfilLabel: ''
+      }
+    },
+    clinicas: []
   }
 
   constructor( 
@@ -46,9 +50,9 @@ export class DiretorDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.diretorService.getDiretor( id ).subscribe({
+    this.diretorService.getDiretorDetalhes( id ).subscribe({
       next: ( resp ) => {
-        this.diretor = resp;
+        this.diretorDetalhes = resp;
         this.showSpinner = false;
       },
       error: ( erro ) => {

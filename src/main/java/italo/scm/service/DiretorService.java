@@ -12,12 +12,15 @@ import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.loader.DiretorLoader;
 import italo.scm.loader.UsuarioLoader;
+import italo.scm.model.Clinica;
 import italo.scm.model.Diretor;
+import italo.scm.model.DiretorClinicaVinculo;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.filtro.DiretorFiltroRequest;
 import italo.scm.model.request.save.DiretorSaveRequest;
 import italo.scm.model.response.DiretorResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
 import italo.scm.repository.DiretorRepository;
 import italo.scm.repository.UsuarioRepository;
 import jakarta.transaction.Transactional;
@@ -138,7 +141,32 @@ public class DiretorService {
 		
 		return resp;
 	}
+	
+	public DiretorDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
+		Optional<Diretor> diretorOp = diretorRepository.findById( id );
+		if ( !diretorOp.isPresent() )
+			throw new ServiceException( Erro.DIRETOR_NAO_ENCONTRADO );
 		
+		Diretor d = diretorOp.get();
+		
+		UsuarioResponse uresp = usuarioLoader.novoResponse();
+		usuarioLoader.loadResponse( uresp, d.getUsuario() ); 
+		
+		DiretorResponse diretorResp = diretorLoader.novoResponse( uresp );
+		diretorLoader.loadResponse( diretorResp, d );
+		
+		List<String> clinicas = new ArrayList<>();
+		
+		List<DiretorClinicaVinculo> vinculos = d.getDiretorClinicaVinculos();
+		for( DiretorClinicaVinculo vinculo : vinculos ) {
+			Clinica clinica = vinculo.getClinica();
+			clinicas.add( clinica.getNome() );
+		}
+		
+		DiretorDetalhesLoadResponse resp = diretorLoader.novoDetalhesResponse( diretorResp, clinicas );		
+		return resp;
+	}
+	
 	public void deleta( Long id ) throws ServiceException {
 		boolean existe = diretorRepository.existsById( id );
 		if ( !existe )

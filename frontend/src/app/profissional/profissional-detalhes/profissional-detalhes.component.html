@@ -1,13 +1,13 @@
 <h1>Detalhes do profissional</h1>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-save/'+profissional.id }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-save/'+profissionalDetalhes.profissional.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Alterar profissional</span>
 </a>
 
 <span class="p-2"></span>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-clinica-vinculos/'+profissional.id }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-clinica-vinculos/'+profissionalDetalhes.profissional.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Ver clinicas</span>
 </a>
@@ -37,7 +37,7 @@
                         Nome:
                     </div>
                     <div class="fs-5 text-black">
-                        {{profissional.nome}}
+                        {{profissionalDetalhes.profissional.nome}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -45,7 +45,7 @@
                         Função:
                     </div>
                     <div class="fs-5 text-black">
-                        {{profissional.funcaoLabel}}
+                        {{profissionalDetalhes.profissional.funcaoLabel}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -53,7 +53,7 @@
                         Tempo de consulta estimado:
                     </div>
                     <div class="fs-5 text-success">
-                        {{profissional.tempoConsulta}} minutos
+                        {{profissionalDetalhes.profissional.tempoConsulta}} minutos
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -61,7 +61,7 @@
                         Tempo de consulta retorno estimado:
                     </div>
                     <div class="fs-5 text-success">
-                        {{profissional.tempoConsultaRetorno}} minutos
+                        {{profissionalDetalhes.profissional.tempoConsultaRetorno}} minutos
                     </div>
                 </div>
                 <div class="col-sm-8 my-3">
@@ -69,7 +69,7 @@
                         Valor da consulta:
                     </div>
                     <div class="fs-5 text-danger">
-                        {{profissional.valorConsulta | currency : 'BRL' }}
+                        {{profissionalDetalhes.profissional.valorConsulta | currency : 'BRL' }}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -77,7 +77,7 @@
                         Nome de usuário:
                     </div>
                     <div class="fs-5 text-black">
-                        {{profissional.usuario.username}}
+                        {{profissionalDetalhes.profissional.usuario.username}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -85,7 +85,21 @@
                         Perfil:
                     </div>
                     <div class="fs-5 text-black">
-                        {{profissional.usuario.perfilLabel}}
+                        {{profissionalDetalhes.profissional.usuario.perfilLabel}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Clinicas:
+                    </div>
+                    <div class="fs-5 text-black">
+                        <mat-chip-listbox>
+                            <mat-chip-option *ngFor="let clinica of profissionalDetalhes.clinicas"
+                                    [selectable]="false"
+                                    [selected]="true">
+                                {{clinica}}
+                            </mat-chip-option>
+                        </mat-chip-listbox>                        
                     </div>
                 </div>
             </div>

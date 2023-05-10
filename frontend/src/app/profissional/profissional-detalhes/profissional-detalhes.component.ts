@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Profissional } from 'src/app/bean/profissional/profissional';
+import { ProfissionalDetalhes } from 'src/app/bean/profissional/profissional-detalhes';
 import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
@@ -22,20 +23,23 @@ export class ProfissionalDetalhesComponent {
     faCircleLeft : faCircleLeft
   }
 
-  profissional : Profissional = {
-    id : 0,
-    nome : '',
-    tempoConsulta: 0,
-    tempoConsultaRetorno: 0,
-    valorConsulta: 0,
-    funcao : '',
-    funcaoLabel: '',
-    usuario: {
-      id: 0,
-      username: '',
-      perfil: '',
-      perfilLabel: ''
-    }
+  profissionalDetalhes : ProfissionalDetalhes = {
+    profissional : {
+      id : 0,
+      nome : '',
+      tempoConsulta: 0,
+      tempoConsultaRetorno: 0,
+      valorConsulta: 0,
+      funcao : '',
+      funcaoLabel: '',
+      usuario: {
+        id: 0,
+        username: '',
+        perfil: '',
+        perfilLabel: ''
+      }
+    },
+    clinicas: []
   }
 
   constructor( 
@@ -51,9 +55,9 @@ export class ProfissionalDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.profissionalService.getProfissional( id ).subscribe({
+    this.profissionalService.getProfissionalDetalhes( id ).subscribe({
       next: ( resp ) => {
-        this.profissional = resp;
+        this.profissionalDetalhes = resp;
         this.showSpinner = false;
       },
       error: ( erro ) => {

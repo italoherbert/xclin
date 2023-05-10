@@ -21,6 +21,7 @@ import italo.scm.logica.jwt.JWTTokenLogica;
 import italo.scm.model.request.filtro.DiretorFiltroRequest;
 import italo.scm.model.request.save.DiretorSaveRequest;
 import italo.scm.model.response.DiretorResponse;
+import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
 import italo.scm.service.DiretorService;
 import italo.scm.validator.DiretorValidator;
 
@@ -76,6 +77,13 @@ public class DiretorController {
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> get( @PathVariable Long id ) throws SistemaException {
 		DiretorResponse resp = diretorService.get( id );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('diretorREAD')")
+	@GetMapping("/get/detalhes/{id}")
+	public ResponseEntity<Object> getDetalhes( @PathVariable Long id ) throws SistemaException {
+		DiretorDetalhesLoadResponse resp = diretorService.getDetalhesLoad( id );
 		return ResponseEntity.ok( resp );
 	}
 		

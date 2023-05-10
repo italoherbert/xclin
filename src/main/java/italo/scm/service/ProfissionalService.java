@@ -12,12 +12,15 @@ import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.loader.ProfissionalLoader;
 import italo.scm.loader.UsuarioLoader;
+import italo.scm.model.Clinica;
 import italo.scm.model.Profissional;
+import italo.scm.model.ProfissionalClinicaVinculo;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.ProfissionalRegLoadResponse;
 import italo.scm.repository.ProfissionalRepository;
@@ -149,6 +152,33 @@ public class ProfissionalService {
 		
 		ProfissionalResponse resp = profissionalLoader.novoResponse( uresp );
 		profissionalLoader.loadResponse( resp, p );
+		
+		return resp;
+	}
+	
+	public ProfissionalDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.findById( id );
+		if ( !profissionalOp.isPresent() )
+			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+		
+		Profissional p = profissionalOp.get();
+		
+		UsuarioResponse uresp = usuarioLoader.novoResponse();
+		usuarioLoader.loadResponse( uresp, p.getUsuario() ); 
+		
+		ProfissionalResponse profissionalResp = profissionalLoader.novoResponse( uresp );
+		profissionalLoader.loadResponse( profissionalResp, p );
+		
+		List<String> clinicas = new ArrayList<>();
+		
+		List<ProfissionalClinicaVinculo> vinculos = p.getProfissionalClinicaVinculos();
+		for( ProfissionalClinicaVinculo vinculo : vinculos ) {
+			Clinica clinica = vinculo.getClinica();
+			clinicas.add( clinica.getNome() );
+		}
+		
+		ProfissionalDetalhesLoadResponse resp = 
+				profissionalLoader.novoDetalhesResponse( profissionalResp , clinicas );
 		
 		return resp;
 	}

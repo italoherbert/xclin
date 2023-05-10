@@ -22,6 +22,7 @@ import italo.scm.logica.jwt.JWTTokenLogica;
 import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
+import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.ProfissionalRegLoadResponse;
 import italo.scm.service.ProfissionalService;
@@ -104,6 +105,13 @@ public class ProfissionalController {
 	@GetMapping("/get/edit/{id}")
 	public ResponseEntity<Object> getEditLoad( @PathVariable Long id ) throws SistemaException {
 		ProfissionalEditLoadResponse resp = profissionalService.getEditLoad( id );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('profissionalREAD')")
+	@GetMapping("/get/detalhes/{id}")
+	public ResponseEntity<Object> getDetalhesLoad( @PathVariable Long id ) throws SistemaException {
+		ProfissionalDetalhesLoadResponse resp = profissionalService.getDetalhesLoad( id );
 		return ResponseEntity.ok( resp );
 	}
 		

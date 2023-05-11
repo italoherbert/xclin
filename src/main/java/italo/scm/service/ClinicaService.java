@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
-import italo.scm.integracao.LocalidadesIBGEIntegracao;
 import italo.scm.loader.ClinicaLoader;
 import italo.scm.loader.EnderecoLoader;
 import italo.scm.loader.UsuarioLoader;
@@ -28,6 +27,7 @@ import italo.scm.model.response.load.ClinicaEditLoadResponse;
 import italo.scm.model.response.load.ClinicaRegLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.UsuarioRepository;
+import italo.scm.service.shared.LocalidadesSharedService;
 
 @Service
 public class ClinicaService {
@@ -48,7 +48,7 @@ public class ClinicaService {
 	private UsuarioLoader usuarioLoader;
 	
 	@Autowired
-	private LocalidadesIBGEIntegracao localidadesIBGEIntegracao;	
+	private LocalidadesSharedService localidadesSharedService;	
 		
 	public void registra( Long logadoUID, ClinicaSaveRequest request ) throws ServiceException {
 		String nome = request.getNome();
@@ -155,8 +155,8 @@ public class ClinicaService {
 		
 		int codUf = e.getCodigoUf();
 		
-		List<UFResponse> ufs = localidadesIBGEIntegracao.listaUFs();
-		List<MunicipioResponse> municipios = localidadesIBGEIntegracao.listaMunicipios( codUf );
+		List<UFResponse> ufs = localidadesSharedService.listaUFs();
+		List<MunicipioResponse> municipios = localidadesSharedService.listaMunicipios( codUf );
 		
 		ClinicaEditLoadResponse resp = clinicaLoader.novoEditResponse( cresp, ufs, municipios );		
 		return resp;
@@ -182,15 +182,15 @@ public class ClinicaService {
 		int codUf = e.getCodigoUf();
 		int codMunicipio = e.getCodigoMunicipio();
 		
-		UFResponse uf = localidadesIBGEIntegracao.getUfPorId( codUf );
-		MunicipioResponse municipio = localidadesIBGEIntegracao.getMunicipioPorId( codMunicipio );
+		UFResponse uf = localidadesSharedService.getUfPorId( codUf );
+		MunicipioResponse municipio = localidadesSharedService.getMunicipioPorId( codMunicipio ); 
 		
 		ClinicaDetalhesLoadResponse resp = clinicaLoader.novoDetalhesResponse( cresp, uf, municipio );		
 		return resp;
 	}
 	
 	public ClinicaRegLoadResponse getRegLoad() throws ServiceException {		
-		List<UFResponse> ufs = localidadesIBGEIntegracao.listaUFs();
+		List<UFResponse> ufs = localidadesSharedService.listaUFs();
 		
 		ClinicaRegLoadResponse resp = clinicaLoader.novoRegResponse( ufs );		
 		return resp;

@@ -1,6 +1,7 @@
 package italo.scm.loader;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,7 +17,10 @@ import italo.scm.model.Endereco;
 import italo.scm.model.Paciente;
 import italo.scm.model.request.save.PacienteSaveRequest;
 import italo.scm.model.response.EnderecoResponse;
+import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.PacienteResponse;
+import italo.scm.model.response.UFResponse;
+import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
 
@@ -101,13 +105,31 @@ public class PacienteLoader {
 		return resp;
 	}
 	
-	public PacienteRegLoadResponse novoRegLoadResponse() {
-		return new PacienteRegLoadResponse();
+	public PacienteRegLoadResponse novoRegLoadResponse( List<UFResponse> ufs ) {
+		PacienteRegLoadResponse resp = new PacienteRegLoadResponse();
+		resp.setUfs( ufs );
+		return resp;
 	}
 	
-	public PacienteEditLoadResponse novoEditLoadResponse( PacienteResponse presp ) {
+	public PacienteEditLoadResponse novoEditLoadResponse( 
+			PacienteResponse presp,
+			List<UFResponse> ufs, 
+			List<MunicipioResponse> municipios ) {
 		PacienteEditLoadResponse resp = new PacienteEditLoadResponse();
 		resp.setPaciente( presp ); 
+		resp.setUfs( ufs );
+		resp.setMunicipios( municipios );
+		return resp;
+	}
+	
+	public PacienteDetalhesLoadResponse novoDetalhesLoadResponse( 
+			PacienteResponse presp,
+			UFResponse uf, 
+			MunicipioResponse municipio ) {
+		PacienteDetalhesLoadResponse resp = new PacienteDetalhesLoadResponse();
+		resp.setPaciente( presp ); 
+		resp.setUf( uf );
+		resp.setMunicipio( municipio );
 		return resp;
 	}
 	

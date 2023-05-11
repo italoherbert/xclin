@@ -75,7 +75,6 @@ public class JWTTokenLogica {
 	
 	public Long[] claimToClinicasIDs( Object claim ) {
 		String claimLista = String.valueOf( claim );
-		System.out.println( claimLista );
 		String[] lista = claimLista.split( "," );
 		Long[] clinicasIDs = new Long[ lista.length ];
 		for( int i = 0; i < lista.length; i++ )

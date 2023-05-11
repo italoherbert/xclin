@@ -19,6 +19,7 @@ import italo.scm.exception.SistemaException;
 import italo.scm.model.request.filtro.PacienteFiltroRequest;
 import italo.scm.model.request.save.PacienteSaveRequest;
 import italo.scm.model.response.PacienteResponse;
+import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
 import italo.scm.service.AuthorizationService;
@@ -104,6 +105,19 @@ public class PacienteController {
 		authorizationService.autoriza( authorizationHeader, clinicaId );
 		
 		PacienteEditLoadResponse resp = pacienteService.getEditLoad( clinicaId, pacienteId );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('pacienteREAD')")
+	@GetMapping("/get/detalhes/{clinicaId}/{pacienteId}")
+	public ResponseEntity<Object> getDetalhesLoad(
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@PathVariable Long pacienteId ) throws SistemaException {
+
+		authorizationService.autoriza( authorizationHeader, clinicaId );
+		
+		PacienteDetalhesLoadResponse resp = pacienteService.getDetalhesLoad( clinicaId, pacienteId );
 		return ResponseEntity.ok( resp );
 	}
 	

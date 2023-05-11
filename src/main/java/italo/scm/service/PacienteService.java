@@ -17,11 +17,15 @@ import italo.scm.model.Paciente;
 import italo.scm.model.request.filtro.PacienteFiltroRequest;
 import italo.scm.model.request.save.PacienteSaveRequest;
 import italo.scm.model.response.EnderecoResponse;
+import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.PacienteResponse;
+import italo.scm.model.response.UFResponse;
+import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.PacienteRepository;
+import italo.scm.service.shared.LocalidadesSharedService;
 
 @Service
 public class PacienteService {
@@ -37,6 +41,9 @@ public class PacienteService {
 	
 	@Autowired
 	private EnderecoLoader enderecoLoader;
+	
+	@Autowired
+	private LocalidadesSharedService localidadesSharedService;
 		
 	public void registra( Long clinicaId, PacienteSaveRequest request ) throws ServiceException {		
 		String nome = request.getNome();
@@ -145,18 +152,50 @@ public class PacienteService {
 		PacienteResponse presp = pacienteLoader.novoResponse( eresp, c );
 		pacienteLoader.loadResponse( presp, p );
 		
-		PacienteEditLoadResponse resp = pacienteLoader.novoEditLoadResponse( presp );
+		int codigoUf = e.getCodigoUf();
+		List<UFResponse> ufs = localidadesSharedService.listaUFs();
+		List<MunicipioResponse> municipios = localidadesSharedService.listaMunicipios( codigoUf );
+		
+		PacienteEditLoadResponse resp = pacienteLoader.novoEditLoadResponse( presp, ufs, municipios );
 		pacienteLoader.loadEditResponse( resp ); 
 		
 		return resp;
 	}
 	
-	public PacienteRegLoadResponse getRegLoad() throws ServiceException {
-		PacienteRegLoadResponse resp = pacienteLoader.novoRegLoadResponse();
-		pacienteLoader.loadRegResponse( resp );
+	public PacienteDetalhesLoadResponse getDetalhesLoad( Long clinicaId, Long pacienteId ) throws ServiceException {
+		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicaId );
+		if ( !pacienteOp.isPresent() )
+			throw new ServiceException( Erro.CLINICA_PACIENTE_NAO_ENCONTRADO );
+		
+		Paciente p = pacienteOp.get();
+		
+		Clinica c = p.getClinica();
+		Endereco e = p.getEndereco();
+					
+		EnderecoResponse eresp = enderecoLoader.novoResponse();
+		enderecoLoader.loadResponse( eresp, e );			
+		
+		PacienteResponse presp = pacienteLoader.novoResponse( eresp, c );
+		pacienteLoader.loadResponse( presp, p );
+		
+		int codigoUf = e.getCodigoUf();
+		int codigoMunicipio = e.getCodigoMunicipio();
+		
+		UFResponse uf = localidadesSharedService.getUfPorId( codigoUf );
+		MunicipioResponse municipio = localidadesSharedService.getMunicipioPorId( codigoMunicipio );
+		
+		PacienteDetalhesLoadResponse resp = pacienteLoader.novoDetalhesLoadResponse( presp, uf, municipio );		
 		return resp;
 	}
 	
+	public PacienteRegLoadResponse getRegLoad() throws ServiceException {
+		List<UFResponse> ufs = localidadesSharedService.listaUFs();
+
+		PacienteRegLoadResponse resp = pacienteLoader.novoRegLoadResponse( ufs );
+		pacienteLoader.loadRegResponse( resp );
+		return resp;
+	}
+		
 	public void delete( Long clinicaId, Long pacienteId ) throws ServiceException {
 		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicaId );
 		if ( !pacienteOp.isPresent() )

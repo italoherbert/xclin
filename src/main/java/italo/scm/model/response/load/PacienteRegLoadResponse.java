@@ -3,6 +3,7 @@ package italo.scm.model.response.load;
 import java.util.List;
 
 import italo.scm.model.response.TipoResponse;
+import italo.scm.model.response.UFResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,5 +18,7 @@ public class PacienteRegLoadResponse {
 	private List<TipoResponse> nacionalidades;
 	
 	private List<TipoResponse> estadosCivis;
-	
+		
+	private List<UFResponse> ufs;
+		
 }

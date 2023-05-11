@@ -21,7 +21,7 @@ public class ClinicaValidator {
 			throw new ValidationException( Erro.TELEFONE_OBRIGATORIO );
 		
 		if ( request.getEndereco() == null )
-			throw new ValidationException( Erro.ENDERECO_NULL );						
+			throw new ValidationException( Erro.ENDERECO_NULL );			
 	}
 	
 	public void validaFiltro( ClinicaFiltroRequest request ) throws ValidationException {

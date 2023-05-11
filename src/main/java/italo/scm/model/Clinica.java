@@ -47,4 +47,7 @@ public class Clinica {
 	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
 	private List<ProfissionalClinicaVinculo> profissionalClinicaVinculos;
 	
+	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
+	private List<Paciente> pacientes;
+	
 }

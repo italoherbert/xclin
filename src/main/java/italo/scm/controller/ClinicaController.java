@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
-import italo.scm.logica.jwt.JWTTokenInfo;
-import italo.scm.logica.jwt.JWTTokenLogica;
+import italo.scm.logica.JWTTokenInfo;
+import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ClinicaFiltroRequest;
 import italo.scm.model.request.save.ClinicaSaveRequest;
 import italo.scm.model.response.ClinicaResponse;

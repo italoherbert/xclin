@@ -1,4 +1,4 @@
-package italo.scm.logica.jwt;
+package italo.scm.logica;
 
 import java.security.Key;
 import java.util.Base64;
@@ -28,18 +28,18 @@ public class JWTTokenLogica {
 		String token = authorizationHeader.substring( 7 );
 		return this.tokenInfo( token );
 	}
-	
+		
 	public String geraToken( String subject, String[] roles ) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put( "roles", this.rolesToClaim( roles ) );		
 		return this.geraToken( subject, claims );
 	}
 	
-	public String geraToken( String subject, List<String> roles, Long uid, Long cid ) {
+	public String geraToken( String subject, List<String> roles, Long uid, List<Long> clinicasIDs ) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put( "roles", this.rolesToClaim( roles ) );	
 		claims.put( "usuarioId", uid );
-		claims.put( "clinicaId", cid );
+		claims.put( "clinicasIDs", this.clinicasIDsToClaim( clinicasIDs ) );
 		return this.geraToken( subject, claims );
 	}
 	
@@ -49,10 +49,10 @@ public class JWTTokenLogica {
 		String subject = claims.getSubject();
 		
 		Long uid = Long.parseLong( String.valueOf( claims.get( "usuarioId" ) ) );
-		Long cid = Long.parseLong( String.valueOf( claims.get( "clinicaId" ) ) );
 		 
-		String[] roles = this.claimToRoles( claims.get( "roles" ) );
-		return new JWTTokenInfo( subject, roles, uid, cid, expirado );
+		String[] roles = this.claimToRole( claims.get( "roles" ) );
+		Long[] clinicasIDs = this.claimToClinicasIDs( claims.get( "clinicasIDs" ) );
+		return new JWTTokenInfo( subject, roles, uid, clinicasIDs, expirado );
 	}
 	
 	public String geraToken( String subject, Map<String, Object> claims ) {
@@ -78,11 +78,32 @@ public class JWTTokenLogica {
 				.parseClaimsJws( token )
 				.getBody();
 	}
-			
-	public String[] claimToRoles( Object claim ) {
-		String lista = String.valueOf( claim );
-		String[] roles = lista.split( "," );
-		return roles;
+	
+	public Long[] claimToClinicasIDs( Object claim ) {
+		String claimLista = String.valueOf( claim );
+		String[] lista = claimLista.split( "," );
+		Long[] clinicasIDs = new Long[ lista.length ];
+		for( int i = 0; i < lista.length; i++ )
+			clinicasIDs[ i ] = Long.parseLong( lista[ i ] );		
+		return clinicasIDs;
+	}
+	
+	public String clinicasIDsToClaim( List<Long> clinicasIDs ) {
+		int size = clinicasIDs.size();
+		
+		StringBuilder strB = new StringBuilder();
+		for( int i = 0; i < size; i++ ) {
+			strB.append( clinicasIDs.get( i ) );
+			if ( i < size-1 )
+				strB.append( "," );		
+		}	
+		return strB.toString();
+	}
+	
+	public String[] claimToRole( Object claim ) {
+		String claimStr = String.valueOf( claim );
+		String[] lista = claimStr.split( "," );
+		return lista;
 	}
 	
 	public String rolesToClaim( List<String> roles ) {

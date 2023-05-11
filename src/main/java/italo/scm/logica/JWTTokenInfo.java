@@ -1,4 +1,4 @@
-package italo.scm.logica.jwt;
+package italo.scm.logica;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,10 +12,13 @@ import lombok.Setter;
 public class JWTTokenInfo {
 
 	private String subject;
-	private String[] roles;
-	private Long usuarioId;
-	private Long clinicaId;
 	
+	private String[] roles;
+			
+	private Long usuarioId;
+
+	private Long[] clinicasIDs;
+
 	private boolean expirado;
 	
 }

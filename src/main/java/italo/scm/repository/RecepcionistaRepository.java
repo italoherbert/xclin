@@ -19,6 +19,9 @@ public interface RecepcionistaRepository extends JpaRepository<Recepcionista, Lo
 	@Query("select r from Recepcionista r where lower(r.nome) like lower(?1)")
 	public List<Recepcionista> filtra( String nomeIni );
 	
+	@Query("select r from Recepcionista r where r.usuario.id=?1")
+	public Optional<Recepcionista> buscaPorUsuario( Long uid );
+	
 	@Query("select r from Recepcionista r "
 			+ "join Clinica c "
 		 + "where lower_unaccent(c.nome) like lower_unaccent(?1)")

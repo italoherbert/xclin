@@ -122,24 +122,8 @@ public class ClinicaService {
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
 		
 		Clinica c = cop.get();		
-		Endereco e = c.getEndereco();
-			
-		MunicipioResponse municipio;
-		UFResponse uf;
 		
-		try {
-			municipio = localidadesIBGEIntegracao.getMunicipioPorId( e.getCodigoMunicipio() );					
-		} catch ( Exception ex ) {
-			throw new ServiceException( Erro.MUNICIPIO_NAO_ENCONTRADO );
-		}
-			
-		try {
-			uf = localidadesIBGEIntegracao.getUfPorId( e.getCodigoUf() );
-		} catch ( Exception ex ) {
-			throw new ServiceException( Erro.UF_NAO_ENCONTRADA );
-		}
-					
-		EnderecoResponse eresp = enderecoLoader.novoResponse( municipio, uf );
+		EnderecoResponse eresp = enderecoLoader.novoResponse();
 		enderecoLoader.loadResponse( eresp, c.getEndereco() ); 
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();
@@ -158,23 +142,8 @@ public class ClinicaService {
 		
 		Clinica c = cop.get();		
 		Endereco e = c.getEndereco();
-		
-		MunicipioResponse municipio;
-		UFResponse uf;
-		
-		try {
-			municipio = localidadesIBGEIntegracao.getMunicipioPorId( e.getCodigoMunicipio() );					
-		} catch ( Exception ex ) {
-			throw new ServiceException( Erro.MUNICIPIO_NAO_ENCONTRADO );
-		}
-			
-		try {
-			uf = localidadesIBGEIntegracao.getUfPorId( e.getCodigoUf() );
-		} catch ( Exception ex ) {
-			throw new ServiceException( Erro.UF_NAO_ENCONTRADA );
-		}
-					
-		EnderecoResponse eresp = enderecoLoader.novoResponse( municipio, uf );
+				
+		EnderecoResponse eresp = enderecoLoader.novoResponse();
 		enderecoLoader.loadResponse( eresp, c.getEndereco() ); 
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();
@@ -209,25 +178,8 @@ public class ClinicaService {
 	
 	private List<ClinicaResponse> clinicasToResponse( List<Clinica> clinicas ) throws ServiceException {
 		List<ClinicaResponse> lista = new ArrayList<>();
-		for( Clinica c : clinicas ) {
-			Endereco e = c.getEndereco();
-			
-			MunicipioResponse municipio;
-			UFResponse uf;
-			
-			try {
-				municipio = localidadesIBGEIntegracao.getMunicipioPorId( e.getCodigoMunicipio() );					
-			} catch ( Exception ex ) {
-				throw new ServiceException( Erro.MUNICIPIO_NAO_ENCONTRADO );
-			}
-				
-			try {
-				uf = localidadesIBGEIntegracao.getUfPorId( e.getCodigoUf() );
-			} catch ( Exception ex ) {
-				throw new ServiceException( Erro.UF_NAO_ENCONTRADA );
-			}
-			
-			EnderecoResponse eresp = enderecoLoader.novoResponse( municipio, uf );
+		for( Clinica c : clinicas ) {									
+			EnderecoResponse eresp = enderecoLoader.novoResponse();
 			enderecoLoader.loadResponse( eresp, c.getEndereco() ); 
 			
 			UsuarioResponse uresp = usuarioLoader.novoResponse();

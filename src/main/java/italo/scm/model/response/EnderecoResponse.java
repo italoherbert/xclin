@@ -17,8 +17,8 @@ public class EnderecoResponse {
 	
 	private String bairro;
 
-	private MunicipioResponse municipio;
+	private int codigoMunicipio;
 	
-	private UFResponse uf;
+	private int codigoUf;
 		
 }

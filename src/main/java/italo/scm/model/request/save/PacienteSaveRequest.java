@@ -1,4 +1,4 @@
-package italo.scm.model.response;
+package italo.scm.model.request.save;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,9 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class PessoaResponse {
-
-	private Long id;
+public class PacienteSaveRequest {
 	
 	private String nome;
 	
@@ -23,6 +21,16 @@ public class PessoaResponse {
 	
 	private String dataNascimento;
 	
-	private EnderecoResponse endereco;
+	private String sexo;
+	
+	private String estadoCivil;
+	
+	private String nacionalidade;
+	
+	private String ocupacao;
+	
+	private String observacoes;
+	
+	private EnderecoSaveRequest endereco;
 	
 }

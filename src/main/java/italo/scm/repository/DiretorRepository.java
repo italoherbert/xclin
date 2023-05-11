@@ -18,6 +18,9 @@ public interface DiretorRepository extends JpaRepository<Diretor, Long> {
 	
 	@Query("select d from Diretor d where lower_unaccent(d.nome) like lower_unaccent(?1)")
 	public List<Diretor> filtraPorNome( String nomeIni );
+	
+	@Query("select d from Diretor d where d.usuario.id=?1")
+	public Optional<Diretor> buscaPorUsuario( Long uid );
 		
 	@Query("select d from Diretor d "
 			+ "join DiretorClinicaVinculo v "

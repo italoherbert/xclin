@@ -14,8 +14,8 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
-import italo.scm.logica.jwt.JWTTokenLogica;
-import italo.scm.logica.jwt.JWTTokenInfo;
+import italo.scm.logica.JWTTokenInfo;
+import italo.scm.logica.JWTTokenLogica;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

@@ -3,6 +3,7 @@ package italo.scm.exception;
 public interface Erro {
 
 	public final static String LOGIN_INVALIDO = "Usuário não encontrado por login e senha.";
+	public final static String CLINICA_ACESSO_NAO_AUTORIZADO = "Seu usuário não tem vínculo com a clinica.";
 	
 	public final static String USERNAME_OBRIGATORIO = "O username é um campo de preenchimento obrigatório.";
 	public final static String SENHA_OBRIGATORIA = "A senha é um campo de preenchimento obrigatório.";
@@ -28,6 +29,8 @@ public interface Erro {
 	public final static String DIRETOR_NAO_ENCONTRADO = "Diretor não encontrado.";
 	public final static String PROFISSIONAL_NAO_ENCONTRADO = "Profissional não encontrado.";
 	public final static String RECEPCIONISTA_NAO_ENCONTRADO = "Recepcionista não encontrado(a).";
+	public final static String PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado.";
+	public final static String CLINICA_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado na clínica informada.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	
@@ -37,7 +40,9 @@ public interface Erro {
 	public final static String CLINICA_JA_EXISTE = "Já existe uma clínica registrada com o nome informado.";
 	public final static String DIRETOR_JA_EXISTE = "Já existe um diretor registrado com o nome informado.";
 	public final static String PROFISSIONAL_JA_EXISTE = "Já existe um profissional registrado com o nome informado.";
-	public final static String RECEPCIONISTA_JA_EXISTE = "Já existe um(a) recepcionista registrado com o nome informado.";
+	public final static String RECEPCIONISTA_JA_EXISTE = "Já existe um(a) recepcionista registrado(a) com o nome informado.";
+	public final static String PACIENTE_JA_EXISTE = "Já existe um(a) paciente registrado(a) com o nome informado";
+	public final static String CLINICA_PACIENTE_JA_EXISTE = "Já existe um(a) paciente registrado(a) com o nome informado na clínica informada.";
 
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	
@@ -45,4 +50,6 @@ public interface Erro {
 	
 	public final static String STRNUM_INVALIDO = "Não foi possível converter o texto: '$1' em número.";
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";
+	
+	public final static String PACIENTE_CLINICA_NAO_CORRESPONDEM = "O paciente não corresponde a clínica informada.";
 }

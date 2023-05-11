@@ -19,6 +19,9 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Long
 	@Query("select p from Profissional p where lower_unaccent(p.nome) like lower_unaccent(?1)")
 	public List<Profissional> filtraPorNome( String nomeIni );
 		
+	@Query("select p from Profissional p where p.usuario.id=?1")
+	public Optional<Profissional> buscaPorUsuario( Long uid );
+	
 	@Query("select p from Profissional p "
 			+ "join ProfissionalClinicaVinculo v "
 		 + "where lower_unaccent(v.clinica.nome) like lower_unaccent(?1)")

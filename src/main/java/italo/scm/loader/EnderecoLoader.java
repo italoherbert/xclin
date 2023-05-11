@@ -6,8 +6,6 @@ import italo.scm.exception.LoaderException;
 import italo.scm.model.Endereco;
 import italo.scm.model.request.save.EnderecoSaveRequest;
 import italo.scm.model.response.EnderecoResponse;
-import italo.scm.model.response.MunicipioResponse;
-import italo.scm.model.response.UFResponse;
 
 @Component
 public class EnderecoLoader {
@@ -25,17 +23,16 @@ public class EnderecoLoader {
 		resp.setLogradouro( e.getLogradouro() );
 		resp.setNumero( e.getNumero() );
 		resp.setBairro( e.getBairro() );
+		resp.setCodigoMunicipio( e.getCodigoMunicipio() );
+		resp.setCodigoUf( e.getCodigoUf() ); 
 	}
 	
 	public Endereco novoBean() {
 		return new Endereco();
 	}
 	
-	public EnderecoResponse novoResponse( MunicipioResponse municipio, UFResponse uf ) {
-		EnderecoResponse resp = new EnderecoResponse();
-		resp.setMunicipio( municipio );
-		resp.setUf( uf ); 
-		return resp;
+	public EnderecoResponse novoResponse() {
+		return new EnderecoResponse();		
 	}
 	
 }

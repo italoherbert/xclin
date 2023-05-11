@@ -24,6 +24,8 @@ import italo.scm.model.response.load.RecepcionistaRegLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.RecepcionistaRepository;
 import italo.scm.repository.UsuarioRepository;
+import italo.scm.service.shared.UsuarioSharedService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class RecepcionistaService {
@@ -43,6 +45,10 @@ public class RecepcionistaService {
 	@Autowired
 	private UsuarioLoader usuarioLoader;
 	
+	@Autowired
+	private UsuarioSharedService usuarioSharedService;
+	
+	@Transactional
 	public void registra( Long logadoUID, RecepcionistaSaveRequest request ) throws ServiceException {
 		Long clinicaId = request.getClinicaId();
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
@@ -76,6 +82,8 @@ public class RecepcionistaService {
 		recepcionistaLoader.loadBean( recepcionista, request );
 		
 		recepcionistaRepository.save( recepcionista );
+		
+		usuarioSharedService.vinculaGrupo( usuario, UsuarioPerfil.RECEPCIONISTA ); 
 	}
 	
 	public void altera( 

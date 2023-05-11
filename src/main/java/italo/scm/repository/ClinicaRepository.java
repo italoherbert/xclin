@@ -18,10 +18,8 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Long> {
 	
 	@Query("select c from Clinica c where lower_unaccent(c.nome) like lower_unaccent(?1)")
 	public List<Clinica> filtra( String nomeIni );
-	
-	@Query("select c "
-			+ "from Clinica c join DiretorClinicaVinculo v "
-			+ "where v.diretor.id=?1")
-	public List<Clinica> listaPorDiretor( Long diretorId );
+
+	@Query("select c from Clinica c where c.id in (?1)")
+	public List<Clinica> buscaPorIDs( Long[] ids );
 	
 }

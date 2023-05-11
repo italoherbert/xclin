@@ -23,6 +23,7 @@ import italo.scm.model.response.UFResponse;
 import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
+import italo.scm.model.response.load.PacienteTelaLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.PacienteRepository;
 import italo.scm.service.shared.LocalidadesSharedService;
@@ -35,7 +36,7 @@ public class PacienteService {
 	
 	@Autowired
 	private ClinicaRepository clinicaRepository;
-		
+			
 	@Autowired
 	private PacienteLoader pacienteLoader;
 	
@@ -63,7 +64,7 @@ public class PacienteService {
 		Paciente paciente = pacienteLoader.novoBean( endereco, clinica );
 		pacienteLoader.loadBean( paciente, request );
 		
-		pacienteRepository.save( paciente );
+		pacienteRepository.save( paciente );		
 	}
 	
 	public void altera( Long clinicaId, Long pacienteId, PacienteSaveRequest request ) throws ServiceException {
@@ -194,6 +195,19 @@ public class PacienteService {
 		PacienteRegLoadResponse resp = pacienteLoader.novoRegLoadResponse( ufs );
 		pacienteLoader.loadRegResponse( resp );
 		return resp;
+	}
+	
+	public PacienteTelaLoadResponse getTelaLoad( Long[] clinicasIDs ) throws ServiceException {
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		for( Clinica c : clinicas ) {
+			clinicasIDs2.add( c.getId() );
+			clinicasNomes2.add( c.getNome() );
+		}
+		
+		return pacienteLoader.novoTelaLoadResponse( clinicasIDs2, clinicasNomes2 );
 	}
 		
 	public void delete( Long clinicaId, Long pacienteId ) throws ServiceException {

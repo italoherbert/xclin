@@ -23,6 +23,7 @@ import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
 import italo.scm.repository.DiretorRepository;
 import italo.scm.repository.UsuarioRepository;
+import italo.scm.service.shared.UsuarioSharedService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -39,6 +40,9 @@ public class DiretorService {
 	
 	@Autowired
 	private UsuarioLoader usuarioLoader;
+	
+	@Autowired
+	private UsuarioSharedService usuarioSharedService;
 	
 	@Transactional
 	public void registra( Long logadoUID, DiretorSaveRequest request ) throws ServiceException {
@@ -66,7 +70,8 @@ public class DiretorService {
 		Diretor d = diretorLoader.novoBean( u );
 		diretorLoader.loadBean( d, request );
 		
-		diretorRepository.save( d );					
+		diretorRepository.save( d );
+		usuarioSharedService.vinculaGrupo( usuarioLogado, UsuarioPerfil.DIRETOR );
 	}
 		
 	public void altera( Long uid, DiretorSaveRequest request ) throws ServiceException {

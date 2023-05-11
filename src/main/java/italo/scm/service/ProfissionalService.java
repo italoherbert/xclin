@@ -25,6 +25,7 @@ import italo.scm.model.response.load.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.ProfissionalRegLoadResponse;
 import italo.scm.repository.ProfissionalRepository;
 import italo.scm.repository.UsuarioRepository;
+import italo.scm.service.shared.UsuarioSharedService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -41,6 +42,9 @@ public class ProfissionalService {
 	
 	@Autowired
 	private UsuarioLoader usuarioLoader;
+	
+	@Autowired
+	private UsuarioSharedService usuarioSharedService;
 	
 	@Transactional
 	public void registra( Long logadoUID, ProfissionalSaveRequest request ) throws ServiceException {
@@ -68,7 +72,8 @@ public class ProfissionalService {
 		Profissional p = profissionalLoader.novoBean( u );
 		profissionalLoader.loadBean( p, request );
 		
-		profissionalRepository.save( p );					
+		profissionalRepository.save( p );	
+		usuarioSharedService.vinculaGrupo( usuarioLogado, UsuarioPerfil.PROFISSIONAL ); 
 	}
 			
 	public void alteraCompleto( Long uid, ProfissionalSaveRequest request ) throws ServiceException {

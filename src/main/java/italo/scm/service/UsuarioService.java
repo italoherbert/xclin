@@ -13,16 +13,13 @@ import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.loader.UsuarioLoader;
 import italo.scm.model.Usuario;
-import italo.scm.model.UsuarioGrupo;
-import italo.scm.model.UsuarioGrupoVinculo;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.load.UsuarioEditLoadResponse;
 import italo.scm.model.response.load.UsuarioRegLoadResponse;
-import italo.scm.repository.UsuarioGrupoRepository;
-import italo.scm.repository.UsuarioGrupoVinculoRepository;
 import italo.scm.repository.UsuarioRepository;
+import italo.scm.service.shared.UsuarioSharedService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -30,15 +27,12 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	private UsuarioGrupoRepository usuarioGrupoRepository;
-	
-	@Autowired
-	private UsuarioGrupoVinculoRepository usuarioGrupoMapRepository;
-	
+		
 	@Autowired
 	private UsuarioLoader usuarioLoader;
+	
+	@Autowired
+	private UsuarioSharedService usuarioSharedService;
 	
 	@Autowired
 	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
@@ -50,13 +44,7 @@ public class UsuarioService {
 			throw new ServiceException( Erro.USERNAME_NAO_DISPONIVEL, request.getUsername() );
 		
 		UsuarioPerfil perfil = usuarioPerfilEnumManager.getEnum( request.getPerfil() ); 
-		
-		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.buscaPorNome( perfil.name() );
-		if ( !grupoOp.isPresent() )
-			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO, request.getPerfil() );
-		
-		UsuarioGrupo grupo = grupoOp.get();
-		
+				
 		Optional<Usuario> uop = usuarioRepository.findById( logadoUID );
 		if ( !uop.isPresent() )
 			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
@@ -66,13 +54,8 @@ public class UsuarioService {
 		Usuario u = usuarioLoader.novoBean( usuarioLogado );
 		usuarioLoader.loadBean( u, request );
 		
-		usuarioRepository.save( u );
-			
-		UsuarioGrupoVinculo map = new UsuarioGrupoVinculo();
-		map.setUsuario( u ); 
-		map.setGrupo( grupo );
-		
-		usuarioGrupoMapRepository.save( map );					
+		usuarioRepository.save( u );			
+		usuarioSharedService.vinculaGrupo( usuarioLogado, perfil );						
 	}
 	
 	public void altera( Long uid, UsuarioSaveRequest request ) throws ServiceException {

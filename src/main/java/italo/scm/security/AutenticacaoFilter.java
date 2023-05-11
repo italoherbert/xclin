@@ -45,7 +45,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 				if ( !tokenInfo.isExpirado() ) {
 					String username = tokenInfo.getSubject();
 					String[] roles = tokenInfo.getRoles();
-					
+										
 					List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 					for( String role : roles )
 						authorities.add( new SimpleGrantedAuthority( role ) );					

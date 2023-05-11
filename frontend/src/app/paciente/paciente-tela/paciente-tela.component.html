@@ -1,0 +1,68 @@
+<h1>Tela de pacientes</h1>
+
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'paciente-save/-1' }}]">
+    <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
+    <span class="mx-3">Novo paciente</span>
+</a>
+
+<br />
+
+<div class="mt-3"> 
+    <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Nome do pacientes</mat-label>
+        <input matInput type="text" placeholder="Nome do paciente" [(ngModel)]="pacienteFiltro.nomeIni" />
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Nome da clínica</mat-label>
+        <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId">
+            <mat-option *ngFor="let cnome of clinicasNomes; index as i" [value]="clinicasIDs[ i ]">
+                {{cnome}}
+            </mat-option>
+        </mat-select>            
+    </mat-form-field>
+
+    <br />
+    <div class="d-flex flex-row align-items-center">
+        <button mat-raised-button color="primary" (click)="filtra()">
+            <fa-icon [icon]="icons.faFilter"></fa-icon>
+            <span class="mx-3">Filtrar</span>
+        </button>
+        <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+        {{infoMsg}}
+    </div>
+    <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+        {{erroMsg}}
+    </div>
+</div>
+
+<div class="table-responsive mt-3" style="height: 20em">    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Detalhes</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let p of pacientes">
+                <td>{{p.nome}}</td>
+                <td>
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'paciente-detalhes/'+p.id }}]">
+                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                        detalhes
+                    </a>
+                </td>
+                <td>
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(p.id)">
+                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                        remover
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

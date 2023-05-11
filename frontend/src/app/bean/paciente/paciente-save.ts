@@ -1,7 +1,6 @@
-import { Endereco } from "../endereco/endereco";
+import { EnderecoSave } from "../endereco/endereco-save";
 
-export interface Paciente {
-    id : number;
+export interface PacienteSave {
     nome : string;
     telefone : string;
     email : string;
@@ -13,6 +12,5 @@ export interface Paciente {
     dataNascimento : string;
     ocupacao : string;
     observacao : string;
-    endereco : Endereco;
-
+    endereco : EnderecoSave;
 }

@@ -16,12 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
+import italo.scm.logica.JWTTokenInfo;
+import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.PacienteFiltroRequest;
 import italo.scm.model.request.save.PacienteSaveRequest;
 import italo.scm.model.response.PacienteResponse;
 import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
+import italo.scm.model.response.load.PacienteTelaLoadResponse;
 import italo.scm.service.AuthorizationService;
 import italo.scm.service.PacienteService;
 import italo.scm.validator.PacienteValidator;
@@ -39,6 +42,9 @@ public class PacienteController {
 	@Autowired
 	private AuthorizationService authorizationService;
 	
+	@Autowired
+	private JWTTokenLogica jwtTokenLogica;
+	
 	@PreAuthorize("hasAuthority('pacienteWRITE')")
 	@PostMapping("/registra/{clinicaId}")
 	public ResponseEntity<Object> registra(
@@ -55,7 +61,7 @@ public class PacienteController {
 	
 	@PreAuthorize("hasAuthority('pacienteWRITE')")
 	@PutMapping("/altera/{clinicaId}/{pacienteId}")
-	public ResponseEntity<Object> atualiza(
+	public ResponseEntity<Object> altera(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable Long pacienteId,
@@ -118,6 +124,18 @@ public class PacienteController {
 		authorizationService.autoriza( authorizationHeader, clinicaId );
 		
 		PacienteDetalhesLoadResponse resp = pacienteService.getDetalhesLoad( clinicaId, pacienteId );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('pacienteREAD')")
+	@GetMapping("/get/tela")
+	public ResponseEntity<Object> getTelaLoad(
+			@RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {
+
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs(); 
+				
+		PacienteTelaLoadResponse resp = pacienteService.getTelaLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	

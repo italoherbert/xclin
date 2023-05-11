@@ -74,8 +74,13 @@ public class JWTTokenLogica {
 	}
 	
 	public Long[] claimToClinicasIDs( Object claim ) {
-		String claimLista = String.valueOf( claim );
-		String[] lista = claimLista.split( "," );
+		String claimStr = String.valueOf( claim );
+		
+		if ( claimStr.isBlank() )
+			return new Long[]{};
+		
+		String[] lista = claimStr.split( "," );
+		
 		Long[] clinicasIDs = new Long[ lista.length ];
 		for( int i = 0; i < lista.length; i++ )
 			clinicasIDs[ i ] = Long.parseLong( lista[ i ] );		
@@ -96,7 +101,11 @@ public class JWTTokenLogica {
 	
 	public String[] claimToRole( Object claim ) {
 		String claimStr = String.valueOf( claim );
-		String[] lista = claimStr.split( "," );
+		
+		if ( claimStr.isBlank() )
+			return new String[]{};
+		
+		String[] lista = claimStr.split( "," );					
 		return lista;
 	}
 	

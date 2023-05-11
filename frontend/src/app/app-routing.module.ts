@@ -29,6 +29,9 @@ import { ProfissionalClinicaVinculosComponent } from './profissional/profissiona
 import { RecepcionistaSaveComponent } from './recepcionista/recepcionista-save/recepcionista-save.component';
 import { RecepcionistaDetalhesComponent } from './recepcionista/recepcionista-detalhes/recepcionista-detalhes.component';
 import { RecepcionistaTelaComponent } from './recepcionista/recepcionista-tela/recepcionista-tela.component';
+import { PacienteTelaComponent } from './paciente/paciente-tela/paciente-tela.component';
+import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
+import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -68,6 +71,10 @@ const routes: Routes = [
     { path: 'recepcionista-tela', component: RecepcionistaTelaComponent, outlet: 'page' },
     { path: 'recepcionista-detalhes/:id', component: RecepcionistaDetalhesComponent, outlet: 'page' },
     { path: 'recepcionista-save/:id', component: RecepcionistaSaveComponent, outlet: 'page' },
+
+    { path: 'paciente-tela', component: PacienteTelaComponent, outlet: 'page' },
+    { path: 'paciente-detalhes/:id', component: PacienteDetalhesComponent, outlet: 'page' },
+    { path: 'paciente-save/:id', component: PacienteSaveComponent, outlet: 'page' },
     
   ] },
 ];

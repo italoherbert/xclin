@@ -81,7 +81,13 @@
                     <fa-icon [icon]="icons.faUserTie"></fa-icon>
                     <div class="mx-2">Recepcionista</div>
                 </div>
-            </mat-list-item>            
+            </mat-list-item> 
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]">
+                <div class="d-flex flex-row">
+                    <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
+                    <div class="mx-2">Paciente</div>
+                </div>
+            </mat-list-item>           
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="p-3">

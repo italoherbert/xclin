@@ -23,6 +23,7 @@ import italo.scm.model.response.UFResponse;
 import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
+import italo.scm.model.response.load.PacienteTelaLoadResponse;
 
 @Component
 public class PacienteLoader {
@@ -130,6 +131,15 @@ public class PacienteLoader {
 		resp.setPaciente( presp ); 
 		resp.setUf( uf );
 		resp.setMunicipio( municipio );
+		return resp;
+	}
+	
+	public PacienteTelaLoadResponse novoTelaLoadResponse( 
+			List<Long> clinicasIDs, 
+			List<String> clinicasNomes ) {
+		PacienteTelaLoadResponse resp = new PacienteTelaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;
 	}
 	

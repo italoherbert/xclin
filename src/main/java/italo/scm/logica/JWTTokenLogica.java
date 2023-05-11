@@ -29,12 +29,6 @@ public class JWTTokenLogica {
 		return this.tokenInfo( token );
 	}
 		
-	public String geraToken( String subject, String[] roles ) {
-		Map<String, Object> claims = new HashMap<>();
-		claims.put( "roles", this.rolesToClaim( roles ) );		
-		return this.geraToken( subject, claims );
-	}
-	
 	public String geraToken( String subject, List<String> roles, Long uid, List<Long> clinicasIDs ) {
 		Map<String, Object> claims = new HashMap<>();
 		claims.put( "roles", this.rolesToClaim( roles ) );	
@@ -81,6 +75,7 @@ public class JWTTokenLogica {
 	
 	public Long[] claimToClinicasIDs( Object claim ) {
 		String claimLista = String.valueOf( claim );
+		System.out.println( claimLista );
 		String[] lista = claimLista.split( "," );
 		Long[] clinicasIDs = new Long[ lista.length ];
 		for( int i = 0; i < lista.length; i++ )

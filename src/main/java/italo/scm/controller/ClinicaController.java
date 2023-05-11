@@ -20,6 +20,7 @@ import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ClinicaFiltroRequest;
 import italo.scm.model.request.save.ClinicaSaveRequest;
 import italo.scm.model.response.ClinicaResponse;
+import italo.scm.model.response.load.ClinicaDetalhesLoadResponse;
 import italo.scm.model.response.load.ClinicaEditLoadResponse;
 import italo.scm.model.response.load.ClinicaRegLoadResponse;
 import italo.scm.service.ClinicaService;
@@ -92,6 +93,15 @@ public class ClinicaController {
 			@PathVariable Long id ) throws SistemaException {
 		
 		ClinicaEditLoadResponse resp = clinicaService.getEditLoad( id );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('clinicaREAD')")
+	@GetMapping("/get/detalhes/{id}")
+	public ResponseEntity<Object> getDetalhesLoad( 
+			@PathVariable Long id ) throws SistemaException {
+		
+		ClinicaDetalhesLoadResponse resp = clinicaService.getDetalhesLoad( id );
 		return ResponseEntity.ok( resp );
 	}
 	

@@ -23,6 +23,7 @@ import italo.scm.model.response.EnderecoResponse;
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.UFResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.ClinicaDetalhesLoadResponse;
 import italo.scm.model.response.load.ClinicaEditLoadResponse;
 import italo.scm.model.response.load.ClinicaRegLoadResponse;
 import italo.scm.repository.ClinicaRepository;
@@ -158,6 +159,33 @@ public class ClinicaService {
 		List<MunicipioResponse> municipios = localidadesIBGEIntegracao.listaMunicipios( codUf );
 		
 		ClinicaEditLoadResponse resp = clinicaLoader.novoEditResponse( cresp, ufs, municipios );		
+		return resp;
+	}
+	
+	public ClinicaDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
+		Optional<Clinica> cop = clinicaRepository.findById( id );
+		if ( !cop.isPresent() )
+			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
+		
+		Clinica c = cop.get();		
+		Endereco e = c.getEndereco();
+				
+		EnderecoResponse eresp = enderecoLoader.novoResponse();
+		enderecoLoader.loadResponse( eresp, c.getEndereco() ); 
+		
+		UsuarioResponse uresp = usuarioLoader.novoResponse();
+		usuarioLoader.loadResponse( uresp, c.getCriador() ); 
+		
+		ClinicaResponse cresp = clinicaLoader.novoResponse( eresp, uresp );
+		clinicaLoader.loadResponse( cresp, c );
+		
+		int codUf = e.getCodigoUf();
+		int codMunicipio = e.getCodigoMunicipio();
+		
+		UFResponse uf = localidadesIBGEIntegracao.getUfPorId( codUf );
+		MunicipioResponse municipio = localidadesIBGEIntegracao.getMunicipioPorId( codMunicipio );
+		
+		ClinicaDetalhesLoadResponse resp = clinicaLoader.novoDetalhesResponse( cresp, uf, municipio );		
 		return resp;
 	}
 	

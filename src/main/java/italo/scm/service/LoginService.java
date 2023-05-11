@@ -84,6 +84,7 @@ public class LoginService {
 		switch( u.getPerfil() ) {
 			case RAIZ:
 			case ADMIN:
+				clinicasIDs.add( -1L );
 				break;
 			case DIRETOR:
 				Optional<Diretor> dop = diretorRepository.buscaPorUsuario( u.getId() );

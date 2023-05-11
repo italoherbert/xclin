@@ -14,6 +14,7 @@ import italo.scm.model.response.EnderecoResponse;
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.UFResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.ClinicaDetalhesLoadResponse;
 import italo.scm.model.response.load.ClinicaEditLoadResponse;
 import italo.scm.model.response.load.ClinicaRegLoadResponse;
 
@@ -62,6 +63,17 @@ public class ClinicaLoader {
 		resp.setClinica( clinica ); 
 		resp.setUfs( ufs );
 		resp.setMunicipios( municipios ); 
+		return resp;
+	}
+	
+	public ClinicaDetalhesLoadResponse novoDetalhesResponse(
+			ClinicaResponse clinica, 
+			UFResponse uf, 
+			MunicipioResponse municipio ) {
+		ClinicaDetalhesLoadResponse resp = new ClinicaDetalhesLoadResponse();
+		resp.setClinica( clinica );
+		resp.setUf( uf );
+		resp.setMunicipio( municipio ); 
 		return resp;
 	}
 	

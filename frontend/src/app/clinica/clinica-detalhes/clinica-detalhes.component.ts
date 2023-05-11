@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { Clinica } from 'src/app/bean/clinica/clinica';
+import { Municipio } from 'src/app/bean/endereco/municipio';
+import { Uf } from 'src/app/bean/endereco/uf';
 import { ClinicaService } from 'src/app/service/clinica.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
@@ -22,24 +24,28 @@ export class ClinicaDetalhesComponent {
     faCircleLeft : faCircleLeft
   }
 
-  clinica : Clinica = {
-    id : 0,
-    nome: '',
-    telefone: '',
-    email: '',
-    endereco : {
+  clinicaDetalhes = {
+    clinica : {
       id : 0,
-      logradouro : '',
-      numero: '',
-      bairro: '',
-      municipio: {
+      nome: '',
+      telefone: '',
+      email: '',
+      endereco : {
         id : 0,
-        nome : ''
-      },
-      uf: {
-        id : 0,
-        nome : ''
+        logradouro : '',
+        numero: '',
+        bairro: '',
+        codigoMunicipio: 0,
+        codigoUf: 0
       }
+    },
+    uf : {
+      id : 0,
+      nome : ''
+    },
+    municipio : {
+      id : 0,
+      nome : ''
     }
   }
 
@@ -53,9 +59,9 @@ export class ClinicaDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.clinicaService.getClinica( id ).subscribe({
+    this.clinicaService.getDetalhesClinica( id ).subscribe({
       next: ( resp ) => {
-        this.clinica = resp;
+        this.clinicaDetalhes = resp;
         this.showSpinner = false;
       },
       error: ( erro ) => {

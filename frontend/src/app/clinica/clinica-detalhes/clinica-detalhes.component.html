@@ -1,6 +1,6 @@
 <h1>Detalhes da clinica</h1>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'clinica-save/'+clinica.id }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'clinica-save/'+clinicaDetalhes.clinica.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Alterar clinica</span>
 </a>
@@ -30,7 +30,7 @@
                         Nome do clinica:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.nome}}
+                        {{clinicaDetalhes.clinica.nome}}
                     </div>
                 </div> 
                 <div class="col-sm-6 my-3">
@@ -38,7 +38,7 @@
                         Telefone:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.telefone}}
+                        {{clinicaDetalhes.clinica.telefone}}
                     </div>
                 </div>  
                 <div class="col-sm-12 my-3">
@@ -46,7 +46,7 @@
                         E-Mail:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.email}}
+                        {{clinicaDetalhes.clinica.email}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -54,7 +54,7 @@
                         Logradouro:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.endereco.logradouro}}
+                        {{clinicaDetalhes.clinica.endereco.logradouro}}
                     </div>
                 </div>    
                 <div class="col-sm-3 my-3">
@@ -62,7 +62,7 @@
                         Numero:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.endereco.numero}}
+                        {{clinicaDetalhes.clinica.endereco.numero}}
                     </div>
                 </div>  
                 <div class="col-sm-8 my-3">
@@ -70,7 +70,7 @@
                         Bairro:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.endereco.bairro}}
+                        {{clinicaDetalhes.clinica.endereco.bairro}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
@@ -78,7 +78,7 @@
                         Município:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.endereco.municipio.nome}}
+                        {{clinicaDetalhes.municipio.nome}}
                     </div>
                 </div>
                 <div class="col-sm-8 my-3">
@@ -86,7 +86,7 @@
                         UF:
                     </div>
                     <div class="fs-5 text-black">
-                        {{clinica.endereco.uf.nome}}
+                        {{clinicaDetalhes.uf.nome}}
                     </div>
                 </div>              
             </div>

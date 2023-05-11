@@ -71,9 +71,6 @@ export class ClinicaSaveComponent {
           this.ufs = resp.ufs;
           this.municipios = resp.municipios;
           this.clinicaSave = resp.clinica;
-          
-          this.clinicaSave.endereco.codigoMunicipio = resp.clinica.endereco.municipio.id;
-          this.clinicaSave.endereco.codigoUf = resp.clinica.endereco.uf.id;
 
           this.showSpinner = false;
         },

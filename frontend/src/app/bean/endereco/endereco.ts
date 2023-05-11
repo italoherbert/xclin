@@ -6,6 +6,6 @@ export interface Endereco {
     logradouro : string,
     numero : string;
     bairro : string;
-    municipio : Municipio;
-    uf : Uf;
+    codigoMunicipio: number;
+    codigoUf : number;
 }

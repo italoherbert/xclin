@@ -5,5 +5,5 @@ export interface Clinica {
     nome: string;
     telefone : string;
     email : string;
-    endereco : Endereco;
+    endereco : Endereco;    
 }

@@ -39,12 +39,12 @@ export class PacienteService {
     return this.http.post( '/api/paciente/filtra/'+clinicaId, filtro, { headers: headers, withCredentials: true } )
   }
 
-  getPaciente( clinicaId : any, pacienteId : any ): Observable<any> {
+  getPaciente( pacienteId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/paciente/get/'+clinicaId+'/'+pacienteId, { headers: headers, withCredentials: true } )
+    return this.http.get( '/api/paciente/get/'+pacienteId, { headers: headers, withCredentials: true } )
   }
 
   getPacienteTela(): Observable<any> {
@@ -63,28 +63,28 @@ export class PacienteService {
     return this.http.get( '/api/paciente/get/reg', { headers: headers, withCredentials: true } )
   }
 
-  getPacienteEdit( clinicaId : any, pacienteId : any ): Observable<any> {
+  getPacienteEdit( pacienteId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/paciente/get/edit/'+clinicaId+'/'+pacienteId, { headers: headers, withCredentials: true } )
+    return this.http.get( '/api/paciente/get/edit/'+pacienteId, { headers: headers, withCredentials: true } )
   }
 
-  getPacienteDetalhes( clinicaId : any, pacienteId : any ): Observable<any> {
+  getPacienteDetalhes( pacienteId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/paciente/get/detalhes/'+clinicaId+'/'+pacienteId, { headers: headers, withCredentials: true } )
+    return this.http.get( '/api/paciente/get/detalhes/'+pacienteId, { headers: headers, withCredentials: true } )
   }
 
-  deletaPaciente( clinicaId : any, pacienteId : any ): Observable<any> {
+  deletaPaciente(  pacienteId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.delete( '/api/paciente/deleta/'+clinicaId+'/'+pacienteId, { headers: headers, withCredentials: true } )
+    return this.http.delete( '/api/paciente/deleta/'+pacienteId, { headers: headers, withCredentials: true } )
   }
 }
 

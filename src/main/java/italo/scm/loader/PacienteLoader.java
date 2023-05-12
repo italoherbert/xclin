@@ -60,16 +60,20 @@ public class PacienteLoader {
 		} 
 	}
 	
-	public void loadResponse( PacienteResponse resp, Paciente p ) throws LoaderException {
+	public void loadResponse( PacienteResponse resp, Paciente p ) {
 		resp.setId( p.getId() );
 		resp.setNome( p.getNome() );
 		resp.setTelefone( p.getTelefone() );
 		resp.setEmail( p.getEmail() );
 		resp.setCpf( p.getCpf() );
 		resp.setRg( p.getRg() );
-		resp.setSexo( sexoEnumManager.tipoResponse( p.getSexo() ) );
-		resp.setEstadoCivil( estadoCivilEnumManager.tipoResponse( p.getEstadoCivil() ) );
-		resp.setNacionalidade( nacionalidadeEnumManager.tipoResponse( p.getNacionalidade() ) );
+		
+		if ( p.getSexo() != null )
+			resp.setSexo( p.getSexo().name() );
+		if ( p.getEstadoCivil() != null )
+			resp.setEstadoCivil( p.getEstadoCivil().name() );
+		if ( p.getNacionalidade() != null )
+			resp.setNacionalidade( p.getNacionalidade().name() );
 
 		resp.setOcupacao( p.getOcupacao() ); 
 		resp.setObservacoes( p.getObservacoes() );
@@ -77,16 +81,25 @@ public class PacienteLoader {
 		resp.setDataNascimento( converter.dataToString( p.getDataNascimento() ) );
 	}
 	
-	public void loadRegResponse( PacienteRegLoadResponse resp ) throws LoaderException {
+	public void loadRegResponse( PacienteRegLoadResponse resp ) {
 		resp.setSexos( sexoEnumManager.tipoResponses() );
 		resp.setEstadosCivis( estadoCivilEnumManager.tipoResponses() );
 		resp.setNacionalidades( nacionalidadeEnumManager.tipoResponses() ); 
 	}
 	
-	public void loadEditResponse( PacienteEditLoadResponse resp ) throws LoaderException {
+	public void loadEditResponse( PacienteEditLoadResponse resp ) {
 		resp.setSexos( sexoEnumManager.tipoResponses() );
 		resp.setEstadosCivis( estadoCivilEnumManager.tipoResponses() );
 		resp.setNacionalidades( nacionalidadeEnumManager.tipoResponses() ); 
+	}
+	
+	public void loadDetalhesResponse( PacienteDetalhesLoadResponse resp, Paciente p ) {
+		if ( p.getEstadoCivil() != null )
+			resp.setEstadoCivil( estadoCivilEnumManager.tipoResponse( p.getEstadoCivil() ) );
+		if ( p.getSexo() != null )
+			resp.setSexo( sexoEnumManager.tipoResponse( p.getSexo() ) );
+		if ( p.getNacionalidade() != null )
+			resp.setNacionalidade( nacionalidadeEnumManager.tipoResponse( p.getNacionalidade() ) );
 	}
 							
 	public Paciente novoBean( Endereco e, Clinica c ) {
@@ -106,20 +119,29 @@ public class PacienteLoader {
 		return resp;
 	}
 	
-	public PacienteRegLoadResponse novoRegLoadResponse( List<UFResponse> ufs ) {
+	public PacienteRegLoadResponse novoRegLoadResponse( 
+			List<UFResponse> ufs, 
+			List<Long> clinicasIDs, 
+			List<String> clinicasNomes ) {
 		PacienteRegLoadResponse resp = new PacienteRegLoadResponse();
 		resp.setUfs( ufs );
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes );
 		return resp;
 	}
 	
 	public PacienteEditLoadResponse novoEditLoadResponse( 
 			PacienteResponse presp,
 			List<UFResponse> ufs, 
-			List<MunicipioResponse> municipios ) {
+			List<MunicipioResponse> municipios, 
+			List<Long> clinicasIDs, 
+			List<String> clinicasNomes ) {
 		PacienteEditLoadResponse resp = new PacienteEditLoadResponse();
 		resp.setPaciente( presp ); 
 		resp.setUfs( ufs );
 		resp.setMunicipios( municipios );
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes );
 		return resp;
 	}
 	

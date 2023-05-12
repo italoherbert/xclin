@@ -20,5 +20,9 @@ public class PacienteRegLoadResponse {
 	private List<TipoResponse> estadosCivis;
 		
 	private List<UFResponse> ufs;
+	
+	private List<Long> clinicasIDs;
+	
+	private List<String> clinicasNomes;
 		
 }

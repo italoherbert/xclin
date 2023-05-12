@@ -5,6 +5,7 @@ import java.util.Date;
 import italo.scm.enums.tipos.EstadoCivil;
 import italo.scm.enums.tipos.Nacionalidade;
 import italo.scm.enums.tipos.Sexo;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -26,7 +27,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="pessoa")
+@Table(name="paciente")
 public class Paciente {
 
 	@Id
@@ -62,7 +63,7 @@ public class Paciente {
 	
 	private String observacoes;
 		
-	@OneToOne(fetch=FetchType.EAGER)
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
 	

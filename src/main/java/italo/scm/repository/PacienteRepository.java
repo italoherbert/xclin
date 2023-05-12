@@ -19,11 +19,11 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 			+ "from Paciente p "
 			+ "where lower_unaccent(p.nome)=lower_unaccent(?1) and p.clinica.id=?2")
 	public Optional<Paciente> buscaPorNome( String nome, Long clinicaId );
-	
+		
 	@Query("select p "
 			+ "from Paciente p "
-			+ "where p.id=?1 and p.clinica.id=?2")
-	public Optional<Paciente> busca( Long pacienteId, Long clinicaId );
+			+ "where p.id=?1 and p.clinica.id in (?2)")
+	public Optional<Paciente> busca( Long pacienteId, Long[] clinicasIDs );
 	
 	@Query("select p "
 			+ "from Paciente p "

@@ -16,7 +16,7 @@ import lombok.Setter;
 public class PacienteEditLoadResponse {
 
 	private PacienteResponse paciente;
-	
+		
 	private List<TipoResponse> sexos;
 	
 	private List<TipoResponse> nacionalidades;
@@ -27,4 +27,8 @@ public class PacienteEditLoadResponse {
 	
 	private List<MunicipioResponse> municipios;
 	
+	private List<Long> clinicasIDs;
+	
+	private List<String> clinicasNomes;
+		
 }

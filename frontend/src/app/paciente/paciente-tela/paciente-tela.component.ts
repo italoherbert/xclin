@@ -80,7 +80,7 @@ export class PacienteTelaComponent {
 
     this.showSpinner = true;
 
-    this.pacienteService.deletaPaciente( this.clinicaId, id ).subscribe({
+    this.pacienteService.deletaPaciente( id ).subscribe({
       next: ( resp ) => {
         this.filtra();
 

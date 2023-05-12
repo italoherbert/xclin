@@ -12,10 +12,10 @@ public class SistemaException extends Exception {
 	public SistemaException( String mensagem, String...params ) {
 		this.mensagem = mensagem;
 		this.params = params;
-		
+				
 		erroMensagem = mensagem;
 		for( int i = 0; i < params.length; i++ )
-			erroMensagem = erroMensagem.replaceFirst( "$"+(i+1), params[ i ] );
+			erroMensagem = erroMensagem.replaceFirst( "\\$"+(i+1), params[ i ] );		
 	}
 
 	public String getErroMensagem() {

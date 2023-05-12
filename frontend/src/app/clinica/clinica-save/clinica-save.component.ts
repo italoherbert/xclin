@@ -54,7 +54,7 @@ export class ClinicaSaveComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    if ( id === '-1' ) {
+    if ( id == '-1' ) {
       this.clinicaService.getRegClinica().subscribe({
         next: (resp) => {
           this.ufs = resp.ufs;

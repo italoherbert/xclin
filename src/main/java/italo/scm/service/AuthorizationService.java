@@ -14,15 +14,15 @@ public class AuthorizationService {
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
 	
-	public void autoriza( String authorizationHeader, Long id ) throws ClinicaAuthorizationException {
+	public void autoriza( String authorizationHeader, Long clinicaId ) throws ClinicaAuthorizationException {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		for( Long cid : clinicasIDs )
-			if ( id == cid )
+			if ( clinicaId == cid )
 				return;
 		
 		throw new ClinicaAuthorizationException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
 	}
-	
+		
 }

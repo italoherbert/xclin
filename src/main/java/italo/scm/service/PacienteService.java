@@ -45,7 +45,7 @@ public class PacienteService {
 	
 	@Autowired
 	private LocalidadesSharedService localidadesSharedService;
-		
+			
 	public void registra( Long clinicaId, PacienteSaveRequest request ) throws ServiceException {		
 		String nome = request.getNome();
 		boolean existe = pacienteRepository.existePorNome( nome, clinicaId );
@@ -118,11 +118,11 @@ public class PacienteService {
 		return lista;
 	}
 	
-	public PacienteResponse get( Long clinicaId, Long pacienteId ) throws ServiceException {
-		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicaId );
+	public PacienteResponse get( Long pacienteId, Long[] clinicasIDs ) throws ServiceException {
+		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicasIDs );
 		if ( !pacienteOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_PACIENTE_NAO_ENCONTRADO );
-		
+				
 		Paciente p = pacienteOp.get();
 		
 		Clinica c = p.getClinica();
@@ -137,8 +137,8 @@ public class PacienteService {
 		return resp;
 	}		
 	
-	public PacienteEditLoadResponse getEditLoad( Long clinicaId, Long pacienteId ) throws ServiceException {
-		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicaId );
+	public PacienteEditLoadResponse getEditLoad( Long pacienteId, Long[] clinicasIDs ) throws ServiceException {
+		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicasIDs );
 		if ( !pacienteOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_PACIENTE_NAO_ENCONTRADO );
 		
@@ -157,14 +157,24 @@ public class PacienteService {
 		List<UFResponse> ufs = localidadesSharedService.listaUFs();
 		List<MunicipioResponse> municipios = localidadesSharedService.listaMunicipios( codigoUf );
 		
-		PacienteEditLoadResponse resp = pacienteLoader.novoEditLoadResponse( presp, ufs, municipios );
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		for( Clinica clinica : clinicas ) {
+			clinicasIDs2.add( clinica.getId() );
+			clinicasNomes2.add( clinica.getNome() );
+		}
+		
+		PacienteEditLoadResponse resp = 
+				pacienteLoader.novoEditLoadResponse( presp, ufs, municipios, clinicasIDs2, clinicasNomes2 );
+		
 		pacienteLoader.loadEditResponse( resp ); 
 		
 		return resp;
 	}
 	
-	public PacienteDetalhesLoadResponse getDetalhesLoad( Long clinicaId, Long pacienteId ) throws ServiceException {
-		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicaId );
+	public PacienteDetalhesLoadResponse getDetalhesLoad( Long pacienteId, Long[] clinicasIDs ) throws ServiceException {
+		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicasIDs );
 		if ( !pacienteOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_PACIENTE_NAO_ENCONTRADO );
 		
@@ -185,14 +195,25 @@ public class PacienteService {
 		UFResponse uf = localidadesSharedService.getUfPorId( codigoUf );
 		MunicipioResponse municipio = localidadesSharedService.getMunicipioPorId( codigoMunicipio );
 		
-		PacienteDetalhesLoadResponse resp = pacienteLoader.novoDetalhesLoadResponse( presp, uf, municipio );		
+		PacienteDetalhesLoadResponse resp = pacienteLoader.novoDetalhesLoadResponse( presp, uf, municipio );
+		pacienteLoader.loadDetalhesResponse( resp, p ); 
 		return resp;
 	}
 	
-	public PacienteRegLoadResponse getRegLoad() throws ServiceException {
+	public PacienteRegLoadResponse getRegLoad( Long[] clinicasIDs ) throws ServiceException {
 		List<UFResponse> ufs = localidadesSharedService.listaUFs();
 
-		PacienteRegLoadResponse resp = pacienteLoader.novoRegLoadResponse( ufs );
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		for( Clinica clinica : clinicas ) {
+			clinicasIDs2.add( clinica.getId() );
+			clinicasNomes2.add( clinica.getNome() );
+		}
+		
+		PacienteRegLoadResponse resp = 
+				pacienteLoader.novoRegLoadResponse( ufs, clinicasIDs2, clinicasNomes2 );
+		
 		pacienteLoader.loadRegResponse( resp );
 		return resp;
 	}
@@ -210,8 +231,8 @@ public class PacienteService {
 		return pacienteLoader.novoTelaLoadResponse( clinicasIDs2, clinicasNomes2 );
 	}
 		
-	public void delete( Long clinicaId, Long pacienteId ) throws ServiceException {
-		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicaId );
+	public void delete( Long pacienteId, Long[] clinicasIDs ) throws ServiceException {
+		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicasIDs );
 		if ( !pacienteOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_PACIENTE_NAO_ENCONTRADO );
 		

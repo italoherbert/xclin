@@ -89,41 +89,41 @@ public class PacienteController {
 	}
 	
 	@PreAuthorize("hasAuthority('pacienteREAD')")
-	@GetMapping("/get/{clinicaId}/{pacienteId}")
+	@GetMapping("/get/{pacienteId}")
 	public ResponseEntity<Object> get(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long clinicaId,
 			@PathVariable Long pacienteId ) throws SistemaException {
 
-		authorizationService.autoriza( authorizationHeader, clinicaId );
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		PacienteResponse resp = pacienteService.get( clinicaId, pacienteId );
+		PacienteResponse resp = pacienteService.get( pacienteId, clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('pacienteREAD')")
-	@GetMapping("/get/edit/{clinicaId}/{pacienteId}")
+	@GetMapping("/get/edit/{pacienteId}")
 	public ResponseEntity<Object> getEditLoad(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long clinicaId,
 			@PathVariable Long pacienteId ) throws SistemaException {
 
-		authorizationService.autoriza( authorizationHeader, clinicaId );
-		
-		PacienteEditLoadResponse resp = pacienteService.getEditLoad( clinicaId, pacienteId );
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+				
+		PacienteEditLoadResponse resp = pacienteService.getEditLoad( pacienteId, clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('pacienteREAD')")
-	@GetMapping("/get/detalhes/{clinicaId}/{pacienteId}")
+	@GetMapping("/get/detalhes/{pacienteId}")
 	public ResponseEntity<Object> getDetalhesLoad(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long clinicaId,
 			@PathVariable Long pacienteId ) throws SistemaException {
 
-		authorizationService.autoriza( authorizationHeader, clinicaId );
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		PacienteDetalhesLoadResponse resp = pacienteService.getDetalhesLoad( clinicaId, pacienteId );
+		PacienteDetalhesLoadResponse resp = pacienteService.getDetalhesLoad( pacienteId, clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	
@@ -141,21 +141,26 @@ public class PacienteController {
 	
 	@PreAuthorize("hasAuthority('pacienteREAD')")
 	@GetMapping("/get/reg")
-	public ResponseEntity<Object> getRegLoad() throws SistemaException {		
-		PacienteRegLoadResponse resp = pacienteService.getRegLoad();
+	public ResponseEntity<Object> getRegLoad(
+			@RequestHeader( "Authorization" ) String authorizationHeader) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		PacienteRegLoadResponse resp = pacienteService.getRegLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('pacienteDELETE')")
-	@DeleteMapping("/deleta/{clinicaId}/{pacienteId}")
+	@DeleteMapping("/deleta/{pacienteId}")
 	public ResponseEntity<Object> deleta(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long clinicaId,
 			@PathVariable Long pacienteId ) throws SistemaException {
+				
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		authorizationService.autoriza( authorizationHeader, clinicaId );
-		
-		pacienteService.delete( clinicaId, pacienteId );
+		pacienteService.delete( pacienteId, clinicasIDs );
 		return ResponseEntity.ok().build();
 	}
 	

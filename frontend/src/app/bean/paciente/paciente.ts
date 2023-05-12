@@ -7,12 +7,13 @@ export interface Paciente {
     email : string;
     cpf : string;
     rg : string;
-    sexo : string;
-    nacionalidade : string;
-    estadoCivil : string;
+    sexo : any;
+    nacionalidade : any;
+    estadoCivil : any;
     dataNascimento : string;
     ocupacao : string;
     observacao : string;
     endereco : Endereco;
-
+    clinicaId: number;
+    clinicaNome: string;
 }

@@ -23,11 +23,11 @@ public class PacienteResponse {
 	
 	private String dataNascimento;
 	
-	private TipoResponse sexo;
+	private String sexo;
 	
-	private TipoResponse estadoCivil;
+	private String estadoCivil;
 	
-	private TipoResponse nacionalidade;
+	private String nacionalidade;
 	
 	private String ocupacao;
 	

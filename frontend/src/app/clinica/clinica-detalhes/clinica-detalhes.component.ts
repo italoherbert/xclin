@@ -49,7 +49,10 @@ export class ClinicaDetalhesComponent {
     }
   }
 
-  constructor( private actRoute : ActivatedRoute, private clinicaService: ClinicaService, private sistemaService: SistemaService) {}
+  constructor( 
+    private actRoute : ActivatedRoute, 
+    private clinicaService: ClinicaService, 
+    private sistemaService: SistemaService) {}
 
   ngOnInit() {
     this.infoMsg = null;

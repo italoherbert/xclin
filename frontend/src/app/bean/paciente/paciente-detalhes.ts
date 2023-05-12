@@ -6,4 +6,7 @@ export interface PacienteDetalhes {
     paciente : Paciente;
     uf : Uf;
     municipio: Municipio;
+    sexo: any;
+    estadoCivil: any;
+    nacionalidade: any;
 }

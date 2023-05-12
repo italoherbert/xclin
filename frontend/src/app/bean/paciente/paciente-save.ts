@@ -12,5 +12,7 @@ export interface PacienteSave {
     dataNascimento : string;
     ocupacao : string;
     observacao : string;
+    clinicaId : number;
+    clinicaNome : string;
     endereco : EnderecoSave;
 }

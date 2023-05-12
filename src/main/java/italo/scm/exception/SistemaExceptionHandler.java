@@ -14,7 +14,8 @@ public class SistemaExceptionHandler extends ResponseEntityExceptionHandler {
 	@ExceptionHandler(value = {
 		ServiceException.class, 
 		ValidationException.class,
-		ConverterException.class
+		ConverterException.class,
+		ClinicaAuthorizationException.class
 	} )
 	protected ResponseEntity<Object> handle( Exception e, WebRequest request ) {
 		return ResponseEntity.badRequest().body( new ErroResponse( (SistemaException)e ) );

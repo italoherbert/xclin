@@ -12,18 +12,12 @@ import italo.scm.exception.Erro;
 @Component
 public class Converter {
 
-	private final String DATAHORA_BD_FORMATO = "dd-MM-yyyy HH:mm:ss";
-	private final String DATAHORA_FORMATO = "dd/MM/yyyy HH:mm:ss";
-	
-	private final String DATA_BD_FORMATO = "dd-MM-yyyy";
-	private final String DATA_FORMATO = "dd/MM/yyyy";
-	
+	private final String DATAHORA_BD_FORMATO = "yyyy-MM-dd HH:mm:ss";
+	private final String DATA_BD_FORMATO = "yyyy-MM-dd";
+		
 	private final SimpleDateFormat dataHoraBDFormato = new SimpleDateFormat( DATAHORA_BD_FORMATO );
 	private final SimpleDateFormat dataBDFormato = new SimpleDateFormat( DATA_BD_FORMATO );
 
-	private final SimpleDateFormat dataHoraFormato = new SimpleDateFormat( DATAHORA_FORMATO );
-	private final SimpleDateFormat dataFormato = new SimpleDateFormat( DATA_FORMATO );
-	
 	public Date stringToDataHora( String datastr ) throws ConverterException {
 		try {
 			return dataHoraBDFormato.parse( datastr );
@@ -41,11 +35,11 @@ public class Converter {
 	}
 	
 	public String dataHoraToString( Date dataHora ) {
-		return dataHoraFormato.format( dataHora );
+		return dataHoraBDFormato.format( dataHora );
 	}
 	
 	public String dataToString( Date data ) {
-		return dataFormato.format( data );
+		return dataBDFormato.format( data );
 	}
 	
 	public String intToString( int num ) {

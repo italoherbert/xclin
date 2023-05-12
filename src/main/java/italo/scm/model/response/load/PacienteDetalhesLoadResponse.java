@@ -2,6 +2,7 @@ package italo.scm.model.response.load;
 
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.PacienteResponse;
+import italo.scm.model.response.TipoResponse;
 import italo.scm.model.response.UFResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +18,11 @@ public class PacienteDetalhesLoadResponse {
 	private UFResponse uf;
 	
 	private MunicipioResponse municipio;
+	
+	private TipoResponse sexo;
+	
+	private TipoResponse estadoCivil;
+	
+	private TipoResponse nacionalidade;
 	
 }

@@ -32,6 +32,7 @@ import { RecepcionistaTelaComponent } from './recepcionista/recepcionista-tela/r
 import { PacienteTelaComponent } from './paciente/paciente-tela/paciente-tela.component';
 import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
+import { AgendaComponent } from './consulta/agenda/agenda.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -76,6 +77,7 @@ const routes: Routes = [
     { path: 'paciente-detalhes/:id', component: PacienteDetalhesComponent, outlet: 'page' },
     { path: 'paciente-save/:id', component: PacienteSaveComponent, outlet: 'page' },
     
+    { path: 'consulta-agenda', component: AgendaComponent, outlet: 'page' },
   ] },
 ];
 

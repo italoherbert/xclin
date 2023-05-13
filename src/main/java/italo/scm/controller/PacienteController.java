@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
+import italo.scm.logica.Autorizador;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.PacienteFiltroRequest;
@@ -25,7 +26,6 @@ import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
 import italo.scm.model.response.load.PacienteTelaLoadResponse;
-import italo.scm.service.AuthorizationService;
 import italo.scm.service.PacienteService;
 import italo.scm.validator.PacienteValidator;
 
@@ -40,7 +40,7 @@ public class PacienteController {
 	private PacienteValidator pacienteValidator;
 	
 	@Autowired
-	private AuthorizationService authorizationService;
+	private Autorizador autorizador;
 	
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
@@ -52,7 +52,7 @@ public class PacienteController {
 			@PathVariable Long clinicaId,
 			@RequestBody PacienteSaveRequest request ) throws SistemaException {
 		
-		authorizationService.autoriza( authorizationHeader, clinicaId );
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 				
 		pacienteValidator.validaSave( request );
 		pacienteService.registra( clinicaId, request ); 		
@@ -67,7 +67,7 @@ public class PacienteController {
 			@PathVariable Long pacienteId,
 			@RequestBody PacienteSaveRequest request ) throws SistemaException {
 		
-		authorizationService.autoriza( authorizationHeader, clinicaId );
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 				
 		pacienteValidator.validaSave( request );
 		pacienteService.altera( clinicaId, pacienteId, request ); 		
@@ -81,7 +81,7 @@ public class PacienteController {
 			@PathVariable Long clinicaId,
 			@RequestBody PacienteFiltroRequest request ) throws SistemaException {
 
-		authorizationService.autoriza( authorizationHeader, clinicaId );
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
 		pacienteValidator.validaFiltro( request );
 		List<PacienteResponse> lista = pacienteService.filtra( clinicaId, request );

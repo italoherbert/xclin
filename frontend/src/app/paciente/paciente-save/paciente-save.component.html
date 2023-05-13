@@ -59,7 +59,9 @@
                 <div class="col-sm-8">
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Data de nascimento</mat-label>
-                        <input matInput type="date" placeholder="Data de nascimento" [(ngModel)]="pacienteSave.dataNascimento"/>
+                        <input matInput [matDatepicker]="dataNascimentoDatepicker" placeholder="DD/MM/YYYY" [(ngModel)]="pacienteSave.dataNascimento"/>
+                        <mat-datepicker-toggle matIconSuffix [for]="dataNascimentoDatepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dataNascimentoDatepicker></mat-datepicker>
                     </mat-form-field>
                 </div>
 

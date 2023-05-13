@@ -147,7 +147,7 @@ public class ProfissionalService {
 		}
 		return lista;
 	}
-	
+		
 	public ProfissionalResponse get( Long id ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.findById( id );
 		if ( !profissionalOp.isPresent() )

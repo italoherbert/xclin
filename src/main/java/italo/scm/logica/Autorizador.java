@@ -1,20 +1,18 @@
-package italo.scm.service;
+package italo.scm.logica;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import italo.scm.exception.ClinicaAuthorizationException;
 import italo.scm.exception.Erro;
-import italo.scm.logica.JWTTokenInfo;
-import italo.scm.logica.JWTTokenLogica;
 
-@Service
-public class AuthorizationService {
+@Component
+public class Autorizador {
 
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
 	
-	public void autoriza( String authorizationHeader, Long clinicaId ) throws ClinicaAuthorizationException {
+	public void autorizaPorClinica( String authorizationHeader, Long clinicaId ) throws ClinicaAuthorizationException {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();

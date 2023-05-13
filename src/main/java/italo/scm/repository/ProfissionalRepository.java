@@ -22,6 +22,11 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Long
 	@Query("select p from Profissional p where p.usuario.id=?1")
 	public Optional<Profissional> buscaPorUsuario( Long uid );
 	
+	@Query("select p "
+			+ "from Profissional p join ProfissionalClinicaVinculo v "
+			+ "where v.clinica.id=?1")
+	public List<Profissional> listaPorClinica( Long cid );
+	
 	@Query("select p from Profissional p "
 			+ "join ProfissionalClinicaVinculo v "
 		 + "where lower_unaccent(v.clinica.nome) like lower_unaccent(?1)")

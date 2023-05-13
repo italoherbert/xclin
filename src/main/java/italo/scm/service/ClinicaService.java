@@ -116,7 +116,7 @@ public class ClinicaService {
 		
 		return this.clinicasToResponse( clinicas );
 	}
-		
+			
 	public ClinicaResponse get( Long id ) throws ServiceException {
 		Optional<Clinica> cop = clinicaRepository.findById( id );
 		if ( !cop.isPresent() )

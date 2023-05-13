@@ -23,6 +23,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
@@ -58,6 +60,8 @@ import { RecepcionistaSaveComponent } from './recepcionista/recepcionista-save/r
 import { PacienteRemoveDialog, PacienteTelaComponent } from './paciente/paciente-tela/paciente-tela.component';
 import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
+import { AgendaComponent } from './consulta/agenda/agenda.component';
+import { AgendaDiaComponent } from './consulta/agenda-dia/agenda-dia.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +109,9 @@ import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.co
     PacienteTelaComponent,
     PacienteDetalhesComponent,
     PacienteSaveComponent,
-    PacienteRemoveDialog
+    PacienteRemoveDialog,
+    AgendaComponent,
+    AgendaDiaComponent
   ],
   imports: [
     BrowserModule,
@@ -130,9 +136,13 @@ import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.co
     MatCheckboxModule,
     MatDialogModule,
     MatChipsModule,
-    MatDividerModule
+    MatDividerModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue:"pt-br"}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

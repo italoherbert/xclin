@@ -17,15 +17,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
+import italo.scm.logica.Autorizador;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
+import italo.scm.model.response.ListaResponse;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.ProfissionalRegLoadResponse;
 import italo.scm.service.ProfissionalService;
+import italo.scm.service.shared.ProfissionalSharedService;
 import italo.scm.validator.ProfissionalValidator;
 
 @RestController
@@ -39,7 +42,13 @@ public class ProfissionalController {
 	private ProfissionalValidator profissionalValidator;
 	
 	@Autowired
+	private ProfissionalSharedService profissionalSharedService;
+	
+	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
+	
+	@Autowired
+	private Autorizador autorizador;
 	
 	@PreAuthorize("hasAuthority('profissionalWRITE')")
 	@PostMapping("/registra")
@@ -85,6 +94,18 @@ public class ProfissionalController {
 		profissionalValidator.validaFiltro( request );
 		List<ProfissionalResponse> lista = profissionalService.filtra( request );
 		return ResponseEntity.ok( lista );
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/lista/porclinica/{clinicaId}")
+	public ResponseEntity<Object> listaPorClinica(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long clinicaId ) throws SistemaException {
+		
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+		
+		ListaResponse resp = profissionalSharedService.listaPorClinica( clinicaId );
+		return ResponseEntity.ok( resp );		
 	}
 	
 	@PreAuthorize("hasAuthority('profissionalREAD')")

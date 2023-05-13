@@ -76,5 +76,5 @@ public class ClinicaLoader {
 		resp.setMunicipio( municipio ); 
 		return resp;
 	}
-	
+		
 }

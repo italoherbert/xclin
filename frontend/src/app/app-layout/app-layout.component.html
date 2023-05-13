@@ -87,6 +87,12 @@
                     <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
                     <div class="mx-2">Paciente</div>
                 </div>
+            </mat-list-item> 
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-agenda' } } ]">
+                <div class="d-flex flex-row">
+                    <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
+                    <div class="mx-2">Agenda de consultas</div>
+                </div>
             </mat-list-item>           
         </mat-nav-list>
     </mat-sidenav>

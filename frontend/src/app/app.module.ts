@@ -62,6 +62,7 @@ import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
 import { AgendaComponent } from './consulta/agenda/agenda.component';
 import { AgendaDiaComponent } from './consulta/agenda-dia/agenda-dia.component';
+import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +112,8 @@ import { AgendaDiaComponent } from './consulta/agenda-dia/agenda-dia.component';
     PacienteSaveComponent,
     PacienteRemoveDialog,
     AgendaComponent,
-    AgendaDiaComponent
+    AgendaDiaComponent,
+    ConsultaDetalhesComponent
   ],
   imports: [
     BrowserModule,

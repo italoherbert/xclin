@@ -21,14 +21,21 @@
                         <tr>
                             <th>Paciente</th>
                             <th>Hora</th>
+                            <th>Estimativa</th>
                             <th>Detalhes</th>
-                            <th>Remover</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr *ngFor="let c of consultas">
                             <td>{{c.pacienteNome}}</td>
                             <td>{{sistemaService.getTimeFormat( c.dataConsulta )}}</td>
+                            <td>{{c.tempoEstimado}} minutos</td>
+                            <td>
+                                <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'consulta-detalhes/'+c.id }}]">
+                                    <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                                    detalhes
+                                </a>
+                            </td>                            
                         </tr>
                     </tbody>
                 </table>

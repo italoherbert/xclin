@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Consulta } from 'src/app/bean/consulta/consulta';
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { SistemaService } from 'src/app/service/sistema.service';
@@ -15,6 +16,10 @@ export class AgendaDiaComponent {
   erroMsg : any = null;
 
   showSpinner : boolean = false;
+
+  icons : any = {
+    faCircleInfo : faCircleInfo
+  }
 
   consultas : Consulta[] = [];
 
@@ -48,5 +53,5 @@ export class AgendaDiaComponent {
       }
     });
   }
-
+  
 }

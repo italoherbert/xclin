@@ -6,6 +6,7 @@ export interface Consulta {
     valor : string;
     paga : boolean;
     retorno : boolean;
+    tempoEstimado : number;
     pacienteId : number;
     pacienteNome : string; 
 }

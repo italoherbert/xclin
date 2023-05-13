@@ -33,6 +33,7 @@ import { PacienteTelaComponent } from './paciente/paciente-tela/paciente-tela.co
 import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
 import { AgendaComponent } from './consulta/agenda/agenda.component';
+import { AgendaDiaComponent } from './consulta/agenda-dia/agenda-dia.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -78,6 +79,7 @@ const routes: Routes = [
     { path: 'paciente-save/:id', component: PacienteSaveComponent, outlet: 'page' },
     
     { path: 'consulta-agenda', component: AgendaComponent, outlet: 'page' },
+    { path: 'consulta-agenda-dia/:clinicaId/:profissionalId/:dia/:mes/:ano', component: AgendaDiaComponent, outlet: 'page' },
   ] },
 ];
 

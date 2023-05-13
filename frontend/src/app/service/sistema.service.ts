@@ -1,5 +1,6 @@
-import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class SistemaService {
       default: 
         return erro.message;
     }
+  }
+
+  getTimeFormat( d : string ) {
+    return moment( d, 'YYYY-MM-DD' ).format( 'HH:mm:ss' );
   }
 
 }

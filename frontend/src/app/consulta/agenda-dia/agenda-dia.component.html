@@ -3,9 +3,9 @@
 <br />
 
 <div class="d-flex justify-content-center">
-    <mat-card style="width: 50em">
+    <mat-card class="p-3" style="width: 50em">
         <mat-card-header>
-            Consultas
+            <h1>Consultas</h1>
         </mat-card-header>
         <mat-card-content>
             <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
@@ -16,7 +16,7 @@
             </div>
             
             <div class="table-responsive">
-                <table>
+                <table class="table">
                     <thead>
                         <tr>
                             <th>Paciente</th>
@@ -26,7 +26,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                        <tr *ngFor="let c of consultas">
+                            <td>{{c.pacienteNome}}</td>
+                            <td>{{sistemaService.getTimeFormat( c.dataConsulta )}}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

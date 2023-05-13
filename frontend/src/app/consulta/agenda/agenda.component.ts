@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { faAnglesLeft, faAnglesRight, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 
 import * as moment from 'moment';
@@ -46,7 +47,10 @@ export class AgendaComponent {
   clinicaSelecionadaID : number = 0;
   profissionalSelecionadoID : number = 0;
 
+  quantidadesAgrupadasPorDia : any[][] = [];
+
   constructor( 
+    private router: Router,
     private consultaService : ConsultaService,
     private profissionalService : ProfissionalService, 
     private sistemaService : SistemaService ) {}
@@ -81,7 +85,22 @@ export class AgendaComponent {
   }
 
   carregarConsultas() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+    
+    this.showSpinner = true;
 
+    this.consultaService.getQuantidadesAgrupadasPorDiaDoMes( 
+              this.clinicaSelecionadaID, this.profissionalSelecionadoID, this.mes+1, this.ano ).subscribe( {
+        next: (resp ) => {
+          this.quantidadesAgrupadasPorDia = resp;
+          this.showSpinner = false;
+        },
+        error: (erro) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+        }
+    } );
   }
 
   clinicaSelecionada( event : any ) {
@@ -107,7 +126,7 @@ export class AgendaComponent {
   geraCalendario() {
     let data = moment( (this.mes+1)+'-'+this.ano, 'MM-YYYY' );
     this.quantDiasNoMes = data.daysInMonth();
-    this.primeiroDiaDaSemana = data.day();
+    this.primeiroDiaDaSemana = data.day();    
   }
 
   anterior() {
@@ -144,9 +163,30 @@ export class AgendaComponent {
 
   diaClicado( event : any, i : number, j : number ) {
     let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
+    if ( dia > 0 && dia <= this.quantDiasNoMes ) {
+      this.router.navigate( [ '/app', { outlets : { page : 
+        'consulta-agenda-dia/' +
+          this.clinicaSelecionadaID + '/' + 
+          this.profissionalSelecionadoID + '/' + 
+          dia + '/' + (this.mes+1) + '/' + this.ano
+      } } ] );
+    }
+  }
 
+  diaQuantidade( i : number, j : number ) {
+    let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
 
-
+    if ( dia > 0 && dia <= this.quantDiasNoMes ) {
+      for( let k = 1; k <= this.quantDiasNoMes; k++ ) {
+        for( let kk = 0; kk < this.quantidadesAgrupadasPorDia.length; kk++ ) {
+          if ( this.quantidadesAgrupadasPorDia[ kk ][ 0 ] == dia ) {
+            return this.quantidadesAgrupadasPorDia[ kk ][ 1 ];
+          }
+        }
+      }
+      return 0;
+    }
+    return '';
   }
 
 }

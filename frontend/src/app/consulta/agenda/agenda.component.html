@@ -89,6 +89,10 @@
                             class="calendario-dia-item"
                             (click)="diaClicado($event, i, j)">                        
                         {{labelDia( i, j )}}
+                        <br />
+                        <div class="d-flex justify-content-center w-100">
+                            <span class="fs-3 text-black">{{diaQuantidade( i, j )}}</span>
+                        </div>
                     </td>
                 </tr>
             </tbody>

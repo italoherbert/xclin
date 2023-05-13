@@ -20,7 +20,13 @@ public class ConsultaResponse {
 	private boolean paga;
 	
 	private double valor;
+	
+	private String dataConsulta;
 		
 	private int tempoEstimado;
+	
+	private Long pacienteId;
+	
+	private String pacienteNome;
 	
 }

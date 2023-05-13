@@ -45,6 +45,7 @@ public class ConsultaLoader {
 		resp.setPaga( c.isPaga() );
 		resp.setStatus( c.getStatus().name() );
 		resp.setTempoEstimado( c.getTempoEstimado() );
+		resp.setDataConsulta( converter.dataHoraToString( c.getDataConsulta() ) ); 
 		resp.setValor( c.getValor() ); 
 	}
 	
@@ -55,8 +56,11 @@ public class ConsultaLoader {
 		return consulta;
 	}
 	
-	public ConsultaResponse novoResponse() {
-		return new ConsultaResponse();
+	public ConsultaResponse novoResponse( Paciente p ) {
+		ConsultaResponse resp = new ConsultaResponse();
+		resp.setPacienteId( p.getId() );
+		resp.setPacienteNome( p.getNome() ); 
+		return resp;
 	}
 	
 	public ConsultaAgendaTelaLoadResponse novoAgendaTelaResponse( 

@@ -25,6 +25,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
@@ -63,6 +64,8 @@ import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.co
 import { AgendaComponent } from './consulta/agenda/agenda.component';
 import { AgendaDiaComponent } from './consulta/agenda-dia/agenda-dia.component';
 import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
+import { ConsultaSaveComponent } from './consulta/consulta-save/consulta-save.component';
+import { CalendarioComponent } from './calendario/calendario.component';
 
 @NgModule({
   declarations: [
@@ -113,7 +116,9 @@ import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta
     PacienteRemoveDialog,
     AgendaComponent,
     AgendaDiaComponent,
-    ConsultaDetalhesComponent
+    ConsultaDetalhesComponent,
+    ConsultaSaveComponent,
+    CalendarioComponent
   ],
   imports: [
     BrowserModule,
@@ -140,7 +145,8 @@ import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta
     MatChipsModule,
     MatDividerModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatAutocompleteModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue:"pt-br"}

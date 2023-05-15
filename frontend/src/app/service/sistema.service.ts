@@ -20,8 +20,8 @@ export class SistemaService {
     }
   }
 
-  getTimeFormat( d : string ) {
-    return moment( d, 'YYYY-MM-DD' ).format( 'HH:mm:ss' );
+  getTimeFormat( d : string ) {    
+    return moment( d, 'YYYY-MM-DD HH:mm:ss' ).format( 'HH:mm' );
   }
 
 }

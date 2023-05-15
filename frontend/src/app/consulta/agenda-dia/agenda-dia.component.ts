@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { Consulta } from 'src/app/bean/consulta/consulta';
 import { ConsultaService } from 'src/app/service/consulta.service';
@@ -24,6 +24,7 @@ export class AgendaDiaComponent {
   consultas : Consulta[] = [];
 
   constructor( 
+    private router: Router,
     private actRoute: ActivatedRoute, 
     private consultaService: ConsultaService,
     public sistemaService: SistemaService ) {}
@@ -52,6 +53,18 @@ export class AgendaDiaComponent {
         this.showSpinner = false;
       }
     });
+  }
+
+  paraNovaConsulta() {
+    let clinicaId = this.actRoute.snapshot.paramMap.get( 'clinicaId' );
+    let profissionalId = this.actRoute.snapshot.paramMap.get( 'profissionalId' );
+    let dia = this.actRoute.snapshot.paramMap.get( 'dia' );
+    let mes = this.actRoute.snapshot.paramMap.get( 'mes' );
+    let ano = this.actRoute.snapshot.paramMap.get( 'ano' );
+
+    this.router.navigate( [ '/app', { outlets : { page : 
+      'consulta-save/'+clinicaId+'/'+profissionalId+'/'+dia+'/'+mes+'/'+ano
+    }} ] );
   }
   
 }

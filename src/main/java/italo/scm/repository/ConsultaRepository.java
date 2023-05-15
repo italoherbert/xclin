@@ -9,15 +9,15 @@ import italo.scm.model.Consulta;
 
 public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 
-	@Query("select day(c.dataConsulta), count(*) "
+	@Query("select day(c.dataHoraAgendamento), count(*) "
 			+ "from Consulta c "
 				+ "join Profissional p "
 				+ "join ProfissionalClinicaVinculo v "				
 			+ "where "
 				+ "v.clinica.id=?1 and p.id=?2 and "
-				+ "month(c.dataConsulta)=?3 and year(c.dataConsulta)=?4 "
-			+ "group by (day(c.dataConsulta)) "
-			+ "order by day(c.dataConsulta)")
+				+ "month(c.dataHoraAgendamento)=?3 and year(c.dataHoraAgendamento)=?4 "
+			+ "group by (day(c.dataHoraAgendamento)) "
+			+ "order by day(c.dataHoraAgendamento)")
 	public List<Object[]> agrupaPorDiaDeMes( 
 			Long clinicaId, Long profissionalId, int mes, int ano );
 	
@@ -27,8 +27,8 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 				+ "join ProfissionalClinicaVinculo v "
 			+ "where "
 				+ "v.clinica.id=?1 and p.id=?2 and "
-				+ "day(c.dataConsulta)=?3 and month(c.dataConsulta)=?4 and year(c.dataConsulta)=?5 "
-			+ "order by c.dataConsulta")
+				+ "day(c.dataHoraAgendamento)=?3 and month(c.dataHoraAgendamento)=?4 and year(c.dataHoraAgendamento)=?5 "
+			+ "order by c.dataHoraAgendamento")
 	public List<Consulta> listaPorDia( Long clinicaId, Long profissionalId, int dia, int mes, int ano );
 	
 }

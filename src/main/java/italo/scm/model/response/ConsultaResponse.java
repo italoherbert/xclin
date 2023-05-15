@@ -11,22 +11,32 @@ public class ConsultaResponse {
 
 	private Long id;
 	
-	private String descricao;
-	
-	private String status;
-
 	private boolean retorno;
 	
 	private boolean paga;
 	
 	private double valor;
+
+	private String status;
+
+	private String turno;
 	
-	private String dataConsulta;
-		
+	private String statusLabel;
+	
+	private String turnoLabel;
+
+	private String observacoes;
+
+	private String dataHoraAgendamento;
+			
 	private int tempoEstimado;
 	
 	private Long pacienteId;
 	
 	private String pacienteNome;
 	
+	private Long clinicaId;
+	
+	private String clinicaNome;
+		
 }

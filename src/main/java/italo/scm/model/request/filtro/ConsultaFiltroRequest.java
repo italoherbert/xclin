@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 public class ConsultaFiltroRequest {
 
-	private String dataConsulta;
+	private String dataHoraAgendamento;
+	
+	private String turno;
 	
 	private boolean incluirRetorno;
 	

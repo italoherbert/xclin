@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAnglesLeft, faAnglesRight, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 
-import * as moment from 'moment';
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
@@ -25,18 +24,8 @@ export class AgendaComponent {
     faBarsProgress : faBarsProgress
   }
 
-  meses : string[] = [ 
-    'Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
-    'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
-  ];
-
-  anos : number[] = [];
-
-  ano : number = 0;
   mes : number = 0;
-
-  quantDiasNoMes : number = 0;
-  primeiroDiaDaSemana : number = 0;
+  ano : number = 0;
 
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
@@ -48,6 +37,7 @@ export class AgendaComponent {
   profissionalSelecionadoID : number = 0;
 
   quantidadesAgrupadasPorDia : any[][] = [];
+  
 
   constructor( 
     private router: Router,
@@ -55,16 +45,7 @@ export class AgendaComponent {
     private profissionalService : ProfissionalService, 
     private sistemaService : SistemaService ) {}
 
-  ngOnInit() {
-    for( let i = 2000; i < 2050; i++ )
-      this.anos.push( i );
-      
-    let dataAtual = new Date();
-    this.ano = moment( dataAtual ).year();
-    this.mes = moment( dataAtual ).month();
-
-    this.geraCalendario();
-
+  ngOnInit() {    
     this.infoMsg = null;
     this.erroMsg = null;
 
@@ -91,7 +72,7 @@ export class AgendaComponent {
     this.showSpinner = true;
 
     this.consultaService.getQuantidadesAgrupadasPorDiaDoMes( 
-              this.clinicaSelecionadaID, this.profissionalSelecionadoID, this.mes+1, this.ano ).subscribe( {
+              this.clinicaSelecionadaID, this.profissionalSelecionadoID, this.mes, this.ano ).subscribe( {
         next: (resp ) => {
           this.quantidadesAgrupadasPorDia = resp;
           this.showSpinner = false;
@@ -122,71 +103,23 @@ export class AgendaComponent {
       }
     } ); 
   }
-  
-  geraCalendario() {
-    let data = moment( (this.mes+1)+'-'+this.ano, 'MM-YYYY' );
-    this.quantDiasNoMes = data.daysInMonth();
-    this.primeiroDiaDaSemana = data.day();    
+
+  onCalendarioAlterado( event : any ) {
+    this.mes = event.mes;
+    this.ano = event.ano;
   }
 
-  anterior() {
-    if ( this.mes == 0 ) {
-      this.mes = this.meses.length-1;
-      this.ano--;
-    } else {
-      this.mes--;
-    }
-    this.geraCalendario();
-  }
-
-  proximo() {
-    if ( this.mes == this.meses.length-1 ) {
-      this.mes = 0;
-      this.ano++;
-    } else {
-      this.mes++;
-    }
-    this.geraCalendario();
-  }
-
-  labelDia( i : number, j : number ) {
-    let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
-    if ( dia > 0 && dia <= this.quantDiasNoMes )
-      return dia;
-    return '';
-  }
-
-  isFimDeSemana( i : number, j : number ) {
-    let indice =  i*7+j+1;
-    return indice % 7 == 0 || (indice-1) % 7 == 0;
-  }
-
-  diaClicado( event : any, i : number, j : number ) {
-    let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
-    if ( dia > 0 && dia <= this.quantDiasNoMes ) {
+  onDiaClicado( event : any ) {
+    if ( this.profissionalSelecionadoID !== 0 ) {
       this.router.navigate( [ '/app', { outlets : { page : 
         'consulta-agenda-dia/' +
           this.clinicaSelecionadaID + '/' + 
           this.profissionalSelecionadoID + '/' + 
-          dia + '/' + (this.mes+1) + '/' + this.ano
+          event.dia + '/' + event.mes + '/' + event.ano
       } } ] );
+    } else {
+      this.infoMsg = "Selecione a clínica e o profissional.";
     }
-  }
-
-  diaQuantidade( i : number, j : number ) {
-    let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
-
-    if ( dia > 0 && dia <= this.quantDiasNoMes ) {
-      for( let k = 1; k <= this.quantDiasNoMes; k++ ) {
-        for( let kk = 0; kk < this.quantidadesAgrupadasPorDia.length; kk++ ) {
-          if ( this.quantidadesAgrupadasPorDia[ kk ][ 0 ] == dia ) {
-            return this.quantidadesAgrupadasPorDia[ kk ][ 1 ];
-          }
-        }
-      }
-      return 0;
-    }
-    return '';
   }
 
 }

@@ -36,66 +36,8 @@
 
 <br />
 
-<div class="d-flex justify-content-center">
-    <div class="bg-white pt-3 d-flex flex-row shadow">
-        <button mat-icon-button class="text-black mx-2 my-1" (click)="anterior()">
-            <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
-        </button>
-        <mat-form-field appearance="outline" class="m-0">
-            <mat-label>Selecione o mês</mat-label>
-            <mat-select placeholder="Selecione o mês" [(ngModel)]="mes" (selectionChange)="geraCalendario()">
-                <mat-option *ngFor="let m of meses; index as i" [value]="i">
-                    {{m}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <span class="p-1"></span>
-        <mat-form-field appearance="outline">
-            <mat-label>Selecione o ano</mat-label>
-            <mat-select placeholder="Selecione o ano" [(ngModel)]="ano" (selectionChange)="geraCalendario()">
-                <mat-option *ngFor="let a of anos; index as i" [value]="a">
-                    {{a}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <button mat-icon-button class="text-black mx-2 my-1" (click)="proximo()">
-            <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
-        </button>
-    </div>
-</div>
-
-<div class="d-flex justify-content-center">
-    <div class="table-responsive">
-        <table class="table-bordered" style="table-layout: fixed; width: 100%">
-            <thead class="calendario-header">
-                <tr>
-                    <th class="calendario-dia-header">Domingo</th>
-                    <th class="calendario-dia-header">Segunda</th>
-                    <th class="calendario-dia-header">Terça</th>
-                    <th class="calendario-dia-header">Quarta</th>
-                    <th class="calendario-dia-header">Quinta</th>
-                    <th class="calendario-dia-header">Sexta</th>
-                    <th class="calendario-dia-header">Sábado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let i of [0, 1, 2, 3, 4]" style="height: 5em">
-                    <td *ngFor="let j of [0, 1, 2, 3, 4, 5, 6]" 
-                            [ngClass]="labelDia(i,j) == '' ? 
-                                isFimDeSemana( i, j) ? 
-                                    'no-calendario-dia-fim-de-semana' : 'no-calendario-dia' : 
-                                isFimDeSemana( i, j) ?   
-                                    'calendario-dia-fim-de-semana'    : 'calendario-dia'"
-                            class="calendario-dia-item"
-                            (click)="diaClicado($event, i, j)">                        
-                        {{labelDia( i, j )}}
-                        <br />
-                        <div class="d-flex justify-content-center w-100">
-                            <span class="fs-3 text-black">{{diaQuantidade( i, j )}}</span>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<app-calendario 
+    [quantidades]="quantidadesAgrupadasPorDia" 
+    (onDiaClicado)="onDiaClicado($event)"
+    (onCalendarioAlterado)="onCalendarioAlterado($event)">
+</app-calendario>

@@ -8,15 +8,17 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ConsultaSaveRequest {
-
-	private String descricao;
 	
-	private String dataConsulta;
-	
-	private boolean retorno;
-		
+	private String dataHoraAgendamento;
+			
 	private int tempoEstimado;
 	
+	private boolean retorno;
+
 	private double valor;
 	
+	private String turno;
+	
+	private String observacoes;
+
 }

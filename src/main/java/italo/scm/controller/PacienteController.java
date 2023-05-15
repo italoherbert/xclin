@@ -21,6 +21,7 @@ import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.PacienteFiltroRequest;
 import italo.scm.model.request.save.PacienteSaveRequest;
+import italo.scm.model.response.ListaResponse;
 import italo.scm.model.response.PacienteResponse;
 import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
 import italo.scm.model.response.load.PacienteEditLoadResponse;
@@ -148,6 +149,20 @@ public class PacienteController {
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
 		PacienteRegLoadResponse resp = pacienteService.getRegLoad( clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
+
+	@PreAuthorize("hasAuthority('pacienteREAD')")
+	@GetMapping("/lista/limite/{clinicaId}/{nomeIni}/{quant}")
+	public ResponseEntity<Object> getListaPorNome(
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@PathVariable String nomeIni,
+			@PathVariable int quant ) throws SistemaException {
+		
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+				
+		ListaResponse resp = pacienteService.listaPorNome( clinicaId, nomeIni, quant );
 		return ResponseEntity.ok( resp );
 	}
 	

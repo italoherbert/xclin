@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,9 +17,12 @@ import italo.scm.exception.SistemaException;
 import italo.scm.logica.Autorizador;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
+import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.load.ConsultaAgendaTelaLoadResponse;
+import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.service.ConsultaService;
+import italo.scm.validator.ConsultaValidator;
 
 @RestController
 @RequestMapping("/api/consulta")
@@ -27,12 +32,51 @@ public class ConsultaController {
 	private ConsultaService consultaService;
 	
 	@Autowired
+	private ConsultaValidator consultaValidator;
+	
+	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
 	
 	@Autowired
 	private Autorizador autorizador;
 	
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasAuthority('consultaWRITE')")
+	@PostMapping("/registra/{clinicaId}/{profissionalId}/{pacienteId}")
+	public ResponseEntity<Object> registra( 
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@PathVariable Long profissionalId, 
+			@PathVariable Long pacienteId, 
+			@RequestBody ConsultaSaveRequest request ) throws SistemaException {
+		
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+		
+		consultaValidator.validaSave( request );
+		consultaService.registra( clinicaId, profissionalId, pacienteId, request );
+		return ResponseEntity.ok().build();
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/{consultaId}")
+	public ResponseEntity<Object> get(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		ConsultaResponse resp = consultaService.get( consultaId, clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/reg")
+	public ResponseEntity<Object> getAgendaTelaLoad() throws SistemaException {				
+		ConsultaRegLoadResponse resp = consultaService.getRegLoad();
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/tela/agenda")
 	public ResponseEntity<Object> getAgendaTelaLoad( 
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
@@ -44,7 +88,7 @@ public class ConsultaController {
 		return ResponseEntity.ok( resp );
 	}
 
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/quantidades/pordia/{clinicaId}/{profissionalId}/{mes}/{ano}")
 	public ResponseEntity<Object> agrupaPorDiaDoMes(
 			@RequestHeader("Authorization") String authorizationHeader,
@@ -59,7 +103,7 @@ public class ConsultaController {
 		return ResponseEntity.ok( resp );
 	}	
 	
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/lista/pordata/{clinicaId}/{profissionalId}/{dia}/{mes}/{ano}")
 	public ResponseEntity<Object> agrupaPorDiaDoMes(
 			@RequestHeader("Authorization") String authorizationHeader,

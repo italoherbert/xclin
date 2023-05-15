@@ -10,6 +10,7 @@ public interface Erro {
 	public final static String USUARIO_GRUPO_NOME_OBRIGATORIO = "O nome do grupo de usuário é um campo de preenchimento obrigatório.";
 	public final static String NOME_OBRIGATORIO = "O nome é um campo de preenchimento obrigatório.";
 	public final static String TELEFONE_OBRIGATORIO = "O telefone é um campo de preenchimento obrigatório.";
+	public final static String TURNO_OBRIGATORIO = "O turno é um campo de preenchimento obrigatório.";
 	
 	public final static String USERNAME_INI_OBRIGATORIO = "O início do username é um campo de preenchimento obrigatório.";
 	public final static String NOME_INI_OBRIGATORIO = "O início do nome é um campo de preenchimento obrigatório.";
@@ -31,6 +32,7 @@ public interface Erro {
 	public final static String RECEPCIONISTA_NAO_ENCONTRADO = "Recepcionista não encontrado(a).";
 	public final static String PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado.";
 	public final static String CLINICA_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado na clínica informada.";
+	public final static String CONSULTA_NAO_ENCONTRADA = "Consulta não encontrada.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	

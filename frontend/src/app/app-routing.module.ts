@@ -34,6 +34,8 @@ import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
 import { AgendaComponent } from './consulta/agenda/agenda.component';
 import { AgendaDiaComponent } from './consulta/agenda-dia/agenda-dia.component';
+import { ConsultaSaveComponent } from './consulta/consulta-save/consulta-save.component';
+import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -80,6 +82,8 @@ const routes: Routes = [
     
     { path: 'consulta-agenda', component: AgendaComponent, outlet: 'page' },
     { path: 'consulta-agenda-dia/:clinicaId/:profissionalId/:dia/:mes/:ano', component: AgendaDiaComponent, outlet: 'page' },
+    { path: 'consulta-save/:clinicaId/:profissionalId/:dia/:mes/:ano', component: ConsultaSaveComponent, outlet: 'page' },
+    { path: 'consulta-detalhes/:id', component: ConsultaDetalhesComponent, outlet: 'page' },
   ] },
 ];
 

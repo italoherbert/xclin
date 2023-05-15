@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import italo.scm.exception.Erro;
@@ -17,6 +18,7 @@ import italo.scm.model.Paciente;
 import italo.scm.model.request.filtro.PacienteFiltroRequest;
 import italo.scm.model.request.save.PacienteSaveRequest;
 import italo.scm.model.response.EnderecoResponse;
+import italo.scm.model.response.ListaResponse;
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.PacienteResponse;
 import italo.scm.model.response.UFResponse;
@@ -229,6 +231,19 @@ public class PacienteService {
 		}
 		
 		return pacienteLoader.novoTelaLoadResponse( clinicasIDs2, clinicasNomes2 );
+	}
+	
+	public ListaResponse listaPorNome( Long clinicaId, String nomeIni, int limit ) throws ServiceException {
+		List<Paciente> pacientes = pacienteRepository.filtra( "%"+nomeIni+"%", clinicaId, PageRequest.of( 0, limit ) );
+		
+		List<Long> ids = new ArrayList<>();
+		List<String> nomes = new ArrayList<>();
+		for( Paciente p : pacientes ) {
+			ids.add( p.getId() );
+			nomes.add( p.getNome() );
+		}
+		
+		return new ListaResponse( ids, nomes );
 	}
 		
 	public void delete( Long pacienteId, Long[] clinicasIDs ) throws ServiceException {

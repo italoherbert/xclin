@@ -1,6 +1,6 @@
 
-export interface ConsultaSave {
-    dataHoraAgendamento: string;
+export interface ConsultaRegistro {
+    dataAtendimento: string;
     valor : number;
     retorno : boolean;
     paga : boolean;

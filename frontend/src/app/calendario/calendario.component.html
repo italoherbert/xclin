@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-center">
-    <div class="bg-white pt-3 d-flex flex-row shadow">
+    <div class="d-flex flex-row shadow pt-3">
         <button mat-icon-button class="text-black mx-2 my-1" (click)="anterior()">
             <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
         </button>
-        <mat-form-field appearance="outline" class="m-0">
+        <mat-form-field appearance="fill" class="m-0">
             <mat-label>Selecione o mês</mat-label>
             <mat-select placeholder="Selecione o mês" [(ngModel)]="mesI" (selectionChange)="geraCalendario()">
                 <mat-option *ngFor="let m of meses; index as i" [value]="i">
@@ -12,7 +12,7 @@
             </mat-select>
         </mat-form-field>
         <span class="p-1"></span>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="fill">
             <mat-label>Selecione o ano</mat-label>
             <mat-select placeholder="Selecione o ano" [(ngModel)]="ano" (selectionChange)="geraCalendario()">
                 <mat-option *ngFor="let a of anos; index as i" [value]="a">
@@ -43,17 +43,31 @@
             <tbody>
                 <tr *ngFor="let i of [0, 1, 2, 3, 4]" style="height: 5em">
                     <td *ngFor="let j of [0, 1, 2, 3, 4, 5, 6]" 
-                            [ngClass]="labelDia(i,j) == '' ? 
-                                isFimDeSemana( i, j) ? 
-                                    'no-calendario-dia-fim-de-semana' : 'no-calendario-dia' : 
-                                isFimDeSemana( i, j) ?   
-                                    'calendario-dia-fim-de-semana'    : 'calendario-dia'"
-                            class="calendario-dia-item"
-                            (click)="diaClicado($event, i, j)">                        
+                            [ngClass]="diaCSSClasses( i, j )" class="calendario-dia-item">
+
                         {{labelDia( i, j )}}
+
                         <br />
-                        <div class="d-flex justify-content-center w-100">
-                            <span class="fs-3 text-black">{{diaQuantidade( i, j )}}</span>
+                        <div class="d-flex justify-content-center w-100 p-0" *ngIf="isDiaDoMes( i, j )">
+                            <span class="fs-4 text-dark">
+                                <a class="calendario-dia-turno" 
+                                        [ngClass]="diaTurnoCSSClasses( i, j, 1 )" 
+                                        [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 1 )">
+                                    {{quantidade( i, j, 1 )}}
+                                </a>
+                                <span>|</span>
+                                <a class="calendario-dia-turno" 
+                                        [ngClass]="isDiaTurnoSelecionado( i, j, 2 ) ? 'calendario-dia-turno-selecionado': ''" 
+                                        [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 2 )">
+                                    {{quantidade( i, j, 2 )}}
+                                </a>
+                                <span>|</span>
+                                <a class="calendario-dia-turno" 
+                                        [ngClass]="isDiaTurnoSelecionado( i, j, 3 ) ? 'calendario-dia-turno-selecionado': ''" 
+                                        [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 3 )">
+                                    {{quantidade( i, j, 3 )}}
+                                </a>
+                            </span>
                         </div>
                     </td>
                 </tr>

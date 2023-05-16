@@ -1,6 +1,6 @@
 
 .calendario-header {
-    background-color: #58F;
+    background-color: #5C6BC0;
     color: white;
     font-weight: bolder;
     text-shadow: 1px 1px 3px #000;
@@ -10,31 +10,40 @@
     vertical-align: top;
 }
 
-.calendario-dia-item:hover {
-    background-color: #08A;
-    cursor: pointer;
-    font-weight: bolder;
-}
-
 .calendario-dia-header {
     padding: 0.4em;
     text-align: center;
-}
-
-.calendario-dia {
-    background-color: #DEF;
-    color: blue;
 }
 
 .no-calendario-dia {
     background-color: #FFF;
 }
 
+.calendario-dia-util {
+    background-color: #EEE;
+}
+
 .calendario-dia-fim-de-semana {
-    background-color: #6AC;
+    background-color: #C5CAE9;
     color: #000;
 }
 
-.no-calendario-dia-fim-de-semana {
-    background-color: #CCC;
+.calendario-dia-atual {
+    background-color: #9FA8DA;
+    color: white;
+}
+
+.calendario-dia-turno {
+    padding: 0.5em;
+    color: #333;
+    text-decoration: none;
+}
+
+.calendario-dia-turno:hover {
+    color: #03A;
+}
+
+.calendario-dia-turno-selecionado {
+    background-color: #58F;
+    color: #000;
 }

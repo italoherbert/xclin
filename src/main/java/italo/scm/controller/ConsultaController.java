@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
-import italo.scm.logica.Autorizador;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
+import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.load.ConsultaAgendaTelaLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.service.ConsultaService;
+import italo.scm.service.auth.Autorizador;
 import italo.scm.validator.ConsultaValidator;
 
 @RestController
@@ -56,16 +57,28 @@ public class ConsultaController {
 		return ResponseEntity.ok().build();
 	}
 	
+	@PreAuthorize("hasAuthority('consultaWRITE')")
+	@PostMapping("/remarca/{consultaId}")
+	public ResponseEntity<Object> remarca(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId,
+			@RequestBody ConsultaRemarcarSaveRequest request ) throws SistemaException {
+		
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		consultaService.remarca( consultaId, request );
+		return ResponseEntity.ok().build();		
+	}		
+	
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/{consultaId}")
 	public ResponseEntity<Object> get(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId) throws SistemaException {
 		
-		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
-		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
 		
-		ConsultaResponse resp = consultaService.get( consultaId, clinicasIDs );
+		ConsultaResponse resp = consultaService.get( consultaId );
 		return ResponseEntity.ok( resp );
 	}
 	
@@ -101,7 +114,21 @@ public class ConsultaController {
 		
 		List<Object[]> resp = consultaService.agrupaPorDiaDeMes( clinicaId, profissionalId, mes, ano );
 		return ResponseEntity.ok( resp );
-	}	
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/quantidades/pordia/cid/{consultaId}/{mes}/{ano}")
+	public ResponseEntity<Object> agrupaPorDiaDoMes(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId,
+			@PathVariable int mes,
+			@PathVariable int ano ) throws SistemaException {
+				
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		List<Object[]> resp = consultaService.agrupaPorDiaDeMes( consultaId, mes, ano );
+		return ResponseEntity.ok( resp );
+	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/lista/pordata/{clinicaId}/{profissionalId}/{dia}/{mes}/{ano}")

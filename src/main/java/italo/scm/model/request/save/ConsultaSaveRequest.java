@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class ConsultaSaveRequest {
 	
-	private String dataHoraAgendamento;
+	private String dataAtendimento;
 			
 	private int tempoEstimado;
 	

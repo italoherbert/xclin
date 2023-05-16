@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faBox, faCalendarDay, faCalendarDays, faChevronDown, faChevronUp, faCircleLeft, faCircleUser, faGear, faHospitalUser, faHouseChimneyMedical, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faBox, faCalendarDays, faChevronDown, faChevronUp, faCircleLeft, faCircleUser, faDisplay, faGear, faHospital, faHospitalUser, faHouseChimneyMedical, faSearch, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie, faWrench } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-layout',
@@ -15,7 +15,7 @@ export class AppLayoutComponent {
     faBox : faBox,
     faCircleUser : faCircleUser,
     faGear : faGear,
-    faHouseChimneyMedical : faHouseChimneyMedical,
+    faHospital : faHospital,
     faChevronUp : faChevronUp,
     faChevronDown : faChevronDown,
     faCircleLeft : faCircleLeft,
@@ -23,10 +23,14 @@ export class AppLayoutComponent {
     faUserDoctor : faUserDoctor,
     faUserTie : faUserTie,
     faHospitalUser : faHospitalUser,
-    faCalendarDays : faCalendarDays
+    faCalendarDays : faCalendarDays,
+    faWrench : faWrench,
+    faAdd : faAdd,
+    faDisplay : faDisplay
   }
 
   usuarioMenuShow : boolean = false;
+  consultaMenuShow : boolean = false;
 
   constructor( private router : Router ) {}
 

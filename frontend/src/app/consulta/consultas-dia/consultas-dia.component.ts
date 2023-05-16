@@ -6,11 +6,11 @@ import { ConsultaService } from 'src/app/service/consulta.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
-  selector: 'app-agenda-dia',
-  templateUrl: './agenda-dia.component.html',
-  styleUrls: ['./agenda-dia.component.css']
+  selector: 'app-consultas-dia',
+  templateUrl: './consultas-dia.component.html',
+  styleUrls: ['./consultas-dia.component.css']
 })
-export class AgendaDiaComponent {
+export class ConsultasDiaComponent {
 
   infoMsg : any = null;
   erroMsg : any = null;

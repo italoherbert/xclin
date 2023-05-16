@@ -1,5 +1,6 @@
 package italo.scm.loader;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import italo.scm.model.Clinica;
 import italo.scm.model.Consulta;
 import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
+import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.load.ConsultaAgendaTelaLoadResponse;
@@ -27,15 +29,26 @@ public class ConsultaLoader {
 	
 	@Autowired
 	private TurnoEnumManager turnoEnumManager;
-		
+	
+	public void loadBean( Consulta c, ConsultaRemarcarSaveRequest request ) throws LoaderException {
+		c.setDataAgendamento( new Date() ); 
+		c.setTurno( turnoEnumManager.getEnum( request.getTurno() ) ); 
+		try {
+			c.setDataAtendimento( converter.stringToData( request.getDataAtendimento() ) );
+		} catch (ConverterException e) {
+			e.throwLoaderException();
+		}
+	}
+	
 	public void loadBean( Consulta c, ConsultaSaveRequest request ) throws LoaderException {
 		c.setRetorno( request.isRetorno() );
 		c.setValor( request.getValor() );
 		c.setTempoEstimado( request.getTempoEstimado() );
-		c.setTurno( turnoEnumManager.getEnum( request.getTurno() ) ); 
+		c.setTurno( turnoEnumManager.getEnum( request.getTurno() ) );
+		c.setDataAgendamento( new Date() ); 
 		
 		try {
-			c.setDataHoraAgendamento( converter.stringToDataHora( request.getDataHoraAgendamento() ) );
+			c.setDataAtendimento( converter.stringToData( request.getDataAtendimento() ) );
 		} catch (ConverterException e) {
 			e.throwLoaderException();
 		} 
@@ -61,7 +74,7 @@ public class ConsultaLoader {
 		}
 		
 		resp.setTempoEstimado( c.getTempoEstimado() );
-		resp.setDataHoraAgendamento( ( converter.dataHoraToString( c.getDataHoraAgendamento() ) ) ); 
+		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAgendamento() ) ) ); 
 		resp.setValor( c.getValor() ); 
 		resp.setObservacoes( c.getObservacoes() );
 	}

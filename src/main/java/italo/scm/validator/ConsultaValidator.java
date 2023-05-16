@@ -25,9 +25,9 @@ public class ConsultaValidator {
 			throw new ValidationException( Erro.TURNO_OBRIGATORIO );
 		
 		try {
-			converter.stringToDataHora( request.getDataHoraAgendamento() );
+			converter.stringToData( request.getDataAtendimento() );
 		} catch (ConverterException e) {
-			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getDataHoraAgendamento() );
+			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getDataAtendimento() );
 		}
 	}
 	

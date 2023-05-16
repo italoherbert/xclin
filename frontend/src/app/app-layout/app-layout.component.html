@@ -60,7 +60,7 @@
             </div>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'clinica-tela' } } ]">
                 <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faHouseChimneyMedical"></fa-icon>
+                    <fa-icon [icon]="icons.faHospital"></fa-icon>
                     <div class="mx-2">Clínicas</div>
                 </div>
             </mat-list-item>  
@@ -87,13 +87,35 @@
                     <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
                     <div class="mx-2">Paciente</div>
                 </div>
-            </mat-list-item> 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-agenda' } } ]">
+            </mat-list-item>            
+            <mat-list-item routerLink="#" (click)="consultaMenuShow = !consultaMenuShow">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
-                    <div class="mx-2">Agenda de consultas</div>
+                    <div class="mx-2">Consultas</div>                    
+                    <fa-icon *ngIf="consultaMenuShow === true" [icon]="icons.faChevronUp" class="ms-auto"></fa-icon>
+                    <fa-icon *ngIf="consultaMenuShow === false" [icon]="icons.faChevronDown" class="ms-auto"></fa-icon>
                 </div>
-            </mat-list-item>           
+            </mat-list-item>
+            <div *ngIf="consultaMenuShow === true" class="px-3">
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-nova' } } ]">
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faAdd"></fa-icon>
+                        <div class="mx-2">Nova consulta</div>
+                    </div>                       
+                </a>
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-remarcar' } } ]">
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faWrench"></fa-icon>
+                        <div class="mx-2">Remarcar consulta</div>
+                    </div>
+                </a>
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-tela' } } ]">
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faDisplay"></fa-icon>
+                        <div class="mx-2">Consulta Tela</div>
+                    </div>
+                </a>
+            </div>       
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content class="p-3">

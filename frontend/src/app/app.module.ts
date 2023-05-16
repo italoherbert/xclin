@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatStepperModule } from '@angular/material/stepper';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
@@ -62,10 +63,13 @@ import { PacienteRemoveDialog, PacienteTelaComponent } from './paciente/paciente
 import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
 import { AgendaComponent } from './consulta/agenda/agenda.component';
-import { AgendaDiaComponent } from './consulta/agenda-dia/agenda-dia.component';
+import { ConsultasDiaComponent } from './consulta/consultas-dia/consultas-dia.component';
 import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
-import { ConsultaSaveComponent } from './consulta/consulta-save/consulta-save.component';
+import { ConsultaRegistroComponent } from './consulta/consulta-nova/consulta-registro/consulta-registro.component';
 import { CalendarioComponent } from './calendario/calendario.component';
+import { AgendaRemarcarComponent } from './consulta/agenda-remarcar/agenda-remarcar.component';
+import { ConsultaRemarcarSaveComponent } from './consulta/consulta-remarcar-save/consulta-remarcar-save.component';
+import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 
 @NgModule({
   declarations: [
@@ -115,10 +119,13 @@ import { CalendarioComponent } from './calendario/calendario.component';
     PacienteSaveComponent,
     PacienteRemoveDialog,
     AgendaComponent,
-    AgendaDiaComponent,
+    ConsultasDiaComponent,
     ConsultaDetalhesComponent,
-    ConsultaSaveComponent,
-    CalendarioComponent
+    ConsultaRegistroComponent,
+    CalendarioComponent,
+    AgendaRemarcarComponent,
+    ConsultaRemarcarSaveComponent,
+    ConsultaNovaComponent
   ],
   imports: [
     BrowserModule,
@@ -146,7 +153,8 @@ import { CalendarioComponent } from './calendario/calendario.component';
     MatDividerModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatStepperModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue:"pt-br"}

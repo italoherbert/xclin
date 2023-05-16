@@ -1,8 +1,22 @@
 <h1>Detalhes da consulta</h1>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'consulta-remarcar' }}]">
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'consulta-agenda-remarcar/'+consulta.id }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
-    <span class="mx-3">Remarcar consulta</span>
+    <span class="mx-3">Remarcar</span>
+</a>
+
+<span class="p-2"></span>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'consulta-remarcar' }}]">
+    <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+    <span class="mx-3">Pagar</span>
+</a>
+
+<span class="p-2"></span>
+
+<a mat-raised-button color="warn" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'consulta-remarcar' }}]">
+    <fa-icon [icon]="icons.faRemove"></fa-icon>
+    <span class="mx-3">Remover</span>
 </a>
 
 <br />
@@ -30,7 +44,7 @@
                         Paciente:
                     </div>
                     <div class="fs-5 text-black">
-                        {{consultaDetalhes.pacienteNome}}
+                        {{consulta.pacienteNome}}
                     </div>
                 </div>    
                 <div class="col-sm-6 my-3">
@@ -38,15 +52,15 @@
                         Clínica:
                     </div>
                     <div class="fs-5 text-black">
-                        {{consultaDetalhes.clinicaNome}}
+                        {{consulta.clinicaNome}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
                     <div class="fs-6 text-secondary">
-                        Horário:
+                        Data de atendimento:
                     </div>
                     <div class="fs-5 text-black">
-                        {{consultaDetalhes.dataHoraAgendamento}}
+                        {{consulta.dataAtendimento}}
                     </div>
                 </div>                 
                 <div class="col-sm-6 my-3">
@@ -54,7 +68,7 @@
                         Turno:
                     </div>
                     <div class="fs-5 text-black">
-                        {{consultaDetalhes.turnoLabel}}
+                        {{consulta.turnoLabel}}
                     </div>
                 </div>
                 <div class="col-sm-8 my-3">
@@ -62,15 +76,15 @@
                         Status:
                     </div>
                     <div class="fs-5 text-black">
-                        {{consultaDetalhes.statusLabel}}
+                        {{consulta.statusLabel}}
                     </div>
                 </div>  
                 <div class="col-sm-6 my-3">
                     <div class="fs-6 text-secondary">
                         Paga:
                     </div>
-                    <div class="fs-5" [ngClass]="consultaDetalhes.paga == true ? 'text-primary' : 'text-danger'">
-                        {{consultaDetalhes.paga == true ? 'Sim' : 'Não' }}
+                    <div class="fs-5" [ngClass]="consulta.paga == true ? 'text-primary' : 'text-danger'">
+                        {{consulta.paga == true ? 'Sim' : 'Não' }}
                     </div>
                 </div>    
                 <div class="col-sm-6 my-3">
@@ -78,7 +92,7 @@
                         Retorno:
                     </div>
                     <div class="fs-5 text-black">
-                        {{consultaDetalhes.retorno == true ? 'Sim' : 'Não' }}
+                        {{consulta.retorno == true ? 'Sim' : 'Não' }}
                     </div>
                 </div> 
                 <div class="col-sm-12 my-3">
@@ -86,7 +100,7 @@
                         Observações:
                     </div>
                     <div class="fs-5 text-black">
-                        {{consultaDetalhes.observacoes}}
+                        {{consulta.observacoes}}
                     </div>
                 </div>                               
             </div>

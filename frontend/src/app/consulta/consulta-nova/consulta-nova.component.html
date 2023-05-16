@@ -1,0 +1,71 @@
+<h1>Nova consulta</h1>
+
+<br />
+
+<div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+    {{infoMsg}}
+</div>
+<div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+    {{erroMsg}}
+</div>
+
+<mat-stepper [linear]="true" #novaConsultaStepper>
+    <mat-step>
+        <ng-template matStepLabel>O profissional</ng-template>
+        <br />
+        <mat-form-field>
+            <mat-label>Clinica</mat-label>
+            <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaSelecionadaID"       
+                (selectionChange)="clinicaSelecionada( $event )">
+                <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                    {{clinicasNomes[i]}} 
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field class="mx-2">
+            <mat-label>Profissionais</mat-label>
+            <mat-select placeholder="Selecione o profissional" [(ngModel)]="profissionalSelecionadoID">
+                <mat-option *ngFor="let pid of profissionaisIDs; index as i" [value]="pid">
+                    {{profissionaisNomes[i]}} 
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br />
+        <button mat-raised-button matStepperNext color="primary" (click)="carregarConsultas()">
+            <fa-icon [icon]="icons.faBarsProgress"></fa-icon>
+            Próximo
+        </button>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Dia e turno</ng-template>
+
+        <button mat-raised-button matStepperPrevious color="primary">
+            <fa-icon [icon]="icons.faBarsProgress"></fa-icon>
+            Anterior
+        </button>
+        <button mat-raised-button matStepperNext color="primary" class="mx-2">
+            <fa-icon [icon]="icons.faBarsProgress"></fa-icon>
+            Próximo
+        </button>
+
+        <br />
+        <br />
+        
+        <app-calendario 
+            [quantidades]="quantidadesAgrupadasPorDia" 
+            (onDiaTurnoSelecionado)="onDiaTurnoSelecionado($event)"
+            (onCalendarioAlterado)="onCalendarioAlterado($event)">
+        </app-calendario>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>O registro</ng-template>
+
+        <app-consulta-registro 
+            [clinicaId]="clinicaSelecionadaID" 
+            [profissionalId]="profissionalSelecionadoID" 
+            [dia]="dia"
+            [mes]="mes"
+            [ano]="ano"
+            [turno]="turno"></app-consulta-registro>
+    </mat-step>
+</mat-stepper>

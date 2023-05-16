@@ -32,7 +32,10 @@ public class Consulta {
 	private Long id;
 		
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataHoraAgendamento;
+	private Date dataAgendamento;
+	
+	@Temporal(TemporalType.DATE)
+	private Date dataAtendimento;
 		
 	@Enumerated(EnumType.STRING)
 	private ConsultaStatus status;

@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleLeft, faSave } from '@fortawesome/free-solid-svg-icons';
-import { ConsultaSave } from 'src/app/bean/consulta/consulta-save';
+import { ConsultaRegistro } from 'src/app/bean/consulta/consulta-registro';
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
@@ -9,11 +9,18 @@ import * as moment from 'moment';
 import { PacienteService } from 'src/app/service/paciente.service';
 
 @Component({
-  selector: 'app-consulta-save',
-  templateUrl: './consulta-save.component.html',
-  styleUrls: ['./consulta-save.component.css']
+  selector: 'app-consulta-registro',
+  templateUrl: './consulta-registro.component.html',
+  styleUrls: ['./consulta-registro.component.css']
 })
-export class ConsultaSaveComponent {
+export class ConsultaRegistroComponent {
+
+  @Input() clinicaId: number = 0;
+  @Input() profissionalId: number = 0;
+  @Input() dia : number = 0;
+  @Input() mes : number = 0;
+  @Input() ano : number = 0;
+  @Input() turno : number = 0;
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -25,8 +32,8 @@ export class ConsultaSaveComponent {
     faCircleLeft : faCircleLeft
   }
 
-  consultaSave : ConsultaSave = {
-    dataHoraAgendamento : '',
+  consultaSave : ConsultaRegistro = {
+    dataAtendimento : '',
     tempoEstimado : 0,
     turno : '',
     valor : 0,
@@ -36,9 +43,6 @@ export class ConsultaSaveComponent {
   }
 
   pacienteId : number = 0;
-
-  dataAgendamento : string = '';
-  horaAgendamento : string = ''; 
 
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
@@ -81,26 +85,17 @@ export class ConsultaSaveComponent {
   registra() {
     this.infoMsg = null;
     this.erroMsg = null;
-
-    if ( /\d\d:\d\d/.test( this.horaAgendamento ) == false ) {
-      this.erroMsg = "Hora da consulta em formato inválido.";
-      return;
-    }
     
-    let clinicaId = this.actRoute.snapshot.paramMap.get( 'clinicaId' );
-    let profissionalId = this.actRoute.snapshot.paramMap.get( 'profissionalId' );
+    let d = ''+this.ano+'-'+this.mes+'-'+this.dia;
 
-    let dia = this.actRoute.snapshot.paramMap.get( 'dia' );
-    let mes = this.actRoute.snapshot.paramMap.get( 'mes' );
-    let ano = this.actRoute.snapshot.paramMap.get( 'ano' );
+    this.consultaSave.dataAtendimento = moment( d ).format( 'YYYY-MM-DD' );
 
-    let d = ''+ano+'-'+mes+'-'+dia+' '+this.horaAgendamento;
-
-    this.consultaSave.dataHoraAgendamento = moment( d ).format( 'YYYY-MM-DD HH:mm:ss' );
-
+    if( this.turno > 0 )
+      this.consultaSave.turno = this.turnos[ this.turno-1 ].name;
+    
     this.showSpinner = true;
 
-    this.consultaService.registraConsulta( clinicaId, profissionalId, this.pacienteId, this.consultaSave ).subscribe({
+    this.consultaService.registraConsulta( this.clinicaId, this.profissionalId, this.pacienteId, this.consultaSave ).subscribe({
       next: ( resp ) => {
         this.infoMsg = "Consulta registrado com sucesso.";
         this.showSpinner = false;
@@ -114,11 +109,9 @@ export class ConsultaSaveComponent {
 
   onPacienteInput( event : any ) {
     if ( this.buscandoPacientes === false ) { 
-      let clinicaId = this.actRoute.snapshot.paramMap.get( 'clinicaId' );
-
       this.buscandoPacientes = true;
 
-      this.pacienteService.listaPacientesLimite( clinicaId, this.pacienteNome, 4 ).subscribe( {
+      this.pacienteService.listaPacientesLimite( this.clinicaId, this.pacienteNome, 4 ).subscribe( {
         next: (resp) => {
           this.pacientesIDs = resp.ids;
           this.pacientesNomes = resp.nomes;
@@ -134,19 +127,6 @@ export class ConsultaSaveComponent {
 
   onPacienteSelected( event : any ) {
     this.pacienteId = this.pacientesIDs[ event.option.id ];
-  }
-
-  paraTelaAgendaDia() {
-    let clinicaId = this.actRoute.snapshot.paramMap.get( 'clinicaId' );
-    let profissionalId = this.actRoute.snapshot.paramMap.get( 'profissionalId' );
-
-    let dia = this.actRoute.snapshot.paramMap.get( 'dia' );
-    let mes = this.actRoute.snapshot.paramMap.get( 'mes' );
-    let ano = this.actRoute.snapshot.paramMap.get( 'ano' );
-
-    this.router.navigate([ '/app', { outlets : { page : 
-      'consulta-agenda-dia/'+clinicaId+'/'+profissionalId+'/'+dia+'/'+mes+'/'+ano
-    } } ])
   }
 
 }

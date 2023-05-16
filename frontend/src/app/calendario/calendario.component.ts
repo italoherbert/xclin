@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class CalendarioComponent {
 
-  @Output() onDiaClicado : EventEmitter<any> = new EventEmitter();
+  @Output() onDiaTurnoSelecionado : EventEmitter<any> = new EventEmitter();
   @Output() onCalendarioAlterado : EventEmitter<any> = new EventEmitter();
 
   @Input() quantidades : any[][] = [];
@@ -49,6 +49,10 @@ export class CalendarioComponent {
   profissionalSelecionadoID : number = 0;
 
   quantidadesAgrupadasPorDia : any[][] = [];
+
+  diaTurnoClicadoI : number = 0;
+  diaTurnoClicadoJ : number = 0;
+  diaTurnoClicadoTurno : number = 0;
 
   constructor() {}
 
@@ -103,28 +107,84 @@ export class CalendarioComponent {
     return indice % 7 == 0 || (indice-1) % 7 == 0;
   }
 
-  diaClicado( event : any, i : number, j : number ) {
+  isDiaDoMes( i : number, j : number ) {
     let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
-    if ( dia > 0 && dia <= this.quantDiasNoMes ) {
-      this.onDiaClicado.emit( { dia : dia, mes : this.mesI+1, ano : this.ano } );       
-    }
+    return ( dia > 0 && dia <= this.quantDiasNoMes );
   }
 
-  diaQuantidade( i : number, j : number ) {
+  quantidade( i : number, j : number, turno : number ) {
     let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
 
     if ( this.quantidades !== undefined && this.quantidades !== null ) {
-      if ( dia > 0 && dia <= this.quantDiasNoMes ) {
+      if ( this.isDiaDoMes( i, j ) ) {
         for( let k = 1; k <= this.quantDiasNoMes; k++ ) {
           for( let kk = 0; kk < this.quantidades.length; kk++ ) {
             if ( this.quantidades[ kk ][ 0 ] == dia ) {
-              return this.quantidades[ kk ][ 1 ];
+              return this.quantidades[ kk ][ turno ];
             }
           }
         }
         return 0;
       }
     }
+    return '';
+  }
+
+  isDiaAtual( i : number, j : number ) {
+    let hoje = new Date();   
+
+    if ( hoje.getMonth() == this.mesI && hoje.getFullYear() == this.ano ) {
+      let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
+      return ( hoje.getDate() === dia )
+    }
+    return false;
+  }
+
+  isDiaTurnoSelecionado( i : any, j : any, turno : any ) {
+    return this.diaTurnoClicadoI === i &&
+            this.diaTurnoClicadoJ === j && 
+            this.diaTurnoClicadoTurno === turno;
+  }
+
+  diaTurnoSelecionado( event : any, i : number, j : number, turno : number ) {
+    let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
+    if ( dia > 0 && dia <= this.quantDiasNoMes ) {
+      if ( this.isDiaTurnoSelecionado( i, j, turno ) ) {
+        this.diaTurnoClicadoI = 0;
+        this.diaTurnoClicadoJ = 0;
+        this.diaTurnoClicadoTurno = 0;
+      } else {
+        this.diaTurnoClicadoI = i;
+        this.diaTurnoClicadoJ = j;
+        this.diaTurnoClicadoTurno = turno;
+        this.onDiaTurnoSelecionado.emit( { turno : turno, dia : dia, mes : this.mesI+1, ano : this.ano } );       
+      }
+    }
+  }
+
+  diaCSSClasses( i : number, j : number ) {
+    let classes = '';
+    if ( this.isDiaAtual( i, j ) ) {
+      classes += "calendario-dia-atual";
+    } else {
+      let dia = ((i*7+j+1)-this.primeiroDiaDaSemana);
+      if ( dia > 0 && dia <= this.quantDiasNoMes ) {
+        if ( this.isFimDeSemana( i, j ) === true ) {
+          classes += 'calendario-dia-fim-de-semana';
+        } else {
+          classes += 'calendario-dia-util';
+        }
+      } else {
+        classes += 'no-calendario-dia';
+      }      
+    }
+    return classes;
+  }
+
+  diaTurnoCSSClasses( i : number, j : number, turno : number ) {
+    if ( this.isDiaTurnoSelecionado( i, j, turno ) === true ) {
+      return 'calendario-dia-turno-selecionado';
+    }   
     return '';
   }
 

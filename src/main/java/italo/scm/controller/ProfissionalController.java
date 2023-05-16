@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
-import italo.scm.logica.Autorizador;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
@@ -28,6 +27,7 @@ import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.ProfissionalRegLoadResponse;
 import italo.scm.service.ProfissionalService;
+import italo.scm.service.auth.Autorizador;
 import italo.scm.service.shared.ProfissionalSharedService;
 import italo.scm.validator.ProfissionalValidator;
 

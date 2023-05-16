@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
-import italo.scm.logica.Autorizador;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.PacienteFiltroRequest;
@@ -28,6 +27,7 @@ import italo.scm.model.response.load.PacienteEditLoadResponse;
 import italo.scm.model.response.load.PacienteRegLoadResponse;
 import italo.scm.model.response.load.PacienteTelaLoadResponse;
 import italo.scm.service.PacienteService;
+import italo.scm.service.auth.Autorizador;
 import italo.scm.validator.PacienteValidator;
 
 @RestController

@@ -27,7 +27,9 @@ public class ConsultaResponse {
 
 	private String observacoes;
 
-	private String dataHoraAgendamento;
+	private String dataAgendamento;
+	
+	private String dataAtendimento;
 			
 	private int tempoEstimado;
 	

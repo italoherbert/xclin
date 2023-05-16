@@ -22,7 +22,6 @@
                 <th>Paciente</th>
                 <th>Status</th>
                 <th>Turno</th>
-                <th>Hora</th>
                 <th>Detalhes</th>
             </tr>
         </thead>
@@ -31,7 +30,6 @@
                 <td>{{c.pacienteNome}}</td>
                 <td>{{c.statusLabel}}</td>
                 <td>{{c.turnoLabel}}</td>
-                <td>{{sistemaService.getTimeFormat( c.dataHoraAgendamento )}}</td>
                 <td>
                     <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'consulta-detalhes/'+c.id }}]">
                         <fa-icon [icon]="icons.faCircleInfo"></fa-icon>

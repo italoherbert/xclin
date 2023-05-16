@@ -2,7 +2,7 @@
 export interface Consulta {
     id : number;
     observacoes : string;
-    dataHoraAgendamento : string;
+    dataAtendimento : string;
     valor : number;
     paga : boolean;
     retorno : boolean;

@@ -14,6 +14,7 @@ import italo.scm.model.Clinica;
 import italo.scm.model.Consulta;
 import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
+import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.ListaResponse;
@@ -69,7 +70,18 @@ public class ConsultaService {
 		consultaRepository.save( consulta );
 	}
 	
-	public ConsultaResponse get( Long id, Long[] clinicasIDs ) throws ServiceException {
+	public void remarca( Long consultaId, ConsultaRemarcarSaveRequest request ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();
+		consultaLoader.loadBean( consulta, request );
+		
+		consultaRepository.save( consulta );
+	}
+	
+	public ConsultaResponse get( Long id ) throws ServiceException {
 		Optional<Consulta> consultaOp = consultaRepository.findById( id );
 		if ( !consultaOp.isPresent() )
 			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
@@ -77,14 +89,6 @@ public class ConsultaService {
 		Consulta consulta = consultaOp.get();
 		Clinica clinica = consulta.getClinica();
 		Paciente paciente = consulta.getPaciente();
-		
-		boolean achou = false;
-		for( int i = 0; !achou && i < clinicasIDs.length; i++ )
-			if ( clinicasIDs[ i ] == clinica.getId() )
-				achou = true;
-		
-		if ( !achou )
-			throw new ServiceException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
 					
 		ConsultaResponse resp = consultaLoader.novoResponse( paciente, clinica );
 		consultaLoader.loadResponse( resp, consulta );
@@ -104,12 +108,24 @@ public class ConsultaService {
 		return consultaLoader.novoAgendaTelaResponse( resp.getIds(), resp.getNomes() ); 
 	}
 	
+	public List<Object[]> agrupaPorDiaDeMes( Long consultaId, int mes, int ano ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );			
+		
+		Consulta consulta = consultaOp.get();
+		Long clinicaId = consulta.getClinica().getId();
+		Long profissionalId = consulta.getProfissional().getId();
+				
+		return this.agrupaPorDiaDeMes( clinicaId, profissionalId, mes, ano );
+	}
+	
 	public List<Object[]> agrupaPorDiaDeMes( 
 			Long clinicaId, Long profissionalId, int mes, int ano ) throws ServiceException {
 
 		return consultaRepository.agrupaPorDiaDeMes( clinicaId, profissionalId, mes, ano );		
 	}
-	
+		
 	public List<ConsultaResponse> listaPorDia( 
 			Long clinicaId, Long profissionalId, int dia, int mes, int ano ) {
 		

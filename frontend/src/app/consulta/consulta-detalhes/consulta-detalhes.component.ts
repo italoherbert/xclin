@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { ActivatedRoute, Router } from '@angular/router';
+import { faCircleLeft, faMoneyBill1, faMoneyBill1Wave, faPenToSquare, faRemove } from '@fortawesome/free-solid-svg-icons';
 
 import * as moment from 'moment';
 
@@ -22,14 +22,16 @@ export class ConsultaDetalhesComponent {
 
   icons : any = {
     faPenToSquare : faPenToSquare,
-    faCircleLeft : faCircleLeft
+    faCircleLeft : faCircleLeft,
+    faMoneyBill1 : faMoneyBill1,
+    faRemove: faRemove
   }
 
-  consultaDetalhes : Consulta = {
+  consulta : Consulta = {
     id : 0,
     observacoes: '',
     turno: '',
-    dataHoraAgendamento: '',
+    dataAtendimento: '',
     paga: false,
     retorno: false,
     tempoEstimado: 0,
@@ -44,6 +46,7 @@ export class ConsultaDetalhesComponent {
   }
 
   constructor( 
+    private router : Router,
     private actRoute : ActivatedRoute, 
     private consultaService: ConsultaService, 
     private sistemaService: SistemaService) {}
@@ -58,8 +61,8 @@ export class ConsultaDetalhesComponent {
 
     this.consultaService.getConsulta( id ).subscribe({
       next: ( resp ) => {
-        this.consultaDetalhes = resp;
-        this.consultaDetalhes.dataHoraAgendamento = moment( resp.dataHoraAgendamento ).format( 'DD/MM/YYYY HH:mm' );
+        this.consulta = resp;
+        this.consulta.dataAtendimento = moment( resp.dataAtendimento, 'YYYY-MM-DD' ).format( 'DD/MM/YYYY' );
         this.showSpinner = false;
       },
       error: ( erro ) => {

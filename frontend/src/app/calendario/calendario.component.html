@@ -1,34 +1,36 @@
 <div class="d-flex justify-content-center">
-    <div class="d-flex flex-row shadow pt-3">
-        <button mat-icon-button class="text-black mx-2 my-1" (click)="anterior()">
-            <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
-        </button>
-        <mat-form-field appearance="fill" class="m-0">
-            <mat-label>Selecione o mês</mat-label>
-            <mat-select placeholder="Selecione o mês" [(ngModel)]="mesI" (selectionChange)="geraCalendario()">
-                <mat-option *ngFor="let m of meses; index as i" [value]="i">
-                    {{m}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <span class="p-1"></span>
-        <mat-form-field appearance="fill">
-            <mat-label>Selecione o ano</mat-label>
-            <mat-select placeholder="Selecione o ano" [(ngModel)]="ano" (selectionChange)="geraCalendario()">
-                <mat-option *ngFor="let a of anos; index as i" [value]="a">
-                    {{a}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <button mat-icon-button class="text-black mx-2 my-1" (click)="proximo()">
-            <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
-        </button>
+    <div class="row shadow pt-3">
+        <div class="col-sm-12">
+            <button mat-icon-button class="text-black mx-2 my-1" (click)="anterior()">
+                <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
+            </button>
+            <mat-form-field appearance="fill" class="m-0">
+                <mat-label>Selecione o mês</mat-label>
+                <mat-select placeholder="Selecione o mês" [(ngModel)]="mesI" (selectionChange)="geraCalendario()">
+                    <mat-option *ngFor="let m of meses; index as i" [value]="i">
+                        {{m}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <span class="p-1"></span>
+            <mat-form-field appearance="fill">
+                <mat-label>Selecione o ano</mat-label>
+                <mat-select placeholder="Selecione o ano" [(ngModel)]="ano" (selectionChange)="geraCalendario()">
+                    <mat-option *ngFor="let a of anos; index as i" [value]="a">
+                        {{a}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-icon-button class="text-black mx-2 my-1" (click)="proximo()">
+                <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
+            </button>
+        </div>
     </div>
 </div>
 
 <div class="d-flex justify-content-center">
     <div class="table-responsive">
-        <table class="table-bordered" style="table-layout: fixed; width: 100%">
+        <table class="table-bordered table-striped" style="table-layout: fixed">
             <thead class="calendario-header">
                 <tr>
                     <th class="calendario-dia-header">Domingo</th>
@@ -47,27 +49,22 @@
 
                         {{labelDia( i, j )}}
 
-                        <br />
-                        <div class="d-flex justify-content-center w-100 p-0" *ngIf="isDiaDoMes( i, j )">
-                            <span class="fs-4 text-dark">
-                                <a class="calendario-dia-turno" 
-                                        [ngClass]="diaTurnoCSSClasses( i, j, 1 )" 
-                                        [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 1 )">
-                                    {{quantidade( i, j, 1 )}}
-                                </a>
-                                <span>|</span>
-                                <a class="calendario-dia-turno" 
-                                        [ngClass]="isDiaTurnoSelecionado( i, j, 2 ) ? 'calendario-dia-turno-selecionado': ''" 
-                                        [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 2 )">
-                                    {{quantidade( i, j, 2 )}}
-                                </a>
-                                <span>|</span>
-                                <a class="calendario-dia-turno" 
-                                        [ngClass]="isDiaTurnoSelecionado( i, j, 3 ) ? 'calendario-dia-turno-selecionado': ''" 
-                                        [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 3 )">
-                                    {{quantidade( i, j, 3 )}}
-                                </a>
-                            </span>
+                        <div class="w-100 d-flex justify-content-around p-2 fs-4 text-dark" *ngIf="isDiaDoMes( i, j )">
+                            <a class="calendario-dia-turno p-2" 
+                                    [ngClass]="diaTurnoCSSClasses( i, j, 1 )" 
+                                    [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 1 )">
+                                {{quantidade( i, j, 1 )}}
+                            </a>
+                            <a class="calendario-dia-turno p-2" 
+                                    [ngClass]="isDiaTurnoSelecionado( i, j, 2 ) ? 'calendario-dia-turno-selecionado': ''" 
+                                    [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 2 )">
+                                {{quantidade( i, j, 2 )}}
+                            </a>
+                            <a class="calendario-dia-turno p-2" 
+                                    [ngClass]="isDiaTurnoSelecionado( i, j, 3 ) ? 'calendario-dia-turno-selecionado': ''" 
+                                    [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 3 )">
+                                {{quantidade( i, j, 3 )}}
+                            </a>
                         </div>
                     </td>
                 </tr>

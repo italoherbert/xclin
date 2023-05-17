@@ -18,7 +18,7 @@ import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.ListaResponse;
-import italo.scm.model.response.load.ConsultaAgendaTelaLoadResponse;
+import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.ConsultaRepository;
@@ -102,10 +102,10 @@ public class ConsultaService {
 		return resp;
 	}
 	
-	public ConsultaAgendaTelaLoadResponse getAgendaTelaLoad( Long[] clinicasIDs ) {
+	public NovaConsultaProfissionalSelectLoadResponse getNovaConsultaProfissionalSelectLoad( Long[] clinicasIDs ) {
 		ListaResponse resp = clinicaSharedService.listaPorIDs( clinicasIDs );
 		
-		return consultaLoader.novoAgendaTelaResponse( resp.getIds(), resp.getNomes() ); 
+		return consultaLoader.novoProfissionalSelectLoadResponse( resp.getIds(), resp.getNomes() ); 
 	}
 	
 	public List<Object[]> agrupaPorDiaDeMes( Long consultaId, int mes, int ano ) throws ServiceException {

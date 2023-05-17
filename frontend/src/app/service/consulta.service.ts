@@ -49,12 +49,12 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/reg', { headers: headers, withCredentials: true } );
   }
 
-  getConsultaAgendaTela() : Observable<any> {
+  getNovaConsultaProfissionalSelect() : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/consulta/get/tela/agenda', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/consulta/get/novaconsulta/profissional/select', { headers: headers, withCredentials: true } );
   }
 
   getQuantidadesAgrupadasPorDiaDoMes( clinicaId : any, profissionalId : any, mes : any, ano : any ) : Observable<any> {

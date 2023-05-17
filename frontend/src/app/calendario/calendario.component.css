@@ -1,9 +1,8 @@
 
 .calendario-header {
-    background-color: #5C6BC0;
+    background-color: #303F9F;
     color: white;
     font-weight: bolder;
-    text-shadow: 1px 1px 3px #000;
 }
 
 .calendario-dia-item {
@@ -34,16 +33,20 @@
 }
 
 .calendario-dia-turno {
-    padding: 0.5em;
     color: #333;
     text-decoration: none;
 }
 
 .calendario-dia-turno:hover {
-    color: #03A;
+    font-weight: bolder;
+}
+
+.calendario-dia-turno:active {
+    color: #FFF;
 }
 
 .calendario-dia-turno-selecionado {
-    background-color: #58F;
-    color: #000;
+    border-radius: 3px;
+    background-color: #303F9F;
+    color: #FFF;
 }

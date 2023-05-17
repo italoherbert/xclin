@@ -27,70 +27,28 @@ export class ConsultaNovaComponent {
   dia : number = 0;
   turno : number = 0;
 
-  clinicasIDs : number[] = [];
-  clinicasNomes : string[] = [];
-
-  profissionaisIDs : number[] = [];
-  profissionaisNomes : string[] = [];
-
-  clinicaSelecionadaID : number = 0;
-  profissionalSelecionadoID : number = 0;
+  clinicaId : number = 0;
+  profissionalId : number = 0;
 
   quantidadesAgrupadasPorDia : any[][] = [];
   
   constructor( 
     private consultaService : ConsultaService,
-    private profissionalService : ProfissionalService, 
     private sistemaService : SistemaService ) {}
 
-  ngOnInit() {    
-    this.infoMsg = null;
-    this.erroMsg = null;
+  carregarQuantidades() {
+    if ( this.profissionalId === 0 ) {
+      this.erroMsg = "Selecione o profissional.";
+      return;
+    }
 
-    this.showSpinner = true;
-
-    this.consultaService.getConsultaAgendaTela().subscribe({
-      next: (resp) => {
-        this.clinicasIDs = resp.clinicasIDs;
-        this.clinicasNomes = resp.clinicasNomes;
-
-        this.showSpinner = false;
-      },
-      error: (erro) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
-  }
-
-  clinicaSelecionada( event : any ) {
-    this.infoMsg = null;
-    this.erroMsg = null;
-
-    this.showSpinner = true;
-
-    this.profissionalService.listaPorClinica( this.clinicaSelecionadaID ).subscribe( {
-      next: (resp) => {
-        this.profissionaisIDs = resp.ids;
-        this.profissionaisNomes = resp.nomes;
-
-        this.showSpinner = false;
-      },
-      error: (erro) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    } ); 
-  }
-
-  carregarConsultas() {
     this.infoMsg = null;
     this.erroMsg = null;
     
     this.showSpinner = true;
 
     this.consultaService.getQuantidadesAgrupadasPorDiaDoMes( 
-              this.clinicaSelecionadaID, this.profissionalSelecionadoID, this.mes, this.ano ).subscribe( {
+              this.clinicaId, this.profissionalId, this.mes, this.ano ).subscribe( {
         next: (resp ) => {
           this.quantidadesAgrupadasPorDia = resp;
           this.showSpinner = false;
@@ -100,6 +58,21 @@ export class ConsultaNovaComponent {
         this.showSpinner = false;
         }
     } );
+  }
+
+  validaDiaTurnoSelecionado() {
+    this.erroMsg = null;
+    
+    if ( this.turno === 0 ) 
+      this.erroMsg = "Selecione o turno de um dia do calendário.";
+  }
+
+  onProfissionalSelecionado( event : any ) {
+    this.profissionalId = event.profissionalId;
+  }
+
+  onClinicaSelecionada( event : any ) {
+    this.clinicaId = event.clinicaId;
   }
 
   onCalendarioAlterado( event : any ) {

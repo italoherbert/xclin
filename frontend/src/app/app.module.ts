@@ -70,6 +70,7 @@ import { CalendarioComponent } from './calendario/calendario.component';
 import { AgendaRemarcarComponent } from './consulta/agenda-remarcar/agenda-remarcar.component';
 import { ConsultaRemarcarSaveComponent } from './consulta/consulta-remarcar-save/consulta-remarcar-save.component';
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
+import { ConsultaProfissionalSelectComponent } from './consulta/consulta-nova/consulta-profissional-select/consulta-profissional-select.component';
 
 @NgModule({
   declarations: [
@@ -125,7 +126,8 @@ import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.co
     CalendarioComponent,
     AgendaRemarcarComponent,
     ConsultaRemarcarSaveComponent,
-    ConsultaNovaComponent
+    ConsultaNovaComponent,
+    ConsultaProfissionalSelectComponent,
   ],
   imports: [
     BrowserModule,

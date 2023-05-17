@@ -1,17 +1,18 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { faAnglesLeft, faAnglesRight, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
-
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
-  selector: 'app-agenda',
-  templateUrl: './agenda.component.html',
-  styleUrls: ['./agenda.component.css']
+  selector: 'app-consulta-profissional-select',
+  templateUrl: './consulta-profissional-select.component.html',
+  styleUrls: ['./consulta-profissional-select.component.css']
 })
-export class AgendaComponent {
+export class ConsultaProfissionalSelectComponent {
+
+  @Output() onClinicaSelecionada : EventEmitter<any> = new EventEmitter();
+  @Output() onProfissionalSelecionado : EventEmitter<any> = new EventEmitter();  
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -24,26 +25,20 @@ export class AgendaComponent {
     faBarsProgress : faBarsProgress
   }
 
-  mes : number = 0;
-  ano : number = 0;
-
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
 
   profissionaisIDs : number[] = [];
   profissionaisNomes : string[] = [];
 
-  clinicaSelecionadaID : number = 0;
-  profissionalSelecionadoID : number = 0;
-
-  quantidadesAgrupadasPorDia : any[][] = [];
+  clinicaId : number = 0;
+  profissionalId : number = 0;
   
-
   constructor( 
-    private router: Router,
     private consultaService : ConsultaService,
     private profissionalService : ProfissionalService, 
     private sistemaService : SistemaService ) {}
+
 
   ngOnInit() {    
     this.infoMsg = null;
@@ -65,35 +60,18 @@ export class AgendaComponent {
     });
   }
 
-  carregarConsultas() {
-    this.infoMsg = null;
-    this.erroMsg = null;
-    
-    this.showSpinner = true;
-
-    this.consultaService.getQuantidadesAgrupadasPorDiaDoMes( 
-              this.clinicaSelecionadaID, this.profissionalSelecionadoID, this.mes, this.ano ).subscribe( {
-        next: (resp ) => {
-          this.quantidadesAgrupadasPorDia = resp;
-          this.showSpinner = false;
-        },
-        error: (erro) => {
-          this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-        }
-    } );
-  }
-
   clinicaSelecionada( event : any ) {
     this.infoMsg = null;
     this.erroMsg = null;
 
     this.showSpinner = true;
 
-    this.profissionalService.listaPorClinica( this.clinicaSelecionadaID ).subscribe( {
+    this.profissionalService.listaPorClinica( this.clinicaId ).subscribe( {
       next: (resp) => {
         this.profissionaisIDs = resp.ids;
         this.profissionaisNomes = resp.nomes;
+
+        this.onClinicaSelecionada.emit( { clinicaId : this.clinicaId } );
 
         this.showSpinner = false;
       },
@@ -104,22 +82,10 @@ export class AgendaComponent {
     } ); 
   }
 
-  onCalendarioAlterado( event : any ) {
-    this.mes = event.mes;
-    this.ano = event.ano;
-  }
-
-  onDiaClicado( event : any ) {
-    if ( this.profissionalSelecionadoID !== 0 ) {
-      this.router.navigate( [ '/app', { outlets : { page : 
-        'consulta-agenda-dia/' +
-          this.clinicaSelecionadaID + '/' + 
-          this.profissionalSelecionadoID + '/' + 
-          event.dia + '/' + event.mes + '/' + event.ano
-      } } ] );
-    } else {
-      this.infoMsg = "Selecione a clínica e o profissional.";
-    }
+  profissionalSelecionado( event : any ) {
+    this.onProfissionalSelecionado.emit( { 
+      clinicaId : this.clinicaId, profissionalId : this.profissionalId 
+    } );
   }
 
 }

@@ -19,7 +19,7 @@ import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
-import italo.scm.model.response.load.ConsultaAgendaTelaLoadResponse;
+import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.service.ConsultaService;
 import italo.scm.service.auth.Autorizador;
@@ -90,14 +90,14 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@GetMapping("/get/tela/agenda")
-	public ResponseEntity<Object> getAgendaTelaLoad( 
+	@GetMapping("/get/novaconsulta/profissional/select")
+	public ResponseEntity<Object> getNovaConsultaProfissionalSelectLoad( 
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ConsultaAgendaTelaLoadResponse resp = consultaService.getAgendaTelaLoad( clinicasIDs );
+		NovaConsultaProfissionalSelectLoadResponse resp = consultaService.getNovaConsultaProfissionalSelectLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 

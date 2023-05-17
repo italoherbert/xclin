@@ -18,7 +18,7 @@ import italo.scm.model.Profissional;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
-import italo.scm.model.response.load.ConsultaAgendaTelaLoadResponse;
+import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 
 @Component
@@ -100,11 +100,11 @@ public class ConsultaLoader {
 		return resp;
 	}
 	
-	public ConsultaAgendaTelaLoadResponse novoAgendaTelaResponse( 
+	public NovaConsultaProfissionalSelectLoadResponse novoProfissionalSelectLoadResponse( 
 			List<Long> clinicasIDs, 
 			List<String> clinicasNomes ) {
 		
-		ConsultaAgendaTelaLoadResponse resp = new ConsultaAgendaTelaLoadResponse();
+		NovaConsultaProfissionalSelectLoadResponse resp = new NovaConsultaProfissionalSelectLoadResponse();
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;

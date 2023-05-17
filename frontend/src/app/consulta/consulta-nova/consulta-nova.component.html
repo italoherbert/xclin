@@ -1,7 +1,5 @@
 <h1>Nova consulta</h1>
 
-<br />
-
 <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
     {{infoMsg}}
 </div>
@@ -12,27 +10,18 @@
 <mat-stepper [linear]="true" #novaConsultaStepper>
     <mat-step>
         <ng-template matStepLabel>O profissional</ng-template>
+        
         <br />
-        <mat-form-field>
-            <mat-label>Clinica</mat-label>
-            <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaSelecionadaID"       
-                (selectionChange)="clinicaSelecionada( $event )">
-                <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
-                    {{clinicasNomes[i]}} 
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="mx-2">
-            <mat-label>Profissionais</mat-label>
-            <mat-select placeholder="Selecione o profissional" [(ngModel)]="profissionalSelecionadoID">
-                <mat-option *ngFor="let pid of profissionaisIDs; index as i" [value]="pid">
-                    {{profissionaisNomes[i]}} 
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+        
+        <app-consulta-profissional-select 
+            (onClinicaSelecionada)="onClinicaSelecionada( $event )"
+            (onProfissionalSelecionado)="onProfissionalSelecionado( $event )">
+        </app-consulta-profissional-select>
+        
         <br />
-        <button mat-raised-button matStepperNext color="primary" (click)="carregarConsultas()">
-            <fa-icon [icon]="icons.faBarsProgress"></fa-icon>
+
+        <button mat-raised-button matStepperNext color="primary" (click)="carregarQuantidades()">
+            <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
             Próximo
         </button>
     </mat-step>
@@ -40,11 +29,11 @@
         <ng-template matStepLabel>Dia e turno</ng-template>
 
         <button mat-raised-button matStepperPrevious color="primary">
-            <fa-icon [icon]="icons.faBarsProgress"></fa-icon>
+            <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
             Anterior
         </button>
-        <button mat-raised-button matStepperNext color="primary" class="mx-2">
-            <fa-icon [icon]="icons.faBarsProgress"></fa-icon>
+        <button mat-raised-button matStepperNext color="primary" class="mx-2" (click)="validaDiaTurnoSelecionado()">
+            <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
             Próximo
         </button>
 
@@ -59,10 +48,18 @@
     </mat-step>
     <mat-step>
         <ng-template matStepLabel>O registro</ng-template>
+        
+        <button mat-raised-button matStepperPrevious color="primary">
+            <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
+            Anterior
+        </button>
+        
+        <br />
+        <br />
 
         <app-consulta-registro 
-            [clinicaId]="clinicaSelecionadaID" 
-            [profissionalId]="profissionalSelecionadoID" 
+            [clinicaId]="clinicaId" 
+            [profissionalId]="profissionalId" 
             [dia]="dia"
             [mes]="mes"
             [ano]="ano"

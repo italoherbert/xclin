@@ -1,0 +1,28 @@
+<mat-form-field>
+    <mat-label>Clinica</mat-label>
+    <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId"       
+            (selectionChange)="clinicaSelecionada( $event )">
+        <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+            {{clinicasNomes[i]}} 
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<span class="p-2"></span>
+
+<mat-form-field>
+    <mat-label>Profissionais</mat-label>
+    <mat-select placeholder="Selecione o profissional" [(ngModel)]="profissionalId"
+            (selectionChange)="profissionalSelecionado( $event )">
+        <mat-option *ngFor="let pid of profissionaisIDs; index as i" [value]="pid">
+            {{profissionaisNomes[i]}} 
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+    {{infoMsg}}
+</div>
+<div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+    {{erroMsg}}
+</div>

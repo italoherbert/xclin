@@ -12,10 +12,10 @@ import italo.scm.model.response.UFResponse;
 @FeignClient(value = "localidades-api", url = "https://servicodados.ibge.gov.br/api/v1/localidades")
 public interface LocalidadesIBGEIntegracao {
 
-	@GetMapping("/estados")
+	@GetMapping("/estados?orderBy=nome")
 	public List<UFResponse> listaUFs();
 	
-	@GetMapping("/estados/{ufid}/municipios")
+	@GetMapping("/estados/{ufid}/municipios?orderBy=nome")
 	public List<MunicipioResponse> listaMunicipios( @PathVariable int ufid );
 	
 	@GetMapping("/estados/{ufid}")

@@ -10,6 +10,7 @@ import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
 import italo.scm.logica.Converter;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
+import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 
 @Component
@@ -74,6 +75,20 @@ public class ConsultaValidator {
 		if ( !request.isIncluirTodosTurnos() )
 			if ( !turnoEnumManager.enumValida( request.getTurno() ) )
 				throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				
+	}
+	
+	public void validaListaFila( ConsultaFilaFiltroRequest request ) throws ValidationException {
+		if ( request.getData() == null )
+			throw new ValidationException( Erro.DATA_OBRIGATORIA );
+		
+		try {
+			converter.stringToData( request.getData() );
+		} catch ( ConverterException e ) {
+			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getData() );
+		}
+		
+		if ( !turnoEnumManager.enumValida( request.getTurno() ) )
+			throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				
 	}
 	
 }

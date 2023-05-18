@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import italo.scm.enums.UsuarioPerfilEnumManager;
+import italo.scm.enums.tipos.UsuarioPerfil;
 import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
@@ -49,6 +51,9 @@ public class ProfissionalController {
 	
 	@Autowired
 	private Autorizador autorizador;
+	
+	@Autowired
+	private UsuarioPerfilEnumManager usuarioPerfilEnumManager;
 	
 	@PreAuthorize("hasAuthority('profissionalWRITE')")
 	@PostMapping("/registra")
@@ -104,7 +109,17 @@ public class ProfissionalController {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
-		ListaResponse resp = profissionalSharedService.listaPorClinica( clinicaId );
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		UsuarioPerfil perfil = usuarioPerfilEnumManager.getEnum( tokenInfo.getPerfil() );
+		
+		ListaResponse resp;
+		if ( perfil == UsuarioPerfil.PROFISSIONAL ) {
+			resp = profissionalSharedService.listaPorClinica( clinicaId, logadoUID );
+		} else {
+			resp = profissionalSharedService.listaPorClinica( clinicaId );
+		}
+		
 		return ResponseEntity.ok( resp );		
 	}
 	

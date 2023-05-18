@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
+import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
+import italo.scm.model.response.load.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.ConsultaTelaLoadResponse;
 import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
@@ -105,6 +107,18 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/fila/tela")
+	public ResponseEntity<Object> getFilaTelaLoad(
+			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
+				
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		ConsultaFilaTelaLoadResponse resp = consultaService.getFilaTelaLoad( clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
 	@PostMapping("/filtra/{clinicaId}")
 	public ResponseEntity<Object> filtra(
 			@RequestHeader("Authorization") String authorizationHeader,
@@ -116,6 +130,25 @@ public class ConsultaController {
 		consultaValidator.validaFiltro( request );
 
 		List<ConsultaResponse> lista = consultaService.filtra( clinicaId, request );
+		return ResponseEntity.ok( lista );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@PostMapping("/lista/fila/{clinicaId}/{profissionalId}")
+	public ResponseEntity<Object> listaFila(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@PathVariable Long profissionalId,
+			@RequestBody ConsultaFilaFiltroRequest request ) throws SistemaException {
+				
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+		autorizador.verificaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
+		
+		consultaValidator.validaListaFila( request );
+		
+		List<ConsultaResponse> lista = consultaService.listaFila( 
+				clinicaId, profissionalId, request );
+		
 		return ResponseEntity.ok( lista );
 	}
 	
@@ -141,6 +174,7 @@ public class ConsultaController {
 			@PathVariable int ano ) throws SistemaException {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+		autorizador.verificaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
 		
 		List<Object[]> resp = consultaService.agrupaPorDiaDeMes( clinicaId, profissionalId, mes, ano );
 		return ResponseEntity.ok( resp );
@@ -159,22 +193,6 @@ public class ConsultaController {
 		List<Object[]> resp = consultaService.agrupaPorDiaDeMes( consultaId, mes, ano );
 		return ResponseEntity.ok( resp );
 	}
-	
-	@PreAuthorize("hasAuthority('consultaREAD')")
-	@GetMapping("/lista/pordata/{clinicaId}/{profissionalId}/{dia}/{mes}/{ano}")
-	public ResponseEntity<Object> agrupaPorDiaDoMes(
-			@RequestHeader("Authorization") String authorizationHeader,
-			@PathVariable Long clinicaId,
-			@PathVariable Long profissionalId,
-			@PathVariable int dia,
-			@PathVariable int mes,
-			@PathVariable int ano ) throws SistemaException {
-		
-		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
-		
-		List<ConsultaResponse> resp = consultaService.listaPorDia( clinicaId, profissionalId, dia, mes, ano );
-		return ResponseEntity.ok( resp );
-	}	
 	
 	@PreAuthorize("hasAuthority('consultaDELETE')")
 	@DeleteMapping("/deleta/{id}")

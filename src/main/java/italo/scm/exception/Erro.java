@@ -17,6 +17,7 @@ public interface Erro {
 	public final static String CLINICA_NOME_INI_OBRIGATORIO = "O início do nome da clínica é um campo de preenchimento obrigatório.";
 	public final static String PACIENTE_NOME_INI_OBRIGATORIO = "O início do nome do paciente é um campo de preenchimento obrigatório.";
 	public final static String PROFISSIONAL_NOME_INI_OBRIGATORIO = "O início do nome do profissional é um campo de preenchimento obrigatório.";
+	public final static String DATA_OBRIGATORIA = "A data é um campo de preenchimento obrigatório.";
 	public final static String DATA_INI_OBRIGATORIA = "A data de início é um campo de preenchimento obrigatório.";
 	public final static String DATA_FIM_OBRIGATORIA = "A data de fim é um campo de preenchimento obrigatório.";
 	

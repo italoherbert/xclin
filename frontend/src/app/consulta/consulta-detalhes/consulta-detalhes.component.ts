@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faCircleLeft, faMoneyBill1, faMoneyBill1Wave, faPenToSquare, faRemove } from '@fortawesome/free-solid-svg-icons';
+import { faCircleLeft, faMoneyBill1, faMoneyBill1Wave, faPenToSquare, faRemove, faWrench } from '@fortawesome/free-solid-svg-icons';
 
 import * as moment from 'moment';
 
@@ -22,6 +22,7 @@ export class ConsultaDetalhesComponent {
 
   icons : any = {
     faPenToSquare : faPenToSquare,
+    faWrench : faWrench,
     faCircleLeft : faCircleLeft,
     faMoneyBill1 : faMoneyBill1,
     faRemove: faRemove

@@ -36,6 +36,7 @@ import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta
 import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta-remarcar.component';
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
+import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -81,6 +82,7 @@ const routes: Routes = [
     { path: 'paciente-save/:id', component: PacienteSaveComponent, outlet: 'page' },
     
     { path: 'consulta-nova', component: ConsultaNovaComponent, outlet: 'page' },
+    { path: 'consulta-fila', component: ConsultaFilaComponent, outlet: 'page' },
     { path: 'consulta-tela', component: ConsultaTelaComponent, outlet: 'page' },
     { path: 'consulta-remarcar/:consultaId', component: ConsultaRemarcarComponent, outlet: 'page' },
     { path: 'consulta-detalhes/:consultaId', component: ConsultaDetalhesComponent, outlet: 'page' },

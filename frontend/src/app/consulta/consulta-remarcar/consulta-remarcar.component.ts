@@ -105,7 +105,7 @@ export class ConsultaRemarcarComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'consultaId' );
 
-    this.consultaService.getQuantidadesAgrupadasPorDiaDoMesCID( id, this.mes, this.ano ).subscribe( {
+    this.consultaService.getQuantidadesAgrupadasConsultaID( id, this.mes, this.ano ).subscribe( {
         next: (resp ) => {
           this.quantidadesAgrupadasPorDia = resp;
           this.showSpinner = false;

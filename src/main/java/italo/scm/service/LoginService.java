@@ -57,6 +57,8 @@ public class LoginService {
 		List<String> roles = new ArrayList<>();
 		
 		Usuario u = uop.get();
+		String perfil = u.getPerfil().name();		
+		
 		u.getUsuarioGrupoVinculos().forEach( ( map ) -> {
 			UsuarioGrupo grupo = map.getGrupo();
 			grupo.getAcessos().forEach( ( acesso ) -> {
@@ -73,7 +75,7 @@ public class LoginService {
 		List<Long> clinicasIDs = this.buscaClinicasIDs( u );
 								
 		LoginResponse resp = new LoginResponse();
-		resp.setToken( jwtLogica.geraToken( username, roles, u.getId(), clinicasIDs ) );
+		resp.setToken( jwtLogica.geraToken( username, roles, perfil, u.getId(), clinicasIDs ) );
 		resp.setUsername( username );
 		resp.setPerfil( u.getPerfil() ); 
 		return resp;		

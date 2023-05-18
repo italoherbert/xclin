@@ -18,6 +18,15 @@ public class ProfissionalSharedService {
 	
 	public ListaResponse listaPorClinica( Long clinicaId ) {
 		List<Profissional> profissionais = profissionalRepository.listaPorClinica( clinicaId );
+		return this.toListaResponse( profissionais );
+	}
+	
+	public ListaResponse listaPorClinica( Long clinicaId, Long logadoUID ) {
+		List<Profissional> profissionais = profissionalRepository.listaPorClinica( clinicaId, logadoUID );
+		return this.toListaResponse( profissionais );
+	}
+	
+	private ListaResponse toListaResponse( List<Profissional> profissionais ) {
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		

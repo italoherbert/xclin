@@ -19,6 +19,7 @@ import italo.scm.model.Profissional;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
+import italo.scm.model.response.load.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.ConsultaTelaLoadResponse;
 import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
@@ -101,6 +102,11 @@ public class ConsultaLoader {
 		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
 	}
 	
+	public void loadFilaTelaResponse( ConsultaFilaTelaLoadResponse resp ) {
+		resp.setTurnos( turnoEnumManager.tipoResponses() );
+		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
+	}
+	
 	public ConsultaResponse novoResponse( Paciente p, Clinica c ) {
 		ConsultaResponse resp = new ConsultaResponse();
 		resp.setPacienteId( p.getId() );
@@ -128,6 +134,15 @@ public class ConsultaLoader {
 			List<Long> clinicasIDs, List<String> clinicasNomes ) {
 		
 		ConsultaTelaLoadResponse resp = new ConsultaTelaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
+		return resp;
+	}
+	
+	public ConsultaFilaTelaLoadResponse novoFilaTelaResponse( 
+			List<Long> clinicasIDs, List<String> clinicasNomes ) {
+		
+		ConsultaFilaTelaLoadResponse resp = new ConsultaFilaTelaLoadResponse();
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ConsultaRegistro } from '../bean/consulta/consulta-registro';
 import { ConsultaRemarcarSave } from '../bean/consulta/consulta-remarcar-save';
 import { ConsultaFiltro } from '../bean/consulta/consulta-filtro';
+import { ConsultaFilaFiltro } from '../bean/consulta/consulta-fila-filtro';
 
 @Injectable({
   providedIn: 'root'
@@ -34,8 +35,18 @@ export class ConsultaService {
     );
   }
 
+  listaFilaConsultas( clinicaId : any, profissionalId : any, filtro : ConsultaFilaFiltro ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.post( '/api/consulta/lista/fila/'+clinicaId+'/'+profissionalId, filtro, { headers: headers, withCredentials: true } );
+  }
+
   filtraConsultas( clinicaId : any, filtro : ConsultaFiltro ): Observable<any> {
-  let headers = new HttpHeaders({
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
@@ -66,6 +77,14 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/tela', { headers: headers, withCredentials: true } );
   }
 
+  getConsultaFilaTela(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/consulta/get/fila/tela', { headers: headers, withCredentials: true } );
+  }
+
   getNovaConsultaProfissionalSelect() : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
@@ -74,7 +93,7 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/novaconsulta/profissional/select', { headers: headers, withCredentials: true } );
   }
 
-  getQuantidadesAgrupadasPorDiaDoMes( clinicaId : any, profissionalId : any, mes : any, ano : any ) : Observable<any> {
+  getQuantidadesAgrupadas( clinicaId : any, profissionalId : any, mes : any, ano : any ) : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
@@ -85,7 +104,7 @@ export class ConsultaService {
     );
   }
 
-  getQuantidadesAgrupadasPorDiaDoMesCID( consultaId : any, mes : any, ano : any ) : Observable<any> {
+  getQuantidadesAgrupadasConsultaID( consultaId : any, mes : any, ano : any ) : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
@@ -95,18 +114,7 @@ export class ConsultaService {
       { headers: headers, withCredentials: true } 
     );
   }
-
-  listaConsultasPorData( clinicaId : any, profissionalId : any, dia : any, mes : any, ano : any ) : Observable<any> {
-    let headers = new HttpHeaders({
-      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
-    });
-
-    return this.http.get( 
-      '/api/consulta/lista/pordata/'+clinicaId+'/'+profissionalId+'/'+dia+'/'+mes+'/'+ano, 
-      { headers: headers, withCredentials: true } 
-    );
-  }
-
+ 
   deletaConsulta( id : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )

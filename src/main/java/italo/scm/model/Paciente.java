@@ -67,7 +67,7 @@ public class Paciente {
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
+	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
 	

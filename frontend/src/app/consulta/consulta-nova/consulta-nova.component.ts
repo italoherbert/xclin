@@ -47,7 +47,7 @@ export class ConsultaNovaComponent {
     
     this.showSpinner = true;
 
-    this.consultaService.getQuantidadesAgrupadasPorDiaDoMes( 
+    this.consultaService.getQuantidadesAgrupadas( 
               this.clinicaId, this.profissionalId, this.mes, this.ano ).subscribe( {
         next: (resp ) => {
           this.quantidadesAgrupadasPorDia = resp;

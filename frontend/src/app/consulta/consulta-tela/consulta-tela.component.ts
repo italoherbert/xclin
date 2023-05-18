@@ -69,6 +69,13 @@ export class ConsultaTelaComponent {
         this.turnos = resp.turnos;
         this.statuses = resp.statuses;
 
+        if ( this.clinicasIDs.length > 0 )
+          this.clinicaId = this.clinicasIDs[ 0 ];
+        if ( this.turnos.length > 0 )
+          this.consultaFiltro.turno = this.turnos[ 0 ].name;
+        if ( this.statuses.length > 0 )
+          this.consultaFiltro.status = this.statuses[ 0 ].name; 
+
         this.consultaFiltro.dataInicio = moment( new Date() ).format();
         this.consultaFiltro.dataFim = moment( new Date() ).format();
 

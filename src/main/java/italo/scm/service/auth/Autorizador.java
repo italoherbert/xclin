@@ -1,5 +1,6 @@
 package italo.scm.service.auth;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,12 @@ import italo.scm.exception.AutorizadorException;
 import italo.scm.exception.Erro;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
+import italo.scm.model.Clinica;
 import italo.scm.model.Consulta;
+import italo.scm.model.Profissional;
+import italo.scm.model.ProfissionalClinicaVinculo;
 import italo.scm.repository.ConsultaRepository;
+import italo.scm.repository.ProfissionalRepository;
 
 @Component
 public class Autorizador {
@@ -20,6 +25,25 @@ public class Autorizador {
 	
 	@Autowired
 	private ConsultaRepository consultaRepository;
+	
+	@Autowired
+	private ProfissionalRepository profissionalRepository;
+			
+	public void verificaSeProfissionalDeClinica( String authorizationHeader, Long clinicaId, Long profissionalId ) throws AutorizadorException {				
+		Optional<Profissional> profissionalOp = profissionalRepository.findById( profissionalId );
+		if ( !profissionalOp.isPresent() )
+			throw new AutorizadorException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+				
+		Profissional profissional = profissionalOp.get();
+				
+		List<ProfissionalClinicaVinculo> vinculos = profissional.getProfissionalClinicaVinculos();
+		for( ProfissionalClinicaVinculo v : vinculos ) {
+			Clinica c = v.getClinica();
+			if ( c.getId() == clinicaId )
+				return;
+		}
+		throw new AutorizadorException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
+	}
 	
 	public void autorizaPorConsulta( String authorizationHeader, Long consultaId ) throws AutorizadorException {
 		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );

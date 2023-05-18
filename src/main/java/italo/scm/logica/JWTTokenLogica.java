@@ -29,9 +29,10 @@ public class JWTTokenLogica {
 		return this.tokenInfo( token );
 	}
 		
-	public String geraToken( String subject, List<String> roles, Long uid, List<Long> clinicasIDs ) {
+	public String geraToken( String subject, List<String> roles, String perfil, Long uid, List<Long> clinicasIDs ) {
 		Map<String, Object> claims = new HashMap<>();
-		claims.put( "roles", this.rolesToClaim( roles ) );	
+		claims.put( "roles", this.rolesToClaim( roles ) );
+		claims.put( "perfil", perfil );
 		claims.put( "usuarioId", uid );
 		claims.put( "clinicasIDs", this.clinicasIDsToClaim( clinicasIDs ) );
 		return this.geraToken( subject, claims );
@@ -43,10 +44,11 @@ public class JWTTokenLogica {
 		String subject = claims.getSubject();
 		
 		Long uid = Long.parseLong( String.valueOf( claims.get( "usuarioId" ) ) );
+		String perfil = String.valueOf( claims.get( "perfil" ) );
 		 
 		String[] roles = this.claimToRole( claims.get( "roles" ) );
 		Long[] clinicasIDs = this.claimToClinicasIDs( claims.get( "clinicasIDs" ) );
-		return new JWTTokenInfo( subject, roles, uid, clinicasIDs, expirado );
+		return new JWTTokenInfo( subject, roles, perfil, uid, clinicasIDs, expirado );
 	}
 	
 	public String geraToken( String subject, Map<String, Object> claims ) {

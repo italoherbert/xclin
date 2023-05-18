@@ -97,18 +97,18 @@
                 </div>
             </mat-list-item>
             <div *ngIf="consultaMenuShow === true" class="px-3">
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-fila' } } ]">
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faListOl"></fa-icon>
+                        <div class="mx-2">Fila de consultas</div>
+                    </div>
+                </a>
                 <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-nova' } } ]">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faAdd"></fa-icon>
                         <div class="mx-2">Nova consulta</div>
                     </div>                       
-                </a>
-                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-remarcar' } } ]">
-                    <div class="d-flex flex-row">
-                        <fa-icon [icon]="icons.faWrench"></fa-icon>
-                        <div class="mx-2">Remarcar consulta</div>
-                    </div>
-                </a>
+                </a>                
                 <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-tela' } } ]">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faDisplay"></fa-icon>

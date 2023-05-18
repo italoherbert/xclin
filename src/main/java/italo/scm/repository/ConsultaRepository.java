@@ -26,31 +26,20 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 			+ "order by day(c.dataAtendimento)")
 	public List<Object[]> agrupaPorDiaDeMes( 
 			Long clinicaId, Long profissionalId, int mes, int ano );
-	
-	@Query("select c "
-			+ "from Consulta c "
-				+ "join Profissional p "
-				+ "join ProfissionalClinicaVinculo v "
-			+ "where "
-				+ "v.clinica.id=?1 and p.id=?2 and "
-				+ "day(c.dataAtendimento)=?3 and month(c.dataAtendimento)=?4 and year(c.dataAtendimento)=?5 "
-			+ "order by c.dataAgendamento")
-	public List<Consulta> listaPorDia( Long clinicaId, Long profissionalId, int dia, int mes, int ano );
-	
-	
+		
 	@Query("select c "
 			+ "from Consulta c "
 				+ "join Profissional pr "
 				+ "join Paciente pa "
 				+ "join ProfissionalClinicaVinculo v "
 			+ "where v.clinica.id=?1 and "
+				+ "c.dataAtendimento between ?12 and ?13 and "
 				+ "(?6=false or (lower(pa.nome) like lower(?2))) and "
 				+ "(?7=false or (lower(pr.nome) like lower(?3))) and "
 				+ "(?8=true or c.turno=?4) and "
 				+ "(?9=true or c.status=?5) and "
 				+ "(?10=true or c.paga=false) and "
-				+ "(?11=true or c.retorno=false) and "
-				+ "c.dataAtendimento between ?12 and ?13")
+				+ "(?11=true or c.retorno=false)")
 	public List<Consulta> filtra( 
 			Long clinicaId, 
 			String pacienteNomeIni, String profissionalNomeIni, 
@@ -59,5 +48,17 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 			boolean incluirTodosTurnos, boolean incluirTodosStatus, 
 			boolean incluirPagas, boolean incluirRetornos, 
 			Date dataInicio, Date dataFim );
+	
+	@Query("select c "
+			+ "from Consulta c "
+				+ "join Clinica cl "
+				+ "join ProfissionalClinicaVinculo v "
+			+ "where "
+				+ "cl.id=?1 and "
+				+ "v.profissional.id=?2 and "
+				+ "c.dataAtendimento=?3 and "
+				+ "c.turno=?4")
+	public List<Consulta> listaFila( 
+			Long clinicaId, Long profissionalId, Date data, Turno turno );
 	
 }

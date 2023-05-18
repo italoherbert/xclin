@@ -69,6 +69,7 @@ import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ConsultaProfissionalSelectComponent } from './consulta/consulta-nova/consulta-profissional-select/consulta-profissional-select.component';
 import { ConsultaRemoveDialog, ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
+import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import { ConsultaRemoveDialog, ConsultaTelaComponent } from './consulta/consulta
     ConsultaNovaComponent,
     ConsultaProfissionalSelectComponent,
     ConsultaTelaComponent,
-    ConsultaRemoveDialog
+    ConsultaRemoveDialog,
+    ConsultaFilaComponent
   ],
   imports: [
     BrowserModule,

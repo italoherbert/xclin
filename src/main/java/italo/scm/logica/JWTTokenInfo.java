@@ -14,6 +14,8 @@ public class JWTTokenInfo {
 	private String subject;
 	
 	private String[] roles;
+	
+	private String perfil;
 			
 	private Long usuarioId;
 

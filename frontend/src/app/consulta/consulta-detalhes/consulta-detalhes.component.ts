@@ -57,7 +57,7 @@ export class ConsultaDetalhesComponent {
 
     this.showSpinner = true;
 
-    let id = this.actRoute.snapshot.paramMap.get( 'id' );
+    let id = this.actRoute.snapshot.paramMap.get( 'consultaId' );
 
     this.consultaService.getConsulta( id ).subscribe({
       next: ( resp ) => {

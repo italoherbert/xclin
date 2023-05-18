@@ -52,17 +52,17 @@
                         <div class="w-100 d-flex justify-content-around p-2 fs-4 text-dark" *ngIf="isDiaDoMes( i, j )">
                             <a class="calendario-dia-turno p-2" 
                                     [ngClass]="diaTurnoCSSClasses( i, j, 1 )" 
-                                    [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 1 )">
+                                    [routerLink]="[]" (click)="diaTurnoClicado($event, i, j, 1 )">
                                 {{quantidade( i, j, 1 )}}
                             </a>
                             <a class="calendario-dia-turno p-2" 
                                     [ngClass]="isDiaTurnoSelecionado( i, j, 2 ) ? 'calendario-dia-turno-selecionado': ''" 
-                                    [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 2 )">
+                                    [routerLink]="[]" (click)="diaTurnoClicado($event, i, j, 2 )">
                                 {{quantidade( i, j, 2 )}}
                             </a>
                             <a class="calendario-dia-turno p-2" 
                                     [ngClass]="isDiaTurnoSelecionado( i, j, 3 ) ? 'calendario-dia-turno-selecionado': ''" 
-                                    [routerLink]="[]" (click)="diaTurnoSelecionado($event, i, j, 3 )">
+                                    [routerLink]="[]" (click)="diaTurnoClicado($event, i, j, 3 )">
                                 {{quantidade( i, j, 3 )}}
                             </a>
                         </div>

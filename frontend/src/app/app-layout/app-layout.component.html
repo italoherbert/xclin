@@ -30,7 +30,7 @@
                     </a>
                 </div>
             </mat-list-item>            
-            <mat-list-item routerLink="#" (click)="usuarioMenuShow = !usuarioMenuShow">
+            <mat-list-item [routerLink]="[]" (click)="usuarioMenuShow = !usuarioMenuShow">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUser"></fa-icon>
                     <div class="mx-2">Usuários</div>                    
@@ -88,7 +88,7 @@
                     <div class="mx-2">Paciente</div>
                 </div>
             </mat-list-item>            
-            <mat-list-item routerLink="#" (click)="consultaMenuShow = !consultaMenuShow">
+            <mat-list-item [routerLink]="[]" (click)="consultaMenuShow = !consultaMenuShow">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
                     <div class="mx-2">Consultas</div>                    

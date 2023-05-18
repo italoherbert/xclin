@@ -9,10 +9,16 @@
     {{erroMsg}}
 </div>
 
+<button mat-raised-button color="primary" class="mt-3" (click)="remarca()">
+    <fa-icon [icon]="icons.faSave"></fa-icon>
+    Salvar
+</button>
+
+<br />
 <br />
 
-<app-calendario 
+<app-calendario class="mt-3"
     [quantidades]="quantidadesAgrupadasPorDia" 
-    (onDiaClicado)="onDiaClicado($event)"
+    (onDiaTurnoAlterado)="onDiaTurnoAlterado($event)"
     (onCalendarioAlterado)="onCalendarioAlterado($event)">
 </app-calendario>

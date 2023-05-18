@@ -80,7 +80,7 @@ export class ConsultaNovaComponent {
     this.ano = event.ano;
   }
 
-  onDiaTurnoSelecionado( event : any ) {
+  onDiaTurnoAlterado( event : any ) {
     this.ano = event.ano;
     this.mes = event.mes;
     this.dia = event.dia;

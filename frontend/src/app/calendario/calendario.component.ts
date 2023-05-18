@@ -10,7 +10,7 @@ import * as moment from 'moment';
 })
 export class CalendarioComponent {
 
-  @Output() onDiaTurnoSelecionado : EventEmitter<any> = new EventEmitter();
+  @Output() onDiaTurnoAlterado : EventEmitter<any> = new EventEmitter();
   @Output() onCalendarioAlterado : EventEmitter<any> = new EventEmitter();
 
   @Input() quantidades : any[][] = [];
@@ -146,18 +146,19 @@ export class CalendarioComponent {
             this.diaTurnoClicadoTurno === turno;
   }
 
-  diaTurnoSelecionado( event : any, i : number, j : number, turno : number ) {
+  diaTurnoClicado( event : any, i : number, j : number, turno : number ) {
     let dia =  ((i*7+j+1)-this.primeiroDiaDaSemana);
     if ( dia > 0 && dia <= this.quantDiasNoMes ) {
       if ( this.isDiaTurnoSelecionado( i, j, turno ) ) {
         this.diaTurnoClicadoI = 0;
         this.diaTurnoClicadoJ = 0;
         this.diaTurnoClicadoTurno = 0;
+        this.onDiaTurnoAlterado.emit( { turno : -1, dia : dia, mes : this.mesI+1, ano : this.ano } );       
       } else {
         this.diaTurnoClicadoI = i;
         this.diaTurnoClicadoJ = j;
         this.diaTurnoClicadoTurno = turno;
-        this.onDiaTurnoSelecionado.emit( { turno : turno, dia : dia, mes : this.mesI+1, ano : this.ano } );       
+        this.onDiaTurnoAlterado.emit( { turno : turno, dia : dia, mes : this.mesI+1, ano : this.ano } );       
       }
     }
   }

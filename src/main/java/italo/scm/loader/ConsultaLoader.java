@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import italo.scm.enums.ConsultaStatusEnumManager;
 import italo.scm.enums.TurnoEnumManager;
 import italo.scm.enums.tipos.ConsultaStatus;
 import italo.scm.exception.ConverterException;
@@ -18,8 +19,9 @@ import italo.scm.model.Profissional;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
-import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
+import italo.scm.model.response.load.ConsultaTelaLoadResponse;
+import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 
 @Component
 public class ConsultaLoader {
@@ -29,6 +31,9 @@ public class ConsultaLoader {
 	
 	@Autowired
 	private TurnoEnumManager turnoEnumManager;
+	
+	@Autowired
+	private ConsultaStatusEnumManager consultaStatusEnumManager;
 	
 	public void loadBean( Consulta c, ConsultaRemarcarSaveRequest request ) throws LoaderException {
 		c.setDataAgendamento( new Date() ); 
@@ -74,7 +79,7 @@ public class ConsultaLoader {
 		}
 		
 		resp.setTempoEstimado( c.getTempoEstimado() );
-		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAgendamento() ) ) ); 
+		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAtendimento() ) ) ); 
 		resp.setValor( c.getValor() ); 
 		resp.setObservacoes( c.getObservacoes() );
 	}
@@ -89,6 +94,11 @@ public class ConsultaLoader {
 	
 	public void loadRegResponse( ConsultaRegLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() ); 
+	}
+	
+	public void loadTelaResponse( ConsultaTelaLoadResponse resp ) {
+		resp.setTurnos( turnoEnumManager.tipoResponses() );
+		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
 	}
 	
 	public ConsultaResponse novoResponse( Paciente p, Clinica c ) {
@@ -112,6 +122,15 @@ public class ConsultaLoader {
 	
 	public ConsultaRegLoadResponse novoRegResponse() {
 		return new ConsultaRegLoadResponse();
+	}
+	
+	public ConsultaTelaLoadResponse novoTelaResponse( 
+			List<Long> clinicasIDs, List<String> clinicasNomes ) {
+		
+		ConsultaTelaLoadResponse resp = new ConsultaTelaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
+		return resp;
 	}
 	
 }

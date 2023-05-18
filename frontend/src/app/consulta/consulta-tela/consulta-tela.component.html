@@ -1,0 +1,119 @@
+<h1>Tela de consultas</h1>
+
+<div class="mt-3"> 
+
+    <mat-form-field appearance="fill" class="mx-2">
+        <mat-label>Clínica</mat-label>
+        <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId">
+            <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                {{clinicasNomes[ i ]}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="mx-2">
+        <mat-label>Data de início</mat-label>
+        <input matInput [matDatepicker]="dataInicioDatepicker" placeholder="DD/MM/YYYY" [(ngModel)]="consultaFiltro.dataInicio"/>
+        <mat-datepicker-toggle matIconSuffix [for]="dataInicioDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #dataInicioDatepicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="mx-2">
+        <mat-label>Data de fim</mat-label>
+        <input matInput [matDatepicker]="dataFimDatepicker" placeholder="DD/MM/YYYY" [(ngModel)]="consultaFiltro.dataFim"/>
+        <mat-datepicker-toggle matIconSuffix [for]="dataFimDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #dataFimDatepicker></mat-datepicker>
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field appearance="fill" class="mx-2">
+        <mat-label>Nome do paciente</mat-label>
+        <input matInput type="text" placeholder="Nome do paciente" [(ngModel)]="consultaFiltro.pacienteNomeIni" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="mx-2">
+        <mat-label>Nome do profissional</mat-label>
+        <input matInput type="text" placeholder="Nome do profissional" [(ngModel)]="consultaFiltro.profissionalNomeIni" />
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field appearance="fill" class="mx-2">
+        <mat-label>Turno</mat-label>
+        <mat-select placeholder="Selecione o turno" [(ngModel)]="consultaFiltro.turno">
+            <mat-option *ngFor="let t of turnos" [value]="t.name">
+                {{t.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="mx-2">
+        <mat-label>Status</mat-label>
+        <mat-select placeholder="Selecione o status" [(ngModel)]="consultaFiltro.status">
+            <mat-option *ngFor="let s of statuses" [value]="s.name">
+                {{s.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="mx-2">
+        <mat-checkbox color="primary" [(ngModel)]="consultaFiltro.incluirPaciente">Incluír paciente</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="consultaFiltro.incluirProfissional">Incluír profissional</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="consultaFiltro.incluirTodosTurnos">Incluír todos os turnos</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="consultaFiltro.incluirTodosStatuses">Incluír todos os statuses</mat-checkbox>
+        <br />
+        <mat-checkbox color="primary" [(ngModel)]="consultaFiltro.incluirPagas">Incluir pagas</mat-checkbox>
+        <mat-checkbox color="primary" [(ngModel)]="consultaFiltro.incluirRetornos">Incluir retornos</mat-checkbox>
+    </div>
+    
+    <br />
+
+    <div class="d-flex flex-row align-items-center">
+        <button mat-raised-button color="primary" (click)="filtra()">
+            <fa-icon [icon]="icons.faFilter"></fa-icon>
+            <span class="mx-3">Filtrar</span>
+        </button>
+        <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+        {{infoMsg}}
+    </div>
+    <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+        {{erroMsg}}
+    </div>
+</div>
+
+<div class="table-responsive mt-3" style="height: 20em">    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Data de atendimento</th>
+                <th>Turno</th>
+                <th>Detalhes</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of consultas">
+                <td>{{c.pacienteNome}}</td>
+                <td>{{c.dataAtendimento | date: 'dd/MM/yyyy'}}</td>
+                <td>{{c.turnoLabel}}</td>
+                <td>
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'consulta-detalhes/'+c.id }}]">
+                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                        detalhes
+                    </a>
+                </td>
+                <td>
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(c.id)">
+                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                        remover
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

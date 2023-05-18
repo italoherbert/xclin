@@ -1,25 +1,31 @@
 package italo.scm.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.scm.enums.ConsultaStatusEnumManager;
+import italo.scm.enums.TurnoEnumManager;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.loader.ConsultaLoader;
+import italo.scm.logica.Converter;
 import italo.scm.model.Clinica;
 import italo.scm.model.Consulta;
 import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
+import italo.scm.model.request.filtro.ConsultaFiltroRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.ListaResponse;
-import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
+import italo.scm.model.response.load.ConsultaTelaLoadResponse;
+import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.ConsultaRepository;
 import italo.scm.repository.PacienteRepository;
@@ -46,6 +52,15 @@ public class ConsultaService {
 	
 	@Autowired
 	private ConsultaLoader consultaLoader;
+	
+	@Autowired
+	private Converter converter;
+
+	@Autowired
+	private ConsultaStatusEnumManager consultaStatusEnumManager;
+	
+	@Autowired
+	private TurnoEnumManager turnoEnumManager;
 	
 	public void registra( Long clinicaId, Long profissionalId, Long pacienteId, ConsultaSaveRequest request ) throws ServiceException {
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
@@ -81,6 +96,36 @@ public class ConsultaService {
 		consultaRepository.save( consulta );
 	}
 	
+	public List<ConsultaResponse> filtra( Long clinicaId, ConsultaFiltroRequest request ) throws ServiceException {
+		Date dataIni = converter.stringToDataNEx( request.getDataInicio() );
+		Date dataFim = converter.stringToDataNEx( request.getDataFim() );
+				
+		List<Consulta> consultas = consultaRepository.filtra( 
+				clinicaId, 
+				request.getPacienteNomeIni()+"%", 
+				request.getProfissionalNomeIni()+"%", 
+				turnoEnumManager.getEnum( request.getTurno() ), 
+				consultaStatusEnumManager.getEnum( request.getStatus() ), 
+				request.isIncluirPaciente(), 
+				request.isIncluirProfissional(), 
+				request.isIncluirTodosTurnos(), 
+				request.isIncluirTodosStatuses(), 
+				request.isIncluirPagas(), 
+				request.isIncluirRetornos(),
+				dataIni, dataFim );
+		
+		List<ConsultaResponse> lista = new ArrayList<>();
+		for( Consulta c : consultas ) {
+			Paciente p = c.getPaciente();
+			Clinica cl = c.getClinica();
+			ConsultaResponse resp = consultaLoader.novoResponse( p, cl );
+			consultaLoader.loadResponse( resp, c );
+			
+			lista.add( resp );
+		}
+		return lista;
+	}
+	
 	public ConsultaResponse get( Long id ) throws ServiceException {
 		Optional<Consulta> consultaOp = consultaRepository.findById( id );
 		if ( !consultaOp.isPresent() )
@@ -101,6 +146,22 @@ public class ConsultaService {
 		consultaLoader.loadRegResponse( resp );
 		return resp;
 	}
+	
+	public ConsultaTelaLoadResponse getTelaLoad( Long[] clinicasIDs ) {
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		
+		for( Clinica c : clinicas ) {
+			clinicasIDs2.add( c.getId() );
+			clinicasNomes2.add( c.getNome() );
+		}
+		
+		ConsultaTelaLoadResponse resp = consultaLoader.novoTelaResponse( clinicasIDs2, clinicasNomes2 );
+		consultaLoader.loadTelaResponse( resp );
+		return resp;
+	}
+	
 	
 	public NovaConsultaProfissionalSelectLoadResponse getNovaConsultaProfissionalSelectLoad( Long[] clinicasIDs ) {
 		ListaResponse resp = clinicaSharedService.listaPorIDs( clinicasIDs );
@@ -145,4 +206,11 @@ public class ConsultaService {
 		return lista;
 	}
 	
+	public void deleta( Long consultaId ) throws ServiceException {
+		boolean existe = consultaRepository.existsById( consultaId );
+		if ( !existe )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		consultaRepository.deleteById( consultaId ); 
+	}
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ConsultaRegistro } from '../bean/consulta/consulta-registro';
 import { ConsultaRemarcarSave } from '../bean/consulta/consulta-remarcar-save';
+import { ConsultaFiltro } from '../bean/consulta/consulta-filtro';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,14 @@ export class ConsultaService {
     );
   }
 
+  filtraConsultas( clinicaId : any, filtro : ConsultaFiltro ): Observable<any> {
+  let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.post( '/api/consulta/filtra/'+clinicaId, filtro, { headers: headers, withCredentials: true } );
+  }
+  
   getConsulta( consultaId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
@@ -47,6 +56,14 @@ export class ConsultaService {
     });
 
     return this.http.get( '/api/consulta/get/reg', { headers: headers, withCredentials: true } );
+  }
+
+  getConsultaTela(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/consulta/get/tela', { headers: headers, withCredentials: true } );
   }
 
   getNovaConsultaProfissionalSelect() : Observable<any> {
@@ -88,6 +105,14 @@ export class ConsultaService {
       '/api/consulta/lista/pordata/'+clinicaId+'/'+profissionalId+'/'+dia+'/'+mes+'/'+ano, 
       { headers: headers, withCredentials: true } 
     );
+  }
+
+  deletaConsulta( id : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.delete( '/api/consulta/deleta/'+id, { headers: headers, withCredentials: true } );
   }
 
 }

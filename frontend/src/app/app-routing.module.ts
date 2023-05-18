@@ -32,13 +32,10 @@ import { RecepcionistaTelaComponent } from './recepcionista/recepcionista-tela/r
 import { PacienteTelaComponent } from './paciente/paciente-tela/paciente-tela.component';
 import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
-import { AgendaComponent } from './consulta/agenda/agenda.component';
-import { ConsultasDiaComponent } from './consulta/consultas-dia/consultas-dia.component';
-import { ConsultaRegistroComponent } from './consulta/consulta-nova/consulta-registro/consulta-registro.component';
 import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
-import { AgendaRemarcarComponent } from './consulta/agenda-remarcar/agenda-remarcar.component';
-import { ConsultaRemarcarSaveComponent } from './consulta/consulta-remarcar-save/consulta-remarcar-save.component';
+import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta-remarcar.component';
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
+import { ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -83,15 +80,10 @@ const routes: Routes = [
     { path: 'paciente-detalhes/:id', component: PacienteDetalhesComponent, outlet: 'page' },
     { path: 'paciente-save/:id', component: PacienteSaveComponent, outlet: 'page' },
     
-    { path: 'consulta-agenda', component: AgendaComponent, outlet: 'page' },
-    { path: 'consulta-agenda-dia/:clinicaId/:profissionalId/:dia/:mes/:ano', component: ConsultasDiaComponent, outlet: 'page' },
-    { path: 'consulta-agenda-remarcar/:consultaId', component: AgendaRemarcarComponent, outlet: 'page' },
-    { path: 'consulta-remarcar-save/:consultaId/:dia/:mes/:ano', component: ConsultaRemarcarSaveComponent, outlet: 'page' },
-    
-    { path: 'consulta-save/:clinicaId/:profissionalId/:dia/:mes/:ano', component: ConsultaRegistroComponent, outlet: 'page' },
-    { path: 'consulta-detalhes/:id', component: ConsultaDetalhesComponent, outlet: 'page' },
-
     { path: 'consulta-nova', component: ConsultaNovaComponent, outlet: 'page' },
+    { path: 'consulta-tela', component: ConsultaTelaComponent, outlet: 'page' },
+    { path: 'consulta-remarcar/:consultaId', component: ConsultaRemarcarComponent, outlet: 'page' },
+    { path: 'consulta-detalhes/:consultaId', component: ConsultaDetalhesComponent, outlet: 'page' },
   ] },
 ];
 

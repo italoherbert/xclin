@@ -9,20 +9,28 @@ import lombok.Setter;
 @Setter
 public class ConsultaFiltroRequest {
 
-	private String dataHoraAgendamento;
+	private String dataInicio;
+
+	private String dataFim;
 	
+	private String pacienteNomeIni;
+	
+	private String profissionalNomeIni;
+	
+	private boolean incluirPaciente;
+	
+	private boolean incluirProfissional;
+		
 	private String turno;
 	
-	private boolean incluirRetorno;
+	private boolean incluirTodosTurnos;
+
+	private String status;
 	
-	private boolean incluirCompleta;
+	private boolean incluirTodosStatuses;
 	
-	private boolean incluirRegistrada;
+	private boolean incluirRetornos;
 	
-	private boolean incluirPaga;
-	
-	private boolean incluirCancelada;
-	
-	private boolean incluirFinalizada;
-	
+	private boolean incluirPagas;
+
 }

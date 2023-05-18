@@ -34,6 +34,24 @@ public class Converter {
 		}
 	}
 	
+	public Date stringToDataHoraNEx( String datastr ) {
+		try {
+			return this.stringToDataHora( datastr );
+		} catch ( ConverterException e ) {
+			
+		}
+		return null;
+	}
+	
+	public Date stringToDataNEx( String datastr ) {
+		try {
+			return this.stringToData( datastr );
+		} catch ( ConverterException e ) {
+			
+		}
+		return null;
+	}
+	
 	public String dataHoraToString( Date dataHora ) {
 		return dataHoraBDFormato.format( dataHora );
 	}

@@ -62,15 +62,13 @@ import { RecepcionistaSaveComponent } from './recepcionista/recepcionista-save/r
 import { PacienteRemoveDialog, PacienteTelaComponent } from './paciente/paciente-tela/paciente-tela.component';
 import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
 import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
-import { AgendaComponent } from './consulta/agenda/agenda.component';
-import { ConsultasDiaComponent } from './consulta/consultas-dia/consultas-dia.component';
 import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
 import { ConsultaRegistroComponent } from './consulta/consulta-nova/consulta-registro/consulta-registro.component';
 import { CalendarioComponent } from './calendario/calendario.component';
-import { AgendaRemarcarComponent } from './consulta/agenda-remarcar/agenda-remarcar.component';
-import { ConsultaRemarcarSaveComponent } from './consulta/consulta-remarcar-save/consulta-remarcar-save.component';
+import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta-remarcar.component';
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ConsultaProfissionalSelectComponent } from './consulta/consulta-nova/consulta-profissional-select/consulta-profissional-select.component';
+import { ConsultaRemoveDialog, ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
 
 @NgModule({
   declarations: [
@@ -119,15 +117,14 @@ import { ConsultaProfissionalSelectComponent } from './consulta/consulta-nova/co
     PacienteDetalhesComponent,
     PacienteSaveComponent,
     PacienteRemoveDialog,
-    AgendaComponent,
-    ConsultasDiaComponent,
     ConsultaDetalhesComponent,
     ConsultaRegistroComponent,
     CalendarioComponent,
-    AgendaRemarcarComponent,
-    ConsultaRemarcarSaveComponent,
+    ConsultaRemarcarComponent,
     ConsultaNovaComponent,
     ConsultaProfissionalSelectComponent,
+    ConsultaTelaComponent,
+    ConsultaRemoveDialog
   ],
   imports: [
     BrowserModule,

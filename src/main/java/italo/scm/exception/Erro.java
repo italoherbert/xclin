@@ -15,7 +15,11 @@ public interface Erro {
 	public final static String USERNAME_INI_OBRIGATORIO = "O início do username é um campo de preenchimento obrigatório.";
 	public final static String NOME_INI_OBRIGATORIO = "O início do nome é um campo de preenchimento obrigatório.";
 	public final static String CLINICA_NOME_INI_OBRIGATORIO = "O início do nome da clínica é um campo de preenchimento obrigatório.";
-
+	public final static String PACIENTE_NOME_INI_OBRIGATORIO = "O início do nome do paciente é um campo de preenchimento obrigatório.";
+	public final static String PROFISSIONAL_NOME_INI_OBRIGATORIO = "O início do nome do profissional é um campo de preenchimento obrigatório.";
+	public final static String DATA_INI_OBRIGATORIA = "A data de início é um campo de preenchimento obrigatório.";
+	public final static String DATA_FIM_OBRIGATORIA = "A data de fim é um campo de preenchimento obrigatório.";
+	
 	public final static String ENDERECO_NULL = "Objeto endereço não informado.";
 	public final static String USUARIO_NULL = "Objeto usuário não informado.";
 	
@@ -49,6 +53,8 @@ public interface Erro {
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	
 	public final static String PERFIL_INVALIDO = "Perfil inválido: $1";
+	public final static String CONSULTA_STATUS_INVALIDO = "Status da consulta inválido: $1";
+	public final static String TURNO_INVALIDO = "Turno inválido: $1";
 	
 	public final static String STRNUM_INVALIDO = "Não foi possível converter o texto: '$1' em número.";
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";

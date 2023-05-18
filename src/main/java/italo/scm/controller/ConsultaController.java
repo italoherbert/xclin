@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
+import italo.scm.model.request.filtro.ConsultaFiltroRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
-import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
+import italo.scm.model.response.load.ConsultaTelaLoadResponse;
+import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.service.ConsultaService;
 import italo.scm.service.auth.Autorizador;
 import italo.scm.validator.ConsultaValidator;
@@ -84,9 +87,36 @@ public class ConsultaController {
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/reg")
-	public ResponseEntity<Object> getAgendaTelaLoad() throws SistemaException {				
+	public ResponseEntity<Object> getRegLoad() throws SistemaException {				
 		ConsultaRegLoadResponse resp = consultaService.getRegLoad();
 		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/tela")
+	public ResponseEntity<Object> getTelaLoad(
+			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
+				
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		ConsultaTelaLoadResponse resp = consultaService.getTelaLoad( clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@PostMapping("/filtra/{clinicaId}")
+	public ResponseEntity<Object> filtra(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@RequestBody ConsultaFiltroRequest request ) throws SistemaException {
+				
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+		
+		consultaValidator.validaFiltro( request );
+
+		List<ConsultaResponse> lista = consultaService.filtra( clinicaId, request );
+		return ResponseEntity.ok( lista );
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
@@ -146,4 +176,15 @@ public class ConsultaController {
 		return ResponseEntity.ok( resp );
 	}	
 	
+	@PreAuthorize("hasAuthority('consultaDELETE')")
+	@DeleteMapping("/deleta/{id}")
+	public ResponseEntity<Object> deleta(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId ) throws SistemaException {
+		
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		consultaService.deleta( consultaId );
+		return ResponseEntity.ok().build();
+	}
 }

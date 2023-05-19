@@ -97,7 +97,7 @@ export class ConsultaRegistroComponent {
 
     this.consultaService.registraConsulta( this.clinicaId, this.profissionalId, this.pacienteId, this.consultaSave ).subscribe({
       next: ( resp ) => {
-        this.infoMsg = "Consulta registrado com sucesso.";
+        this.infoMsg = "Consulta registrada com sucesso.";
         this.showSpinner = false;
       },
       error: ( erro ) => {

@@ -30,7 +30,8 @@
                     </a>
                 </div>
             </mat-list-item>            
-            <mat-list-item [routerLink]="[]" (click)="usuarioMenuShow = !usuarioMenuShow">
+            <mat-list-item [routerLink]="[]" (click)="usuarioMenuShow = !usuarioMenuShow"
+                    *ngIf="isUsuarioAdminEscopo() === true">        
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUser"></fa-icon>
                     <div class="mx-2">Usuários</div>                    
@@ -58,37 +59,39 @@
                     </div>
                 </a>
             </div>
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'clinica-tela' } } ]">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'clinica-tela' } } ]">        
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faHospital"></fa-icon>
                     <div class="mx-2">Clínicas</div>
                 </div>
             </mat-list-item>  
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'diretor-tela' } } ]">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'diretor-tela' } } ]">        
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUserNurse"></fa-icon>
                     <div class="mx-2">Diretores</div>
                 </div>
             </mat-list-item>
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'profissional-tela' } } ]">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'profissional-tela' } } ]">        
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUserDoctor"></fa-icon>
                     <div class="mx-2">Profissional</div>
                 </div>
             </mat-list-item> 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela' } } ]">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela' } } ]">                
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUserTie"></fa-icon>
                     <div class="mx-2">Recepcionista</div>
                 </div>
             </mat-list-item> 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]"
+                    *ngIf="isUsuarioAdminEscopo() === false">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
                     <div class="mx-2">Paciente</div>
                 </div>
             </mat-list-item>            
-            <mat-list-item [routerLink]="[]" (click)="consultaMenuShow = !consultaMenuShow">
+            <mat-list-item [routerLink]="[]" (click)="consultaMenuShow = !consultaMenuShow" 
+                    *ngIf="isUsuarioAdminEscopo() === false">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
                     <div class="mx-2">Consultas</div>                    

@@ -26,8 +26,7 @@ export class ProfissionalTelaComponent {
 
   profissionalFiltro : ProfissionalFiltro = {
     nomeIni : '',
-    clinicaNomeIni: '',
-    incluirClinica: false
+    clinicaNomeIni: ''
   }
 
   profissionais : any;

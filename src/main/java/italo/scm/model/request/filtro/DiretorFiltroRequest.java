@@ -12,7 +12,5 @@ public class DiretorFiltroRequest {
 	private String nomeIni;
 	
 	private String clinicaNomeIni;
-	
-	private boolean incluirClinica;
-	
+		
 }

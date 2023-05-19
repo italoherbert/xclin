@@ -39,6 +39,7 @@ export class LoginComponent {
     this.usuarioService.logar( this.login ).subscribe({
       next: ( resp ) => {        
         localStorage.setItem( "token", resp.token );
+        localStorage.setItem( "perfil", resp.perfil );
         this.showSpinner = false;
         this.router.navigate([ '/app', { outlets : { page: 'home' } } ]);
       },

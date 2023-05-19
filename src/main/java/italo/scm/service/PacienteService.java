@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import italo.scm.enums.tipos.UsuarioPerfil;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.loader.EnderecoLoader;
@@ -122,6 +123,7 @@ public class PacienteService {
 	
 	public PacienteResponse get( Long pacienteId, Long[] clinicasIDs ) throws ServiceException {
 		Optional<Paciente> pacienteOp = pacienteRepository.busca( pacienteId, clinicasIDs );
+				
 		if ( !pacienteOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_PACIENTE_NAO_ENCONTRADO );
 				

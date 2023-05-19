@@ -40,4 +40,9 @@ export class AppLayoutComponent {
     this.router.navigate( [ '/login' ] );
   }
 
+  isUsuarioAdminEscopo() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'RAIZ' || perfil == 'ADMIN';  
+  }
+
 }

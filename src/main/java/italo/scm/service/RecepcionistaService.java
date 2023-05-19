@@ -132,13 +132,13 @@ public class RecepcionistaService {
 
 		List<Recepcionista> recepcionistas;
 		if ( nomeIni.equals( "*" ) ) {
-			if ( request.isIncluirClinica() ) {
+			if ( !request.getClinicaNomeIni().isBlank() ) {
 				recepcionistas = recepcionistaRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
 			} else {
 				recepcionistas = recepcionistaRepository.findAll();
 			}
 		} else {
-			if ( request.isIncluirClinica() ) {
+			if ( !request.getClinicaNomeIni().isBlank() ) {
 				recepcionistas = recepcionistaRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
 			} else {
 				recepcionistas = recepcionistaRepository.filtra( nomeIni+"%" );

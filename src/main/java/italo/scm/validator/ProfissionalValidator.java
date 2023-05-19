@@ -32,12 +32,9 @@ public class ProfissionalValidator {
 		if ( request.getNomeIni().isBlank() )
 			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
 		
-		if ( request.isIncluirClinica() ) {
-			if ( request.getClinicaNomeIni() == null )
-				throw new ValidationException( Erro.CLINICA_NOME_INI_OBRIGATORIO );
-			if ( request.getClinicaNomeIni().isBlank() )
-				throw new ValidationException( Erro.CLINICA_NOME_INI_OBRIGATORIO );
-		}
+		if ( request.getClinicaNomeIni() == null )
+			throw new ValidationException( Erro.CLINICA_NOME_INI_OBRIGATORIO );
+		
 	}
 	
 }

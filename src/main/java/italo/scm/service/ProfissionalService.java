@@ -123,13 +123,13 @@ public class ProfissionalService {
 		
 		List<Profissional> profissionales;
 		if ( nomeIni.equals( "*" ) ) {
-			if ( request.isIncluirClinica() ) {
+			if ( !request.getClinicaNomeIni().isBlank() ) {
 				profissionales = profissionalRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
 			} else {
 				profissionales = profissionalRepository.findAll();
 			}
 		} else {
-			if ( request.isIncluirClinica() ) {
+			if ( !request.getClinicaNomeIni().isBlank() ) {
 				profissionales = profissionalRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
 			} else {
 				profissionales = profissionalRepository.filtraPorNome( nomeIni+"%" );

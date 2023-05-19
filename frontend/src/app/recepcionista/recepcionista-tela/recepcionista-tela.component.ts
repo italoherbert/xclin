@@ -26,8 +26,7 @@ export class RecepcionistaTelaComponent {
 
   recepcionistaFiltro : RecepcionistaFiltro = {
     nomeIni : '',
-    clinicaNomeIni: '',
-    incluirClinica: false
+    clinicaNomeIni: ''
   }
 
   recepcionistas : any;

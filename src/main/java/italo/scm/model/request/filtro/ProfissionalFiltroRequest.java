@@ -12,7 +12,5 @@ public class ProfissionalFiltroRequest {
 	private String nomeIni;
 	
 	private String clinicaNomeIni;
-	
-	private boolean incluirClinica;
-	
+		
 }

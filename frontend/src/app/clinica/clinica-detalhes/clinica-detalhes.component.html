@@ -1,9 +1,11 @@
 <h1>Detalhes da clinica</h1>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'clinica-save/'+clinicaDetalhes.clinica.id }}]">
-    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
-    <span class="mx-3">Alterar clinica</span>
-</a>
+<div *ngIf="sistemaService.isAdminEscopo() === true">
+    <a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'clinica-save/'+clinicaDetalhes.clinica.id }}]">
+        <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+        <span class="mx-3">Alterar clinica</span>
+    </a>
+</div>
 
 <br />
 
@@ -91,10 +93,18 @@
                 </div>              
             </div>
 
-            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'clinica-tela'} } ]">
-                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
-                <span class="mx-3">Tela de clinicas</span>
-            </a>
+            <div *ngIf="sistemaService.isAdminEscopo() === true">
+                <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'clinica-tela'} } ]">
+                    <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                    <span class="mx-3">Tela de clinicas</span>
+                </a>
+            </div>
+            <div *ngIf="sistemaService.isAdminEscopo() === false">
+                <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'nao-admin-clinica-tela'} } ]">
+                    <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                    <span class="mx-3">Tela de clinicas</span>
+                </a>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

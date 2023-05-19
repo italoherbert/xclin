@@ -86,4 +86,21 @@ export class ClinicaService {
 
     return this.http.delete( '/api/clinica/deleta/'+id, { headers: headers, withCredentials: true } )
   }
+
+  getDetalhesClinicaNaoAdmin( clinicaId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/naoadmin/clinica/get/detalhes/'+clinicaId, { headers: headers, withCredentials: true } )
+  }
+
+  getTelaClinicaNaoAdmin(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/naoadmin/clinica/get/tela', { headers: headers, withCredentials: true } );
+  }
+
 }

@@ -52,7 +52,7 @@ export class ClinicaDetalhesComponent {
   constructor( 
     private actRoute : ActivatedRoute, 
     private clinicaService: ClinicaService, 
-    private sistemaService: SistemaService) {}
+    public sistemaService: SistemaService) {}
 
   ngOnInit() {
     this.infoMsg = null;
@@ -62,16 +62,29 @@ export class ClinicaDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.clinicaService.getDetalhesClinica( id ).subscribe({
-      next: ( resp ) => {
-        this.clinicaDetalhes = resp;
-        this.showSpinner = false;
-      },
-      error: ( erro ) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
+    if ( this.sistemaService.isAdminEscopo() === true ) {
+      this.clinicaService.getDetalhesClinica( id ).subscribe({
+        next: ( resp ) => {
+          this.clinicaDetalhes = resp;
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    } else {
+      this.clinicaService.getDetalhesClinicaNaoAdmin( id ).subscribe({
+        next: ( resp ) => {
+          this.clinicaDetalhes = resp;
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    }
   }
 
 }

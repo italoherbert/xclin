@@ -51,7 +51,6 @@ export class UsuarioGrupoAcessosComponent {
         this.grupo = resp.grupo;
         this.acessosSave.acessos = resp.acessos;
 
-        this.infoMsg = "Acessos carregados!";
         this.showSpinner = false;
       },
       error: ( erro ) => {

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
+import italo.scm.model.request.filtro.NaoAdminRecepcionistaFiltroRequest;
 import italo.scm.model.request.filtro.RecepcionistaFiltroRequest;
 import italo.scm.model.request.save.RecepcionistaSaveRequest;
 
@@ -34,6 +35,13 @@ public class RecepcionistaValidator {
 		
 		if ( request.getClinicaNomeIni() == null )
 			throw new ValidationException( Erro.CLINICA_NOME_INI_OBRIGATORIO );		
+	}
+	
+	public void validaNaoAdminFiltro( NaoAdminRecepcionistaFiltroRequest request ) throws ValidationException {
+		if ( request.getNomeIni() == null )
+			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
+		if ( request.getNomeIni().isBlank() )
+			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );			
 	}
 	
 }

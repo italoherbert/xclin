@@ -34,4 +34,23 @@ public interface RecepcionistaRepository extends JpaRepository<Recepcionista, Lo
 		 	+ "lower_unaccent(c.nome) like lower_unaccent(?2)") 
 	public List<Recepcionista> filtra( String nomeIni, String clinicaNomeIni );
 	
+	@Query("select r "
+		 + "from Recepcionista r "
+		 + "where "
+		 	+ "r.clinica.id=?1 and "
+		 	+ "lower_unaccent(r.nome) like lower_unaccent(?1)")
+	public List<Recepcionista> filtra( Long clinicaId, String nomeIni );
+	
+	@Query("select r "
+			 + "from Recepcionista r "
+			 + "where "
+			 	+ "r.clinica.id=?1")
+	public List<Recepcionista> filtra( Long clinicaId );
+		
+	@Query("select r "
+		 + "from Recepcionista r "
+		 + "where r.id=?1 and r.clinica.id in (?2)")
+	public Optional<Recepcionista> busca( Long recepcionistaId, Long[] clinicasIDs );
+		
+	
 }

@@ -25,7 +25,7 @@ export class RecursoTelaComponent {
   }
 
   recursoFiltro : RecursoFiltro = {
-    nomeIni : ''
+    nomeIni : '*'
   }
 
   recursos : any;

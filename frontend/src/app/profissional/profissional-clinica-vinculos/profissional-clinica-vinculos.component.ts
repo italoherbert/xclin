@@ -28,8 +28,6 @@ export class ProfissionalClinicaVinculosComponent {
     nome : '',
     funcao: '',
     funcaoLabel: '',
-    tempoConsulta: 0,
-    tempoConsultaRetorno: 0,
     valorConsulta: 0,
     usuario : {
       id : 0,

@@ -17,6 +17,7 @@ import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.load.ClinicaDetalhesLoadResponse;
 import italo.scm.model.response.load.ClinicaEditLoadResponse;
 import italo.scm.model.response.load.ClinicaRegLoadResponse;
+import italo.scm.model.response.load.NaoAdminClinicaTelaLoadResponse;
 
 @Component
 public class ClinicaLoader {
@@ -74,6 +75,14 @@ public class ClinicaLoader {
 		resp.setClinica( clinica );
 		resp.setUf( uf );
 		resp.setMunicipio( municipio ); 
+		return resp;
+	}
+	
+	public NaoAdminClinicaTelaLoadResponse novoNaoAdminTelaResponse(
+			List<Long> clinicasIDs, List<String> clinicasNomes ) {
+		NaoAdminClinicaTelaLoadResponse resp = new NaoAdminClinicaTelaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;
 	}
 		

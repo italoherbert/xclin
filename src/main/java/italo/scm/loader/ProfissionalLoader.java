@@ -12,6 +12,7 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.NaoAdminProfissionalTelaLoadResponse;
 import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.ProfissionalRegLoadResponse;
@@ -24,8 +25,6 @@ public class ProfissionalLoader {
 	
 	public void loadBean( Profissional p, ProfissionalSaveRequest request ) {
 		p.setNome( request.getNome() );
-		p.setTempoConsulta( request.getTempoConsulta() );
-		p.setTempoConsultaRetorno( request.getTempoConsultaRetorno() );
 		p.setValorConsulta( request.getValorConsulta() );
 		p.setFuncao( profissionalFuncaoEnumManager.getEnum( request.getFuncao() ) ); 
 	}
@@ -38,8 +37,6 @@ public class ProfissionalLoader {
 	public void loadResponse( ProfissionalResponse resp, Profissional p ) throws LoaderException {
 		resp.setId( p.getId() );
 		resp.setNome( p.getNome() );
-		resp.setTempoConsulta( p.getTempoConsulta() );
-		resp.setTempoConsultaRetorno( p.getTempoConsultaRetorno() );
 		resp.setValorConsulta( p.getValorConsulta() );
 		resp.setFuncao( p.getFuncao() ); 
 		resp.setFuncaoLabel( p.getFuncao().label() ); 
@@ -80,6 +77,14 @@ public class ProfissionalLoader {
 		ProfissionalDetalhesLoadResponse resp = new ProfissionalDetalhesLoadResponse();
 		resp.setProfissional( profissional );
 		resp.setClinicas( clinicas ); 
+		return resp;
+	}
+	
+	public NaoAdminProfissionalTelaLoadResponse novoNaoAdminTelaResponse(
+			List<Long> clinicasIDs, List<String> clinicassNomes ) {
+		NaoAdminProfissionalTelaLoadResponse resp = new NaoAdminProfissionalTelaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicassNomes );
 		return resp;
 	}
 

@@ -47,7 +47,7 @@ public class AcessoService {
 		
 		List<AcessoResponse> acessosResp = new ArrayList<>();
 		
-		List<Recurso> recursos = recursoRepository.findAll();				
+		List<Recurso> recursos = recursoRepository.findAllByOrderByIdDesc();				
 		for( Recurso recurso : recursos ) {	
 			Acesso acesso = null;
 			for( int i = 0; acesso == null && i < asize; i++ ) {

@@ -20,6 +20,7 @@ import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
 import italo.scm.model.response.load.UsuarioGrupoDetalhesLoadResponse;
 import italo.scm.model.response.load.UsuarioGrupoEditLoadResponse;
+import italo.scm.repository.AcessoRepository;
 import italo.scm.repository.UsuarioGrupoRepository;
 
 @Service
@@ -27,6 +28,9 @@ public class UsuarioGrupoService {
 
 	@Autowired
 	private UsuarioGrupoRepository usuarioGrupoRepository;
+	
+	@Autowired
+	private AcessoRepository acessoRepository;
 	
 	@Autowired
 	private UsuarioGrupoLoader usuarioGrupoLoader;
@@ -102,7 +106,7 @@ public class UsuarioGrupoService {
 			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO );
 		
 		UsuarioGrupo grupo = grupoOp.get();
-		List<Acesso> acessos = grupo.getAcessos(); 
+		List<Acesso> acessos = acessoRepository.buscaPorGrupo( grupo.getId() );
 		
 		UsuarioGrupoResponse grupoResp = usuarioGrupoLoader.novoResponse();
 		usuarioGrupoLoader.loadResponse( grupoResp, grupo );
@@ -128,7 +132,7 @@ public class UsuarioGrupoService {
 			throw new ServiceException( Erro.USUARIO_GRUPO_NAO_ENCONTRADO );
 		
 		UsuarioGrupo grupo = grupoOp.get();
-		List<Acesso> acessos = grupo.getAcessos(); 
+		List<Acesso> acessos = acessoRepository.buscaPorGrupo( grupo.getId() );
 		
 		UsuarioGrupoResponse grupoResp = usuarioGrupoLoader.novoResponse();
 		usuarioGrupoLoader.loadResponse( grupoResp, grupo );

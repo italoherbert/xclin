@@ -11,6 +11,7 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.RecepcionistaSaveRequest;
 import italo.scm.model.response.RecepcionistaResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.NaoAdminRecepcionistaTelaLoadResponse;
 import italo.scm.model.response.load.RecepcionistaEditLoadResponse;
 import italo.scm.model.response.load.RecepcionistaRegLoadResponse;
 
@@ -33,12 +34,11 @@ public class RecepcionistaLoader {
 		return r;
 	}
 	
-	public RecepcionistaResponse novoResponse( 
-			UsuarioResponse uresp, Long clinicaId, String clinicaNome ) {
+	public RecepcionistaResponse novoResponse( UsuarioResponse uresp, Clinica c ) {
 		RecepcionistaResponse resp = new RecepcionistaResponse();
 		resp.setUsuario( uresp );
-		resp.setClinicaId( clinicaId );
-		resp.setClinicaNome( clinicaNome ); 
+		resp.setClinicaId( c.getId() );
+		resp.setClinicaNome( c.getNome() ); 
 		return resp;
 	}
 		
@@ -55,6 +55,14 @@ public class RecepcionistaLoader {
 			List<Long> clinicasIDs, List<String> clinicasNomes ) {
 		RecepcionistaEditLoadResponse resp = new RecepcionistaEditLoadResponse();
 		resp.setRecepcionista( rresp ); 
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
+		return resp;
+	}
+	
+	public NaoAdminRecepcionistaTelaLoadResponse novoNaoAdminTelaResponse( 
+			List<Long> clinicasIDs, List<String> clinicasNomes ) {
+		NaoAdminRecepcionistaTelaLoadResponse resp = new NaoAdminRecepcionistaTelaLoadResponse();
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;

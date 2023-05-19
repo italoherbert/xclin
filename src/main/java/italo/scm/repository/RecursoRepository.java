@@ -19,4 +19,6 @@ public interface RecursoRepository extends JpaRepository<Recurso, Long> {
 	@Query("select r from Recurso r where lower(r.nome) like lower(?1)")
 	public List<Recurso> filtra( String nomeIni );
 	
+	public List<Recurso> findAllByOrderByIdDesc();
+	
 }

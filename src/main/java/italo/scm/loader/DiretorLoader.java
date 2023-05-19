@@ -10,6 +10,7 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.DiretorSaveRequest;
 import italo.scm.model.response.DiretorResponse;
 import italo.scm.model.response.UsuarioResponse;
+import italo.scm.model.response.load.NaoAdminDiretorTelaLoadResponse;
 import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
 
 @Component
@@ -43,6 +44,15 @@ public class DiretorLoader {
 		resp.setClinicas( clinicas ); 
 		return resp;
 	}
-
+	
+	public NaoAdminDiretorTelaLoadResponse novoNaoAdminTelaResponse(
+			List<Long> clinicasIDs,
+			List<String> clinicasNomes ) {
+		NaoAdminDiretorTelaLoadResponse resp = new NaoAdminDiretorTelaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
+		return resp;
+	}
+	
 }
 

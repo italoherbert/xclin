@@ -29,11 +29,7 @@ public class Profissional {
 	private Long id;
 
 	private String nome;
-	
-	private long tempoConsulta;
-	
-	private long tempoConsultaRetorno;
-	
+		
 	private double valorConsulta;
 	
 	private ProfissionalFuncao funcao;

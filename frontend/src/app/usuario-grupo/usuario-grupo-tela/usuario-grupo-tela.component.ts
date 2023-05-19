@@ -29,7 +29,7 @@ export class UsuarioGrupoTelaComponent {
   }
 
   grupoFiltro : UsuarioGrupoFiltro = {
-    nomeIni : ''
+    nomeIni : '*'
   }
 
   grupos : any;

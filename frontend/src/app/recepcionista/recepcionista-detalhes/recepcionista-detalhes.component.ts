@@ -38,7 +38,7 @@ export class RecepcionistaDetalhesComponent {
   constructor( 
     private actRoute : ActivatedRoute, 
     private recepcionistaService: RecepcionistaService, 
-    private sistemaService: SistemaService) {}
+    public sistemaService: SistemaService) {}
 
   ngOnInit() {
     this.infoMsg = null;
@@ -48,16 +48,29 @@ export class RecepcionistaDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.recepcionistaService.getRecepcionista( id ).subscribe({
-      next: ( resp ) => {
-        this.recepcionistaDetalhes = resp;
-        this.showSpinner = false;
-      },
-      error: ( erro ) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
+    if ( this.sistemaService.isAdminEscopo() === true ) {
+      this.recepcionistaService.getRecepcionista( id ).subscribe({
+        next: ( resp ) => {
+          this.recepcionistaDetalhes = resp;
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    } else {
+      this.recepcionistaService.getRecepcionistaNaoAdmin( id ).subscribe({
+        next: (resp) => {
+          this.recepcionistaDetalhes = resp;
+          this.showSpinner = false;
+        },
+        error: (erro) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });      
+    }
   }
   
 }

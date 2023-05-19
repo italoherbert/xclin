@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ProfissionalClinicaVinculos } from '../bean/profissional/profissional-clinica-vinculos';
 import { ProfissionalSave } from '../bean/profissional/profissional-save';
 import { ProfissionalFiltro } from '../bean/profissional/profissional-filtro';
+import { NaoAdminProfissionalFiltro } from '../bean/profissional/nao-admin-profissional-filtro';
 
 @Injectable({
   providedIn: 'root'
@@ -109,6 +110,31 @@ export class ProfissionalService {
     });
 
     return this.http.delete( '/api/profissional/deleta/'+id, { headers: headers, withCredentials: true } )
+  }
+
+  filtraProfissionaisNaoAdmin( clinicaId : any, filtro: NaoAdminProfissionalFiltro ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.post( '/api/naoadmin/profissional/filtra/'+clinicaId, filtro, { headers: headers, withCredentials: true } );
+  }
+
+  getDetalhesProfissionalNaoAdmin( profissionalId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/naoadmin/profissional/get/detalhes/'+profissionalId, { headers: headers, withCredentials: true } )
+  }
+
+  getTelaProfissionalNaoAdmin(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/naoadmin/profissional/get/tela', { headers: headers, withCredentials: true } );
   }
 
 }

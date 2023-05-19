@@ -1,9 +1,11 @@
 <h1>Detalhes do recepcionista</h1>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'recepcionista-save/'+recepcionistaDetalhes.id }}]">
-    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
-    <span class="mx-3">Alterar recepcionista</span>
-</a>
+<div *ngIf="sistemaService.isAdminEscopo() === true">
+    <a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'recepcionista-save/'+recepcionistaDetalhes.id }}]">
+        <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+        <span class="mx-3">Alterar recepcionista</span>
+    </a>
+</div>
 
 <br />
 
@@ -25,7 +27,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-10 my-3">
+                <div class="col-sm-6 my-3">
                     <div class="fs-6 text-secondary">
                         Nome:
                     </div>
@@ -33,7 +35,7 @@
                         {{recepcionistaDetalhes.nome}}
                     </div>
                 </div>
-                <div class="col-sm-8 my-3">
+                <div class="col-sm-6 my-3">
                     <div class="fs-6 text-secondary">
                         Clínica:
                     </div>
@@ -59,10 +61,18 @@
                 </div>                
             </div>
             
-            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela'} } ]">
-                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
-                <span class="mx-3">Tela de recepcionistas</span>
-            </a>
+            <div *ngIf="sistemaService.isAdminEscopo() === true">
+                <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela'} } ]">
+                    <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                    <span class="mx-3">Tela de recepcionistas</span>
+                </a>
+            </div>
+            <div *ngIf="sistemaService.isAdminEscopo() === false">
+                <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'nao-admin-recepcionista-tela'} } ]">
+                    <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                    <span class="mx-3">Tela de recepcionistas</span>
+                </a>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

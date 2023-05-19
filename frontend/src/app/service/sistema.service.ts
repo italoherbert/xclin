@@ -24,4 +24,9 @@ export class SistemaService {
     return moment( d, 'YYYY-MM-DD HH:mm:ss' ).format( 'HH:mm' );
   }
 
+  isAdminEscopo() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'RAIZ' || perfil == 'ADMIN';  
+  }
+
 }

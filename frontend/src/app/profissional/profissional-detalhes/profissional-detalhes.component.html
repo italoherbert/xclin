@@ -1,16 +1,18 @@
 <h1>Detalhes do profissional</h1>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-save/'+profissionalDetalhes.profissional.id }}]">
-    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
-    <span class="mx-3">Alterar profissional</span>
-</a>
+<div *ngIf="sistemaService.isAdminEscopo() === true">
+    <a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-save/'+profissionalDetalhes.profissional.id }}]">
+        <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+        <span class="mx-3">Alterar profissional</span>
+    </a>
 
-<span class="p-2"></span>
+    <span class="p-2"></span>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-clinica-vinculos/'+profissionalDetalhes.profissional.id }}]">
-    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
-    <span class="mx-3">Ver clinicas</span>
-</a>
+    <a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'profissional-clinica-vinculos/'+profissionalDetalhes.profissional.id }}]">
+        <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+        <span class="mx-3">Ver clinicas</span>
+    </a>
+</div>
 
 <br />
 
@@ -47,23 +49,7 @@
                     <div class="fs-5 text-black">
                         {{profissionalDetalhes.profissional.funcaoLabel}}
                     </div>
-                </div>
-                <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
-                        Tempo de consulta estimado:
-                    </div>
-                    <div class="fs-5 text-success">
-                        {{profissionalDetalhes.profissional.tempoConsulta}} minutos
-                    </div>
-                </div>
-                <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
-                        Tempo de consulta retorno estimado:
-                    </div>
-                    <div class="fs-5 text-success">
-                        {{profissionalDetalhes.profissional.tempoConsultaRetorno}} minutos
-                    </div>
-                </div>
+                </div>               
                 <div class="col-sm-8 my-3">
                     <div class="fs-6 text-secondary">
                         Valor da consulta:
@@ -103,11 +89,19 @@
                     </div>
                 </div>
             </div>
-            
-            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'profissional-tela'} } ]">
-                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
-                <span class="mx-3">Tela de profissionais</span>
-            </a>
+
+            <div *ngIf="sistemaService.isAdminEscopo() === true">
+                <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'profissional-tela'} } ]">
+                    <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                    <span class="mx-3">Tela de profissionais</span>                                
+                </a>
+            </div>
+            <div *ngIf="sistemaService.isAdminEscopo() === false">
+                <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'nao-admin-profissional-tela'} } ]">
+                    <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                    <span class="mx-3">Tela de profissionais</span>                                
+                </a>
+            </div>
         </mat-card-content>
     </mat-card>
 </div>

@@ -27,8 +27,6 @@ export class ProfissionalDetalhesComponent {
     profissional : {
       id : 0,
       nome : '',
-      tempoConsulta: 0,
-      tempoConsultaRetorno: 0,
       valorConsulta: 0,
       funcao : '',
       funcaoLabel: '',
@@ -45,7 +43,7 @@ export class ProfissionalDetalhesComponent {
   constructor( 
     private actRoute : ActivatedRoute, 
     private profissionalService: ProfissionalService, 
-    private sistemaService: SistemaService) {}
+    public sistemaService: SistemaService) {}
 
   ngOnInit() {
     this.infoMsg = null;
@@ -55,16 +53,29 @@ export class ProfissionalDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.profissionalService.getProfissionalDetalhes( id ).subscribe({
-      next: ( resp ) => {
-        this.profissionalDetalhes = resp;
-        this.showSpinner = false;
-      },
-      error: ( erro ) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
+    if ( this.sistemaService.isAdminEscopo() === true ) {
+      this.profissionalService.getProfissionalDetalhes( id ).subscribe({
+        next: ( resp ) => {
+          this.profissionalDetalhes = resp;
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    } else {
+      this.profissionalService.getDetalhesProfissionalNaoAdmin( id ).subscribe({
+        next: ( resp ) => {
+          this.profissionalDetalhes = resp;
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      });
+    }
   }
 
 }

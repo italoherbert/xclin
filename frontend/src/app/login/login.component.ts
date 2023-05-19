@@ -47,7 +47,17 @@ export class LoginComponent {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }
-    })
+    });
   }
+
+  loginInputAlterado( e : any ) {
+    alert( e.keyCode );
+    let code = 0;
+    if ( e.target.value.length > 0 )
+      code = e.target.value.charCodeAt( e.target.value.length-1 );
+
+    if ( code == 13 )
+      this.logar();
+    }
 
 }

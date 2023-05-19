@@ -132,7 +132,7 @@ public class DiretorService {
 		}
 		return lista;
 	}
-	
+			
 	public DiretorResponse get( Long id ) throws ServiceException {
 		Optional<Diretor> diretorOp = diretorRepository.findById( id );
 		if ( !diretorOp.isPresent() )
@@ -148,7 +148,7 @@ public class DiretorService {
 		
 		return resp;
 	}
-	
+		
 	public DiretorDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
 		Optional<Diretor> diretorOp = diretorRepository.findById( id );
 		if ( !diretorOp.isPresent() )

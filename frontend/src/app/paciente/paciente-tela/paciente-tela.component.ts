@@ -45,6 +45,10 @@ export class PacienteTelaComponent {
       next: (resp) => {
         this.clinicasIDs = resp.clinicasIDs;
         this.clinicasNomes = resp.clinicasNomes;
+
+        if ( this.clinicasIDs.length > 0 )
+          this.clinicaId = this.clinicasIDs[ 0 ];
+
         this.showSpinner = false;
       },
       error: (erro) => {

@@ -149,14 +149,11 @@ public class RecepcionistaService {
 		for( Recepcionista r : recepcionistas ) {					
 			Usuario u = r.getUsuario();
 			Clinica c = r.getClinica();
-			
-			Long clinicaId = c.getId();
-			String clinicaNome = c.getNome();
-			
+						
 			UsuarioResponse uresp = usuarioLoader.novoResponse();
 			usuarioLoader.loadResponse( uresp, u );
 			
-			RecepcionistaResponse resp = recepcionistaLoader.novoResponse( uresp, clinicaId, clinicaNome );
+			RecepcionistaResponse resp = recepcionistaLoader.novoResponse( uresp, c );
 			recepcionistaLoader.loadResponse( resp, r );
 			
 			lista.add( resp );
@@ -173,14 +170,11 @@ public class RecepcionistaService {
 		
 		Usuario u = r.getUsuario();
 		Clinica c = r.getClinica();
-		
-		Long clinicaId = c.getId();
-		String clinicaNome = c.getNome();
-		
+				
 		UsuarioResponse uresp = usuarioLoader.novoResponse();
 		usuarioLoader.loadResponse( uresp, u );
 		
-		RecepcionistaResponse resp = recepcionistaLoader.novoResponse( uresp, clinicaId, clinicaNome );
+		RecepcionistaResponse resp = recepcionistaLoader.novoResponse( uresp, c );
 		recepcionistaLoader.loadResponse( resp, r );
 		
 		return resp;		
@@ -197,11 +191,8 @@ public class RecepcionistaService {
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();
 		usuarioLoader.loadResponse( uresp, usuario );
-		
-		Long clinicaId = clinica.getId();
-		String clinicaNome = clinica.getNome();
-		
-		RecepcionistaResponse rresp = recepcionistaLoader.novoResponse( uresp, clinicaId, clinicaNome );
+				
+		RecepcionistaResponse rresp = recepcionistaLoader.novoResponse( uresp, clinica );
 		recepcionistaLoader.loadResponse( rresp, r ); 
 		
 		List<Clinica> clinicas = clinicaRepository.findAll();

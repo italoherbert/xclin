@@ -37,6 +37,10 @@ import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
 import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
+import { NaoAdminDiretorTelaComponent } from './diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
+import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
+import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
+import { NaoAdminClinicaTelaComponent } from './clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -62,20 +66,24 @@ const routes: Routes = [
     { path: 'clinica-tela', component: ClinicaTelaComponent, outlet: 'page' },
     { path: 'clinica-detalhes/:id', component: ClinicaDetalhesComponent, outlet: 'page' },
     { path: 'clinica-save/:id', component: ClinicaSaveComponent, outlet: 'page' },
+    { path: 'nao-admin-clinica-tela', component: NaoAdminClinicaTelaComponent, outlet: 'page' },
 
     { path: 'diretor-tela', component: DiretorTelaComponent, outlet: 'page' },
     { path: 'diretor-detalhes/:id', component: DiretorDetalhesComponent, outlet: 'page' },
     { path: 'diretor-save/:id', component: DiretorSaveComponent, outlet: 'page' },
     { path: 'diretor-clinica-vinculos/:id', component: DiretorClinicaVinculosComponent, outlet: 'page' },
+    { path: 'nao-admin-diretor-tela', component: NaoAdminDiretorTelaComponent, outlet: 'page' },
 
     { path: 'profissional-tela', component: ProfissionalTelaComponent, outlet: 'page' },
     { path: 'profissional-detalhes/:id', component: ProfissionalDetalhesComponent, outlet: 'page' },
     { path: 'profissional-save/:id', component: ProfissionalSaveComponent, outlet: 'page' },
     { path: 'profissional-clinica-vinculos/:id', component: ProfissionalClinicaVinculosComponent, outlet: 'page' },
+    { path: 'nao-admin-profissional-tela', component: NaoAdminProfissionalTelaComponent, outlet: 'page' },
 
     { path: 'recepcionista-tela', component: RecepcionistaTelaComponent, outlet: 'page' },
     { path: 'recepcionista-detalhes/:id', component: RecepcionistaDetalhesComponent, outlet: 'page' },
     { path: 'recepcionista-save/:id', component: RecepcionistaSaveComponent, outlet: 'page' },
+    { path: 'nao-admin-recepcionista-tela', component: NaoAdminRecepcionistaTelaComponent, outlet: 'page' },
 
     { path: 'paciente-tela', component: PacienteTelaComponent, outlet: 'page' },
     { path: 'paciente-detalhes/:id', component: PacienteDetalhesComponent, outlet: 'page' },

@@ -22,4 +22,7 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Long> {
 	@Query("select c from Clinica c where c.id in (?1)")
 	public List<Clinica> buscaPorIDs( Long[] ids );
 	
+	@Query("select c from Clinica c where c.id=?1 and c.id in (?2)")
+	public Optional<Clinica> busca( Long clinicaId, Long[] ids );
+	
 }

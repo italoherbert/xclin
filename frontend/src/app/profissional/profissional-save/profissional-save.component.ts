@@ -25,8 +25,6 @@ export class ProfissionalSaveComponent {
   profissionalSave : ProfissionalSave = {
     nome: '',
     funcao: '',
-    tempoConsulta: 0,
-    tempoConsultaRetorno: 0,
     valorConsulta: 0,
     usuario: {
       username: '',

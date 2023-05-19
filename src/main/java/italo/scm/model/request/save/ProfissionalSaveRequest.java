@@ -10,11 +10,7 @@ import lombok.Setter;
 public class ProfissionalSaveRequest {
 
 	private String nome;
-	
-	private long tempoConsulta;
-	
-	private long tempoConsultaRetorno;
-	
+		
 	private double valorConsulta;
 	
 	private String funcao;

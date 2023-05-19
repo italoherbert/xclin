@@ -70,6 +70,10 @@ import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.co
 import { ConsultaProfissionalSelectComponent } from './consulta/consulta-nova/consulta-profissional-select/consulta-profissional-select.component';
 import { ConsultaRemoveDialog, ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
 import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
+import { NaoAdminDiretorTelaComponent } from './diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
+import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
+import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
+import { NaoAdminClinicaTelaComponent } from './clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +130,11 @@ import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.co
     ConsultaProfissionalSelectComponent,
     ConsultaTelaComponent,
     ConsultaRemoveDialog,
-    ConsultaFilaComponent
+    ConsultaFilaComponent,
+    NaoAdminDiretorTelaComponent,
+    NaoAdminProfissionalTelaComponent,
+    NaoAdminRecepcionistaTelaComponent,
+    NaoAdminClinicaTelaComponent
   ],
   imports: [
     BrowserModule,

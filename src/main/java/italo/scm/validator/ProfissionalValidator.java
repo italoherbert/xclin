@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
+import italo.scm.model.request.filtro.NaoAdminProfissionalFiltroRequest;
 import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 
@@ -35,6 +36,13 @@ public class ProfissionalValidator {
 		if ( request.getClinicaNomeIni() == null )
 			throw new ValidationException( Erro.CLINICA_NOME_INI_OBRIGATORIO );
 		
+	}
+	
+	public void validaNaoAdminFiltro( NaoAdminProfissionalFiltroRequest request ) throws ValidationException {
+		if ( request.getNomeIni() == null )
+			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
+		if ( request.getNomeIni().isBlank() )
+			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );				
 	}
 	
 }

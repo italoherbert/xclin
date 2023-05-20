@@ -1,9 +1,8 @@
 
-export interface ConsultaRegistro {
-    dataAtendimento: string;
+export interface ConsultaAlter {
     valor : number;
     retorno : boolean;
     paga : boolean;
-    turno : string;
+    status : string;
     observacoes: string;
 }

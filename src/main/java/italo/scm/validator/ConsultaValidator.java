@@ -11,6 +11,7 @@ import italo.scm.exception.ValidationException;
 import italo.scm.logica.Converter;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
 import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
+import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 
 @Component
@@ -34,6 +35,11 @@ public class ConsultaValidator {
 		} catch (ConverterException e) {
 			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getDataAtendimento() );
 		}
+	}
+	
+	public void validaAlterSave( ConsultaAlterSaveRequest request ) throws ValidationException {
+		if ( !consultaStatusEnumManager.enumValida( request.getStatus() ) )
+			throw new ValidationException( Erro.STATUS_OBRIGATORIO );
 	}
 	
 	public void validaFiltro( ConsultaFiltroRequest request ) throws ValidationException {

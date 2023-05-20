@@ -7,16 +7,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ConsultaSaveRequest {
+public class ConsultaAlterSaveRequest {
 	
-	private String dataAtendimento;
-				
-	private boolean retorno;
-
 	private double valor;
-	
-	private String turno;
-	
-	private String observacoes;
 
+	private boolean retorno;
+	
+	private boolean paga;
+	
+	private String status;
+		
+	private String observacoes;
+	
 }

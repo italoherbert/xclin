@@ -8,7 +8,6 @@ export interface Consulta {
     retorno : boolean;
     status : string;
     turno : string;
-    tempoEstimado : number;
     pacienteId : number;
     pacienteNome : string;
     clinicaId : number;

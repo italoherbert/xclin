@@ -7,9 +7,9 @@
 
 <span class="p-2"></span>
 
-<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'consulta-remarcar' }}]">
-    <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
-    <span class="mx-3">Pagar</span>
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'consulta-alterar/'+consulta.id }}]">
+    <fa-icon [icon]="icons.faEdit"></fa-icon>
+    <span class="mx-3">Alterar</span>
 </a>
 
 <br />
@@ -68,16 +68,24 @@
                     <div class="fs-6 text-secondary">
                         Status:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5" [ngClass]="consulta.status == 'FINALIZADA' ? 'text-success' : 'text-primary'">
                         {{consulta.statusLabel}}
+                        <button *ngIf="consulta.status != 'FINALIZADA'" mat-raised-button color="primary" class="my-1" (click)="finalizaConsulta()">
+                            <fa-icon [icon]="icons.faCheck"></fa-icon>
+                            <span class="mx-3">Finalizar</span>
+                        </button>
                     </div>
                 </div>  
                 <div class="col-sm-6 my-3">
                     <div class="fs-6 text-secondary">
                         Paga:
                     </div>
-                    <div class="fs-5" [ngClass]="consulta.paga == true ? 'text-primary' : 'text-danger'">
+                    <div class="fs-5" [ngClass]="consulta.paga == true ? 'text-success' : 'text-danger'">
                         {{consulta.paga == true ? 'Sim' : 'Não' }}
+                        <button *ngIf="consulta.paga == false" mat-raised-button color="primary" class="my-1" (click)="registraPagamento()">
+                            <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+                            <span class="mx-3">Pagar</span>
+                        </button>
                     </div>
                 </div>    
                 <div class="col-sm-6 my-3">

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faCircleLeft, faMoneyBill1, faMoneyBill1Wave, faPenToSquare, faRemove, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCircleLeft, faEdit, faMoneyBill1, faMoneyBill1Wave, faPenToSquare, faRemove, faWrench } from '@fortawesome/free-solid-svg-icons';
 
 import * as moment from 'moment';
 
@@ -25,7 +25,9 @@ export class ConsultaDetalhesComponent {
     faWrench : faWrench,
     faCircleLeft : faCircleLeft,
     faMoneyBill1 : faMoneyBill1,
-    faRemove: faRemove
+    faRemove: faRemove,
+    faCheck: faCheck,
+    faEdit: faEdit
   }
 
   consulta : Consulta = {
@@ -35,7 +37,6 @@ export class ConsultaDetalhesComponent {
     dataAtendimento: '',
     paga: false,
     retorno: false,
-    tempoEstimado: 0,
     valor: 0,
     status: '',
     pacienteId: 0,
@@ -47,12 +48,15 @@ export class ConsultaDetalhesComponent {
   }
 
   constructor( 
-    private router : Router,
     private actRoute : ActivatedRoute, 
     private consultaService: ConsultaService, 
     private sistemaService: SistemaService) {}
 
   ngOnInit() {
+    this.carrega();
+  }
+  
+  carrega() {
     this.infoMsg = null;
     this.erroMsg = null;
 
@@ -67,6 +71,46 @@ export class ConsultaDetalhesComponent {
         this.showSpinner = false;
       },
       error: ( erro ) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  registraPagamento() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let id = this.actRoute.snapshot.paramMap.get( 'consultaId' );
+
+    this.consultaService.registraPagamentoConsulta( id ).subscribe({
+      next: (resp) => {
+        this.showSpinner = false;
+        this.carrega();
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  finalizaConsulta() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let id = this.actRoute.snapshot.paramMap.get( 'consultaId' );
+
+    this.consultaService.finalizaConsulta( id ).subscribe({
+      next: (resp) => {
+        this.showSpinner = false;
+        this.carrega();
+      },
+      error: (erro) => {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }

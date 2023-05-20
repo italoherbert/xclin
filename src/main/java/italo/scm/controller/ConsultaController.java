@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,9 +20,11 @@ import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
+import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
+import italo.scm.model.response.load.ConsultaAlterLoadResponse;
 import italo.scm.model.response.load.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.ConsultaTelaLoadResponse;
@@ -63,7 +66,21 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaWRITE')")
-	@PostMapping("/remarca/{consultaId}")
+	@PatchMapping("/altera/{consultaId}")
+	public ResponseEntity<Object> altera(
+			@RequestHeader("Authorization") String authorizationHeader, 
+			@PathVariable Long consultaId, 
+			@RequestBody ConsultaAlterSaveRequest request ) throws SistemaException {
+		
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		consultaValidator.validaAlterSave( request );
+		consultaService.altera( consultaId, request ); 
+		return ResponseEntity.ok().build();				
+	}
+	
+	@PreAuthorize("hasAuthority('consultaWRITE')")
+	@PatchMapping("/remarca/{consultaId}")
 	public ResponseEntity<Object> remarca(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId,
@@ -73,7 +90,31 @@ public class ConsultaController {
 		
 		consultaService.remarca( consultaId, request );
 		return ResponseEntity.ok().build();		
-	}		
+	}	
+	
+	@PreAuthorize("hasAuthority('consultaWRITE')")
+	@PatchMapping("/paga/{consultaId}")
+	public ResponseEntity<Object> registraPagamento(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId ) throws SistemaException {
+		
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		consultaService.registraPagamento( consultaId );
+		return ResponseEntity.ok().build();		
+	}
+	
+	@PreAuthorize("hasAuthority('consultaWRITE')")
+	@PatchMapping("/finaliza/{consultaId}")
+	public ResponseEntity<Object> finalizaConsulta(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId ) throws SistemaException {
+				
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		consultaService.finalizaConsulta( consultaId );
+		return ResponseEntity.ok().build();		
+	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/{consultaId}")
@@ -91,6 +132,18 @@ public class ConsultaController {
 	@GetMapping("/get/reg")
 	public ResponseEntity<Object> getRegLoad() throws SistemaException {				
 		ConsultaRegLoadResponse resp = consultaService.getRegLoad();
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/alter/{consultaId}")
+	public ResponseEntity<Object> getAlterLoad(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId ) throws SistemaException {
+		
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		ConsultaAlterLoadResponse resp = consultaService.getAlterLoad( consultaId );
 		return ResponseEntity.ok( resp );
 	}
 	

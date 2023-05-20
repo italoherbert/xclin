@@ -5,6 +5,7 @@ import { ConsultaRegistro } from '../bean/consulta/consulta-registro';
 import { ConsultaRemarcarSave } from '../bean/consulta/consulta-remarcar-save';
 import { ConsultaFiltro } from '../bean/consulta/consulta-filtro';
 import { ConsultaFilaFiltro } from '../bean/consulta/consulta-fila-filtro';
+import { ConsultaAlter } from '../bean/consulta/consulta-alter';
 
 @Injectable({
   providedIn: 'root'
@@ -25,14 +26,37 @@ export class ConsultaService {
     );
   }
 
+  alteraConsulta( consultaId : any, consultaAlter: ConsultaAlter): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.patch( '/api/consulta/altera/'+consultaId, consultaAlter, { headers: headers, withCredentials: true } );
+  }
+
   remarcaConsulta( consultaId : any, consultaSave: ConsultaRemarcarSave): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.post( '/api/consulta/remarca/'+consultaId, consultaSave, { headers: headers, withCredentials: true } 
+    return this.http.patch( '/api/consulta/remarca/'+consultaId, consultaSave, { headers: headers, withCredentials: true } 
     );
+  }
+
+  registraPagamentoConsulta( consultaId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.patch( '/api/consulta/paga/'+consultaId, {}, { headers: headers, withCredentials: true } );
+  }
+
+  finalizaConsulta( consultaId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.patch( '/api/consulta/finaliza/'+consultaId, {}, { headers: headers, withCredentials: true } );  
   }
 
   listaFilaConsultas( clinicaId : any, profissionalId : any, filtro : ConsultaFilaFiltro ): Observable<any> {
@@ -67,6 +91,14 @@ export class ConsultaService {
     });
 
     return this.http.get( '/api/consulta/get/reg', { headers: headers, withCredentials: true } );
+  }
+
+  getConsultaAlter( consultaId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/consulta/get/alter/'+consultaId, { headers: headers, withCredentials: true } );
   }
 
   getConsultaTela(): Observable<any> {

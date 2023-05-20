@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import italo.scm.enums.ConsultaStatusEnumManager;
 import italo.scm.enums.TurnoEnumManager;
+import italo.scm.enums.tipos.ConsultaStatus;
 import italo.scm.enums.tipos.Turno;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
@@ -21,10 +22,12 @@ import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
 import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
+import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.ListaResponse;
+import italo.scm.model.response.load.ConsultaAlterLoadResponse;
 import italo.scm.model.response.load.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.ConsultaTelaLoadResponse;
@@ -88,6 +91,17 @@ public class ConsultaService {
 		consultaRepository.save( consulta );
 	}
 	
+	public void altera( Long consultaId, ConsultaAlterSaveRequest request ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();		
+		consultaLoader.loadBean( consulta, request );
+		
+		consultaRepository.save( consulta );
+	}
+	
 	public void remarca( Long consultaId, ConsultaRemarcarSaveRequest request ) throws ServiceException {
 		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
 		if ( !consultaOp.isPresent() )
@@ -95,6 +109,28 @@ public class ConsultaService {
 		
 		Consulta consulta = consultaOp.get();
 		consultaLoader.loadBean( consulta, request );
+		
+		consultaRepository.save( consulta );
+	}
+	
+	public void registraPagamento( Long consultaId ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+				
+		Consulta consulta = consultaOp.get();
+		consulta.setPaga( true );
+		
+		consultaRepository.save( consulta );		
+	}
+	
+	public void finalizaConsulta( Long consultaId ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();
+		consulta.setStatus( ConsultaStatus.FINALIZADA );
 		
 		consultaRepository.save( consulta );
 	}
@@ -170,6 +206,23 @@ public class ConsultaService {
 	public ConsultaRegLoadResponse getRegLoad() {
 		ConsultaRegLoadResponse resp = consultaLoader.novoRegResponse();
 		consultaLoader.loadRegResponse( resp );
+		return resp;
+	}
+	
+	public ConsultaAlterLoadResponse getAlterLoad( Long consultaId ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();
+		Paciente paciente = consulta.getPaciente();
+		Clinica clinica = consulta.getClinica();
+		
+		ConsultaResponse cresp = consultaLoader.novoResponse( paciente, clinica );
+		consultaLoader.loadResponse( cresp, consulta );
+		
+		ConsultaAlterLoadResponse resp = consultaLoader.novoAlterResponse( cresp );
+		consultaLoader.loadAlterResponse( resp );
 		return resp;
 	}
 	

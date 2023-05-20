@@ -16,9 +16,11 @@ import italo.scm.model.Clinica;
 import italo.scm.model.Consulta;
 import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
+import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
+import italo.scm.model.response.load.ConsultaAlterLoadResponse;
 import italo.scm.model.response.load.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.ConsultaTelaLoadResponse;
@@ -49,7 +51,6 @@ public class ConsultaLoader {
 	public void loadBean( Consulta c, ConsultaSaveRequest request ) throws LoaderException {
 		c.setRetorno( request.isRetorno() );
 		c.setValor( request.getValor() );
-		c.setTempoEstimado( request.getTempoEstimado() );
 		c.setTurno( turnoEnumManager.getEnum( request.getTurno() ) );
 		c.setDataAgendamento( new Date() ); 
 		
@@ -64,13 +65,21 @@ public class ConsultaLoader {
 		c.setObservacoes( request.getObservacoes() );
 	}
 	
+	public void loadBean( Consulta c, ConsultaAlterSaveRequest request ) throws LoaderException {
+		c.setRetorno( request.isRetorno() );
+		c.setValor( request.getValor() );				
+		c.setPaga( request.isPaga() );
+		c.setStatus( consultaStatusEnumManager.getEnum( request.getStatus() ) ); 
+		c.setObservacoes( request.getObservacoes() );
+	}
+	
 	public void loadResponse( ConsultaResponse resp, Consulta c ) {
 		resp.setId( c.getId() );
 		resp.setRetorno( c.isRetorno() );
 		resp.setPaga( c.isPaga() );
 		
 		if ( c.getStatus() != null ) {
-			resp.setStatus( c.getTurno().name() );
+			resp.setStatus( c.getStatus().name() );
 			resp.setStatusLabel( c.getStatus().label() );
 		}
 		
@@ -79,8 +88,12 @@ public class ConsultaLoader {
 			resp.setTurnoLabel( c.getTurno().label() ); 
 		}
 		
-		resp.setTempoEstimado( c.getTempoEstimado() );
-		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAtendimento() ) ) ); 
+		resp.setDataAgendamento( converter.dataHoraToString( c.getDataAgendamento() ) );
+		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAtendimento() ) ) );
+		
+		if ( c.getDataFinalizacao() != null )
+			resp.setDataFinalizacao( converter.dataHoraToString( c.getDataFinalizacao() ) );
+		
 		resp.setValor( c.getValor() ); 
 		resp.setObservacoes( c.getObservacoes() );
 	}
@@ -95,6 +108,11 @@ public class ConsultaLoader {
 	
 	public void loadRegResponse( ConsultaRegLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() ); 
+	}
+	
+	public void loadAlterResponse( ConsultaAlterLoadResponse resp ) {
+		resp.setTurnos( turnoEnumManager.tipoResponses() );
+		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
 	}
 	
 	public void loadTelaResponse( ConsultaTelaLoadResponse resp ) {
@@ -128,6 +146,12 @@ public class ConsultaLoader {
 	
 	public ConsultaRegLoadResponse novoRegResponse() {
 		return new ConsultaRegLoadResponse();
+	}
+	
+	public ConsultaAlterLoadResponse novoAlterResponse( ConsultaResponse cresp ) {
+		ConsultaAlterLoadResponse resp = new ConsultaAlterLoadResponse();
+		resp.setConsulta( cresp ); 
+		return resp;
 	}
 	
 	public ConsultaTelaLoadResponse novoTelaResponse( 

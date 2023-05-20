@@ -34,7 +34,6 @@ export class ConsultaRegistroComponent {
 
   consultaSave : ConsultaRegistro = {
     dataAtendimento : '',
-    tempoEstimado : 0,
     turno : '',
     valor : 0,
     retorno : false,
@@ -58,8 +57,6 @@ export class ConsultaRegistroComponent {
   senhaRepetida : any = '';
 
   constructor(
-    private router : Router,
-    private actRoute : ActivatedRoute, 
     private consultaService: ConsultaService,
     private pacienteService: PacienteService, 
     private sistemaService: SistemaService) {}

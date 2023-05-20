@@ -30,6 +30,8 @@ public class ConsultaResponse {
 	private String dataAgendamento;
 	
 	private String dataAtendimento;
+	
+	private String dataFinalizacao;
 			
 	private int tempoEstimado;
 	

@@ -36,6 +36,9 @@ public class Consulta {
 	
 	@Temporal(TemporalType.DATE)
 	private Date dataAtendimento;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataFinalizacao;
 		
 	@Enumerated(EnumType.STRING)
 	private ConsultaStatus status;
@@ -46,8 +49,6 @@ public class Consulta {
 	private boolean retorno;
 	
 	private boolean paga;
-	
-	private int tempoEstimado;
 	
 	private double valor;
 	

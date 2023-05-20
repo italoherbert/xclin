@@ -11,6 +11,7 @@ public interface Erro {
 	public final static String NOME_OBRIGATORIO = "O nome é um campo de preenchimento obrigatório.";
 	public final static String TELEFONE_OBRIGATORIO = "O telefone é um campo de preenchimento obrigatório.";
 	public final static String TURNO_OBRIGATORIO = "O turno é um campo de preenchimento obrigatório.";
+	public final static String STATUS_OBRIGATORIO = "O status é um campo de preenchimento obrigatório.";
 	
 	public final static String USERNAME_INI_OBRIGATORIO = "O início do username é um campo de preenchimento obrigatório.";
 	public final static String NOME_INI_OBRIGATORIO = "O início do nome é um campo de preenchimento obrigatório.";

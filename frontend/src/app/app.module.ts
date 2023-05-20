@@ -74,6 +74,7 @@ import { NaoAdminDiretorTelaComponent } from './diretor/nao-admin-diretor-tela/n
 import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
 import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
 import { NaoAdminClinicaTelaComponent } from './clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
+import { ConsultaAlterarComponent } from './consulta/consulta-alterar/consulta-alterar.component';
 
 @NgModule({
   declarations: [
@@ -134,7 +135,8 @@ import { NaoAdminClinicaTelaComponent } from './clinica/nao-admin-clinica-tela/n
     NaoAdminDiretorTelaComponent,
     NaoAdminProfissionalTelaComponent,
     NaoAdminRecepcionistaTelaComponent,
-    NaoAdminClinicaTelaComponent
+    NaoAdminClinicaTelaComponent,
+    ConsultaAlterarComponent
   ],
   imports: [
     BrowserModule,

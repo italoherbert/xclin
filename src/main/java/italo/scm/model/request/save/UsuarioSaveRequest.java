@@ -15,4 +15,6 @@ public class UsuarioSaveRequest {
 	
 	private String perfil;
 	
+	private boolean ignorarSenha;
+		
 }

@@ -42,6 +42,10 @@ import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-prof
 import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
 import { NaoAdminClinicaTelaComponent } from './clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
 import { ConsultaAlterarComponent } from './consulta/consulta-alterar/consulta-alterar.component';
+import { ProfissionalContaAlterarComponent } from './usuario-conta/profissional/profissional-conta-alterar/profissional-conta-alterar.component';
+import { RecepcionistaContaAlterarComponent } from './usuario-conta/recepcionista/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
+import { DiretorContaAlterarComponent } from './usuario-conta/diretor/diretor-conta-alterar/diretor-conta-alterar.component';
+import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-altera-senha/usuario-conta-altera-senha.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -50,6 +54,13 @@ const routes: Routes = [
   ] },
   { path: 'app', component: AppLayoutComponent, children: [
     { path: 'home', component: HomeComponent, outlet: 'page'},
+
+    { path: 'usuario-conta-altera-senha', component: UsuarioContaAlteraSenhaComponent, outlet: 'page' },
+    
+    { path: 'profissional-conta-alterar', component: ProfissionalContaAlterarComponent, outlet: 'page'},
+    { path: 'recepcionista-conta-alterar', component: RecepcionistaContaAlterarComponent, outlet: 'page'},
+    { path: 'diretor-conta-alterar', component: DiretorContaAlterarComponent, outlet: 'page'},
+
     { path: 'usuario-tela', component: UsuarioTelaComponent, outlet: 'page' },
     { path: 'usuario-detalhes/:id', component: UsuarioDetalhesComponent, outlet: 'page' },
     { path: 'usuario-save/:id', component: UsuarioSaveComponent, outlet: 'page' },

@@ -29,9 +29,7 @@ public class Profissional {
 	private Long id;
 
 	private String nome;
-		
-	private double valorConsulta;
-	
+			
 	private ProfissionalFuncao funcao;
 	
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)

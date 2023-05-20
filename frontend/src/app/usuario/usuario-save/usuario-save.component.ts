@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faSave } from '@fortawesome/free-solid-svg-icons';
-import { Usuario } from 'src/app/bean/usuario/usuario';
 import { UsuarioSave } from 'src/app/bean/usuario/usuario-save';
 import { SistemaService } from 'src/app/service/sistema.service';
 import { UsuarioService } from 'src/app/service/usuario.service';
@@ -27,6 +26,7 @@ export class UsuarioSaveComponent {
     username : '',
     senha: '',
     perfil: '',
+    ignorarSenha: false
   }
 
   senhaRepetida : any = '';

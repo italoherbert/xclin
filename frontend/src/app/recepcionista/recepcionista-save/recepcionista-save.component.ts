@@ -28,7 +28,8 @@ export class RecepcionistaSaveComponent {
     usuario: {
       username: '',
       senha: '',
-      perfil: ''
+      perfil: '',
+      ignorarSenha: false
     }
   }
 

@@ -29,4 +29,19 @@ export class SistemaService {
     return perfil == 'RAIZ' || perfil == 'ADMIN';  
   }
 
+  isProfissional() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'PROFISSIONAL';
+  }
+
+  isRecepcionista() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'RECEPCIONISTA';
+  }
+
+  isDiretor() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'DIRETOR';
+  }
+
 }

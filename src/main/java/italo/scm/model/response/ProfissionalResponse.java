@@ -13,9 +13,7 @@ public class ProfissionalResponse {
 	private Long id;
 	
 	private String nome;
-		
-	private double valorConsulta;
-	
+			
 	private ProfissionalFuncao funcao;
 	
 	private String funcaoLabel;

@@ -10,6 +10,23 @@
             <fa-icon [icon]="icons.faGear"></fa-icon>
         </button>
         <mat-menu #usuario_menu="matMenu">
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-alterar' } }]" 
+                    *ngIf="sistemaService.isProfissional() === true">
+               Alterar dados 
+            </a>
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-conta-alterar' } }]" 
+                    *ngIf="sistemaService.isRecepcionista() === true">
+               Alterar dados 
+            </a>
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'diretor-conta-alterar' } }]" 
+                    *ngIf="sistemaService.isDiretor() === true">
+               Alterar dados 
+            </a>
+
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'usuario-conta-alterar-senha' } }]">
+               Alterar senha
+            </a>
+
             <a mat-menu-item [routerLink]="[]" (click)="logout()">
                 Sair
             </a>

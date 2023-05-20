@@ -75,21 +75,22 @@ public class ProfissionalService {
 		profissionalRepository.save( p );	
 		usuarioSharedService.vinculaGrupo( usuarioLogado, UsuarioPerfil.PROFISSIONAL ); 
 	}
-			
-	public void alteraCompleto( Long uid, ProfissionalSaveRequest request ) throws ServiceException {
-		this.altera( uid, true, request);
+				
+	public void alteraPorLogadoUID( Long logadoUID, ProfissionalSaveRequest request ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
+		this.altera( profissionalOp, request ); 
 	}
 	
-	public void alteraParcial( Long uid, ProfissionalSaveRequest request ) throws ServiceException {
-		this.altera( uid, false, request );
+	public void altera( Long profissionalId, ProfissionalSaveRequest request ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.findById( profissionalId );			
+		this.altera( profissionalOp, request ); 
 	}
 	
-	private void altera( Long uid, boolean completo, ProfissionalSaveRequest request ) throws ServiceException {
-		Optional<Profissional> dop = profissionalRepository.findById( uid );
-		if ( !dop.isPresent() )
+	public void altera( Optional<Profissional> profissionalOp, ProfissionalSaveRequest request ) throws ServiceException {		
+		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );		
 		
-		Profissional p = dop.get();
+		Profissional p = profissionalOp.get();
 		Usuario u = p.getUsuario();
 		
 		String nome = request.getNome();
@@ -107,16 +108,11 @@ public class ProfissionalService {
 		}
 		
 		usuarioLoader.loadBean( u, request.getUsuario() );
-		
-		if ( completo ) {
-			profissionalLoader.loadBean( p, request ); 
-		} else {
-			profissionalLoader.loadParcialBean( p, request );
-		}
-		
+		profissionalLoader.loadBean( p, request ); 
+				
 		profissionalRepository.save( p );
 	}
-		
+	
 	public List<ProfissionalResponse> filtra( ProfissionalFiltroRequest request ) throws ServiceException {
 		String nomeIni = request.getNomeIni();
 		String clinicaNomeIni = request.getClinicaNomeIni();
@@ -197,8 +193,17 @@ public class ProfissionalService {
 		return resp;
 	}
 	
+	public ProfissionalEditLoadResponse getEditLoadPorLogadoUID( Long logadoUID ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
+		return this.getEditLoad2( profissionalOp );
+	}
+	
 	public ProfissionalEditLoadResponse getEditLoad( Long id ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.findById( id );
+		return this.getEditLoad2( profissionalOp );
+	}
+	
+	public ProfissionalEditLoadResponse getEditLoad2( Optional<Profissional> profissionalOp ) throws ServiceException {
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
 		

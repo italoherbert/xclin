@@ -20,6 +20,7 @@ import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
+import italo.scm.model.request.save.UsuarioSenhaSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.load.UsuarioEditLoadResponse;
 import italo.scm.model.response.load.UsuarioRegLoadResponse;
@@ -50,6 +51,18 @@ public class UsuarioController {
 		
 		usuarioValidator.validaRegistro( request );
 		usuarioService.registra( logadoUID, request );
+		return ResponseEntity.ok().build();
+	}
+	
+	public ResponseEntity<Object> alteraSenha(
+			@RequestHeader( "Authorization" ) String authHeader,
+			@RequestBody UsuarioSenhaSaveRequest request ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		usuarioValidator.validaAlteraSenha( request );
+		usuarioService.alteraSenhaPorLogadoUID( logadoUID, request );
 		return ResponseEntity.ok().build();
 	}
 	

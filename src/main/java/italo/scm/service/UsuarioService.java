@@ -15,6 +15,7 @@ import italo.scm.loader.UsuarioLoader;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
+import italo.scm.model.request.save.UsuarioSenhaSaveRequest;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.load.UsuarioEditLoadResponse;
 import italo.scm.model.response.load.UsuarioRegLoadResponse;
@@ -58,8 +59,8 @@ public class UsuarioService {
 		usuarioSharedService.vinculaGrupo( usuarioLogado, perfil );						
 	}
 	
-	public void altera( Long uid, UsuarioSaveRequest request ) throws ServiceException {
-		Optional<Usuario> uop = usuarioRepository.findById( uid );
+	public void altera( Long usuarioId, UsuarioSaveRequest request ) throws ServiceException {
+		Optional<Usuario> uop = usuarioRepository.findById( usuarioId );
 		if ( !uop.isPresent() )
 			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );		
 		
@@ -73,6 +74,17 @@ public class UsuarioService {
 		}
 		
 		usuarioLoader.loadBean( u, request );		
+		usuarioRepository.save( u );
+	}
+	
+	public void alteraSenhaPorLogadoUID( Long logadoUID, UsuarioSenhaSaveRequest request ) throws ServiceException {
+		Optional<Usuario> uop = usuarioRepository.findById( logadoUID );
+		if ( !uop.isPresent() )
+			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );
+		
+		Usuario u = uop.get();
+		
+		usuarioLoader.loadBeanSenha( u, request );
 		usuarioRepository.save( u );
 	}
 	

@@ -7,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,26 +70,29 @@ public class ProfissionalController {
 	
 	@PreAuthorize("hasAuthority('profissionalWRITE')")
 	@PutMapping("/altera/{id}")
-	public ResponseEntity<Object> alteraCompleto( 
+	public ResponseEntity<Object> altera( 
 			@PathVariable Long id, 
 			@RequestBody ProfissionalSaveRequest request ) throws SistemaException {
 		
 		profissionalValidator.validaSave( request );
-		profissionalService.alteraCompleto( id, request );
+		profissionalService.altera( id, request );
 		return ResponseEntity.ok().build(); 	
 	}
 	
-	@PreAuthorize("hasAuthority('profissionalWRITE')")
-	@PatchMapping("/altera/parcial/{id}")
-	public ResponseEntity<Object> alteraParcial( 
-			@PathVariable Long id, 
+	@PreAuthorize("isAuthenticated()")
+	@PutMapping("/altera/logado")
+	public ResponseEntity<Object> alteraPorLogadoUID( 
+			@RequestHeader( "Authorization" ) String authorizationHeader, 
 			@RequestBody ProfissionalSaveRequest request ) throws SistemaException {
 		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
 		profissionalValidator.validaSave( request );
-		profissionalService.alteraParcial( id, request );
+		profissionalService.alteraPorLogadoUID( logadoUID, request );
 		return ResponseEntity.ok().build(); 	
 	}
-	
+		
 	@PreAuthorize("hasAuthority('profissionalREAD')")
 	@PostMapping("/filtra")
 	public ResponseEntity<Object> filtra( 
@@ -143,6 +145,18 @@ public class ProfissionalController {
 		ProfissionalEditLoadResponse resp = profissionalService.getEditLoad( id );
 		return ResponseEntity.ok( resp );
 	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/get/edit/logado")
+	public ResponseEntity<Object> getEditLoadPorLogadoUID(
+			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		ProfissionalEditLoadResponse resp = profissionalService.getEditLoadPorLogadoUID( logadoUID );
+		return ResponseEntity.ok( resp );
+	}	
 	
 	@PreAuthorize("hasAuthority('profissionalREAD')")
 	@GetMapping("/get/detalhes/{id}")

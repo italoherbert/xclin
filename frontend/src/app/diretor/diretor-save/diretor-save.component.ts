@@ -27,7 +27,8 @@ export class DiretorSaveComponent {
     usuario: {
       username: '',
       senha: '',
-      perfil: ''
+      perfil: '',
+      ignorarSenha: false
     }
 
   }

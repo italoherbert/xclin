@@ -27,7 +27,6 @@ export class ProfissionalDetalhesComponent {
     profissional : {
       id : 0,
       nome : '',
-      valorConsulta: 0,
       funcao : '',
       funcaoLabel: '',
       usuario: {

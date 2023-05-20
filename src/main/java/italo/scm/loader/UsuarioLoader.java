@@ -12,6 +12,7 @@ import italo.scm.exception.LoaderException;
 import italo.scm.logica.HashUtil;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.save.UsuarioSaveRequest;
+import italo.scm.model.request.save.UsuarioSenhaSaveRequest;
 import italo.scm.model.response.TipoResponse;
 import italo.scm.model.response.UsuarioResponse;
 import italo.scm.model.response.load.UsuarioEditLoadResponse;
@@ -28,10 +29,15 @@ public class UsuarioLoader {
 	
 	public void loadBean( Usuario u, UsuarioSaveRequest request ) {
 		u.setUsername( request.getUsername() );
-		u.setPerfil( usuarioPerfilEnumManager.getEnum( request.getPerfil() ) ); 
-		u.setSenha( hashUtil.geraHash( request.getSenha() ) ); 
+		u.setPerfil( usuarioPerfilEnumManager.getEnum( request.getPerfil() ) );
+		if ( !request.isIgnorarSenha() )
+			u.setSenha( hashUtil.geraHash( request.getSenha() ) ); 
 	}
 	
+	public void loadBeanSenha( Usuario u, UsuarioSenhaSaveRequest request ) {
+		u.setSenha( hashUtil.geraHash( request.getSenha() ) ); 
+	}
+		
 	public void loadResponse( UsuarioResponse resp, Usuario u ) throws LoaderException {
 		resp.setId( u.getId() );
 		resp.setUsername( u.getUsername() ); 

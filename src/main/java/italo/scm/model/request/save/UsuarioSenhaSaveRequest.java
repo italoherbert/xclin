@@ -1,7 +1,5 @@
 package italo.scm.model.request.save;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +7,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuarioGrupoVinculadoListSaveRequest {
+public class UsuarioSenhaSaveRequest {
 
-	private List<Long> grupos;
+	private String senha;
 	
 }

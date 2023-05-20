@@ -49,13 +49,13 @@ export class ProfissionalService {
     return this.http.put( '/api/profissional/altera/'+id, profissionalSave, { headers: headers, withCredentials: true } )
   }
 
-  alteraParcialProfissional( id : any, profissionalSave: ProfissionalSave ): Observable<any> {
+  alteraProfissionalPorLogadoUID( profissionalSave: ProfissionalSave ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.patch( '/api/profissional/altera/parcial/'+id, profissionalSave, { headers: headers, withCredentials: true } )
+    return this.http.put( '/api/profissional/altera/logado', profissionalSave, { headers: headers, withCredentials: true } )
   }
 
   filtraProfissionais( filtro: ProfissionalFiltro ): Observable<any> {
@@ -88,6 +88,13 @@ export class ProfissionalService {
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
     return this.http.get( '/api/profissional/get/edit/'+id, { headers: headers, withCredentials: true } );
+  }
+
+  getProfissionalEditPorLogadoUID(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/profissional/get/edit/logado', { headers: headers, withCredentials: true } );
   }
 
   getProfissionalDetalhes( id : any ): Observable<any> {

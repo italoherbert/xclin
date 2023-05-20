@@ -25,11 +25,11 @@ export class ProfissionalSaveComponent {
   profissionalSave : ProfissionalSave = {
     nome: '',
     funcao: '',
-    valorConsulta: 0,
     usuario: {
       username: '',
       senha: '',
-      perfil: ''
+      perfil: '',
+      ignorarSenha: false
     }
 
   }
@@ -103,7 +103,7 @@ export class ProfissionalSaveComponent {
         }
       });
     } else {
-      this.profissionalService.alteraParcialProfissional( id, this.profissionalSave ).subscribe({
+      this.profissionalService.alteraProfissional( id, this.profissionalSave ).subscribe({
         next: ( resp ) => {
           this.infoMsg = "Profissional alterado com sucesso.";
           this.showSpinner = false;

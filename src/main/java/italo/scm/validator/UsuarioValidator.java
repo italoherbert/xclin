@@ -8,6 +8,7 @@ import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
 import italo.scm.model.request.filtro.UsuarioFiltroRequest;
 import italo.scm.model.request.save.UsuarioSaveRequest;
+import italo.scm.model.request.save.UsuarioSenhaSaveRequest;
 
 @Component
 public class UsuarioValidator {
@@ -24,15 +25,25 @@ public class UsuarioValidator {
 			throw new ValidationException( Erro.PERFIL_INVALIDO, request.getPerfil() );
 	}
 	
+	public void validaAlteraSenha( UsuarioSenhaSaveRequest request ) throws ValidationException {
+		if ( request.getSenha() == null )
+			throw new ValidationException( Erro.SENHA_OBRIGATORIA );
+		if ( request.getSenha().isBlank() )
+			throw new ValidationException( Erro.SENHA_OBRIGATORIA );
+	}
+	
 	public void validaSave( UsuarioSaveRequest request ) throws ValidationException {
 		if ( request.getUsername() == null )
 			throw new ValidationException( Erro.USERNAME_OBRIGATORIO );
 		if ( request.getUsername().isBlank() )
 			throw new ValidationException( Erro.USERNAME_OBRIGATORIO );
-		if ( request.getSenha() == null )
-			throw new ValidationException( Erro.SENHA_OBRIGATORIA );
-		if ( request.getSenha().isBlank() )
-			throw new ValidationException( Erro.SENHA_OBRIGATORIA );		
+		
+		if ( !request.isIgnorarSenha() ) {
+			if ( request.getSenha() == null )
+				throw new ValidationException( Erro.SENHA_OBRIGATORIA );
+			if ( request.getSenha().isBlank() )
+				throw new ValidationException( Erro.SENHA_OBRIGATORIA );
+		}
 	}
 	
 	public void validaFiltro( UsuarioFiltroRequest request ) throws ValidationException {

@@ -25,19 +25,12 @@ public class ProfissionalLoader {
 	
 	public void loadBean( Profissional p, ProfissionalSaveRequest request ) {
 		p.setNome( request.getNome() );
-		p.setValorConsulta( request.getValorConsulta() );
 		p.setFuncao( profissionalFuncaoEnumManager.getEnum( request.getFuncao() ) ); 
 	}
-
-	public void loadParcialBean( Profissional p, ProfissionalSaveRequest request ) {
-		p.setNome( request.getNome() );
-		p.setFuncao( profissionalFuncaoEnumManager.getEnum( request.getFuncao() ) );
-	}
-	
+		
 	public void loadResponse( ProfissionalResponse resp, Profissional p ) throws LoaderException {
 		resp.setId( p.getId() );
 		resp.setNome( p.getNome() );
-		resp.setValorConsulta( p.getValorConsulta() );
 		resp.setFuncao( p.getFuncao() ); 
 		resp.setFuncaoLabel( p.getFuncao().label() ); 
 	}

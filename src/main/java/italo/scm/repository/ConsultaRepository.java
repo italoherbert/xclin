@@ -57,8 +57,10 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 				+ "cl.id=?1 and "
 				+ "v.profissional.id=?2 and "
 				+ "c.dataAtendimento=?3 and "
-				+ "c.turno=?4")
+				+ "c.turno=?4 and "
+				+ "c.status=?5 "
+			+ "order by c.dataAgendamento asc")
 	public List<Consulta> listaFila( 
-			Long clinicaId, Long profissionalId, Date data, Turno turno );
+			Long clinicaId, Long profissionalId, Date data, Turno turno, ConsultaStatus status );
 	
 }

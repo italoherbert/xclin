@@ -172,9 +172,10 @@ public class ConsultaService {
 		
 		Date data = converter.stringToDataNEx( request.getData() );
 		Turno turno = turnoEnumManager.getEnum( request.getTurno() );
+		ConsultaStatus status = consultaStatusEnumManager.getEnum( request.getStatus() );
 		
 		List<Consulta> fila = consultaRepository.listaFila(
-				clinicaId, profissionalId, data, turno );
+				clinicaId, profissionalId, data, turno, status );
 		
 		List<ConsultaResponse> lista = new ArrayList<>();
 		for( Consulta c : fila ) {

@@ -13,4 +13,6 @@ public class ConsultaFilaFiltroRequest {
 	
 	private String turno;
 	
+	private String status;
+	
 }

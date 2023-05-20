@@ -64,14 +64,18 @@
         <thead>
             <tr>
                 <th>Paciente</th>
+                <th>Data de agendamento</th>
                 <th>Data de atendimento</th>
+                <th>Turno</th>
                 <th>Detalhes</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let c of consultas">
                 <td>{{c.pacienteNome}}</td>
+                <td>{{c.dataAgendamento | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
                 <td>{{c.dataAtendimento | date: 'dd/MM/yyyy'}}</td>
+                <td>{{c.turnoLabel}}</td>
                 <td>
                     <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'consulta-detalhes/'+c.id }}]">
                         <fa-icon [icon]="icons.faCircleInfo"></fa-icon>

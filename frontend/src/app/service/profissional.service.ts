@@ -104,6 +104,13 @@ export class ProfissionalService {
     return this.http.get( '/api/profissional/get/detalhes/'+id, { headers: headers, withCredentials: true } );
   }
 
+  getProfissionalDetalhesPorLogadoUID(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/profissional/get/detalhes/logado', { headers: headers, withCredentials: true } );
+  }
+
   listaPorClinica( clinicaId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

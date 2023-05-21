@@ -46,6 +46,7 @@ import { ProfissionalContaAlterarComponent } from './usuario-conta/profissional/
 import { RecepcionistaContaAlterarComponent } from './usuario-conta/recepcionista/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
 import { DiretorContaAlterarComponent } from './usuario-conta/diretor/diretor-conta-alterar/diretor-conta-alterar.component';
 import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-altera-senha/usuario-conta-altera-senha.component';
+import { ProfissionalContaDetalhesComponent } from './usuario-conta/profissional/profissional-conta-detalhes/profissional-conta-detalhes.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -56,6 +57,8 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent, outlet: 'page'},
 
     { path: 'usuario-conta-altera-senha', component: UsuarioContaAlteraSenhaComponent, outlet: 'page' },
+
+    { path: 'profissional-conta-detalhes', component: ProfissionalContaDetalhesComponent, outlet: 'page' },
     
     { path: 'profissional-conta-alterar', component: ProfissionalContaAlterarComponent, outlet: 'page'},
     { path: 'recepcionista-conta-alterar', component: RecepcionistaContaAlterarComponent, outlet: 'page'},

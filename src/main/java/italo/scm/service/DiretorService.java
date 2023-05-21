@@ -74,12 +74,21 @@ public class DiretorService {
 		usuarioSharedService.vinculaGrupo( usuarioLogado, UsuarioPerfil.DIRETOR );
 	}
 		
+	public void alteraPorLogadoUID( Long logadoUID, DiretorSaveRequest request ) throws ServiceException {
+		Optional<Diretor> diretorOp = diretorRepository.buscaPorUsuario( logadoUID );
+		this.altera2( diretorOp, request ); 
+	}
+	
 	public void altera( Long uid, DiretorSaveRequest request ) throws ServiceException {
-		Optional<Diretor> dop = diretorRepository.findById( uid );
-		if ( !dop.isPresent() )
+		Optional<Diretor> diretorOp = diretorRepository.findById( uid );
+		this.altera2( diretorOp, request );
+	}
+	
+	public void altera2( Optional<Diretor> diretorOp, DiretorSaveRequest request ) throws ServiceException {
+		if ( !diretorOp.isPresent() )
 			throw new ServiceException( Erro.DIRETOR_NAO_ENCONTRADO );		
 		
-		Diretor d = dop.get();
+		Diretor d = diretorOp.get();
 		Usuario u = d.getUsuario();
 		
 		String nome = request.getNome();
@@ -149,8 +158,17 @@ public class DiretorService {
 		return resp;
 	}
 		
+	public DiretorDetalhesLoadResponse getDetalhesLoadPorLogadoUID( Long logadoUID ) throws ServiceException {
+		Optional<Diretor> diretorOp = diretorRepository.buscaPorUsuario( logadoUID );
+		return this.getDetalhesLoad2( diretorOp );
+	}
+	
 	public DiretorDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
 		Optional<Diretor> diretorOp = diretorRepository.findById( id );
+		return this.getDetalhesLoad2( diretorOp );
+	}
+	
+	public DiretorDetalhesLoadResponse getDetalhesLoad2( Optional<Diretor> diretorOp ) throws ServiceException {
 		if ( !diretorOp.isPresent() )
 			throw new ServiceException( Erro.DIRETOR_NAO_ENCONTRADO );
 		

@@ -81,6 +81,7 @@ import { DiretorContaAlterarComponent } from './usuario-conta/diretor/diretor-co
 import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-altera-senha/usuario-conta-altera-senha.component';
 import { ProfissionalContaDetalhesComponent } from './usuario-conta/profissional/profissional-conta-detalhes/profissional-conta-detalhes.component';
 import { RecepcionistaContaDetalhesComponent } from './usuario-conta/recepcionista/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
+import { DiretorContaDetalhesComponent } from './usuario-conta/diretor/diretor-conta-detalhes/diretor-conta-detalhes.component';
 
 
 @NgModule({
@@ -150,6 +151,7 @@ import { RecepcionistaContaDetalhesComponent } from './usuario-conta/recepcionis
     UsuarioContaAlteraSenhaComponent,
     ProfissionalContaDetalhesComponent,
     RecepcionistaContaDetalhesComponent,
+    DiretorContaDetalhesComponent,
   ],
   imports: [
     BrowserModule,

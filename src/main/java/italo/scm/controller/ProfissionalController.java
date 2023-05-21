@@ -164,6 +164,18 @@ public class ProfissionalController {
 		ProfissionalDetalhesLoadResponse resp = profissionalService.getDetalhesLoad( id );
 		return ResponseEntity.ok( resp );
 	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/get/detalhes/logado")
+	public ResponseEntity<Object> getDetalhesLoadPorLogadoUID(
+			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		ProfissionalDetalhesLoadResponse resp = profissionalService.getDetalhesLoadPorLogadoUID( logadoUID );
+		return ResponseEntity.ok( resp );
+	}	
 		
 	@PreAuthorize("hasAuthority('profissionalDELETE')")
 	@DeleteMapping("/deleta/{id}")

@@ -160,8 +160,17 @@ public class ProfissionalService {
 		return resp;
 	}
 	
-	public ProfissionalDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
-		Optional<Profissional> profissionalOp = profissionalRepository.findById( id );
+	public ProfissionalDetalhesLoadResponse getDetalhesLoadPorLogadoUID( Long logadoUID ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
+		return this.getDetalhesLoad2( profissionalOp );
+	}
+	
+	public ProfissionalDetalhesLoadResponse getDetalhesLoad( Long profissionalId ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.findById( profissionalId );
+		return this.getDetalhesLoad2( profissionalOp );
+	}
+	
+	public ProfissionalDetalhesLoadResponse getDetalhesLoad2( Optional<Profissional> profissionalOp ) throws ServiceException {
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
 		

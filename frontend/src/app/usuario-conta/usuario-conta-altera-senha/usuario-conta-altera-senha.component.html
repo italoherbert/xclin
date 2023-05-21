@@ -1,1 +1,46 @@
-<p>usuario-conta-altera-senha works!</p>
+<h1>Registro/Alteração de usuário</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <mat-card>
+        <mat-card-header>
+            <h1>Formulário</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">                
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Nova senha</mat-label>
+                        <input matInput type="password" placeholder="Senha" [(ngModel)]="usuarioSave.senha"/>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Confirmação de nova senha</mat-label>
+                        <input matInput type="password" placeholder="Repita a senha" [(ngModel)]="senhaRepetida"/>
+                    </mat-form-field>
+                </div>                 
+            </div>
+            
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="d-flex align-items-center">
+                <button mat-raised-button color="primary" (click)="salva()">
+                    <fa-icon [icon]="icons.faSave"></fa-icon>
+                    <span class="mx-3">Salvar</span>
+                </button>
+                <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
+            </div>            
+        </mat-card-content>
+    </mat-card>
+</div>

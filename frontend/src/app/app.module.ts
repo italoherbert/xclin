@@ -78,6 +78,8 @@ import { ConsultaAlterarComponent } from './consulta/consulta-alterar/consulta-a
 import { RecepcionistaContaAlterarComponent } from './usuario-conta/recepcionista/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
 import { ProfissionalContaAlterarComponent } from './usuario-conta/profissional/profissional-conta-alterar/profissional-conta-alterar.component';
 import { DiretorContaAlterarComponent } from './usuario-conta/diretor/diretor-conta-alterar/diretor-conta-alterar.component';
+import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-altera-senha/usuario-conta-altera-senha.component';
+import { ProfissionalContaDetalhesComponent } from './usuario-conta/profissional/profissional-conta-detalhes/profissional-conta-detalhes.component';
 
 
 @NgModule({
@@ -143,7 +145,9 @@ import { DiretorContaAlterarComponent } from './usuario-conta/diretor/diretor-co
     ConsultaAlterarComponent,
     RecepcionistaContaAlterarComponent,
     ProfissionalContaAlterarComponent,
-    DiretorContaAlterarComponent
+    DiretorContaAlterarComponent,
+    UsuarioContaAlteraSenhaComponent,
+    ProfissionalContaDetalhesComponent,
   ],
   imports: [
     BrowserModule,

@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,6 +72,20 @@ public class UsuarioController {
 	public ResponseEntity<Object> altera( @PathVariable Long id, @RequestBody UsuarioSaveRequest request ) throws SistemaException {
 		usuarioValidator.validaSave( request );
 		usuarioService.altera( id, request );
+		return ResponseEntity.ok().build();
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@PatchMapping("/altera/senha/logado")
+	public ResponseEntity<Object> alteraSenhaPorLogadoUID(
+			@RequestHeader( "Authorization" ) String authorizationHeader, 
+			@RequestBody UsuarioSenhaSaveRequest request ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		usuarioValidator.validaAlteraSenha( request );
+		usuarioService.alteraSenhaPorLogadoUID( logadoUID, request );
 		return ResponseEntity.ok().build();
 	}
 	

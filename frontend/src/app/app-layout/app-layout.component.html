@@ -7,23 +7,24 @@
         <span>Sistema de Clínica Médica</span>
 
         <button mat-icon-button [matMenuTriggerFor]="usuario_menu" class="ms-auto">
-            <fa-icon [icon]="icons.faGear"></fa-icon>
+            <fa-icon [icon]="icons.faCircleUser"></fa-icon>
         </button>
         <mat-menu #usuario_menu="matMenu">
-            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-alterar' } }]" 
+            
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-detalhes' } }]" 
                     *ngIf="sistemaService.isProfissional() === true">
-               Alterar dados 
+               Sua conta
             </a>
-            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-conta-alterar' } }]" 
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-conta-detalhes' } }]" 
                     *ngIf="sistemaService.isRecepcionista() === true">
-               Alterar dados 
+               Sua conta
             </a>
-            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'diretor-conta-alterar' } }]" 
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'diretor-conta-detalhes' } }]" 
                     *ngIf="sistemaService.isDiretor() === true">
-               Alterar dados 
+               Sua conta
             </a>
 
-            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'usuario-conta-alterar-senha' } }]">
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'usuario-conta-altera-senha' } }]">
                Alterar senha
             </a>
 

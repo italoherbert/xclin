@@ -15,7 +15,6 @@ export class AppLayoutComponent {
     faUserGroup : faUserGroup,
     faBox : faBox,
     faCircleUser : faCircleUser,
-    faGear : faGear,
     faHospital : faHospital,
     faChevronUp : faChevronUp,
     faChevronDown : faChevronDown,

@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Login } from '../bean/login';
 import { UsuarioSave } from '../bean/usuario/usuario-save';
 import { UsuarioGrupoVinculosSave } from '../bean/usuario/usuario-grupo-vinculos';
+import { UsuarioSenhaSave } from '../bean/usuario/usuario-senha-save';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,16 @@ export class UsuarioService {
     });
 
     return this.http.put( '/api/usuario/altera/'+id, usuario, { headers: headers, withCredentials: true } );
+  }
+
+  alteraSenhaPorUsuarioLogadoUID( usuarioSenhaSave : UsuarioSenhaSave ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.patch( '/api/usuario/altera/senha/logado', usuarioSenhaSave, { headers: headers, withCredentials: true } );
+  
   }
 
   filtraUsuarios( usuarioFiltro: any ): Observable<any> {

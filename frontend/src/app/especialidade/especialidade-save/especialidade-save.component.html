@@ -1,0 +1,44 @@
+<h1>Registro/Alteração de especialidade</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Formulário</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="row">
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Nome do especialidade</mat-label>
+                        <input matInput type="text" placeholder="Nome de grupo" [(ngModel)]="especialidadeSave.nome"/>
+                    </mat-form-field>                        
+                </div>                                      
+            </div>
+            
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <button mat-raised-button color="primary" (click)="salva()">
+                <fa-icon [icon]="icons.faSave"></fa-icon>
+                <span class="mx-3">Salvar</span>
+            </button>
+            
+            <br />
+            
+            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'especialidade-tela'} } ]">
+                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                <span class="mx-3">Tela de especialidades</span>
+            </a>
+        </mat-card-content>
+    </mat-card>
+</div>

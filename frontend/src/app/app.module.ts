@@ -82,6 +82,9 @@ import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-
 import { ProfissionalContaDetalhesComponent } from './usuario-conta/profissional/profissional-conta-detalhes/profissional-conta-detalhes.component';
 import { RecepcionistaContaDetalhesComponent } from './usuario-conta/recepcionista/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
 import { DiretorContaDetalhesComponent } from './usuario-conta/diretor/diretor-conta-detalhes/diretor-conta-detalhes.component';
+import { EspecialidadeRemoveDialog, EspecialidadeTelaComponent } from './especialidade/especialidade-tela/especialidade-tela.component';
+import { EspecialidadeSaveComponent } from './especialidade/especialidade-save/especialidade-save.component';
+import { EspecialidadeDetalhesComponent } from './especialidade/especialidade-detalhes/especialidade-detalhes.component';
 
 
 @NgModule({
@@ -152,6 +155,10 @@ import { DiretorContaDetalhesComponent } from './usuario-conta/diretor/diretor-c
     ProfissionalContaDetalhesComponent,
     RecepcionistaContaDetalhesComponent,
     DiretorContaDetalhesComponent,
+    EspecialidadeTelaComponent,
+    EspecialidadeSaveComponent,
+    EspecialidadeDetalhesComponent,
+    EspecialidadeRemoveDialog
   ],
   imports: [
     BrowserModule,

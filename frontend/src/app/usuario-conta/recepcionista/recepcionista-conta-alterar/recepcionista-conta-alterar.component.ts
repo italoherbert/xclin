@@ -36,9 +36,6 @@ export class RecepcionistaContaAlterarComponent {
   senhaRepetida : any = '';
   clinicaId : number = 0;
 
-  clinicasIDs : number[] = [];
-  clinicasNomes : string[] = [];
-
   constructor(
     private recepcionistaService: RecepcionistaService, 
     private sistemaService: SistemaService) {}
@@ -54,8 +51,6 @@ export class RecepcionistaContaAlterarComponent {
         this.recepcionistaSave = resp.recepcionista;
         this.recepcionistaSave.usuario.ignorarSenha = true;
 
-        this.clinicasIDs = resp.clinicasIDs;
-        this.clinicasNomes = resp.clinicasNomes;
         this.clinicaId = resp.recepcionista.clinicaId;
 
         this.showSpinner = false;

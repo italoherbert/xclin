@@ -49,6 +49,9 @@ import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-
 import { ProfissionalContaDetalhesComponent } from './usuario-conta/profissional/profissional-conta-detalhes/profissional-conta-detalhes.component';
 import { RecepcionistaContaDetalhesComponent } from './usuario-conta/recepcionista/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
 import { DiretorContaDetalhesComponent } from './usuario-conta/diretor/diretor-conta-detalhes/diretor-conta-detalhes.component';
+import { EspecialidadeTelaComponent } from './especialidade/especialidade-tela/especialidade-tela.component';
+import { EspecialidadeDetalhesComponent } from './especialidade/especialidade-detalhes/especialidade-detalhes.component';
+import { EspecialidadeSaveComponent } from './especialidade/especialidade-save/especialidade-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -81,6 +84,10 @@ const routes: Routes = [
     { path: 'recurso-tela', component: RecursoTelaComponent, outlet: 'page' },
     { path: 'recurso-detalhes/:id', component: RecursoDetalhesComponent, outlet: 'page' },
     { path: 'recurso-save/:id', component: RecursoSaveComponent, outlet: 'page' },
+
+    { path: 'especialidade-tela', component: EspecialidadeTelaComponent, outlet: 'page' },
+    { path: 'especialidade-detalhes/:id', component: EspecialidadeDetalhesComponent, outlet: 'page' },
+    { path: 'especialidade-save/:id', component: EspecialidadeSaveComponent, outlet: 'page' },
 
     { path: 'clinica-tela', component: ClinicaTelaComponent, outlet: 'page' },
     { path: 'clinica-detalhes/:id', component: ClinicaDetalhesComponent, outlet: 'page' },

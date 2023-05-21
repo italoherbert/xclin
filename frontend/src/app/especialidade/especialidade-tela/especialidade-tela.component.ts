@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { RecursoFiltro } from 'src/app/bean/recurso/recurso-filtro';
-import { RecursoService } from 'src/app/service/recurso.service';
+import { EspecialidadeFiltro } from 'src/app/bean/especialidade/especialidade-filtro';
+import { EspecialidadeService } from 'src/app/service/especialidade.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
-  selector: 'app-recurso-tela',
-  templateUrl: './recurso-tela.component.html',
-  styleUrls: ['./recurso-tela.component.css']
+  selector: 'app-especialidade-tela',
+  templateUrl: './especialidade-tela.component.html',
+  styleUrls: ['./especialidade-tela.component.css']
 })
-export class RecursoTelaComponent {
-
+export class EspecialidadeTelaComponent {
   infoMsg : any = null;
   erroMsg : any = null;
 
@@ -24,15 +23,15 @@ export class RecursoTelaComponent {
     faPlusCircle : faPlusCircle
   }
 
-  recursoFiltro : RecursoFiltro = {
+  especialidadeFiltro : EspecialidadeFiltro = {
     nomeIni : '*'
   }
 
-  recursos : any;
+  especialidades : any;
 
   constructor(
     private matDialog : MatDialog, 
-    private recursoService: RecursoService, 
+    private especialidadeService: EspecialidadeService, 
     private sistemaService: SistemaService) {}
 
   filtra() {
@@ -41,11 +40,11 @@ export class RecursoTelaComponent {
 
     this.showSpinner = true;
 
-    this.recursoService.filtraRecursos( this.recursoFiltro ).subscribe({
+    this.especialidadeService.filtraEspecialidades( this.especialidadeFiltro ).subscribe({
       next: ( resp ) => {
-        this.recursos = resp;
-        if ( this.recursos.length == 0 )
-          this.infoMsg = "Nenhum recurso encontrado.";
+        this.especialidades = resp;
+        if ( this.especialidades.length == 0 )
+          this.infoMsg = "Nenhuma especialidade encontrada.";
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -61,11 +60,11 @@ export class RecursoTelaComponent {
 
     this.showSpinner = true;
 
-    this.recursoService.deletaRecurso( id ).subscribe({
+    this.especialidadeService.deletaEspecialidade( id ).subscribe({
       next: ( resp ) => {
         this.filtra();
 
-        this.infoMsg = 'Recurso deletado com sucesso!';
+        this.infoMsg = 'Especialidade deletado com sucesso!';
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -76,7 +75,7 @@ export class RecursoTelaComponent {
   }
 
   mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( RecursoRemoveDialog );
+    let dialogRef = this.matDialog.open( EspecialidadeRemoveDialog );
     dialogRef.afterClosed().subscribe( ( result ) => {
       if ( result === true )
         this.remove( id );
@@ -86,9 +85,9 @@ export class RecursoTelaComponent {
 }
 
 @Component({
-  selector: "recurso-remove-dialog",
-  templateUrl: "recurso-remove-dialog.html"
+  selector: "especialidade-remove-dialog",
+  templateUrl: "especialidade-remove-dialog.html"
 })
-export class RecursoRemoveDialog {
+export class EspecialidadeRemoveDialog {
 
 }

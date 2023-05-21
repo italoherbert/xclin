@@ -1,16 +1,16 @@
-<h1>Tela de usuários</h1>
+<h1>Tela de especialidades</h1>
 
-<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'usuario-save/-1' }}]">
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'especialidade-save/-1' }}]">
     <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
-    <span class="mx-3">Novo usuário</span>
+    <span class="mx-3">Novo especialidade</span>
 </a>
 
 <br />
 
 <div class="mt-3"> 
     <mat-form-field appearance="fill">
-        <mat-label>Nome do usuário</mat-label>
-        <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="usuarioFiltro.usernameIni" />
+        <mat-label>Nome do especialidade</mat-label>
+        <input matInput type="text" placeholder="Nome do especialidade" [(ngModel)]="especialidadeFiltro.nomeIni" />
     </mat-form-field>
     <br />
     <div class="d-flex flex-row align-items-center">
@@ -33,24 +33,22 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Nome de usuário</th>
-                <th>Perfil</th>
+                <th>Nome</th>
                 <th>Detalhes</th>
                 <th>Remover</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let u of usuarios">
-                <td>{{u.username}}</td>
-                <td>{{u.perfil}}</td>
+            <tr *ngFor="let e of especialidades">
+                <td>{{e.nome}}</td>
                 <td>
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'usuario-detalhes/'+u.id }}]">
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'especialidade-detalhes/'+e.id }}]">
                         <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
                         detalhes
                     </a>
                 </td>
                 <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(u.id)">
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(e.id)">
                         <fa-icon [icon]="icons.faTrashCan"></fa-icon>
                         remover
                     </a>

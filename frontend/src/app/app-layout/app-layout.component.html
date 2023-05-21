@@ -171,6 +171,13 @@
                     <fa-icon [icon]="icons.faHospital"></fa-icon>
                     <div class="mx-2">Clínicas</div>
                 </div>
+            </mat-list-item> 
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'especialidade-tela' } } ]"
+                    *ngIf="sistemaService.isAdminEscopo() == true">               
+                <div class="d-flex flex-row">
+                    <fa-icon [icon]="icons.faUmbrella"></fa-icon>
+                    <div class="mx-2">Especialidades</div>
+                </div>
             </mat-list-item>                                                                                 
         </mat-nav-list>
     </mat-sidenav>

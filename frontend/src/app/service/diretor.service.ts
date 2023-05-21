@@ -107,4 +107,20 @@ export class DiretorService {
     return this.http.get( '/api/naoadmin/diretor/get/tela', { headers: headers, withCredentials: true } );
   }
 
+  alteraDiretorPorLogadoUID( diretorSave: DiretorSave ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.put( '/api/conta/diretor/altera/logado', diretorSave, { headers: headers, withCredentials: true } )
+  }
+
+  getDiretorDetalhesPorLogadoUID(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/diretor/get/detalhes/logado', { headers: headers, withCredentials: true } );
+  }
+
 }

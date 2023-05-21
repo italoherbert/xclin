@@ -1,4 +1,4 @@
-<h1>Alteração de dados do recepcionista</h1>
+<h1>Alteração de sua conta</h1>
 
 <br />
 
@@ -15,26 +15,15 @@
             <div class="row">
                 <div class="col-sm-8">
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Nome do recepcionista</mat-label>
-                        <input matInput type="text" placeholder="Nome do recepcionista" [(ngModel)]="recepcionistaSave.nome"/>
+                        <mat-label>Seu nome</mat-label>
+                        <input matInput type="text" placeholder="Seu nome" [(ngModel)]="recepcionistaSave.nome"/>
                     </mat-form-field>                        
                 </div>
-
+s
                 <div class="col-sm-8">
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Clínica</mat-label>
-                        <mat-select placeholder="Escolha a clínica" [(ngModel)]="clinicaId">
-                            <mat-option *ngFor="let c of clinicasIDs; index as i" [value]="c">
-                                {{clinicasNomes[i]}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>                        
-                </div> 
-
-                <div class="col-sm-8">
-                    <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Nome de usuário</mat-label>
-                        <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="recepcionistaSave.usuario.username"/>
+                        <mat-label>Seu nome de usuário</mat-label>
+                        <input matInput type="text" placeholder="Seu nome de usuário" [(ngModel)]="recepcionistaSave.usuario.username"/>
                     </mat-form-field>                        
                 </div>                                                  
             </div>

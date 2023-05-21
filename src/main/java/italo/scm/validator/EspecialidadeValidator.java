@@ -4,20 +4,20 @@ import org.springframework.stereotype.Component;
 
 import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
-import italo.scm.model.request.filtro.RecursoFiltroRequest;
-import italo.scm.model.request.save.RecursoSaveRequest;
+import italo.scm.model.request.filtro.EspecialidadeFiltroRequest;
+import italo.scm.model.request.save.EspecialidadeSaveRequest;
 
 @Component
-public class RecursoValidator {
+public class EspecialidadeValidator {
 
-	public void validaSave( RecursoSaveRequest request ) throws ValidationException {
+	public void validaSave( EspecialidadeSaveRequest request ) throws ValidationException {
 		if ( request.getNome() == null )
 			throw new ValidationException( Erro.NOME_OBRIGATORIO );
 		if ( request.getNome().isBlank() )
 			throw new ValidationException( Erro.NOME_OBRIGATORIO );		
 	}
 	
-	public void validaFiltro( RecursoFiltroRequest request ) throws ValidationException {
+	public void validaFiltro( EspecialidadeFiltroRequest request ) throws ValidationException {
 		if ( request.getNomeIni() == null )
 			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
 		if ( request.getNomeIni().isBlank() )

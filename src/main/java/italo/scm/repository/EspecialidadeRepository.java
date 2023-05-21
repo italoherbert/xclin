@@ -1,0 +1,22 @@
+package italo.scm.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import italo.scm.model.Especialidade;
+
+public interface EspecialidadeRepository extends JpaRepository<Especialidade, Long> {
+
+	@Query("select count(*)=1 from Especialidade e where lower(e.nome)=lower(?1)")
+	public boolean existePorNome( String nome );
+	
+	@Query("select e from Especialidade e where lower(e.nome)=lower(?1)")
+	public Optional<Especialidade> buscaPorNome( String nome );
+	
+	@Query("select e from Especialidade e where lower(e.nome) like lower(?1)")
+	public List<Especialidade> filtra( String nomeIni );
+	
+}

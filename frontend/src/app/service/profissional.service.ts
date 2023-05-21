@@ -49,15 +49,6 @@ export class ProfissionalService {
     return this.http.put( '/api/profissional/altera/'+id, profissionalSave, { headers: headers, withCredentials: true } )
   }
 
-  alteraProfissionalPorLogadoUID( profissionalSave: ProfissionalSave ): Observable<any> {
-    let headers = new HttpHeaders({
-      'Content-Type' : 'application/json',
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-
-    return this.http.put( '/api/profissional/altera/logado', profissionalSave, { headers: headers, withCredentials: true } )
-  }
-
   filtraProfissionais( filtro: ProfissionalFiltro ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
@@ -90,25 +81,11 @@ export class ProfissionalService {
     return this.http.get( '/api/profissional/get/edit/'+id, { headers: headers, withCredentials: true } );
   }
 
-  getProfissionalEditPorLogadoUID(): Observable<any> {
-    let headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-    return this.http.get( '/api/profissional/get/edit/logado', { headers: headers, withCredentials: true } );
-  }
-
   getProfissionalDetalhes( id : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
     return this.http.get( '/api/profissional/get/detalhes/'+id, { headers: headers, withCredentials: true } );
-  }
-
-  getProfissionalDetalhesPorLogadoUID(): Observable<any> {
-    let headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-    return this.http.get( '/api/profissional/get/detalhes/logado', { headers: headers, withCredentials: true } );
   }
 
   listaPorClinica( clinicaId : any ): Observable<any> {
@@ -149,6 +126,29 @@ export class ProfissionalService {
     });
 
     return this.http.get( '/api/naoadmin/profissional/get/tela', { headers: headers, withCredentials: true } );
+  }
+
+  alteraProfissionalPorLogadoUID( profissionalSave: ProfissionalSave ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.put( '/api/conta/profissional/altera/logado', profissionalSave, { headers: headers, withCredentials: true } )
+  }
+
+  getProfissionalEditPorLogadoUID(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/get/edit/logado', { headers: headers, withCredentials: true } );
+  }
+
+  getProfissionalDetalhesPorLogadoUID(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/get/detalhes/logado', { headers: headers, withCredentials: true } );
   }
 
 }

@@ -12,7 +12,5 @@ public class RecepcionistaSaveRequest {
 	private String nome;
 	
 	private UsuarioSaveRequest usuario;
-	
-	private Long clinicaId;
-		
+			
 }

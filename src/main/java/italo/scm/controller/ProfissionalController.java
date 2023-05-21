@@ -78,21 +78,7 @@ public class ProfissionalController {
 		profissionalService.altera( id, request );
 		return ResponseEntity.ok().build(); 	
 	}
-	
-	@PreAuthorize("isAuthenticated()")
-	@PutMapping("/altera/logado")
-	public ResponseEntity<Object> alteraPorLogadoUID( 
-			@RequestHeader( "Authorization" ) String authorizationHeader, 
-			@RequestBody ProfissionalSaveRequest request ) throws SistemaException {
-		
-		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
-		Long logadoUID = tokenInfo.getUsuarioId();
-		
-		profissionalValidator.validaSave( request );
-		profissionalService.alteraPorLogadoUID( logadoUID, request );
-		return ResponseEntity.ok().build(); 	
-	}
-		
+			
 	@PreAuthorize("hasAuthority('profissionalREAD')")
 	@PostMapping("/filtra")
 	public ResponseEntity<Object> filtra( 
@@ -145,37 +131,13 @@ public class ProfissionalController {
 		ProfissionalEditLoadResponse resp = profissionalService.getEditLoad( id );
 		return ResponseEntity.ok( resp );
 	}
-	
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/get/edit/logado")
-	public ResponseEntity<Object> getEditLoadPorLogadoUID(
-			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 		
-		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
-		Long logadoUID = tokenInfo.getUsuarioId();
-		
-		ProfissionalEditLoadResponse resp = profissionalService.getEditLoadPorLogadoUID( logadoUID );
-		return ResponseEntity.ok( resp );
-	}	
-	
 	@PreAuthorize("hasAuthority('profissionalREAD')")
 	@GetMapping("/get/detalhes/{id}")
 	public ResponseEntity<Object> getDetalhesLoad( @PathVariable Long id ) throws SistemaException {
 		ProfissionalDetalhesLoadResponse resp = profissionalService.getDetalhesLoad( id );
 		return ResponseEntity.ok( resp );
 	}
-	
-	@PreAuthorize("isAuthenticated()")
-	@GetMapping("/get/detalhes/logado")
-	public ResponseEntity<Object> getDetalhesLoadPorLogadoUID(
-			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
-		
-		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
-		Long logadoUID = tokenInfo.getUsuarioId();
-		
-		ProfissionalDetalhesLoadResponse resp = profissionalService.getDetalhesLoadPorLogadoUID( logadoUID );
-		return ResponseEntity.ok( resp );
-	}	
 		
 	@PreAuthorize("hasAuthority('profissionalDELETE')")
 	@DeleteMapping("/deleta/{id}")

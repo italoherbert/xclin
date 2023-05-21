@@ -24,7 +24,6 @@ export class RecepcionistaSaveComponent {
 
   recepcionistaSave : RecepcionistaSave = {
     nome: '',
-    clinicaId : 0,
     usuario: {
       username: '',
       senha: '',
@@ -36,6 +35,7 @@ export class RecepcionistaSaveComponent {
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
 
+  clinicaId : number = 0;
   senhaRepetida : any = '';
 
   constructor(
@@ -70,6 +70,8 @@ export class RecepcionistaSaveComponent {
           this.clinicasIDs = resp.clinicasIDs;
           this.clinicasNomes = resp.clinicasNomes;
 
+          this.clinicaId = resp.recepcionista.clinicaId;
+
           this.showSpinner = false;
         },
         error: ( erro ) => {
@@ -91,10 +93,10 @@ export class RecepcionistaSaveComponent {
 
     this.showSpinner = true;
     
-    let id = this.actRoute.snapshot.paramMap.get( 'id' );
+    let rid = this.actRoute.snapshot.paramMap.get( 'id' );
     
-    if ( id === '-1' ) { 
-      this.recepcionistaService.registraRecepcionista( this.recepcionistaSave ).subscribe({
+    if ( rid === '-1' ) { 
+      this.recepcionistaService.registraRecepcionista( this.clinicaId, this.recepcionistaSave ).subscribe({
         next: ( resp ) => {
           this.infoMsg = "Recepcionista registrado com sucesso.";
           this.showSpinner = false;
@@ -105,7 +107,7 @@ export class RecepcionistaSaveComponent {
         }
       });
     } else {
-      this.recepcionistaService.alteraRecepcionista( id, this.recepcionistaSave ).subscribe({
+      this.recepcionistaService.alteraRecepcionista( this.clinicaId, rid, this.recepcionistaSave ).subscribe({
         next: ( resp ) => {
           this.infoMsg = "Recepcionista alterado com sucesso.";
           this.showSpinner = false;

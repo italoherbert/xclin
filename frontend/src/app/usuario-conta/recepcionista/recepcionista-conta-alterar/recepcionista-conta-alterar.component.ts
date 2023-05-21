@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faSave } from '@fortawesome/free-solid-svg-icons';
-import { ProfissionalSave } from 'src/app/bean/profissional/profissional-save';
-import { ProfissionalService } from 'src/app/service/profissional.service';
+import { RecepcionistaSave } from 'src/app/bean/recepcionista/recepcionista-save';
+import { RecepcionistaService } from 'src/app/service/recepcionista.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 @Component({
@@ -22,9 +22,8 @@ export class RecepcionistaContaAlterarComponent {
     faCircleLeft : faCircleLeft
   }
 
-  profissionalSave : ProfissionalSave = {
+  recepcionistaSave : RecepcionistaSave = {
     nome: '',
-    funcao: '',
     usuario: {
       username: '',
       senha: '',
@@ -35,12 +34,13 @@ export class RecepcionistaContaAlterarComponent {
   }
 
   senhaRepetida : any = '';
+  clinicaId : number = 0;
 
-  funcoes : any[] = [];
+  clinicasIDs : number[] = [];
+  clinicasNomes : string[] = [];
 
   constructor(
-    private actRoute : ActivatedRoute, 
-    private profissionalService: ProfissionalService, 
+    private recepcionistaService: RecepcionistaService, 
     private sistemaService: SistemaService) {}
 
   ngOnInit() {    
@@ -49,12 +49,14 @@ export class RecepcionistaContaAlterarComponent {
 
     this.showSpinner = true;
 
-    let id = this.actRoute.snapshot.paramMap.get( 'id' );
-
-    this.profissionalService.getProfissionalEditPorLogadoUID().subscribe({
+    this.recepcionistaService.getRecepcionistaEditPorLogadoUID().subscribe({
       next: (resp) => {
-        this.profissionalSave = resp;
-        this.profissionalSave.usuario.ignorarSenha = true;
+        this.recepcionistaSave = resp.recepcionista;
+        this.recepcionistaSave.usuario.ignorarSenha = true;
+
+        this.clinicasIDs = resp.clinicasIDs;
+        this.clinicasNomes = resp.clinicasNomes;
+        this.clinicaId = resp.recepcionista.clinicaId;
 
         this.showSpinner = false;
       },
@@ -70,12 +72,10 @@ export class RecepcionistaContaAlterarComponent {
     this.erroMsg = null;
 
     this.showSpinner = true;
-    
-    let id = this.actRoute.snapshot.paramMap.get( 'id' );
-    
-    this.profissionalService.alteraProfissional( id, this.profissionalSave ).subscribe({
+        
+    this.recepcionistaService.alteraRecepcionistaPorLogadoUID( this.clinicaId, this.recepcionistaSave ).subscribe({
       next: ( resp ) => {
-        this.infoMsg = "Profissional alterado com sucesso.";
+        this.infoMsg = "Recepcionista alterado com sucesso.";
         this.showSpinner = false;
       },
       error: ( erro ) => {

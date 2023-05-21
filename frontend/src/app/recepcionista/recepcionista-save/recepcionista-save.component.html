@@ -23,7 +23,7 @@
                 <div class="col-sm-8">
                     <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Clínica</mat-label>
-                        <mat-select placeholder="Escolha a clínica" [(ngModel)]="recepcionistaSave.clinicaId">
+                        <mat-select placeholder="Escolha a clínica" [(ngModel)]="clinicaId">
                             <mat-option *ngFor="let c of clinicasIDs; index as i" [value]="c">
                                 {{clinicasNomes[i]}}
                             </mat-option>

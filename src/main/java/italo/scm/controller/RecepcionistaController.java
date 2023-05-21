@@ -40,27 +40,29 @@ public class RecepcionistaController {
 	private JWTTokenLogica jwtTokenLogica;
 	
 	@PreAuthorize("hasAuthority('recepcionistaWRITE')")
-	@PostMapping("/registra")
+	@PostMapping("/registra/{clinicaId}")
 	public ResponseEntity<Object> registra( 
 			@RequestHeader( "Authorization" ) String authHeader,
+			@PathVariable Long clinicaId,
 			@RequestBody RecepcionistaSaveRequest request ) throws SistemaException {
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
 		recepcionistaValidator.validaSave( request );
-		recepcionistaService.registra( logadoUID, request );
+		recepcionistaService.registra( logadoUID, clinicaId, request );
 		return ResponseEntity.ok().build(); 
 	}
 	
 	@PreAuthorize("hasAuthority('recepcionistaWRITE')")
-	@PutMapping("/altera/{id}")
+	@PutMapping("/altera/{clinicaId}/{recepcionistaId}")
 	public ResponseEntity<Object> altera( 
-			@PathVariable Long id, 
+			@PathVariable Long clinicaId,
+			@PathVariable Long recepcionistaId, 
 			@RequestBody RecepcionistaSaveRequest request ) throws SistemaException {
 		
 		recepcionistaValidator.validaSave( request );
-		recepcionistaService.altera( id, request );
+		recepcionistaService.altera( clinicaId, recepcionistaId, request );
 		return ResponseEntity.ok().build(); 	
 	}
 	

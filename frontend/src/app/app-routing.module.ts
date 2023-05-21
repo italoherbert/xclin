@@ -47,6 +47,7 @@ import { RecepcionistaContaAlterarComponent } from './usuario-conta/recepcionist
 import { DiretorContaAlterarComponent } from './usuario-conta/diretor/diretor-conta-alterar/diretor-conta-alterar.component';
 import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-altera-senha/usuario-conta-altera-senha.component';
 import { ProfissionalContaDetalhesComponent } from './usuario-conta/profissional/profissional-conta-detalhes/profissional-conta-detalhes.component';
+import { RecepcionistaContaDetalhesComponent } from './usuario-conta/recepcionista/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -56,9 +57,10 @@ const routes: Routes = [
   { path: 'app', component: AppLayoutComponent, children: [
     { path: 'home', component: HomeComponent, outlet: 'page'},
 
-    { path: 'usuario-conta-altera-senha', component: UsuarioContaAlteraSenhaComponent, outlet: 'page' },
+    { path: 'usuario-conta-alterar-senha', component: UsuarioContaAlteraSenhaComponent, outlet: 'page' },
 
     { path: 'profissional-conta-detalhes', component: ProfissionalContaDetalhesComponent, outlet: 'page' },
+    { path: 'recepcionista-conta-detalhes', component: RecepcionistaContaDetalhesComponent, outlet: 'page' },
     
     { path: 'profissional-conta-alterar', component: ProfissionalContaAlterarComponent, outlet: 'page'},
     { path: 'recepcionista-conta-alterar', component: RecepcionistaContaAlterarComponent, outlet: 'page'},

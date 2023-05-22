@@ -18,8 +18,8 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.filtro.NaoAdminDiretorFiltroRequest;
 import italo.scm.model.response.DiretorResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.NaoAdminDiretorTelaLoadResponse;
-import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
+import italo.scm.model.response.load.detalhes.DiretorDetalhesLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminDiretorTelaLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.DiretorRepository;
 

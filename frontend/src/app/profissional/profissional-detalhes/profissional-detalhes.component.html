@@ -80,6 +80,20 @@
                         </mat-chip-listbox>                        
                     </div>
                 </div>
+                <div class="col-sm-12 my-3">
+                    <div class="fs-6 text-secondary">
+                        Especialidades:
+                    </div>
+                    <div class="fs-5 text-black">
+                        <mat-chip-listbox>
+                            <mat-chip-option *ngFor="let esp of profissionalDetalhes.especialidades"
+                                    [selectable]="false"
+                                    [selected]="true">
+                                {{esp}}
+                            </mat-chip-option>
+                        </mat-chip-listbox>                        
+                    </div>
+                </div>
             </div>
 
             <div *ngIf="sistemaService.isAdminEscopo() === true">

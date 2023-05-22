@@ -14,12 +14,13 @@ import italo.scm.loader.UsuarioLoader;
 import italo.scm.model.Clinica;
 import italo.scm.model.Profissional;
 import italo.scm.model.ProfissionalClinicaVinculo;
+import italo.scm.model.ProfissionalEspecialidadeVinculo;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.filtro.NaoAdminProfissionalFiltroRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.NaoAdminProfissionalTelaLoadResponse;
-import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
+import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminProfissionalTelaLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.ProfissionalRepository;
 
@@ -81,22 +82,28 @@ public class NaoAdminProfissionalService {
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.DIRETOR_NAO_ENCONTRADO );
 		
-		Profissional d = profissionalOp.get();
-		Usuario u = d.getUsuario();
+		Profissional p = profissionalOp.get();
+		Usuario u = p.getUsuario();
 		
 		List<String> clinicas = new ArrayList<>();
 		
-		List<ProfissionalClinicaVinculo> vinculos = d.getProfissionalClinicaVinculos();
-		for( ProfissionalClinicaVinculo v : vinculos )
+		List<ProfissionalClinicaVinculo> pcVinculos = p.getProfissionalClinicaVinculos();
+		for( ProfissionalClinicaVinculo v : pcVinculos )
 			clinicas.add( v.getClinica().getNome() );
+		
+		List<String> especialidades = new ArrayList<>();
+		
+		List<ProfissionalEspecialidadeVinculo> peVinculos = p.getProfissionalEspecialidadeVinculos();
+		for( ProfissionalEspecialidadeVinculo v : peVinculos )
+			especialidades.add( v.getEspecialidade().getNome() );		
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();
 		usuarioLoader.loadResponse( uresp, u );
 		
 		ProfissionalResponse resp = profissionalLoader.novoResponse( uresp );
-		profissionalLoader.loadResponse( resp, d );
+		profissionalLoader.loadResponse( resp, p );
 		
-		return profissionalLoader.novoDetalhesResponse( resp, clinicas ); 
+		return profissionalLoader.novoDetalhesResponse( resp, clinicas, especialidades ); 
 	}
 	
 }

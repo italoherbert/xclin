@@ -1,0 +1,32 @@
+<h1>Suas especialidades</h1>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Editar</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let vid of especialidadesVinculosIDs; index as i">
+                <td>{{especialidadesVinculosNomes[ i ]}}</td>
+                <td>
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-especialidade-save/'+vid }}]">
+                        <fa-icon [icon]="icons.faEdit"></fa-icon>
+                        editar
+                    </a>
+                </td>
+                <td>
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(vid)">
+                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                        remover
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

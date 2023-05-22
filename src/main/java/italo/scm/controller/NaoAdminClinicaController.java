@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
-import italo.scm.model.response.load.ClinicaDetalhesLoadResponse;
-import italo.scm.model.response.load.NaoAdminClinicaTelaLoadResponse;
+import italo.scm.model.response.load.detalhes.ClinicaDetalhesLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminClinicaTelaLoadResponse;
 import italo.scm.service.naoadmin.NaoAdminClinicaService;
 
 @RestController

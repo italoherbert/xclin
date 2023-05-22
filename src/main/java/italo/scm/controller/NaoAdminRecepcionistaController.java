@@ -18,7 +18,7 @@ import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.NaoAdminRecepcionistaFiltroRequest;
 import italo.scm.model.response.RecepcionistaResponse;
-import italo.scm.model.response.load.NaoAdminRecepcionistaTelaLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminRecepcionistaTelaLoadResponse;
 import italo.scm.service.auth.Autorizador;
 import italo.scm.service.naoadmin.NaoAdminRecepcionistaService;
 import italo.scm.validator.RecepcionistaValidator;

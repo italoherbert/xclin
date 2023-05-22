@@ -21,8 +21,8 @@ import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.RecepcionistaFiltroRequest;
 import italo.scm.model.request.save.RecepcionistaSaveRequest;
 import italo.scm.model.response.RecepcionistaResponse;
-import italo.scm.model.response.load.RecepcionistaEditLoadResponse;
-import italo.scm.model.response.load.RecepcionistaRegLoadResponse;
+import italo.scm.model.response.load.edit.RecepcionistaEditLoadResponse;
+import italo.scm.model.response.load.reg.RecepcionistaRegLoadResponse;
 import italo.scm.service.RecepcionistaService;
 import italo.scm.validator.RecepcionistaValidator;
 

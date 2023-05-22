@@ -20,7 +20,7 @@ import italo.scm.model.request.filtro.DiretorFiltroRequest;
 import italo.scm.model.request.save.DiretorSaveRequest;
 import italo.scm.model.response.DiretorResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
+import italo.scm.model.response.load.detalhes.DiretorDetalhesLoadResponse;
 import italo.scm.repository.DiretorRepository;
 import italo.scm.repository.UsuarioRepository;
 import italo.scm.service.shared.UsuarioSharedService;

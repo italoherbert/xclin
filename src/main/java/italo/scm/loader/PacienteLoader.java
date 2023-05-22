@@ -20,10 +20,10 @@ import italo.scm.model.response.EnderecoResponse;
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.PacienteResponse;
 import italo.scm.model.response.UFResponse;
-import italo.scm.model.response.load.PacienteDetalhesLoadResponse;
-import italo.scm.model.response.load.PacienteEditLoadResponse;
-import italo.scm.model.response.load.PacienteRegLoadResponse;
-import italo.scm.model.response.load.PacienteTelaLoadResponse;
+import italo.scm.model.response.load.detalhes.PacienteDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.PacienteEditLoadResponse;
+import italo.scm.model.response.load.reg.PacienteRegLoadResponse;
+import italo.scm.model.response.load.tela.PacienteTelaLoadResponse;
 
 @Component
 public class PacienteLoader {

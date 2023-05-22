@@ -52,6 +52,7 @@ import { DiretorContaDetalhesComponent } from './usuario-conta/diretor/diretor-c
 import { EspecialidadeTelaComponent } from './especialidade/especialidade-tela/especialidade-tela.component';
 import { EspecialidadeDetalhesComponent } from './especialidade/especialidade-detalhes/especialidade-detalhes.component';
 import { EspecialidadeSaveComponent } from './especialidade/especialidade-save/especialidade-save.component';
+import { ProfissionalContaEspecialidadesComponent } from './usuario-conta/profissional/profissional-conta-especialidades/profissional-conta-especialidades.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -62,6 +63,8 @@ const routes: Routes = [
     { path: 'home', component: HomeComponent, outlet: 'page'},
 
     { path: 'usuario-conta-alterar-senha', component: UsuarioContaAlteraSenhaComponent, outlet: 'page' },
+    
+    { path: 'profissional-conta-especialidades', component: ProfissionalContaEspecialidadesComponent, outlet: 'page' },
 
     { path: 'profissional-conta-detalhes', component: ProfissionalContaDetalhesComponent, outlet: 'page' },
     { path: 'recepcionista-conta-detalhes', component: RecepcionistaContaDetalhesComponent, outlet: 'page' },

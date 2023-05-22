@@ -10,8 +10,8 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.DiretorSaveRequest;
 import italo.scm.model.response.DiretorResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.NaoAdminDiretorTelaLoadResponse;
-import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
+import italo.scm.model.response.load.detalhes.DiretorDetalhesLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminDiretorTelaLoadResponse;
 
 @Component
 public class DiretorLoader {

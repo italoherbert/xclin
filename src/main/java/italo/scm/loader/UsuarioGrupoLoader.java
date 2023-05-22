@@ -9,8 +9,8 @@ import italo.scm.model.UsuarioGrupo;
 import italo.scm.model.request.save.UsuarioGrupoSaveRequest;
 import italo.scm.model.response.AcessoResponse;
 import italo.scm.model.response.UsuarioGrupoResponse;
-import italo.scm.model.response.load.UsuarioGrupoDetalhesLoadResponse;
-import italo.scm.model.response.load.UsuarioGrupoEditLoadResponse;
+import italo.scm.model.response.load.detalhes.UsuarioGrupoDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.UsuarioGrupoEditLoadResponse;
 
 @Component
 public class UsuarioGrupoLoader {

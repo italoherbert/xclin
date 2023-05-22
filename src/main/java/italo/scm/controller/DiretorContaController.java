@@ -14,7 +14,7 @@ import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.save.DiretorSaveRequest;
-import italo.scm.model.response.load.DiretorDetalhesLoadResponse;
+import italo.scm.model.response.load.detalhes.DiretorDetalhesLoadResponse;
 import italo.scm.service.DiretorService;
 import italo.scm.validator.DiretorValidator;
 

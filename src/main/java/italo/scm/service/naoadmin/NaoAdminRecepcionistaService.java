@@ -17,7 +17,7 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.filtro.NaoAdminRecepcionistaFiltroRequest;
 import italo.scm.model.response.RecepcionistaResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.NaoAdminRecepcionistaTelaLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminRecepcionistaTelaLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.RecepcionistaRepository;
 

@@ -15,8 +15,8 @@ import italo.scm.model.request.save.UsuarioSaveRequest;
 import italo.scm.model.request.save.UsuarioSenhaSaveRequest;
 import italo.scm.model.response.TipoResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.UsuarioEditLoadResponse;
-import italo.scm.model.response.load.UsuarioRegLoadResponse;
+import italo.scm.model.response.load.edit.UsuarioEditLoadResponse;
+import italo.scm.model.response.load.reg.UsuarioRegLoadResponse;
 
 @Component
 public class UsuarioLoader {

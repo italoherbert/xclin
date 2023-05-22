@@ -20,9 +20,9 @@ import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ClinicaFiltroRequest;
 import italo.scm.model.request.save.ClinicaSaveRequest;
 import italo.scm.model.response.ClinicaResponse;
-import italo.scm.model.response.load.ClinicaDetalhesLoadResponse;
-import italo.scm.model.response.load.ClinicaEditLoadResponse;
-import italo.scm.model.response.load.ClinicaRegLoadResponse;
+import italo.scm.model.response.load.detalhes.ClinicaDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.ClinicaEditLoadResponse;
+import italo.scm.model.response.load.reg.ClinicaRegLoadResponse;
 import italo.scm.service.ClinicaService;
 import italo.scm.validator.ClinicaValidator;
 

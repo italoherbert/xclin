@@ -11,9 +11,9 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.RecepcionistaSaveRequest;
 import italo.scm.model.response.RecepcionistaResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.NaoAdminRecepcionistaTelaLoadResponse;
-import italo.scm.model.response.load.RecepcionistaEditLoadResponse;
-import italo.scm.model.response.load.RecepcionistaRegLoadResponse;
+import italo.scm.model.response.load.edit.RecepcionistaEditLoadResponse;
+import italo.scm.model.response.load.reg.RecepcionistaRegLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminRecepcionistaTelaLoadResponse;
 
 @Component
 public class RecepcionistaLoader {

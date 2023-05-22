@@ -16,7 +16,7 @@ import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.save.RecepcionistaSaveRequest;
 import italo.scm.model.response.RecepcionistaResponse;
-import italo.scm.model.response.load.RecepcionistaEditLoadResponse;
+import italo.scm.model.response.load.edit.RecepcionistaEditLoadResponse;
 import italo.scm.service.RecepcionistaService;
 import italo.scm.validator.RecepcionistaValidator;
 

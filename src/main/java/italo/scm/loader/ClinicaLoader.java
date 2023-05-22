@@ -14,10 +14,10 @@ import italo.scm.model.response.EnderecoResponse;
 import italo.scm.model.response.MunicipioResponse;
 import italo.scm.model.response.UFResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.ClinicaDetalhesLoadResponse;
-import italo.scm.model.response.load.ClinicaEditLoadResponse;
-import italo.scm.model.response.load.ClinicaRegLoadResponse;
-import italo.scm.model.response.load.NaoAdminClinicaTelaLoadResponse;
+import italo.scm.model.response.load.detalhes.ClinicaDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.ClinicaEditLoadResponse;
+import italo.scm.model.response.load.reg.ClinicaRegLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminClinicaTelaLoadResponse;
 
 @Component
 public class ClinicaLoader {

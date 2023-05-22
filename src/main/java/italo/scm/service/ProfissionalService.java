@@ -15,14 +15,16 @@ import italo.scm.loader.UsuarioLoader;
 import italo.scm.model.Clinica;
 import italo.scm.model.Profissional;
 import italo.scm.model.ProfissionalClinicaVinculo;
+import italo.scm.model.ProfissionalEspecialidadeVinculo;
 import italo.scm.model.Usuario;
 import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
-import italo.scm.model.response.load.ProfissionalEditLoadResponse;
-import italo.scm.model.response.load.ProfissionalRegLoadResponse;
+import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
+import italo.scm.model.response.load.reg.ProfissionalRegLoadResponse;
 import italo.scm.repository.ProfissionalRepository;
 import italo.scm.repository.UsuarioRepository;
 import italo.scm.service.shared.UsuarioSharedService;
@@ -184,16 +186,20 @@ public class ProfissionalService {
 		
 		List<String> clinicas = new ArrayList<>();
 		
-		List<ProfissionalClinicaVinculo> vinculos = p.getProfissionalClinicaVinculos();
-		for( ProfissionalClinicaVinculo vinculo : vinculos ) {
+		List<ProfissionalClinicaVinculo> pcVinculos = p.getProfissionalClinicaVinculos();
+		for( ProfissionalClinicaVinculo vinculo : pcVinculos ) {
 			Clinica clinica = vinculo.getClinica();
 			clinicas.add( clinica.getNome() );
 		}
+
+		List<String> especialidades = new ArrayList<>();
 		
-		ProfissionalDetalhesLoadResponse resp = 
-				profissionalLoader.novoDetalhesResponse( profissionalResp , clinicas );
+		List<ProfissionalEspecialidadeVinculo> peVinculos = p.getProfissionalEspecialidadeVinculos();
+		for( ProfissionalEspecialidadeVinculo vinculo : peVinculos )
+			especialidades.add( vinculo.getEspecialidade().getNome() );		
 		
-		return resp;
+		return profissionalLoader.novoDetalhesResponse( 
+				profissionalResp, clinicas, especialidades );
 	}
 	
 	public ProfissionalRegLoadResponse getRegLoad() throws ServiceException {		
@@ -229,6 +235,25 @@ public class ProfissionalService {
 		return resp;
 	}
 		
+	public ProfissionalEspecialidadeVinculosLoadResponse getVinculosLoad( Long logadoUID ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
+		if ( !profissionalOp.isPresent() )
+			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+		
+		Profissional profissional = profissionalOp.get();
+		
+		List<Long> espVinculosIDs = new ArrayList<>();
+		List<String> espVinculosNomes = new ArrayList<>();
+		
+		List<ProfissionalEspecialidadeVinculo> vinculos = profissional.getProfissionalEspecialidadeVinculos();
+		for( ProfissionalEspecialidadeVinculo v : vinculos ) {
+			espVinculosIDs.add( v.getId() );
+			espVinculosNomes.add( v.getEspecialidade().getNome() );
+		}
+				
+		return profissionalLoader.novoEspecialidadeVinculosLoadResponse( profissional, espVinculosIDs, espVinculosNomes );		
+	}
+	
 	public void deleta( Long id ) throws ServiceException {
 		boolean existe = profissionalRepository.existsById( id );
 		if ( !existe )

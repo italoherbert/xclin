@@ -36,7 +36,8 @@ export class ProfissionalDetalhesComponent {
         perfilLabel: ''
       }
     },
-    clinicas: []
+    clinicas: [],
+    especialidades: []
   }
 
   constructor( 

@@ -151,4 +151,11 @@ export class ProfissionalService {
     return this.http.get( '/api/conta/profissional/get/detalhes/logado', { headers: headers, withCredentials: true } );
   }
 
+  listaEspecialidadeVinculosPorLogadoUID(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/lista/especialidades/vinculos/logado', { headers: headers, withCredentials: true } );
+  }
+
 }

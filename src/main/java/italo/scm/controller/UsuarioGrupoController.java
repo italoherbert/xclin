@@ -18,8 +18,8 @@ import italo.scm.exception.SistemaException;
 import italo.scm.model.request.filtro.UsuarioGrupoFiltroRequest;
 import italo.scm.model.request.save.UsuarioGrupoSaveRequest;
 import italo.scm.model.response.UsuarioGrupoResponse;
-import italo.scm.model.response.load.UsuarioGrupoDetalhesLoadResponse;
-import italo.scm.model.response.load.UsuarioGrupoEditLoadResponse;
+import italo.scm.model.response.load.detalhes.UsuarioGrupoDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.UsuarioGrupoEditLoadResponse;
 import italo.scm.service.UsuarioGrupoService;
 import italo.scm.validator.UsuarioGrupoValidator;
 

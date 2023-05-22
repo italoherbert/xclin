@@ -12,10 +12,11 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.NaoAdminProfissionalTelaLoadResponse;
-import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
-import italo.scm.model.response.load.ProfissionalEditLoadResponse;
-import italo.scm.model.response.load.ProfissionalRegLoadResponse;
+import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
+import italo.scm.model.response.load.reg.ProfissionalRegLoadResponse;
+import italo.scm.model.response.load.tela.NaoAdminProfissionalTelaLoadResponse;
 
 @Component
 public class ProfissionalLoader {
@@ -66,10 +67,13 @@ public class ProfissionalLoader {
 	}
 	
 	public ProfissionalDetalhesLoadResponse novoDetalhesResponse( 
-			ProfissionalResponse profissional, List<String> clinicas ) {
+			ProfissionalResponse profissional, 
+			List<String> clinicas, 			 
+			List<String> especialidades ) {
 		ProfissionalDetalhesLoadResponse resp = new ProfissionalDetalhesLoadResponse();
 		resp.setProfissional( profissional );
 		resp.setClinicas( clinicas ); 
+		resp.setEspecialidades( especialidades ); 
 		return resp;
 	}
 	
@@ -81,6 +85,18 @@ public class ProfissionalLoader {
 		return resp;
 	}
 
+	public ProfissionalEspecialidadeVinculosLoadResponse novoEspecialidadeVinculosLoadResponse(
+			Profissional p, 
+			List<Long> especialidadesVinculosIDs,
+			List<String> especialidadesVinculosNome ) {
+		ProfissionalEspecialidadeVinculosLoadResponse resp = new ProfissionalEspecialidadeVinculosLoadResponse();
+		resp.setProfissionalNome( p.getNome() );
+		resp.setProfissionalFuncao( p.getFuncao().label() ); 
+		resp.setEspecialidadesVinculosIDs( especialidadesVinculosIDs );
+		resp.setEspecialidadesVinculosNomes( especialidadesVinculosNome ); 
+		return resp;
+	}
+	
 }
 
 

@@ -14,8 +14,9 @@ import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
-import italo.scm.model.response.load.ProfissionalDetalhesLoadResponse;
-import italo.scm.model.response.load.ProfissionalEditLoadResponse;
+import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
+import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
 import italo.scm.service.ProfissionalService;
 import italo.scm.validator.ProfissionalValidator;
 
@@ -25,7 +26,7 @@ public class ProfissionalContaController {
 
 	@Autowired
 	private ProfissionalService profissionalService;
-	
+		
 	@Autowired
 	private ProfissionalValidator profissionalValidator;
 		
@@ -69,5 +70,19 @@ public class ProfissionalContaController {
 		ProfissionalDetalhesLoadResponse resp = profissionalService.getDetalhesLoadPorLogadoUID( logadoUID );
 		return ResponseEntity.ok( resp );
 	}	
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/lista/especialidades/vinculos/logado")
+	public ResponseEntity<Object> listaVinculos(
+			@RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {
+			
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		ProfissionalEspecialidadeVinculosLoadResponse resp = profissionalService.getVinculosLoad( logadoUID );
+		
+		return ResponseEntity.ok( resp );
+		
+	}
 	
 }

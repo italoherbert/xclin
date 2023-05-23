@@ -39,6 +39,8 @@ public interface Erro {
 	public final static String PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado.";
 	public final static String CLINICA_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado na clínica informada.";
 	public final static String CONSULTA_NAO_ENCONTRADA = "Consulta não encontrada.";
+	public final static String ESPECIALIDADE_NAO_ENCONTRADA = "Especialidade não encontrada.";
+	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrada a especialidade para adicioná-la ao profissional.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	
@@ -51,6 +53,7 @@ public interface Erro {
 	public final static String RECEPCIONISTA_JA_EXISTE = "Já existe um(a) recepcionista registrado(a) com o nome informado.";
 	public final static String PACIENTE_JA_EXISTE = "Já existe um(a) paciente registrado(a) com o nome informado";
 	public final static String CLINICA_PACIENTE_JA_EXISTE = "Já existe um(a) paciente registrado(a) com o nome informado na clínica informada.";
+	public final static String ESPECIALIDADE_JA_EXISTE = "Já existe uma especialidade com o nome informado.";
 
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	

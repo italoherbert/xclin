@@ -5,6 +5,7 @@ import { ProfissionalClinicaVinculos } from '../bean/profissional/profissional-c
 import { ProfissionalSave } from '../bean/profissional/profissional-save';
 import { ProfissionalFiltro } from '../bean/profissional/profissional-filtro';
 import { NaoAdminProfissionalFiltro } from '../bean/profissional/nao-admin-profissional-filtro';
+import { ProfissionalEspecialidadeVinculoSave } from '../profissional/profissional-especialidade-vinculo-save';
 
 @Injectable({
   providedIn: 'root'
@@ -156,6 +157,49 @@ export class ProfissionalService {
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
     return this.http.get( '/api/conta/profissional/lista/especialidades/vinculos/logado', { headers: headers, withCredentials: true } );
+  }
+
+  getSaveEspecialidadesPorLogadoUID(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/get/especialidades/save/logado', { headers: headers, withCredentials: true } );
+  
+  }
+
+  getEspecialidadeVinculoPorLogadoUID( espId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/get/especialidade/vinculo/logado/'+espId, { headers: headers, withCredentials: true } );
+  }
+
+  salvaEspecialidadeVinculoPorLogadoUID( espId : any, vinculoSave: ProfissionalEspecialidadeVinculoSave ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.put( 
+      '/api/conta/profissional/salva/especialidade/vinculo/logado/'+espId, vinculoSave,
+      { headers: headers, withCredentials: true } );
+  }
+
+  salvaAddEspecialidadeVinculoPorLogadoUID( espId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.post( 
+      '/api/conta/profissional/salva/add/especialidade/vinculo/logado/'+espId, {},
+      { headers: headers, withCredentials: true } );
+  }
+
+  deletaEspecialidadeVinculoPorLogadoUID( espId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.delete( 
+      '/api/conta/profissional/deleta/especialidade/vinculo/logado/'+espId,
+      { headers: headers, withCredentials: true } );
   }
 
 }

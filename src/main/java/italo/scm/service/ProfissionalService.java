@@ -21,7 +21,6 @@ import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.reg.ProfissionalRegLoadResponse;
@@ -234,26 +233,7 @@ public class ProfissionalService {
 		profissionalLoader.loadEditResponse( resp );	
 		return resp;
 	}
-		
-	public ProfissionalEspecialidadeVinculosLoadResponse getVinculosLoad( Long logadoUID ) throws ServiceException {
-		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
-		if ( !profissionalOp.isPresent() )
-			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
-		
-		Profissional profissional = profissionalOp.get();
-		
-		List<Long> espVinculosIDs = new ArrayList<>();
-		List<String> espVinculosNomes = new ArrayList<>();
-		
-		List<ProfissionalEspecialidadeVinculo> vinculos = profissional.getProfissionalEspecialidadeVinculos();
-		for( ProfissionalEspecialidadeVinculo v : vinculos ) {
-			espVinculosIDs.add( v.getId() );
-			espVinculosNomes.add( v.getEspecialidade().getNome() );
-		}
-				
-		return profissionalLoader.novoEspecialidadeVinculosLoadResponse( profissional, espVinculosIDs, espVinculosNomes );		
-	}
-	
+			
 	public void deleta( Long id ) throws ServiceException {
 		boolean existe = profissionalRepository.existsById( id );
 		if ( !existe )

@@ -1,5 +1,11 @@
 <h1>Suas especialidades</h1>
 
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-especialidade-save' }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Alterar especialidades</span>
+</a>
+
+<br />
 <br />
 
 <div class="table-responsive">
@@ -7,25 +13,13 @@
         <thead>
             <tr>
                 <th>Nome</th>
-                <th>Editar</th>
-                <th>Remover</th>
+                <th>Valor de consulta</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let vid of especialidadesVinculosIDs; index as i">
-                <td>{{especialidadesVinculosNomes[ i ]}}</td>
-                <td>
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-especialidade-save/'+vid }}]">
-                        <fa-icon [icon]="icons.faEdit"></fa-icon>
-                        editar
-                    </a>
-                </td>
-                <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(vid)">
-                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
-                        remover
-                    </a>
-                </td>
+            <tr *ngFor="let esp of especialidades; index as i">
+                <td>{{esp.especialidade}}</td>
+                <td>{{esp.consultaValor | currency: 'BRL'}}</td>                
             </tr>
         </tbody>
     </table>

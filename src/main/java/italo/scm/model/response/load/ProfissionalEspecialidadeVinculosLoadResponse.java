@@ -2,6 +2,7 @@ package italo.scm.model.response.load;
 
 import java.util.List;
 
+import italo.scm.model.response.ProfissionalEspecialidadeVinculoResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +16,6 @@ public class ProfissionalEspecialidadeVinculosLoadResponse {
 	
 	private String profissionalFuncao;
 	
-	private List<Long> especialidadesVinculosIDs;
-	
-	private List<String> especialidadesVinculosNomes;
+	private List<ProfissionalEspecialidadeVinculoResponse> especialidades;
 	
 }

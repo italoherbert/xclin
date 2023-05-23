@@ -12,7 +12,7 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.scm.model.response.load.ProfissionalContaEspecialidadeSaveLoadResponse;
 import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.reg.ProfissionalRegLoadResponse;
@@ -84,16 +84,15 @@ public class ProfissionalLoader {
 		resp.setClinicasNomes( clinicassNomes );
 		return resp;
 	}
-
-	public ProfissionalEspecialidadeVinculosLoadResponse novoEspecialidadeVinculosLoadResponse(
-			Profissional p, 
-			List<Long> especialidadesVinculosIDs,
-			List<String> especialidadesVinculosNome ) {
-		ProfissionalEspecialidadeVinculosLoadResponse resp = new ProfissionalEspecialidadeVinculosLoadResponse();
-		resp.setProfissionalNome( p.getNome() );
-		resp.setProfissionalFuncao( p.getFuncao().label() ); 
-		resp.setEspecialidadesVinculosIDs( especialidadesVinculosIDs );
-		resp.setEspecialidadesVinculosNomes( especialidadesVinculosNome ); 
+	
+	public ProfissionalContaEspecialidadeSaveLoadResponse novoContaEspecialidadeSaveResponse(
+			List<Long> especialidadesIDs,
+			List<String> especialidadesNomes,
+			List<Boolean> especialidadesVinculadas ) {
+		ProfissionalContaEspecialidadeSaveLoadResponse resp = new ProfissionalContaEspecialidadeSaveLoadResponse();
+		resp.setEspecialidadesIDs( especialidadesIDs );
+		resp.setEspecialidadesNomes( especialidadesNomes );
+		resp.setEspecialidadesVinculadas( especialidadesVinculadas ); 
 		return resp;
 	}
 	

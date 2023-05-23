@@ -30,7 +30,7 @@ public class EspecialidadeService {
 		
 		boolean existe = especialidadeRepository.existePorNome( nome );
 		if ( existe )
-			throw new ServiceException( Erro.RECURSO_JA_EXISTE );
+			throw new ServiceException( Erro.ESPECIALIDADE_JA_EXISTE );
 		
 		Especialidade e = especialidadeLoader.novoBean();
 		especialidadeLoader.loadBean( e, request );
@@ -42,14 +42,14 @@ public class EspecialidadeService {
 		
 		Optional<Especialidade> rop = especialidadeRepository.findById( id );
 		if ( !rop.isPresent() )
-			throw new ServiceException( Erro.RECURSO_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
 		
 		Especialidade e = rop.get();
 		
 		if ( !nome.equalsIgnoreCase( e.getNome() ) ) {
 			boolean existe = especialidadeRepository.existePorNome( nome );
 			if ( existe )
-				throw new ServiceException( Erro.RECURSO_JA_EXISTE );
+				throw new ServiceException( Erro.ESPECIALIDADE_JA_EXISTE );
 		}
 		
 		especialidadeLoader.loadBean( e, request );
@@ -76,10 +76,22 @@ public class EspecialidadeService {
 		return lista;
 	}
 	
+	public List<EspecialidadeResponse> listaTodas() throws ServiceException {
+		List<Especialidade> especialidades = especialidadeRepository.findAll();
+		List<EspecialidadeResponse> lista = new ArrayList<>();
+		for( Especialidade e : especialidades ) {
+			EspecialidadeResponse resp = especialidadeLoader.novoResponse();
+			especialidadeLoader.loadResponse( resp, e );
+			
+			lista.add( resp );
+		}
+		return lista;
+	}
+	
 	public EspecialidadeResponse get( Long id ) throws ServiceException {
 		Optional<Especialidade> rop = especialidadeRepository.findById( id );
 		if ( !rop.isPresent() )
-			throw new ServiceException( Erro.RECURSO_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
 		
 		Especialidade e = rop.get();
 		
@@ -91,7 +103,7 @@ public class EspecialidadeService {
 	public void deleta( Long id ) throws ServiceException {
 		boolean existe = especialidadeRepository.existsById( id );
 		if ( !existe )
-			throw new ServiceException( Erro.RECURSO_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
 		
 		especialidadeRepository.deleteById( id ); 
 	}

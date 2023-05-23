@@ -20,7 +20,17 @@
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>                        
-        </div>                                        
+        </div>      
+        <div class="col-sm-8">
+            <mat-form-field appearance="fill" class="w-100">
+                <mat-select placeholder="Selecione a especialidade" [(ngModel)]="especialidadeId" 
+                        (selectionChange)="onEspecialidadeSelected( $event )">
+                    <mat-option *ngFor="let e of especialidades" [value]="e.id">
+                        {{e.nome}}
+                    </mat-option>
+                </mat-select>                
+            </mat-form-field>            
+        </div>                                  
         <div class="col-sm-6">
             <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Valor da consulta</mat-label>

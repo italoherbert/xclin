@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { MatStepper } from '@angular/material/stepper';
 import { faAnglesLeft, faAnglesRight, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { ProfissionalService } from 'src/app/service/profissional.service';

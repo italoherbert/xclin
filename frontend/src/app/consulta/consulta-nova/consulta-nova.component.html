@@ -20,7 +20,7 @@
         
         <br />
 
-        <button mat-raised-button matStepperNext color="primary" (click)="carregarQuantidades()">
+        <button mat-raised-button color="primary" (click)="profissionalSelectOnNext( novaConsultaStepper )">
             <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
             Próximo
         </button>
@@ -32,7 +32,7 @@
             <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
             Anterior
         </button>
-        <button mat-raised-button matStepperNext color="primary" class="mx-2" (click)="validaDiaTurnoSelecionado()">
+        <button mat-raised-button color="primary" class="mx-2" (click)="turnoSelectOnNext( novaConsultaStepper )">
             <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
             Próximo
         </button>
@@ -57,7 +57,7 @@
         <br />
         <br />
 
-        <app-consulta-registro 
+        <app-consulta-registro #consultaRegistro
             [clinicaId]="clinicaId" 
             [profissionalId]="profissionalId" 
             [dia]="dia"

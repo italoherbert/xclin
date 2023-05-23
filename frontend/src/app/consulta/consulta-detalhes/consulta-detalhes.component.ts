@@ -43,6 +43,8 @@ export class ConsultaDetalhesComponent {
     pacienteNome: '',
     clinicaId: 0,
     clinicaNome: '',
+    especialidadeId: 0,
+    especialidadeNome: '',
     statusLabel: '',
     turnoLabel: ''
   }

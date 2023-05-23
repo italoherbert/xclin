@@ -18,7 +18,7 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.ProfissionalClinicaVinculoListaSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.ProfissionalClinicaVinculosLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalClinicaVinculosLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.ProfissionalClinicaVinculoRepository;
 import italo.scm.repository.ProfissionalRepository;

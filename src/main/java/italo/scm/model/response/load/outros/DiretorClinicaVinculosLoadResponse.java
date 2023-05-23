@@ -1,4 +1,4 @@
-package italo.scm.model.response.load;
+package italo.scm.model.response.load.outros;
 
 import java.util.List;
 

@@ -50,12 +50,13 @@ export class ConsultaRemarcarComponent {
 
     this.showSpinner = true;
     
-    this.consultaService.getConsultaReg().subscribe({
+    this.consultaService.getConsultaRemarcar().subscribe({
       next: (resp) => {
         this.turnos = resp.turnos;
         this.showSpinner = false;
       },
       error: (erro) => {
+        alert( JSON.stringify( erro ) );
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }

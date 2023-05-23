@@ -14,14 +14,18 @@ export class ConsultaService {
 
   constructor( private http: HttpClient) { }
 
-  registraConsulta( clinicaId : any, profissionalId : any, pacienteId : any, consultaSave: ConsultaRegistro): Observable<any> {
+  registraConsulta( 
+      clinicaId : any, profissionalId : any, 
+      especialidadeId : any, pacienteId : any, 
+      consultaSave: ConsultaRegistro): Observable<any> {
+
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
     return this.http.post( 
-      '/api/consulta/registra/'+clinicaId+'/'+profissionalId+'/'+pacienteId, consultaSave, 
+      '/api/consulta/registra/'+clinicaId+'/'+profissionalId+'/'+especialidadeId+'/'+pacienteId, consultaSave, 
       { headers: headers, withCredentials: true } 
     );
   }
@@ -85,12 +89,20 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/'+consultaId, { headers: headers, withCredentials: true } );
   }
 
-  getConsultaReg(): Observable<any> {
+  getConsultaReg( profissionalId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/consulta/get/reg', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/consulta/get/reg/'+profissionalId, { headers: headers, withCredentials: true } );
+  }
+
+  getConsultaRemarcar(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/consulta/get/remarcar', { headers: headers, withCredentials: true } );
   }
 
   getConsultaAlter( consultaId : any ): Observable<any> {
@@ -121,7 +133,6 @@ export class ConsultaService {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
-
     return this.http.get( '/api/consulta/get/novaconsulta/profissional/select', { headers: headers, withCredentials: true } );
   }
 

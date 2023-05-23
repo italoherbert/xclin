@@ -9,7 +9,7 @@ import italo.scm.model.Profissional;
 import italo.scm.model.ProfissionalEspecialidadeVinculo;
 import italo.scm.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.scm.model.response.ProfissionalEspecialidadeVinculoResponse;
-import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalEspecialidadeVinculosLoadResponse;
 
 @Component
 public class ProfissionalEspecialidadeVinculoLoader {

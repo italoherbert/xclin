@@ -47,8 +47,10 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 					String[] roles = tokenInfo.getRoles();
 										
 					List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-					for( String role : roles )
-						authorities.add( new SimpleGrantedAuthority( role ) );					
+					for( String role : roles ) {
+						authorities.add( new SimpleGrantedAuthority( role ) );
+						System.out.println( role );
+					}
 					
 					UsernamePasswordAuthenticationToken userPassToken = 
 							new UsernamePasswordAuthenticationToken( username, null, authorities );

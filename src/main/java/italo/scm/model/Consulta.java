@@ -66,6 +66,10 @@ public class Consulta {
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
 	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="especialidade_id")
+	private Especialidade especialidade;
+	
 	@ManyToOne(optional = true)
 	@JoinColumn(name="recebedor_id") 
 	private Usuario recebedor;

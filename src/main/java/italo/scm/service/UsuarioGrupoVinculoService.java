@@ -17,7 +17,7 @@ import italo.scm.model.UsuarioGrupoVinculo;
 import italo.scm.model.request.save.UsuarioGrupoVinculoListaSaveRequest;
 import italo.scm.model.response.UsuarioGrupoResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.UsuarioGrupoVinculosLoadResponse;
+import italo.scm.model.response.load.outros.UsuarioGrupoVinculosLoadResponse;
 import italo.scm.repository.UsuarioGrupoRepository;
 import italo.scm.repository.UsuarioGrupoVinculoRepository;
 import italo.scm.repository.UsuarioRepository;

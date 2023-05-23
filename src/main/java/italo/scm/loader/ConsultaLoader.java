@@ -14,14 +14,17 @@ import italo.scm.exception.LoaderException;
 import italo.scm.logica.Converter;
 import italo.scm.model.Clinica;
 import italo.scm.model.Consulta;
+import italo.scm.model.Especialidade;
 import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
 import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
-import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
+import italo.scm.model.response.EspecialidadeResponse;
 import italo.scm.model.response.load.edit.ConsultaAlterLoadResponse;
+import italo.scm.model.response.load.outros.ConsultaRemarcarLoadResponse;
+import italo.scm.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaTelaLoadResponse;
@@ -97,17 +100,13 @@ public class ConsultaLoader {
 		resp.setValor( c.getValor() ); 
 		resp.setObservacoes( c.getObservacoes() );
 	}
-	
-	public Consulta novoBean( Profissional profissional, Paciente paciente, Clinica clinica ) {
-		Consulta consulta = new Consulta();
-		consulta.setProfissional( profissional );
-		consulta.setPaciente( paciente ); 
-		consulta.setClinica( clinica ); 
-		return consulta;
-	}
-	
+		
 	public void loadRegResponse( ConsultaRegLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() ); 
+	}
+	
+	public void loadRemarcarResponse( ConsultaRemarcarLoadResponse resp ) {
+		resp.setTurnos( turnoEnumManager.tipoResponses() );
 	}
 	
 	public void loadAlterResponse( ConsultaAlterLoadResponse resp ) {
@@ -125,12 +124,27 @@ public class ConsultaLoader {
 		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
 	}
 	
-	public ConsultaResponse novoResponse( Paciente p, Clinica c ) {
+	public Consulta novoBean( 
+			Profissional profissional,
+			Especialidade especialidade,
+			Paciente paciente, 
+			Clinica clinica ) {
+		Consulta consulta = new Consulta();
+		consulta.setProfissional( profissional );
+		consulta.setEspecialidade( especialidade ); 
+		consulta.setPaciente( paciente ); 
+		consulta.setClinica( clinica ); 
+		return consulta;
+	}
+	
+	public ConsultaResponse novoResponse( Paciente p, Clinica c, Especialidade e ) {
 		ConsultaResponse resp = new ConsultaResponse();
 		resp.setPacienteId( p.getId() );
 		resp.setPacienteNome( p.getNome() ); 
 		resp.setClinicaId( c.getId() );
 		resp.setClinicaNome( c.getNome() ); 
+		resp.setEspecialidadeId( e.getId() );
+		resp.setEspecialidadeNome( e.getNome() ); 
 		return resp;
 	}
 	
@@ -144,8 +158,10 @@ public class ConsultaLoader {
 		return resp;
 	}
 	
-	public ConsultaRegLoadResponse novoRegResponse() {
-		return new ConsultaRegLoadResponse();
+	public ConsultaRegLoadResponse novoRegResponse( List<EspecialidadeResponse> especialidades ) {
+		ConsultaRegLoadResponse resp = new ConsultaRegLoadResponse();
+		resp.setEspecialidades( especialidades );		
+		return resp;
 	}
 	
 	public ConsultaAlterLoadResponse novoAlterResponse( ConsultaResponse cresp ) {
@@ -170,6 +186,10 @@ public class ConsultaLoader {
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;
+	}
+	
+	public ConsultaRemarcarLoadResponse novoRemarcarResponse() {
+		return new ConsultaRemarcarLoadResponse();
 	}
 	
 }

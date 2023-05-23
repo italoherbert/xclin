@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { faAdd, faCircleLeft, faRemove, faSave } from '@fortawesome/free-solid-svg-icons';
 
-import { ProfissionalEspecialidadeVinculoSave } from 'src/app/profissional/profissional-especialidade-vinculo-save';
+import { ProfissionalEspecialidadeVinculoSave } from 'src/app/bean/profissional/profissional-especialidade-vinculo-save';
 import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 

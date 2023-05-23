@@ -19,10 +19,10 @@ import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalEspecialidadeVinculoResponse;
-import italo.scm.model.response.load.ProfissionalContaEspecialidadeSaveLoadResponse;
-import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalContaEspecialidadeSaveLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.scm.service.ProfissionalEspecialidadeVinculoService;
 import italo.scm.service.ProfissionalService;
 import italo.scm.validator.ProfissionalValidator;
@@ -143,7 +143,7 @@ public class ProfissionalContaController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
-		ProfissionalEspecialidadeVinculoResponse resp = profissionalEspecialidadeVinculosService.get( logadoUID, especialidadeId );		
+		ProfissionalEspecialidadeVinculoResponse resp = profissionalEspecialidadeVinculosService.getPorLogadoUID( logadoUID, especialidadeId );		
 		return ResponseEntity.ok( resp );		
 	}
 	

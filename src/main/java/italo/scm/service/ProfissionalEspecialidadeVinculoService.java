@@ -16,8 +16,8 @@ import italo.scm.model.Profissional;
 import italo.scm.model.ProfissionalEspecialidadeVinculo;
 import italo.scm.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.scm.model.response.ProfissionalEspecialidadeVinculoResponse;
-import italo.scm.model.response.load.ProfissionalContaEspecialidadeSaveLoadResponse;
-import italo.scm.model.response.load.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalContaEspecialidadeSaveLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.scm.repository.EspecialidadeRepository;
 import italo.scm.repository.ProfissionalEspecialidadeVinculoRepository;
 import italo.scm.repository.ProfissionalRepository;
@@ -92,8 +92,8 @@ public class ProfissionalEspecialidadeVinculoService {
 		return profissionalLoader.novoContaEspecialidadeSaveResponse( 
 				especialidadesIDs, especialidadesNomes, especialidadesVinculadas );
 	}
-	
-	public ProfissionalEspecialidadeVinculoResponse get( Long logadoUID, Long especialidadeId ) throws ServiceException {
+		
+	public ProfissionalEspecialidadeVinculoResponse getPorLogadoUID( Long logadoUID, Long especialidadeId ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
@@ -101,6 +101,10 @@ public class ProfissionalEspecialidadeVinculoService {
 		Profissional profissional = profissionalOp.get();
 		Long profissionalId = profissional.getId();
 		
+		return this.get( profissionalId, especialidadeId );
+	}
+	
+	public ProfissionalEspecialidadeVinculoResponse get( Long profissionalId, Long especialidadeId ) throws ServiceException {
 		Optional<ProfissionalEspecialidadeVinculo> vinculoOp = 
 				profissionalEspecialidadeVinculoRepository.busca( profissionalId, especialidadeId );
 		

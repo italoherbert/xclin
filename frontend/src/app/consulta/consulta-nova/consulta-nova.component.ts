@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { faAnglesLeft, faAnglesRight, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 import { ConsultaService } from 'src/app/service/consulta.service';
-import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
+import { ConsultaRegistroComponent } from './consulta-registro/consulta-registro.component';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-consulta-nova',
@@ -22,6 +23,8 @@ export class ConsultaNovaComponent {
     faBarsProgress : faBarsProgress
   }
 
+  @ViewChild( "consultaRegistro" ) consultaRegistro! : ConsultaRegistroComponent;
+
   mes : number = 0;
   ano : number = 0;
   dia : number = 0;
@@ -35,40 +38,46 @@ export class ConsultaNovaComponent {
   constructor( 
     private consultaService : ConsultaService,
     private sistemaService : SistemaService ) {}
-
-  carregarQuantidades() {
-    if ( this.profissionalId === 0 ) {
-      this.erroMsg = "Selecione o profissional.";
-      return;
-    }
-
-    this.infoMsg = null;
+  
+  profissionalSelectOnNext( stepper : MatStepper ) {
+    this.erroMsg = null;
     this.erroMsg = null;
     
-    this.showSpinner = true;
-
-    this.consultaService.getQuantidadesAgrupadas( 
+    if ( this.profissionalId === 0 ) {
+      this.erroMsg = "Selecione o profissional.";      
+    } else {
+      this.showSpinner = true;
+      
+      this.consultaService.getQuantidadesAgrupadas( 
               this.clinicaId, this.profissionalId, this.mes, this.ano ).subscribe( {
         next: (resp ) => {
           this.quantidadesAgrupadasPorDia = resp;
+          
+          stepper.next();
+
           this.showSpinner = false;
         },
         error: (erro) => {
           this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
+          this.showSpinner = false;
         }
-    } );
+      } );          
+    }
   }
 
-  validaDiaTurnoSelecionado() {
+  turnoSelectOnNext( stepper : MatStepper ) {
     this.erroMsg = null;
     
-    if ( this.turno === 0 ) 
+    if ( this.turno === 0 ) {
       this.erroMsg = "Selecione o turno de um dia do calendário.";
+    } else {
+      stepper.next();
+    }
   }
 
   onProfissionalSelecionado( event : any ) {
-    this.profissionalId = event.profissionalId;
+    this.profissionalId = event.profissionalId;    
+    this.consultaRegistro.recarrega( event.profissionalId );
   }
 
   onClinicaSelecionada( event : any ) {

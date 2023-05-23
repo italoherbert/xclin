@@ -7,6 +7,8 @@ import { SistemaService } from 'src/app/service/sistema.service';
 
 import * as moment from 'moment';
 import { PacienteService } from 'src/app/service/paciente.service';
+import { Especialidade } from 'src/app/bean/especialidade/especialidade';
+import { ProfissionalService } from 'src/app/service/profissional.service';
 
 @Component({
   selector: 'app-consulta-registro',
@@ -42,6 +44,7 @@ export class ConsultaRegistroComponent {
   }
 
   pacienteId : number = 0;
+  especialidadeId : number = 0;
 
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
@@ -53,23 +56,26 @@ export class ConsultaRegistroComponent {
   buscandoPacientes : boolean = false;
 
   turnos : any[] = [];
+  especialidades : Especialidade[] = [];
 
   senhaRepetida : any = '';
 
   constructor(
     private consultaService: ConsultaService,
     private pacienteService: PacienteService, 
+    private profissionalService: ProfissionalService,
     private sistemaService: SistemaService) {}
 
-  ngOnInit() {    
+  recarrega( profissionalId : any ) {    
     this.infoMsg = null;
     this.erroMsg = null;
 
     this.showSpinner = true;
     
-    this.consultaService.getConsultaReg().subscribe({
+    this.consultaService.getConsultaReg( profissionalId ).subscribe({
       next: (resp) => {
         this.turnos = resp.turnos;
+        this.especialidades = resp.especialidades;
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -92,7 +98,8 @@ export class ConsultaRegistroComponent {
     
     this.showSpinner = true;
 
-    this.consultaService.registraConsulta( this.clinicaId, this.profissionalId, this.pacienteId, this.consultaSave ).subscribe({
+    this.consultaService.registraConsulta( 
+        this.clinicaId, this.profissionalId, this.especialidadeId, this.pacienteId, this.consultaSave ).subscribe({
       next: ( resp ) => {
         this.infoMsg = "Consulta registrada com sucesso.";
         this.showSpinner = false;
@@ -105,6 +112,9 @@ export class ConsultaRegistroComponent {
   }
 
   onPacienteInput( event : any ) {
+    if ( this.pacienteNome.length == 0 )
+      return;    
+
     if ( this.buscandoPacientes === false ) { 
       this.buscandoPacientes = true;
 
@@ -124,6 +134,26 @@ export class ConsultaRegistroComponent {
 
   onPacienteSelected( event : any ) {
     this.pacienteId = this.pacientesIDs[ event.option.id ];
+  }
+
+  onEspecialidadeSelected( event : any ) {
+    this.erroMsg = null;
+    this.infoMsg = null;
+
+    this.showSpinner = true;
+
+    this.profissionalService.getProfissionalEspecialidadeVinculo( 
+          this.profissionalId, this.especialidadeId ).subscribe( {
+      next: (resp) => {
+        this.consultaSave.valor = resp.consultaValor;
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        alert( JSON.stringify( erro ) );
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    } );
   }
 
 }

@@ -12,7 +12,8 @@ export interface Consulta {
     pacienteNome : string;
     clinicaId : number;
     clinicaNome : string; 
-
+    especialidadeId : number;
+    especialidadeNome : string;
     statusLabel : string;
     turnoLabel : string;
 }

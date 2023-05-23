@@ -5,7 +5,7 @@ import { ProfissionalClinicaVinculos } from '../bean/profissional/profissional-c
 import { ProfissionalSave } from '../bean/profissional/profissional-save';
 import { ProfissionalFiltro } from '../bean/profissional/profissional-filtro';
 import { NaoAdminProfissionalFiltro } from '../bean/profissional/nao-admin-profissional-filtro';
-import { ProfissionalEspecialidadeVinculoSave } from '../profissional/profissional-especialidade-vinculo-save';
+import { ProfissionalEspecialidadeVinculoSave } from '../bean/profissional/profissional-especialidade-vinculo-save';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +65,15 @@ export class ProfissionalService {
     });
 
     return this.http.get( '/api/profissional/get/'+id, { headers: headers, withCredentials: true } )
+  }
+
+  getProfissionalEspecialidadeVinculo( profissionalId : any, especialidadeId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/profissional/get/vinculo/'+profissionalId+'/'+especialidadeId, { headers: headers, withCredentials: true } )
+  
   }
 
   getProfissionalReg(): Observable<any> {

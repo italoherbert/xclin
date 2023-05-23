@@ -42,5 +42,9 @@ public class ConsultaResponse {
 	private Long clinicaId;
 	
 	private String clinicaNome;
+	
+	private Long especialidadeId;
+	
+	private String especialidadeNome;
 		
 }

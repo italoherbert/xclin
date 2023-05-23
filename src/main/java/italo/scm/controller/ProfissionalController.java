@@ -23,10 +23,12 @@ import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ProfissionalFiltroRequest;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ListaResponse;
+import italo.scm.model.response.ProfissionalEspecialidadeVinculoResponse;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
 import italo.scm.model.response.load.reg.ProfissionalRegLoadResponse;
+import italo.scm.service.ProfissionalEspecialidadeVinculoService;
 import italo.scm.service.ProfissionalService;
 import italo.scm.service.auth.Autorizador;
 import italo.scm.service.shared.ProfissionalSharedService;
@@ -38,6 +40,9 @@ public class ProfissionalController {
 
 	@Autowired
 	private ProfissionalService profissionalService;
+	
+	@Autowired
+	private ProfissionalEspecialidadeVinculoService profissionalEspecialidadeVinculoService;
 	
 	@Autowired
 	private ProfissionalValidator profissionalValidator;
@@ -116,6 +121,19 @@ public class ProfissionalController {
 	public ResponseEntity<Object> get( @PathVariable Long id ) throws SistemaException {
 		ProfissionalResponse resp = profissionalService.get( id );
 		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('profissionalREAD')")
+	@GetMapping("/get/vinculo/{profissionalId}/{especialidadeId}")
+	public ResponseEntity<Object> getVinculo( 
+			@PathVariable Long profissionalId,
+			@PathVariable Long especialidadeId ) throws SistemaException {
+				
+		ProfissionalEspecialidadeVinculoResponse resp =
+				profissionalEspecialidadeVinculoService.get( profissionalId, especialidadeId );
+		
+		return ResponseEntity.ok( resp );
+		
 	}
 	
 	@PreAuthorize("hasAuthority('profissionalREAD')")

@@ -15,9 +15,11 @@ import italo.scm.enums.tipos.Turno;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ServiceException;
 import italo.scm.loader.ConsultaLoader;
+import italo.scm.loader.EspecialidadeLoader;
 import italo.scm.logica.Converter;
 import italo.scm.model.Clinica;
 import italo.scm.model.Consulta;
+import italo.scm.model.Especialidade;
 import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
 import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
@@ -26,14 +28,17 @@ import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
+import italo.scm.model.response.EspecialidadeResponse;
 import italo.scm.model.response.ListaResponse;
-import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.edit.ConsultaAlterLoadResponse;
+import italo.scm.model.response.load.outros.ConsultaRemarcarLoadResponse;
+import italo.scm.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaTelaLoadResponse;
 import italo.scm.repository.ClinicaRepository;
 import italo.scm.repository.ConsultaRepository;
+import italo.scm.repository.EspecialidadeRepository;
 import italo.scm.repository.PacienteRepository;
 import italo.scm.repository.ProfissionalRepository;
 import italo.scm.service.shared.ClinicaSharedService;
@@ -49,6 +54,9 @@ public class ConsultaService {
 	
 	@Autowired
 	private ProfissionalRepository profissionalRepository;
+	
+	@Autowired
+	private EspecialidadeRepository especialidadeRepository;
 
 	@Autowired
 	private ClinicaSharedService clinicaSharedService;
@@ -60,6 +68,9 @@ public class ConsultaService {
 	private ConsultaLoader consultaLoader;
 	
 	@Autowired
+	private EspecialidadeLoader especialidadeLoader;
+	
+	@Autowired
 	private Converter converter;
 
 	@Autowired
@@ -68,7 +79,13 @@ public class ConsultaService {
 	@Autowired
 	private TurnoEnumManager turnoEnumManager;
 	
-	public void registra( Long clinicaId, Long profissionalId, Long pacienteId, ConsultaSaveRequest request ) throws ServiceException {
+	public void registra( 
+			Long clinicaId, 
+			Long profissionalId,
+			Long especialidadeId, 
+			Long pacienteId, 
+			ConsultaSaveRequest request ) throws ServiceException {
+		
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
 		if ( !clinicaOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
@@ -76,7 +93,11 @@ public class ConsultaService {
 		Optional<Profissional> profissionalOp = profissionalRepository.findById( profissionalId );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
-			
+		
+		Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
+		if ( !especialidadeOp.isPresent() )
+			throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
+		
 		Optional<Paciente> pacienteOp = pacienteRepository.findById( pacienteId );
 		if ( !pacienteOp.isPresent() )
 			throw new ServiceException( Erro.PACIENTE_NAO_ENCONTRADO );
@@ -84,8 +105,9 @@ public class ConsultaService {
 		Clinica clinica = clinicaOp.get();
 		Profissional profissional = profissionalOp.get();
 		Paciente paciente = pacienteOp.get();
+		Especialidade especialidade = especialidadeOp.get();
 		
-		Consulta consulta = consultaLoader.novoBean( profissional, paciente, clinica );
+		Consulta consulta = consultaLoader.novoBean( profissional, especialidade, paciente, clinica );
 		consultaLoader.loadBean( consulta, request );
 		
 		consultaRepository.save( consulta );
@@ -157,7 +179,8 @@ public class ConsultaService {
 		for( Consulta c : consultas ) {
 			Paciente p = c.getPaciente();
 			Clinica cl = c.getClinica();
-			ConsultaResponse resp = consultaLoader.novoResponse( p, cl );
+			Especialidade e = c.getEspecialidade();
+			ConsultaResponse resp = consultaLoader.novoResponse( p, cl, e );
 			consultaLoader.loadResponse( resp, c );
 			
 			lista.add( resp );
@@ -181,7 +204,8 @@ public class ConsultaService {
 		for( Consulta c : fila ) {
 			Paciente p = c.getPaciente();
 			Clinica cl = c.getClinica();
-			ConsultaResponse resp = consultaLoader.novoResponse( p, cl );
+			Especialidade e = c.getEspecialidade();
+			ConsultaResponse resp = consultaLoader.novoResponse( p, cl, e );
 			consultaLoader.loadResponse( resp, c );
 			
 			lista.add( resp );
@@ -197,16 +221,33 @@ public class ConsultaService {
 		Consulta consulta = consultaOp.get();
 		Clinica clinica = consulta.getClinica();
 		Paciente paciente = consulta.getPaciente();
-					
-		ConsultaResponse resp = consultaLoader.novoResponse( paciente, clinica );
+		Especialidade especialidade = consulta.getEspecialidade();
+		
+		ConsultaResponse resp = consultaLoader.novoResponse( paciente, clinica, especialidade );
 		consultaLoader.loadResponse( resp, consulta );
 		
 		return resp;
 	}
 	
-	public ConsultaRegLoadResponse getRegLoad() {
-		ConsultaRegLoadResponse resp = consultaLoader.novoRegResponse();
+	public ConsultaRegLoadResponse getRegLoad( Long profissionalId ) {
+		List<Especialidade> especialidades = especialidadeRepository.listaPorProfissional( profissionalId );
+		
+		List<EspecialidadeResponse> lista = new ArrayList<>();
+		for( Especialidade e : especialidades ) {
+			EspecialidadeResponse resp = especialidadeLoader.novoResponse();
+			especialidadeLoader.loadResponse( resp, e );
+			
+			lista.add( resp );
+		}
+		
+		ConsultaRegLoadResponse resp = consultaLoader.novoRegResponse( lista );
 		consultaLoader.loadRegResponse( resp );
+		return resp;
+	}
+	
+	public ConsultaRemarcarLoadResponse getRemarcarLoad() {
+		ConsultaRemarcarLoadResponse resp = consultaLoader.novoRemarcarResponse();
+		consultaLoader.loadRemarcarResponse( resp );
 		return resp;
 	}
 	
@@ -218,8 +259,9 @@ public class ConsultaService {
 		Consulta consulta = consultaOp.get();
 		Paciente paciente = consulta.getPaciente();
 		Clinica clinica = consulta.getClinica();
+		Especialidade especialidade = consulta.getEspecialidade();
 		
-		ConsultaResponse cresp = consultaLoader.novoResponse( paciente, clinica );
+		ConsultaResponse cresp = consultaLoader.novoResponse( paciente, clinica, especialidade );
 		consultaLoader.loadResponse( cresp, consulta );
 		
 		ConsultaAlterLoadResponse resp = consultaLoader.novoAlterResponse( cresp );

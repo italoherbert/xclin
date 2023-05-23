@@ -4,6 +4,6 @@ export interface ConsultaRegistro {
     valor : number;
     retorno : boolean;
     paga : boolean;
-    turno : string;
+    turno : string;    
     observacoes: string;
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import italo.scm.exception.SistemaException;
 import italo.scm.model.request.save.ProfissionalClinicaVinculoListaSaveRequest;
-import italo.scm.model.response.load.ProfissionalClinicaVinculosLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalClinicaVinculosLoadResponse;
 import italo.scm.service.ProfissionalClinicaVinculoService;
 
 @RestController

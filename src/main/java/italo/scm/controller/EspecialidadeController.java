@@ -61,7 +61,7 @@ public class EspecialidadeController {
 		EspecialidadeResponse resp = especialidadeService.get( id );
 		return ResponseEntity.ok( resp );
 	}
-	
+		
 	@PreAuthorize("hasAuthority('especialidadeDELETE')")
 	@DeleteMapping("/deleta/{id}")
 	public ResponseEntity<Object> deleta( @PathVariable Long id ) throws SistemaException {

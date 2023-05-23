@@ -12,9 +12,9 @@ import italo.scm.model.Usuario;
 import italo.scm.model.request.save.ProfissionalSaveRequest;
 import italo.scm.model.response.ProfissionalResponse;
 import italo.scm.model.response.UsuarioResponse;
-import italo.scm.model.response.load.ProfissionalContaEspecialidadeSaveLoadResponse;
 import italo.scm.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
 import italo.scm.model.response.load.edit.ProfissionalEditLoadResponse;
+import italo.scm.model.response.load.outros.ProfissionalContaEspecialidadeSaveLoadResponse;
 import italo.scm.model.response.load.reg.ProfissionalRegLoadResponse;
 import italo.scm.model.response.load.tela.NaoAdminProfissionalTelaLoadResponse;
 

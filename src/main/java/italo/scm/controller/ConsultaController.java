@@ -24,8 +24,9 @@ import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 import italo.scm.model.response.ConsultaResponse;
-import italo.scm.model.response.load.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.edit.ConsultaAlterLoadResponse;
+import italo.scm.model.response.load.outros.ConsultaRemarcarLoadResponse;
+import italo.scm.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaFilaTelaLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaTelaLoadResponse;
@@ -50,18 +51,19 @@ public class ConsultaController {
 	private Autorizador autorizador;
 	
 	@PreAuthorize("hasAuthority('consultaWRITE')")
-	@PostMapping("/registra/{clinicaId}/{profissionalId}/{pacienteId}")
+	@PostMapping("/registra/{clinicaId}/{profissionalId}/{especialidadeId}/{pacienteId}")
 	public ResponseEntity<Object> registra( 
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable Long profissionalId, 
+			@PathVariable Long especialidadeId,
 			@PathVariable Long pacienteId, 
 			@RequestBody ConsultaSaveRequest request ) throws SistemaException {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
 		consultaValidator.validaSave( request );
-		consultaService.registra( clinicaId, profissionalId, pacienteId, request );
+		consultaService.registra( clinicaId, profissionalId, especialidadeId, pacienteId, request );
 		return ResponseEntity.ok().build();
 	}
 	
@@ -129,9 +131,18 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@GetMapping("/get/reg")
-	public ResponseEntity<Object> getRegLoad() throws SistemaException {				
-		ConsultaRegLoadResponse resp = consultaService.getRegLoad();
+	@GetMapping("/get/reg/{profissionalId}")
+	public ResponseEntity<Object> getRegLoad( 
+			@PathVariable Long profissionalId ) throws SistemaException {
+		
+		ConsultaRegLoadResponse resp = consultaService.getRegLoad( profissionalId );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/remarcar")
+	public ResponseEntity<Object> getRemarcadrLoad() throws SistemaException {		
+		ConsultaRemarcarLoadResponse resp = consultaService.getRemarcarLoad();
 		return ResponseEntity.ok( resp );
 	}
 	
@@ -212,7 +223,7 @@ public class ConsultaController {
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
-		
+				
 		NovaConsultaProfissionalSelectLoadResponse resp = consultaService.getNovaConsultaProfissionalSelectLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}

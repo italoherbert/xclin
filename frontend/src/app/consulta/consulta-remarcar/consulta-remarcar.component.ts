@@ -31,6 +31,8 @@ export class ConsultaRemarcarComponent {
   quantidadesAgrupadasPorDia : any[][] = [];
 
   turnos : any[] = [];
+  dataAtendimento : string = '';
+  turnoLabel : string = '';
 
   consultaSave : ConsultaRemarcarSave = {
     dataAtendimento : '',
@@ -38,25 +40,32 @@ export class ConsultaRemarcarComponent {
   }
 
   constructor(
-    private router: Router,
     private actRoute: ActivatedRoute,
     private consultaService: ConsultaService,
     private sistemaService: SistemaService
   ) {}
 
-  ngOnInit() {    
+  ngOnInit() {
+    this.carrega();
+  }
+
+  carrega() {    
     this.infoMsg = null;
     this.erroMsg = null;
 
     this.showSpinner = true;
+
+    let consultaId = this.actRoute.snapshot.paramMap.get( 'consultaId' );
     
-    this.consultaService.getConsultaRemarcar().subscribe({
+    this.consultaService.getConsultaRemarcar( consultaId ).subscribe({
       next: (resp) => {
         this.turnos = resp.turnos;
+        this.dataAtendimento = moment( resp.dataAtendimento, 'YYYY-MM-DD' ).format( 'DD/MM/YYYY' );
+        this.turnoLabel = resp.turnoLabel;
+
         this.showSpinner = false;
       },
       error: (erro) => {
-        alert( JSON.stringify( erro ) );
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }
@@ -85,6 +94,7 @@ export class ConsultaRemarcarComponent {
     this.consultaService.remarcaConsulta( consultaId, this.consultaSave ).subscribe({
       next: ( resp ) => {
         this.onCalendarioAlterado( { mes : this.mes, ano : this.ano } );
+        this.carrega();
         this.infoMsg = "Consulta remarcada com sucesso.";
         this.showSpinner = false;
       },

@@ -97,12 +97,12 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/reg/'+profissionalId, { headers: headers, withCredentials: true } );
   }
 
-  getConsultaRemarcar(): Observable<any> {
+  getConsultaRemarcar( consultaId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/consulta/get/remarcar', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/consulta/get/remarcar/'+consultaId, { headers: headers, withCredentials: true } );
   }
 
   getConsultaAlter( consultaId : any ): Observable<any> {

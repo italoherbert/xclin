@@ -54,24 +54,20 @@ public class Consulta {
 	
 	private String observacoes;
 
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="profissional_id")
 	private Profissional profissional;
 		
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="paciente_id")
 	private Paciente paciente;
 	
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="especialidade_id")
 	private Especialidade especialidade;
-	
-	@ManyToOne(optional = true)
-	@JoinColumn(name="recebedor_id") 
-	private Usuario recebedor;
-	
+		
 }

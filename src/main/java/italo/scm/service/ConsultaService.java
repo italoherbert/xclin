@@ -245,8 +245,14 @@ public class ConsultaService {
 		return resp;
 	}
 	
-	public ConsultaRemarcarLoadResponse getRemarcarLoad() {
-		ConsultaRemarcarLoadResponse resp = consultaLoader.novoRemarcarResponse();
+	public ConsultaRemarcarLoadResponse getRemarcarLoad( Long consultaId ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();
+		
+		ConsultaRemarcarLoadResponse resp = consultaLoader.novoRemarcarResponse( consulta );
 		consultaLoader.loadRemarcarResponse( resp );
 		return resp;
 	}

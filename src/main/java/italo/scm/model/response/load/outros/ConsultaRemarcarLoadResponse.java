@@ -13,5 +13,11 @@ import lombok.Setter;
 public class ConsultaRemarcarLoadResponse {
 
 	private List<TipoResponse> turnos;
+	
+	private String dataAtendimento;
+	
+	private String turno;
+	
+	private String turnoLabel;
 
 }

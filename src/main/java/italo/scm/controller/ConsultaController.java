@@ -140,9 +140,14 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@GetMapping("/get/remarcar")
-	public ResponseEntity<Object> getRemarcadrLoad() throws SistemaException {		
-		ConsultaRemarcarLoadResponse resp = consultaService.getRemarcarLoad();
+	@GetMapping("/get/remarcar/{consultaId}")
+	public ResponseEntity<Object> getRemarcadrLoad(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId ) throws SistemaException {		
+		
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		ConsultaRemarcarLoadResponse resp = consultaService.getRemarcarLoad( consultaId );
 		return ResponseEntity.ok( resp );
 	}
 	

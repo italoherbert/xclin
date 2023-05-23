@@ -149,7 +149,6 @@ export class ConsultaRegistroComponent {
         this.showSpinner = false;
       },
       error: (erro) => {
-        alert( JSON.stringify( erro ) );
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }

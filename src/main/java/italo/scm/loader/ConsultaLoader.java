@@ -188,8 +188,12 @@ public class ConsultaLoader {
 		return resp;
 	}
 	
-	public ConsultaRemarcarLoadResponse novoRemarcarResponse() {
-		return new ConsultaRemarcarLoadResponse();
+	public ConsultaRemarcarLoadResponse novoRemarcarResponse( Consulta c ) {
+		ConsultaRemarcarLoadResponse resp = new ConsultaRemarcarLoadResponse();
+		resp.setDataAtendimento( converter.dataToString( c.getDataAtendimento() ) );
+		resp.setTurno( c.getTurno().name() );
+		resp.setTurnoLabel( c.getTurno().label() ); 
+		return resp;
 	}
 	
 }

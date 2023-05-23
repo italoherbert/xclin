@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faEdit, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { EspecialidadeService } from 'src/app/service/especialidade.service';
 import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
@@ -18,14 +18,12 @@ export class ProfissionalContaEspecialidadesComponent {
   showSpinner : boolean = false;
 
   icons : any = {
-    faEdit : faEdit,
-    faTrashCan : faTrashCan
+    faPenToSquare: faPenToSquare
   }
 
   profissionalNome : string = '';
   profissionalFuncao: string = '';
-  especialidadesVinculosIDs: number[] = [];
-  especialidadesVinculosNomes: string[] = [];     
+  especialidades: any[] = [];     
 
   constructor( 
     private matDialog: MatDialog,
@@ -48,8 +46,7 @@ export class ProfissionalContaEspecialidadesComponent {
       next: (resp) => {
         this.profissionalNome = resp.profissionalNome;
         this.profissionalFuncao = resp.profissionalFuncao;
-        this.especialidadesVinculosIDs = resp.especialidadesVinculosIDs;
-        this.especialidadesVinculosNomes = resp.especialidadesVinculosNomes;
+        this.especialidades = resp.especialidades;
 
         this.showSpinner = false;
       },
@@ -59,43 +56,5 @@ export class ProfissionalContaEspecialidadesComponent {
       }
     });
   }
-
-  remove( id : any ) {
-    this.infoMsg = null;
-    this.erroMsg = null;
-
-    this.showSpinner = true;
-
-    this.especialidadeService.deletaEspecialidade( id ).subscribe({
-      next: ( resp ) => {
-        this.lista();
-
-        this.infoMsg = 'Especialidade deletada com sucesso!';
-        this.showSpinner = false;
-      },
-      error: ( erro ) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
-  }
-
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open(ProfissionalContaEspecialidadeRemoveDialog );
-    dialogRef.afterClosed().subscribe( (result) => {
-      if ( result === true )
-        this.remove( id );
-    } );
-    
-  }
-
-}
-
-
-@Component({
-  selector: 'profissional-conta-especialidade-remove-dialog',
-  templateUrl: 'profissional-conta-especialidade-remove-dialog.html',
-})
-export class ProfissionalContaEspecialidadeRemoveDialog {
 
 }

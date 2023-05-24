@@ -87,6 +87,7 @@ import { EspecialidadeSaveComponent } from './especialidade/especialidade-save/e
 import { EspecialidadeDetalhesComponent } from './especialidade/especialidade-detalhes/especialidade-detalhes.component';
 import { ProfissionalContaEspecialidadesComponent } from './usuario-conta/profissional/profissional-conta-especialidades/profissional-conta-especialidades.component';
 import { ProfissionalContaEspecialidadeSaveComponent } from './usuario-conta/profissional/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
+import { RealInputDirective } from './directive/real-input.directive';
 
 
 @NgModule({
@@ -162,7 +163,8 @@ import { ProfissionalContaEspecialidadeSaveComponent } from './usuario-conta/pro
     EspecialidadeDetalhesComponent,
     EspecialidadeRemoveDialog,
     ProfissionalContaEspecialidadesComponent,
-    ProfissionalContaEspecialidadeSaveComponent
+    ProfissionalContaEspecialidadeSaveComponent,
+    RealInputDirective
   ],
   imports: [
     BrowserModule,

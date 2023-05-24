@@ -155,5 +155,9 @@ export class ConsultaRegistroComponent {
     } );
   }
 
+  onValorConsultaAlterado( e : any ) {
+    this.consultaSave.valor = e.valorReal;
+  }
+
 }
 

@@ -155,4 +155,8 @@ export class ProfissionalContaEspecialidadeSaveComponent {
     } );
   }
 
+  onValorConsultaAlterado( e : any ) {    
+    this.especialidadeSave.consultaValor = e.valorReal;
+  }
+
 }

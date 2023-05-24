@@ -34,7 +34,9 @@
         <div class="col-sm-6">
             <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Valor da consulta</mat-label>
-                <input matInput type="number" placeholder="Valor da consulta" [(ngModel)]="consultaSave.valor">
+                <input matInput appRealInput type="text" placeholder="Valor da consulta" 
+                        [valorInicial]="consultaSave.valor"
+                        (onValorAlterado)="onValorConsultaAlterado($event)">
             </mat-form-field>
         </div>    
         <div class="col-sm-12">

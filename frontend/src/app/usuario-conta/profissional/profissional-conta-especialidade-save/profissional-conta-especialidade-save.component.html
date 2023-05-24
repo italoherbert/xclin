@@ -38,7 +38,9 @@
             <div>
                 <mat-form-field appearance="fill">
                     <mat-label>Valor da consulta</mat-label>
-                    <input matInput type="number" [(ngModel)]="especialidadeSave.consultaValor" />
+                    <input matInput type="text" appRealInput 
+                        [valorInicial]="especialidadeSave.consultaValor" 
+                        (onValorAlterado)="onValorConsultaAlterado($event)" />                        
                 </mat-form-field>
                 <br />
                 <button mat-raised-button color="primary" (click)="salva()">

@@ -1,6 +1,7 @@
 package italo.scm.model;
 
 import java.util.Date;
+import java.util.List;
 
 import italo.scm.enums.tipos.EstadoCivil;
 import italo.scm.enums.tipos.Nacionalidade;
@@ -15,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -70,5 +72,8 @@ public class Paciente {
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
+	
+	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
+	private List<Consulta> consultas;
 	
 }

@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
@@ -69,7 +70,7 @@ import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ConsultaProfissionalSelectComponent } from './consulta/consulta-nova/consulta-profissional-select/consulta-profissional-select.component';
 import { ConsultaRemoveDialog, ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
-import { ConsultaFiltroResumidoComponent } from './consulta/consulta-filtro-resumido/consulta-filtro-resumido.component';
+import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
 import { NaoAdminDiretorTelaComponent } from './diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
 import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
 import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
@@ -146,7 +147,7 @@ import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/co
     ConsultaProfissionalSelectComponent,
     ConsultaTelaComponent,
     ConsultaRemoveDialog,
-    ConsultaFiltroResumidoComponent,
+    ConsultaFilaComponent,
     NaoAdminDiretorTelaComponent,
     NaoAdminProfissionalTelaComponent,
     NaoAdminRecepcionistaTelaComponent,
@@ -195,7 +196,8 @@ import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/co
     MatDatepickerModule,
     MatNativeDateModule,
     MatAutocompleteModule,
-    MatStepperModule
+    MatStepperModule,
+    MatButtonToggleModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue:"pt-br"}

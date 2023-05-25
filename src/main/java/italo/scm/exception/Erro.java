@@ -4,6 +4,9 @@ public interface Erro {
 
 	public final static String LOGIN_INVALIDO = "Usuário não encontrado por login e senha.";
 	public final static String CLINICA_ACESSO_NAO_AUTORIZADO = "Seu usuário não tem vínculo com a clinica.";
+	public final static String PROFISSIONAL_ACESSO_NAO_AUTORIZADO = "Seu usuário não é o profissional com permissão para realizar essa função.";
+	
+	public final static String NAO_PODE_INICIAR_CONSULTA = "Você não pode iniciar a consulta por este formulário.";
 	
 	public final static String USERNAME_OBRIGATORIO = "O username é um campo de preenchimento obrigatório.";
 	public final static String SENHA_OBRIGATORIA = "A senha é um campo de preenchimento obrigatório.";

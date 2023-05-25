@@ -9,9 +9,8 @@ import italo.scm.exception.ConverterException;
 import italo.scm.exception.Erro;
 import italo.scm.exception.ValidationException;
 import italo.scm.logica.Converter;
-import italo.scm.model.request.InicioConsultaRequest;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
-import italo.scm.model.request.filtro.ConsultaResumidaFiltroRequest;
+import italo.scm.model.request.filtro.ConsultaListaFilaRequest;
 import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
 
@@ -42,12 +41,7 @@ public class ConsultaValidator {
 		if ( !consultaStatusEnumManager.enumValida( request.getStatus() ) )
 			throw new ValidationException( Erro.STATUS_OBRIGATORIO );
 	}
-	
-	public void validaIniciaConsulta( InicioConsultaRequest request ) throws ValidationException {
-		if ( !turnoEnumManager.enumValida( request.getTurno() ) )
-			throw new ValidationException( Erro.TURNO_OBRIGATORIO );
-	}
-	
+		
 	public void validaFiltro( ConsultaFiltroRequest request ) throws ValidationException {
 		if ( request.getDataInicio() == null )
 			throw new ValidationException( Erro.DATA_INI_OBRIGATORIA );
@@ -89,7 +83,7 @@ public class ConsultaValidator {
 				throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				
 	}
 	
-	public void validaListaFila( ConsultaResumidaFiltroRequest request ) throws ValidationException {
+	public void validaListaFila( ConsultaListaFilaRequest request ) throws ValidationException {
 		if ( request.getData() == null )
 			throw new ValidationException( Erro.DATA_OBRIGATORIA );
 		

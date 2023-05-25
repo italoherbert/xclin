@@ -1,4 +1,39 @@
-<p>consulta-atendimento works!</p>
+<h1>Atendimento de consulta</h1>
+
+<mat-form-field>
+    <mat-label>Clínica</mat-label>
+    <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId">
+        <mat-option *ngFor="let id of clinicasIDs; index as i" [value]="id">
+            {{clinicasNomes[ i ]}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<span class="p-2"></span>
+
+<mat-form-field>
+    <mat-label>Turno</mat-label>
+    <mat-select placeholder="Selecione a clínica" [(ngModel)]="turno">
+        <mat-option *ngFor="let t of turnos" [value]="t.name">
+            {{t.label}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<br />
+
+<button *ngIf="carregarAtivado === false" mat-raised-button color="primary" 
+        (click)="iniciaCarregamento()">
+    <fa-icon [icon]="icons.faCirclePlay"></fa-icon>
+    Carregamento automático
+</button>
+
+<button *ngIf="carregarAtivado === true" mat-raised-button color="accent" (click)="paraCarregamento()">
+    <fa-icon [icon]="icons.faCirclePause"></fa-icon>
+    Pausar carregamento
+</button>
+
+<br />
 
 <div class="d-flex justify-content-center">
     <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
@@ -7,7 +42,7 @@
 <div class="d-flex justify-content-center mt-3">
     <mat-card style="width: 50em">
         <mat-card-header>
-            <h1>Informações</h1>
+            <h1>Consulta iniciada</h1>
         </mat-card-header>
         <mat-card-content>
             <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
@@ -25,7 +60,7 @@
                     <div class="fs-5 text-black">
                         {{consulta.pacienteNome}}
                     </div>
-                </div>    
+                </div>                    
                 <div class="col-sm-6 my-3">
                     <div class="fs-6 text-secondary">
                         Especialidade:
@@ -33,15 +68,7 @@
                     <div class="fs-5 text-black">
                         {{consulta.especialidadeNome}}
                     </div>
-                </div>                               
-                <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
-                        Turno:
-                    </div>
-                    <div class="fs-5 text-black">
-                        {{consulta.turnoLabel}}
-                    </div>
-                </div>
+                </div>                                                 
                 <div class="col-sm-6 my-3">
                     <div class="fs-6 text-secondary">
                         Retorno:
@@ -49,7 +76,7 @@
                     <div class="fs-5 text-black">
                         {{consulta.retorno == true ? 'Sim' : 'Não' }}
                     </div>
-                </div>                                                   
+                </div>                   
                 <div class="col-sm-12 my-3">
                     <div class="fs-6 text-secondary">
                         Observações:

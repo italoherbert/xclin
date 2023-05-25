@@ -56,6 +56,14 @@ export class ConsultaService {
     return this.http.patch( '/api/consulta/paga/'+consultaId, {}, { headers: headers, withCredentials: true } );
   }
 
+  iniciaConsulta( clinicaId : any, profissionalId : any, consultaId : any, turno : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.patch( 
+      '/api/consulta/inicia/'+clinicaId+'/'+profissionalId+'/'+consultaId+'/'+turno, {}, { headers: headers, withCredentials: true } );
+  }
+
   finalizaConsulta( consultaId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
@@ -63,13 +71,13 @@ export class ConsultaService {
     return this.http.patch( '/api/consulta/finaliza/'+consultaId, {}, { headers: headers, withCredentials: true } );  
   }
 
-  filtraConsultasResumido( clinicaId : any, profissionalId : any, filtro : ConsultaFilaFiltro ): Observable<any> {
+  listaFila( clinicaId : any, profissionalId : any, filtro : ConsultaFilaFiltro ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.post( '/api/consulta/filtra/resumido/'+clinicaId+'/'+profissionalId, filtro, { headers: headers, withCredentials: true } );
+    return this.http.post( '/api/consulta/lista/fila/'+clinicaId+'/'+profissionalId, filtro, { headers: headers, withCredentials: true } );
   }
 
   filtraConsultas( clinicaId : any, filtro : ConsultaFiltro ): Observable<any> {
@@ -87,6 +95,15 @@ export class ConsultaService {
     });
 
     return this.http.get( '/api/consulta/get/'+consultaId, { headers: headers, withCredentials: true } );
+  }
+
+  getConsultaIniciada( clinicaId : any, turno : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/consulta/get/iniciada/'+clinicaId+'/'+turno, { headers: headers, withCredentials: true } );
+  
   }
 
   getConsultaReg( profissionalId : any ): Observable<any> {
@@ -121,12 +138,20 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/tela', { headers: headers, withCredentials: true } );
   }
 
-  getConsultaFilaTela(): Observable<any> {
+  getListaFilaTela(): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
     return this.http.get( '/api/consulta/get/fila/tela', { headers: headers, withCredentials: true } );
+  }
+
+  getIniciadaTela(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/consulta/get/iniciada/tela', { headers: headers, withCredentials: true } );
   }
 
   getNovaConsultaProfissionalSelect() : Observable<any> {

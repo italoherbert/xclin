@@ -85,11 +85,7 @@
                         Status:
                     </div>
                     <div class="fs-5" [ngClass]="consulta.status == 'FINALIZADA' ? 'text-success' : 'text-primary'">
-                        {{consulta.statusLabel}}
-                        <button *ngIf="consulta.status != 'FINALIZADA'" mat-raised-button color="primary" class="my-1" (click)="finalizaConsulta()">
-                            <fa-icon [icon]="icons.faCheck"></fa-icon>
-                            <span class="mx-3">Finalizar</span>
-                        </button>
+                        {{consulta.statusLabel}}                        
                     </div>
                 </div>  
                 <div class="col-sm-6 my-3">

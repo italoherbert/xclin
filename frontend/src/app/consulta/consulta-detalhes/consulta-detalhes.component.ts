@@ -99,24 +99,4 @@ export class ConsultaDetalhesComponent {
     });
   }
 
-  finalizaConsulta() {
-    this.infoMsg = null;
-    this.erroMsg = null;
-
-    this.showSpinner = true;
-
-    let id = this.actRoute.snapshot.paramMap.get( 'consultaId' );
-
-    this.consultaService.finalizaConsulta( id ).subscribe({
-      next: (resp) => {
-        this.showSpinner = false;
-        this.carrega();
-      },
-      error: (erro) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
-  }
-
 }

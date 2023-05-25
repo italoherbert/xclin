@@ -36,7 +36,7 @@ import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta
 import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta-remarcar.component';
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
-import { ConsultaFiltroResumidoComponent } from './consulta/consulta-filtro-resumido/consulta-filtro-resumido.component';
+import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
 import { NaoAdminDiretorTelaComponent } from './diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
 import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
 import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
@@ -123,7 +123,7 @@ const routes: Routes = [
     
     { path: 'consulta-nova', component: ConsultaNovaComponent, outlet: 'page' },
     { path: 'consulta-tela', component: ConsultaTelaComponent, outlet: 'page' },
-    { path: 'consulta-filtro-resumido', component: ConsultaFiltroResumidoComponent, outlet: 'page' },
+    { path: 'consulta-fila', component: ConsultaFilaComponent, outlet: 'page' },
     { path: 'consulta-atendimento', component: ConsultaAtendimentoComponent, outlet: 'page' },
     { path: 'consulta-remarcar/:consultaId', component: ConsultaRemarcarComponent, outlet: 'page' },
     { path: 'consulta-alterar/:consultaId', component: ConsultaAlterarComponent, outlet: 'page' },

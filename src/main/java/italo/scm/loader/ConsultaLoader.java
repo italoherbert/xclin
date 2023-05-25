@@ -27,7 +27,8 @@ import italo.scm.model.response.load.edit.ConsultaAlterLoadResponse;
 import italo.scm.model.response.load.outros.ConsultaRemarcarLoadResponse;
 import italo.scm.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.reg.ConsultaRegLoadResponse;
-import italo.scm.model.response.load.tela.ConsultaFilaTelaLoadResponse;
+import italo.scm.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
+import italo.scm.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaTelaLoadResponse;
 
 @Component
@@ -113,6 +114,16 @@ public class ConsultaLoader {
 	public void loadAlterResponse( ConsultaAlterLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() );
 		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
+		
+		int size = resp.getStatuses().size();
+		
+		int index = -1;
+		for( int i = 0; index == -1 && i < size; i++ )
+			if ( resp.getStatuses().get( i ).getName().equalsIgnoreCase( ConsultaStatus.INICIADA.name() ) )
+				index = i;		
+		
+		if ( index != -1 )
+			resp.getStatuses().remove( index );
 	}
 	
 	public void loadTelaResponse( ConsultaTelaLoadResponse resp ) {
@@ -120,9 +131,13 @@ public class ConsultaLoader {
 		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
 	}
 	
-	public void loadFilaTelaResponse( ConsultaFilaTelaLoadResponse resp ) {
+	public void loadListaFilaTelaResponse( ConsultaListaFilaTelaLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() );
 		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
+	}
+	
+	public void loadIniciadaTelaResponse( ConsultaIniciadaTelaLoadResponse resp ) {
+		resp.setTurnos( turnoEnumManager.tipoResponses() );		
 	}
 	
 	public Consulta novoBean( 
@@ -180,10 +195,10 @@ public class ConsultaLoader {
 		return resp;
 	}
 	
-	public ConsultaFilaTelaLoadResponse novoFilaTelaResponse( 
+	public ConsultaListaFilaTelaLoadResponse novoFilaTelaResponse( 
 			List<Long> clinicasIDs, List<String> clinicasNomes ) {
 		
-		ConsultaFilaTelaLoadResponse resp = new ConsultaFilaTelaLoadResponse();
+		ConsultaListaFilaTelaLoadResponse resp = new ConsultaListaFilaTelaLoadResponse();
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;
@@ -194,6 +209,14 @@ public class ConsultaLoader {
 		resp.setDataAtendimento( converter.dataToString( c.getDataAtendimento() ) );
 		resp.setTurno( c.getTurno().name() );
 		resp.setTurnoLabel( c.getTurno().label() ); 
+		return resp;
+	}
+	
+	public ConsultaIniciadaTelaLoadResponse novoIniciadaTelaResponse(
+			List<Long> clinicasIDs, List<String> clinicasNomes ) {
+		ConsultaIniciadaTelaLoadResponse resp = new ConsultaIniciadaTelaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;
 	}
 	

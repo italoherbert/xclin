@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import italo.scm.enums.tipos.UsuarioPerfil;
 import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
-import italo.scm.model.request.filtro.ConsultaResumidaFiltroRequest;
+import italo.scm.model.request.filtro.ConsultaListaFilaRequest;
 import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
@@ -29,7 +30,8 @@ import italo.scm.model.response.load.edit.ConsultaAlterLoadResponse;
 import italo.scm.model.response.load.outros.ConsultaRemarcarLoadResponse;
 import italo.scm.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
 import italo.scm.model.response.load.reg.ConsultaRegLoadResponse;
-import italo.scm.model.response.load.tela.ConsultaFilaTelaLoadResponse;
+import italo.scm.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
+import italo.scm.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.scm.model.response.load.tela.ConsultaTelaLoadResponse;
 import italo.scm.service.ConsultaService;
 import italo.scm.service.auth.Autorizador;
@@ -75,7 +77,7 @@ public class ConsultaController {
 			@PathVariable Long consultaId, 
 			@RequestBody ConsultaAlterSaveRequest request ) throws SistemaException {
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		consultaValidator.validaAlterSave( request );
 		consultaService.altera( consultaId, request ); 
@@ -89,7 +91,7 @@ public class ConsultaController {
 			@PathVariable Long consultaId,
 			@RequestBody ConsultaRemarcarSaveRequest request ) throws SistemaException {
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		consultaService.remarca( consultaId, request );
 		return ResponseEntity.ok().build();		
@@ -101,7 +103,7 @@ public class ConsultaController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId ) throws SistemaException {
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		consultaService.registraPagamento( consultaId );
 		return ResponseEntity.ok().build();		
@@ -113,26 +115,29 @@ public class ConsultaController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId ) throws SistemaException {
 				
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		consultaService.finalizaConsulta( consultaId );
 		return ResponseEntity.ok().build();		
 	}
 	
 	@PreAuthorize("hasAuthority('consultaWRITE')")
-	@PatchMapping("/inicia/{clinicaId}/{consultaId}")
+	@PatchMapping("/inicia/{clinicaId}/{profissionalId}/{consultaId}/{turno}")
 	public ResponseEntity<Object> iniciaConsulta(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
+			@PathVariable Long profissionalId,
 			@PathVariable Long consultaId, 
 			@PathVariable String turno ) throws SistemaException {
-				
+		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
-		Long logadoUID = tokenInfo.getUsuarioId();
+		String perfil = tokenInfo.getPerfil();		
+		if ( perfil.equalsIgnoreCase( UsuarioPerfil.PROFISSIONAL.name() ) )
+			autorizador.autorizaSeProfissionalUsuario( authorizationHeader, profissionalId );  
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
-		consultaService.iniciaConsulta( logadoUID, clinicaId, consultaId, turno );
+		consultaService.iniciaConsulta( clinicaId, profissionalId, consultaId, turno );
 		return ResponseEntity.ok().build();		
 	}		
 	
@@ -142,14 +147,14 @@ public class ConsultaController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId) throws SistemaException {
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		ConsultaResponse resp = consultaService.get( consultaId );
 		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@PostMapping("/get/iniciada/{clinicaId}/{consultaId}/{turno}")
+	@GetMapping("/get/iniciada/{clinicaId}/{turno}")
 	public ResponseEntity<Object> getIniciada(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
@@ -179,7 +184,7 @@ public class ConsultaController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId ) throws SistemaException {		
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		ConsultaRemarcarLoadResponse resp = consultaService.getRemarcarLoad( consultaId );
 		return ResponseEntity.ok( resp );
@@ -191,7 +196,7 @@ public class ConsultaController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId ) throws SistemaException {
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		ConsultaAlterLoadResponse resp = consultaService.getAlterLoad( consultaId );
 		return ResponseEntity.ok( resp );
@@ -211,13 +216,25 @@ public class ConsultaController {
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/fila/tela")
-	public ResponseEntity<Object> getFilaTelaLoad(
+	public ResponseEntity<Object> getListaFilaTelaLoad(
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 				
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ConsultaFilaTelaLoadResponse resp = consultaService.getFilaTelaLoad( clinicasIDs );
+		ConsultaListaFilaTelaLoadResponse resp = consultaService.getFiltroResumidoTelaLoad( clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/iniciada/tela")
+	public ResponseEntity<Object> getIniciadaTelaLoad(
+			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
+				
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		ConsultaIniciadaTelaLoadResponse resp = consultaService.getIniciadaTelaLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	
@@ -237,19 +254,19 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@PostMapping("/filtra/resumido/{clinicaId}/{profissionalId}")
-	public ResponseEntity<Object> filtraResumido(
+	@PostMapping("/lista/fila/{clinicaId}/{profissionalId}")
+	public ResponseEntity<Object> listaFila(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable Long profissionalId,
-			@RequestBody ConsultaResumidaFiltroRequest request ) throws SistemaException {
+			@RequestBody ConsultaListaFilaRequest request ) throws SistemaException {
 				
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
-		autorizador.verificaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
+		autorizador.autorizaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
 		
 		consultaValidator.validaListaFila( request );
 		
-		List<ConsultaResponse> lista = consultaService.filtraResumido( 
+		List<ConsultaResponse> lista = consultaService.listaFila( 
 				clinicaId, profissionalId, request );
 		
 		return ResponseEntity.ok( lista );
@@ -277,7 +294,7 @@ public class ConsultaController {
 			@PathVariable int ano ) throws SistemaException {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
-		autorizador.verificaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
+		autorizador.autorizaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
 		
 		List<Object[]> resp = consultaService.agrupaPorDiaDeMes( clinicaId, profissionalId, mes, ano );
 		return ResponseEntity.ok( resp );
@@ -291,7 +308,7 @@ public class ConsultaController {
 			@PathVariable int mes,
 			@PathVariable int ano ) throws SistemaException {
 				
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		List<Object[]> resp = consultaService.agrupaPorDiaDeMes( consultaId, mes, ano );
 		return ResponseEntity.ok( resp );
@@ -303,7 +320,7 @@ public class ConsultaController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long consultaId ) throws SistemaException {
 		
-		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		consultaService.deleta( consultaId );
 		return ResponseEntity.ok().build();

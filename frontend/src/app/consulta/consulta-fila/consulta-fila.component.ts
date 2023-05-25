@@ -6,13 +6,14 @@ import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 import * as moment from 'moment';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-consulta-filtro-resumido',
-  templateUrl: './consulta-filtro-resumido.component.html',
-  styleUrls: ['./consulta-filtro-resumido.component.css']
+  selector: 'app-consulta-fila',
+  templateUrl: './consulta-fila.component.html',
+  styleUrls: ['./consulta-fila.component.css']
 })
-export class ConsultaFiltroResumidoComponent {
+export class ConsultaFilaComponent {
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -62,7 +63,7 @@ export class ConsultaFiltroResumidoComponent {
     let filaFiltroStr = localStorage.getItem( 'fila-filtro' );
     this.showFormFiltro = filaFiltroStr === null;
     
-    this.consultaService.getConsultaFilaTela().subscribe({
+    this.consultaService.getListaFilaTela().subscribe({
       next: (resp) => {
         this.clinicasIDs = resp.clinicasIDs;
         this.clinicasNomes = resp.clinicasNomes;
@@ -143,7 +144,7 @@ export class ConsultaFiltroResumidoComponent {
 
     this.showSpinner = true;
 
-    this.consultaService.filtraConsultasResumido( 
+    this.consultaService.listaFila( 
           this.clinicaId, this.profissionalId, this.consultaFilaFiltro ).subscribe({
         next: (resp) => {
           this.consultas = resp;
@@ -163,6 +164,42 @@ export class ConsultaFiltroResumidoComponent {
           this.erroMsg = this.sistemaService.mensagemErro( erro );
           this.showSpinner = false;
         }
+    });
+  }
+
+  finalizaConsulta( consultaId : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    this.consultaService.finalizaConsulta( consultaId ).subscribe({
+      next: (resp) => {
+        this.showSpinner = false;
+        this.filtra();
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  iniciaConsulta( consultaId : any, turno : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    this.consultaService.iniciaConsulta( this.clinicaId, this.profissionalId, consultaId, turno ).subscribe({
+      next: (resp) => {
+        this.showSpinner = false;        
+        this.filtra();
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
     });
   }
 

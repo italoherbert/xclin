@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import italo.scm.enums.tipos.ConsultaStatus;
@@ -61,23 +62,11 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 				+ "c.turno=?4 and "
 				+ "c.status=?5 "
 			+ "order by c.dataAgendamento asc")
-	public List<Consulta> filtraResumido( 
+	public List<Consulta> listaFila( 
 			Long clinicaId, Long profissionalId, 
 			Date data, 
 			Turno turno, 
-			ConsultaStatus status );
-	
-	@Query( "update Consulta c set "
-			+ 	"status=(case when c.status='INICIADO' then 'FINALIDADO' else c.status end) "
-			+ "where "
-				+ "c.clinica.id=?1 and "
-				+ "c.profissional.id=?2 and "
-				+ "c.dataAtendimento=?3 and "
-				+ "c.turno=?4")
-	public void finalizaConsultasIniciadas( 
-			Long clinicaId, Long profissionalId, 
-			Date data, 
-			Turno turno );			
+			ConsultaStatus status );		
 	
 	@Query( "select c "
 			+ "from Consulta c "
@@ -90,5 +79,18 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 			Long clinicaId, Long profissionalId, 
 			Date data, 
 			Turno turno);
+	
+	@Modifying
+	@Query( "update Consulta c set "
+			+ 	"status=(case when c.status='INICIADO' then 'FINALIDADO' else c.status end) "
+			+ "where "
+				+ "c.clinica.id=?1 and "
+				+ "c.profissional.id=?2 and "
+				+ "c.dataAtendimento=?3 and "
+				+ "c.turno=?4")
+	public void finalizaConsultasIniciadas( 
+			Long clinicaId, Long profissionalId, 
+			Date data, 
+			Turno turno );
 	
 }

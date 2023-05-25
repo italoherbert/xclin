@@ -18,11 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import italo.scm.exception.SistemaException;
 import italo.scm.logica.JWTTokenInfo;
 import italo.scm.logica.JWTTokenLogica;
-import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
+import italo.scm.model.request.filtro.ConsultaResumidaFiltroRequest;
 import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
+import italo.scm.model.response.ConsultaIniciadaResponse;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.load.edit.ConsultaAlterLoadResponse;
 import italo.scm.model.response.load.outros.ConsultaRemarcarLoadResponse;
@@ -118,6 +119,23 @@ public class ConsultaController {
 		return ResponseEntity.ok().build();		
 	}
 	
+	@PreAuthorize("hasAuthority('consultaWRITE')")
+	@PatchMapping("/inicia/{clinicaId}/{consultaId}")
+	public ResponseEntity<Object> iniciaConsulta(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@PathVariable Long consultaId, 
+			@PathVariable String turno ) throws SistemaException {
+				
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		autorizador.autorizaPorConsulta( authorizationHeader, consultaId );
+		
+		consultaService.iniciaConsulta( logadoUID, clinicaId, consultaId, turno );
+		return ResponseEntity.ok().build();		
+	}		
+	
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/{consultaId}")
 	public ResponseEntity<Object> get(
@@ -128,6 +146,22 @@ public class ConsultaController {
 		
 		ConsultaResponse resp = consultaService.get( consultaId );
 		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@PostMapping("/get/iniciada/{clinicaId}/{consultaId}/{turno}")
+	public ResponseEntity<Object> getIniciada(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@PathVariable String turno ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+		
+		ConsultaIniciadaResponse resp = consultaService.getIniciada( logadoUID, clinicaId, turno );
+		return ResponseEntity.ok( resp );	
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
@@ -203,19 +237,19 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@PostMapping("/lista/fila/{clinicaId}/{profissionalId}")
-	public ResponseEntity<Object> listaFila(
+	@PostMapping("/filtra/resumido/{clinicaId}/{profissionalId}")
+	public ResponseEntity<Object> filtraResumido(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable Long profissionalId,
-			@RequestBody ConsultaFilaFiltroRequest request ) throws SistemaException {
+			@RequestBody ConsultaResumidaFiltroRequest request ) throws SistemaException {
 				
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		autorizador.verificaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
 		
 		consultaValidator.validaListaFila( request );
 		
-		List<ConsultaResponse> lista = consultaService.listaFila( 
+		List<ConsultaResponse> lista = consultaService.filtraResumido( 
 				clinicaId, profissionalId, request );
 		
 		return ResponseEntity.ok( lista );

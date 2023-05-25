@@ -69,7 +69,7 @@ import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta
 import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
 import { ConsultaProfissionalSelectComponent } from './consulta/consulta-nova/consulta-profissional-select/consulta-profissional-select.component';
 import { ConsultaRemoveDialog, ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
-import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
+import { ConsultaFiltroResumidoComponent } from './consulta/consulta-filtro-resumido/consulta-filtro-resumido.component';
 import { NaoAdminDiretorTelaComponent } from './diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
 import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
 import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
@@ -88,6 +88,7 @@ import { EspecialidadeDetalhesComponent } from './especialidade/especialidade-de
 import { ProfissionalContaEspecialidadesComponent } from './usuario-conta/profissional/profissional-conta-especialidades/profissional-conta-especialidades.component';
 import { ProfissionalContaEspecialidadeSaveComponent } from './usuario-conta/profissional/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
 import { RealInputDirective } from './directive/real-input.directive';
+import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/consulta-atendimento.component';
 
 
 @NgModule({
@@ -145,7 +146,7 @@ import { RealInputDirective } from './directive/real-input.directive';
     ConsultaProfissionalSelectComponent,
     ConsultaTelaComponent,
     ConsultaRemoveDialog,
-    ConsultaFilaComponent,
+    ConsultaFiltroResumidoComponent,
     NaoAdminDiretorTelaComponent,
     NaoAdminProfissionalTelaComponent,
     NaoAdminRecepcionistaTelaComponent,
@@ -164,7 +165,8 @@ import { RealInputDirective } from './directive/real-input.directive';
     EspecialidadeRemoveDialog,
     ProfissionalContaEspecialidadesComponent,
     ProfissionalContaEspecialidadeSaveComponent,
-    RealInputDirective
+    RealInputDirective,
+    ConsultaAtendimentoComponent
   ],
   imports: [
     BrowserModule,

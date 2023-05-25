@@ -63,13 +63,13 @@ export class ConsultaService {
     return this.http.patch( '/api/consulta/finaliza/'+consultaId, {}, { headers: headers, withCredentials: true } );  
   }
 
-  listaFilaConsultas( clinicaId : any, profissionalId : any, filtro : ConsultaFilaFiltro ): Observable<any> {
+  filtraConsultasResumido( clinicaId : any, profissionalId : any, filtro : ConsultaFilaFiltro ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.post( '/api/consulta/lista/fila/'+clinicaId+'/'+profissionalId, filtro, { headers: headers, withCredentials: true } );
+    return this.http.post( '/api/consulta/filtra/resumido/'+clinicaId+'/'+profissionalId, filtro, { headers: headers, withCredentials: true } );
   }
 
   filtraConsultas( clinicaId : any, filtro : ConsultaFiltro ): Observable<any> {

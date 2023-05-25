@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faCircleInfo, faList } from '@fortawesome/free-solid-svg-icons';
+import { faChevronDown, faChevronUp, faCircleInfo, faFilter, faList } from '@fortawesome/free-solid-svg-icons';
 import { ConsultaFilaFiltro } from 'src/app/bean/consulta/consulta-fila-filtro';
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { ProfissionalService } from 'src/app/service/profissional.service';
@@ -8,11 +8,11 @@ import { SistemaService } from 'src/app/service/sistema.service';
 import * as moment from 'moment';
 
 @Component({
-  selector: 'app-consulta-fila',
-  templateUrl: './consulta-fila.component.html',
-  styleUrls: ['./consulta-fila.component.css']
+  selector: 'app-consulta-filtro-resumido',
+  templateUrl: './consulta-filtro-resumido.component.html',
+  styleUrls: ['./consulta-filtro-resumido.component.css']
 })
-export class ConsultaFilaComponent {
+export class ConsultaFiltroResumidoComponent {
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -21,7 +21,9 @@ export class ConsultaFilaComponent {
 
   icons : any = {
     faCircleInfo : faCircleInfo,
-    faList : faList
+    faFilter : faFilter,
+    faChevronUp : faChevronUp,
+    faChevronDown : faChevronDown
   }
 
   consultaFilaFiltro : ConsultaFilaFiltro = {
@@ -44,10 +46,12 @@ export class ConsultaFilaComponent {
   turnos : any[] = [];
   statuses : any[] = [];
 
+  showFormFiltro : boolean = false;
+
   constructor(
     private consultaService: ConsultaService, 
     private profissionalService: ProfissionalService,
-    private sistemaService: SistemaService) {}
+    public sistemaService: SistemaService) {}
 
   ngOnInit() {
     this.infoMsg = null;
@@ -55,6 +59,9 @@ export class ConsultaFilaComponent {
 
     this.showSpinner = true;
 
+    let filaFiltroStr = localStorage.getItem( 'fila-filtro' );
+    this.showFormFiltro = filaFiltroStr === null;
+    
     this.consultaService.getConsultaFilaTela().subscribe({
       next: (resp) => {
         this.clinicasIDs = resp.clinicasIDs;
@@ -75,7 +82,7 @@ export class ConsultaFilaComponent {
           this.consultaFilaFiltro.data = filaFiltro.filtro.data;
 
           this.onClinicaSelecionada();
-          this.listar();
+          this.filtra();
         } else {
           if ( this.clinicasIDs.length > 0 ) {          
             this.clinicaId = this.clinicasIDs[ 0 ];          
@@ -130,13 +137,13 @@ export class ConsultaFilaComponent {
     } );
   }
 
-  listar() {
+  filtra() {
     this.infoMsg = null;
     this.erroMsg = null;
 
     this.showSpinner = true;
 
-    this.consultaService.listaFilaConsultas( 
+    this.consultaService.filtraConsultasResumido( 
           this.clinicaId, this.profissionalId, this.consultaFilaFiltro ).subscribe({
         next: (resp) => {
           this.consultas = resp;
@@ -144,7 +151,8 @@ export class ConsultaFilaComponent {
           let filaFiltro = {
             clinicaId : this.clinicaId,
             profissionalId : this.profissionalId,            
-            filtro : this.consultaFilaFiltro
+            filtro : this.consultaFilaFiltro,
+            showFormFiltro : this.showFormFiltro
           }
 
           localStorage.setItem( 'fila-filtro', JSON.stringify( filaFiltro ) );

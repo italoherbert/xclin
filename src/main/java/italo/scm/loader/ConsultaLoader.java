@@ -20,6 +20,7 @@ import italo.scm.model.Profissional;
 import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
+import italo.scm.model.response.ConsultaIniciadaResponse;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.EspecialidadeResponse;
 import italo.scm.model.response.load.edit.ConsultaAlterLoadResponse;
@@ -193,6 +194,19 @@ public class ConsultaLoader {
 		resp.setDataAtendimento( converter.dataToString( c.getDataAtendimento() ) );
 		resp.setTurno( c.getTurno().name() );
 		resp.setTurnoLabel( c.getTurno().label() ); 
+		return resp;
+	}
+	
+	public ConsultaIniciadaResponse novoIniciadaResponse( ConsultaResponse cresp ) {
+		ConsultaIniciadaResponse resp = new ConsultaIniciadaResponse();
+		resp.setConsulta( cresp );
+		resp.setConsultaIniciada( true );
+		return resp;
+	}
+	
+	public ConsultaIniciadaResponse novoNenhumaIniciadaResponse() {
+		ConsultaIniciadaResponse resp = new ConsultaIniciadaResponse();
+		resp.setConsultaIniciada( false ); 
 		return resp;
 	}
 	

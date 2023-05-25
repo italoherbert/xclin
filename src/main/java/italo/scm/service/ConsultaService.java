@@ -22,11 +22,12 @@ import italo.scm.model.Consulta;
 import italo.scm.model.Especialidade;
 import italo.scm.model.Paciente;
 import italo.scm.model.Profissional;
-import italo.scm.model.request.filtro.ConsultaFilaFiltroRequest;
 import italo.scm.model.request.filtro.ConsultaFiltroRequest;
+import italo.scm.model.request.filtro.ConsultaResumidaFiltroRequest;
 import italo.scm.model.request.save.ConsultaAlterSaveRequest;
 import italo.scm.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.scm.model.request.save.ConsultaSaveRequest;
+import italo.scm.model.response.ConsultaIniciadaResponse;
 import italo.scm.model.response.ConsultaResponse;
 import italo.scm.model.response.EspecialidadeResponse;
 import italo.scm.model.response.ListaResponse;
@@ -42,6 +43,7 @@ import italo.scm.repository.EspecialidadeRepository;
 import italo.scm.repository.PacienteRepository;
 import italo.scm.repository.ProfissionalRepository;
 import italo.scm.service.shared.ClinicaSharedService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ConsultaService {
@@ -157,6 +159,60 @@ public class ConsultaService {
 		consultaRepository.save( consulta );
 	}
 	
+	@Transactional
+	public void iniciaConsulta( Long logadoUID, Long clinicaId, Long consultaId, String turnoStr ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
+		if ( !profissionalOp.isPresent() )
+			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+		
+		Profissional profissional = profissionalOp.get();
+		Long profissionalId = profissional.getId();
+		
+		Date data = new Date();
+		Turno turno = turnoEnumManager.getEnum( turnoStr );		
+		
+		consultaRepository.finalizaConsultasIniciadas( clinicaId, profissionalId, data, turno );
+				
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();
+		consulta.setStatus( ConsultaStatus.INICIADA );
+		
+		consultaRepository.save( consulta );
+	}
+	
+	public ConsultaIniciadaResponse getIniciada( 
+			Long logadoUID, Long clinicaId, String turnoStr ) throws ServiceException {
+		
+		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
+		if ( !profissionalOp.isPresent() )
+			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+		
+		Profissional profissional = profissionalOp.get();
+		Long profissionalId = profissional.getId();
+		
+		Date data = new Date();
+		Turno turno = turnoEnumManager.getEnum( turnoStr );		
+		
+		Optional<Consulta> consultaOp = consultaRepository.getIniciada( clinicaId, profissionalId, data, turno );
+		
+		if ( consultaOp.isPresent() ) {
+			Consulta consulta = consultaOp.get();
+			Paciente p = consulta.getPaciente();
+			Clinica c = consulta.getClinica();
+			Especialidade e = consulta.getEspecialidade();
+						
+			ConsultaResponse cresp = consultaLoader.novoResponse( p, c, e );
+			consultaLoader.loadResponse( cresp, consulta );
+			
+			return consultaLoader.novoIniciadaResponse( cresp );
+		}
+		
+		return consultaLoader.novoNenhumaIniciadaResponse();		
+	}
+	
 	public List<ConsultaResponse> filtra( Long clinicaId, ConsultaFiltroRequest request ) throws ServiceException {
 		Date dataIni = converter.stringToDataNEx( request.getDataInicio() );
 		Date dataFim = converter.stringToDataNEx( request.getDataFim() );
@@ -187,17 +243,17 @@ public class ConsultaService {
 		}
 		return lista;
 	}
-	
-	public List<ConsultaResponse> listaFila( 
+		
+	public List<ConsultaResponse> filtraResumido( 
 			Long clinicaId, 
 			Long profissionalId, 
-			ConsultaFilaFiltroRequest request ) throws ServiceException {
+			ConsultaResumidaFiltroRequest request ) throws ServiceException {
 		
 		Date data = converter.stringToDataNEx( request.getData() );
 		Turno turno = turnoEnumManager.getEnum( request.getTurno() );
 		ConsultaStatus status = consultaStatusEnumManager.getEnum( request.getStatus() );
 		
-		List<Consulta> fila = consultaRepository.listaFila(
+		List<Consulta> fila = consultaRepository.filtraResumido(
 				clinicaId, profissionalId, data, turno, status );
 		
 		List<ConsultaResponse> lista = new ArrayList<>();

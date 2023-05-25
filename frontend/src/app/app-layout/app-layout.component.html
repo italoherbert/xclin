@@ -92,19 +92,26 @@
                     <fa-icon *ngIf="consultaMenuShow === false" [icon]="icons.faChevronDown" class="ms-auto"></fa-icon>
                 </div>
             </mat-list-item>
-            <div *ngIf="consultaMenuShow === true" class="px-3">
-                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-fila' } } ]">
+            <div *ngIf="consultaMenuShow === true" class="px-3">                
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-atendimento' } } ]"
+                        *ngIf="sistemaService.isProfissional()">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faListOl"></fa-icon>
-                        <div class="mx-2">Fila de consultas</div>
-                    </div>
+                        <div class="mx-2">Atendimento</div>
+                    </div>                       
                 </a>
                 <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-nova' } } ]">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faAdd"></fa-icon>
                         <div class="mx-2">Nova consulta</div>
                     </div>                       
-                </a>                
+                </a>                                 
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-filtro-resumido' } } ]">
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faFilter"></fa-icon>
+                        <div class="mx-2">Filtro resumido</div>
+                    </div>
+                </a>
                 <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-tela' } } ]">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faDisplay"></fa-icon>

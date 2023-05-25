@@ -32,9 +32,7 @@ public class ConsultaResponse {
 	private String dataAtendimento;
 	
 	private String dataFinalizacao;
-			
-	private int tempoEstimado;
-	
+				
 	private Long pacienteId;
 	
 	private String pacienteNome;

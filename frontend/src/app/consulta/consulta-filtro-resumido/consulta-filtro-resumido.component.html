@@ -1,0 +1,92 @@
+<h1>Filtro de consultas</h1>
+
+<div class="mt-3">
+    <mat-form-field appearance="fill">
+        <mat-label>Clínica</mat-label>
+        <mat-select placeholder="Selecione o profissional" [(ngModel)]="clinicaId" 
+                (selectionChange)="onClinicaSelecionada()">
+            <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                {{clinicasNomes[ i ]}} 
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <span class="p-2"></span>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Profissional</mat-label>
+        <mat-select placeholder="Selecione o profissional" [(ngModel)]="profissionalId">
+            <mat-option *ngFor="let pid of profissionaisIDs; index as i" [value]="pid">
+                {{profissionaisNomes[ i ]}} 
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <br />
+
+    <mat-form-field appearance="fill">
+        <mat-label>Data</mat-label>
+        <input matInput [matDatepicker]="dataDatepicker" placeholder="DD/MM/YYYY" [(ngModel)]="consultaFilaFiltro.data"/>
+        <mat-datepicker-toggle matIconSuffix [for]="dataDatepicker"></mat-datepicker-toggle>
+        <mat-datepicker #dataDatepicker></mat-datepicker>
+    </mat-form-field>
+
+    <span class="p-2"></span>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Turno</mat-label>
+        <mat-select placeholder="Selecione o turno" [(ngModel)]="consultaFilaFiltro.turno">
+            <mat-option *ngFor="let t of turnos" [value]="t.name">
+                {{t.label}} 
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <span class="p-2"></span>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Status</mat-label>
+        <mat-select placeholder="Selecione o status" [(ngModel)]="consultaFilaFiltro.status">
+            <mat-option *ngFor="let s of statuses" [value]="s.name">
+                {{s.label}} 
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <br />
+
+    <button mat-raised-button color="primary" (click)="filtra()">
+        <fa-icon [icon]="icons.faFilter"></fa-icon>
+        Filtrar
+    </button>
+
+</div>
+
+
+<div class="table-responsive mt-3" style="height: 20em">    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Status</th>
+                <th>Data de atendimento</th>                
+                <th>Turno</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of consultas">
+                <td>{{c.pacienteNome}}</td>                
+                <td>{{c.statusLabel}}</td>
+                <td>{{c.dataAtendimento | date: 'dd/MM/yyyy'}}</td>
+                <td>{{c.turnoLabel}}</td>
+                <td>
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'consulta-detalhes/'+c.id }}]">
+                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                        detalhes
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

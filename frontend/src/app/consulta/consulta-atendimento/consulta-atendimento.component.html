@@ -1,0 +1,64 @@
+<p>consulta-atendimento works!</p>
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Informações</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Paciente:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{consulta.pacienteNome}}
+                    </div>
+                </div>    
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Especialidade:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{consulta.especialidadeNome}}
+                    </div>
+                </div>                               
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Turno:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{consulta.turnoLabel}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 text-secondary">
+                        Retorno:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{consulta.retorno == true ? 'Sim' : 'Não' }}
+                    </div>
+                </div>                                                   
+                <div class="col-sm-12 my-3">
+                    <div class="fs-6 text-secondary">
+                        Observações:
+                    </div>
+                    <div class="fs-5 text-black">
+                        {{consulta.observacoes}}
+                    </div>
+                </div>                               
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

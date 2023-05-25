@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ConsultaFilaFiltroRequest {
+public class ConsultaResumidaFiltroRequest {
 
 	private String data;
 	

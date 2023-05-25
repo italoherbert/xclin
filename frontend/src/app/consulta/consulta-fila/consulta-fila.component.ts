@@ -158,6 +158,9 @@ export class ConsultaFilaComponent {
 
           localStorage.setItem( 'fila-filtro', JSON.stringify( filaFiltro ) );
 
+          if ( this.consultas.length == 0 )
+            this.infoMsg = "Nenhuma consulta encontrada.";
+
           this.showSpinner = false;
         },
         error: (erro) => {

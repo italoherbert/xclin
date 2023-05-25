@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  username : string = '';
+  perfil : string = '';
+
+  constructor() {}
+
+  ngOnInit() {
+    this.username = ''+localStorage.getItem( 'username' );
+    this.perfil = ''+localStorage.getItem( 'perfil' );
+  }
+
 }

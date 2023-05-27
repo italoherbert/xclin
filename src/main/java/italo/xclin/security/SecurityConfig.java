@@ -17,7 +17,7 @@ public class SecurityConfig {
 
 	private final String[] PUBLIC = {
 		"/api/login", "/api/localidade/**",
-		"/v3/api-docs**/**", "/swagger-ui**/**"
+		"/v3/api-docs**/**", "/swagger-ui**/**", "/*"
 	};
 	
 	@Autowired

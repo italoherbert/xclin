@@ -12,6 +12,7 @@ import italo.xclin.logica.Converter;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
 import italo.xclin.model.request.filtro.ConsultaListaFilaRequest;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
+import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 
 @Component
@@ -42,6 +43,11 @@ public class ConsultaValidator {
 			throw new ValidationException( Erro.STATUS_OBRIGATORIO );
 	}
 		
+	public void validaAlterObservacoes( ConsultaObservacoesSaveRequest request ) throws ValidationException {
+		if ( request.getObservacoes() == null )
+			throw new ValidationException( Erro.OBSERVACOES_NULL );
+	}
+	
 	public void validaFiltro( ConsultaFiltroRequest request ) throws ValidationException {
 		if ( request.getDataInicio() == null )
 			throw new ValidationException( Erro.DATA_INI_OBRIGATORIA );

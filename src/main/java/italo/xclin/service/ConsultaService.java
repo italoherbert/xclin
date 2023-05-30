@@ -25,6 +25,7 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
 import italo.xclin.model.request.filtro.ConsultaListaFilaRequest;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
+import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.response.ConsultaIniciadaResponse;
@@ -193,6 +194,18 @@ public class ConsultaService {
 		
 		Consulta consulta = consultaOp.get();
 		consulta.setStatus( ConsultaStatus.INICIADA );
+		
+		consultaRepository.save( consulta );
+	}
+	
+	public void salvaObservacoes( Long consultaId, ConsultaObservacoesSaveRequest request ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();
+		consulta.setObservacoes( request.getObservacoes() );
+		consulta.setDataObservacao( new Date() ); 
 		
 		consultaRepository.save( consulta );
 	}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { faCirclePause, faCirclePlay } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePause, faCirclePlay, faClockRotateLeft, faSave } from '@fortawesome/free-solid-svg-icons';
 import { Consulta } from 'src/app/bean/consulta/consulta';
+import { ConsultaObservacoesAlter } from 'src/app/bean/consulta/consulta-observacoes-alter';
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
@@ -14,11 +15,16 @@ export class ConsultaAtendimentoComponent {
   infoMsg : any = null;
   erroMsg : any = null;
 
+  obsInfoMsg : any = null;
+  obsErroMsg : any = null;
+
   showSpinner : boolean = false;
 
   icons : any = {
     faCirclePlay : faCirclePlay,
-    faCirclePause : faCirclePause
+    faCirclePause : faCirclePause,
+    faSave : faSave,
+    faClockRotateLeft : faClockRotateLeft
   }
 
   consulta : Consulta = {
@@ -38,6 +44,10 @@ export class ConsultaAtendimentoComponent {
     especialidadeNome: '',
     statusLabel: '',
     turnoLabel: ''
+  }
+
+  observacoesSave : ConsultaObservacoesAlter = {
+    observacoes : ''
   }
 
   clinicaId : number = 0;
@@ -125,6 +135,28 @@ export class ConsultaAtendimentoComponent {
         this.showSpinner = false;
       }
     });
+  }
+
+  salvaObservacao() {
+    this.obsInfoMsg = null;
+    this.obsErroMsg = null;
+
+    this.showSpinner = true;
+
+    this.consultaService.alteraObservacoes( this.consulta.id, this.observacoesSave ).subscribe({
+      next: (resp) => {
+        this.obsInfoMsg = "Observações alteradas com sucesso.";
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.obsErroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  carregaHistorico() {
+
   }
 
 }

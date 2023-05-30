@@ -6,6 +6,7 @@ import { ConsultaRemarcarSave } from '../bean/consulta/consulta-remarcar-save';
 import { ConsultaFiltro } from '../bean/consulta/consulta-filtro';
 import { ConsultaFilaFiltro } from '../bean/consulta/consulta-fila-filtro';
 import { ConsultaAlter } from '../bean/consulta/consulta-alter';
+import { ConsultaObservacoesAlter } from '../bean/consulta/consulta-observacoes-alter';
 
 @Injectable({
   providedIn: 'root'
@@ -51,9 +52,18 @@ export class ConsultaService {
 
   registraPagamentoConsulta( consultaId : any ): Observable<any> {
     let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
     return this.http.patch( '/api/consulta/paga/'+consultaId, {}, { headers: headers, withCredentials: true } );
+  }
+
+  alteraObservacoes( consultaId : any, observacoesSave : ConsultaObservacoesAlter ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.patch( '/api/consulta/altera/observacoes/'+consultaId, observacoesSave, { headers: headers, withCredentials: true } );
   }
 
   iniciaConsulta( clinicaId : any, profissionalId : any, consultaId : any, turno : any ): Observable<any> {

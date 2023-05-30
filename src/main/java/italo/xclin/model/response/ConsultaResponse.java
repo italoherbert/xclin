@@ -32,6 +32,8 @@ public class ConsultaResponse {
 	private String dataAtendimento;
 	
 	private String dataFinalizacao;
+	
+	private String dataObservacao;
 				
 	private Long pacienteId;
 	

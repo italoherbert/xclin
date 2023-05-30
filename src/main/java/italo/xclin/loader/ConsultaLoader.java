@@ -68,6 +68,7 @@ public class ConsultaLoader {
 		c.setPaga( false );
 		c.setStatus( ConsultaStatus.REGISTRADA ); 
 		c.setObservacoes( request.getObservacoes() );
+		c.setDataObservacao( new Date() ); 
 	}
 	
 	public void loadBean( Consulta c, ConsultaAlterSaveRequest request ) throws LoaderException {
@@ -76,6 +77,7 @@ public class ConsultaLoader {
 		c.setPaga( request.isPaga() );
 		c.setStatus( consultaStatusEnumManager.getEnum( request.getStatus() ) ); 
 		c.setObservacoes( request.getObservacoes() );
+		c.setDataObservacao( new Date() ); 
 	}
 	
 	public void loadResponse( ConsultaResponse resp, Consulta c ) {
@@ -95,6 +97,7 @@ public class ConsultaLoader {
 		
 		resp.setDataAgendamento( converter.dataHoraToString( c.getDataAgendamento() ) );
 		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAtendimento() ) ) );
+		resp.setDataObservacao( converter.dataHoraToString( c.getDataObservacao() ) ); 
 		
 		if ( c.getDataFinalizacao() != null )
 			resp.setDataFinalizacao( converter.dataHoraToString( c.getDataFinalizacao() ) );

@@ -22,6 +22,7 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
 import italo.xclin.model.request.filtro.ConsultaListaFilaRequest;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
+import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.response.ConsultaIniciadaResponse;
@@ -118,6 +119,20 @@ public class ConsultaController {
 		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
 		consultaService.finalizaConsulta( consultaId );
+		return ResponseEntity.ok().build();		
+	}
+	
+	@PreAuthorize("hasAuthority('consultaWRITE')")
+	@PatchMapping("/altera/observacoes/{consultaId}")
+	public ResponseEntity<Object> salvaObservacoes(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId,
+			@RequestBody ConsultaObservacoesSaveRequest request ) throws SistemaException {
+				
+		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
+		
+		consultaValidator.validaAlterObservacoes( request );
+		consultaService.salvaObservacoes( consultaId, request );
 		return ResponseEntity.ok().build();		
 	}
 	

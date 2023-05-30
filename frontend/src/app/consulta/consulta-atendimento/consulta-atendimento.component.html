@@ -78,14 +78,36 @@
                     </div>
                 </div>                   
                 <div class="col-sm-12 my-3">
-                    <div class="fs-6 text-secondary">
-                        Observações:
+                    <div *ngIf="obsInfoMsg !== null" class="alert alert-success mb-2">
+                        {{obsInfoMsg}}
+                    </div>
+                    <div *ngIf="obsErroMsg !== null" class="alert alert-danger mb-2">
+                        {{obsErroMsg}}
                     </div>
                     <div class="fs-5 text-black">
-                        {{consulta.observacoes}}
+                        <mat-form-field appearance="fill" class="w-100">
+                            <mat-label>Observações</mat-label>
+                            <textarea matInput rows="6" placeholder="Digite as observações" [(ngModel)]="consulta.observacoes"></textarea>
+                            <button mat-raised-button color="primary" (click)="salvaObservacao()">
+                                <fa-icon [icon]="icons.faSave"></fa-icon>
+                                Salvar
+                            </button>                        
+                        </mat-form-field>
                     </div>
                 </div>                               
             </div>
         </mat-card-content>
     </mat-card>
+    <div class="d-flex justify-content-center">
+        <button mat-raised-button color="primary" (click)="carregaHistorico()">
+            <fa-icon [icon]="icons.faClockRotateLeft"></fa-icon>
+            Histórico de consultas
+        </button>
+    </div>    
+    <br />
+
+    <div class="bg-light rounded-1 border-dark" *ngIf="let obs of observacoes">
+        
+    </div>
+
 </div>

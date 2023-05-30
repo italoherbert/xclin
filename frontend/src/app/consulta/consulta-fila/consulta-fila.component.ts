@@ -6,7 +6,6 @@ import { ProfissionalService } from 'src/app/service/profissional.service';
 import { SistemaService } from 'src/app/service/sistema.service';
 
 import * as moment from 'moment';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-consulta-fila',

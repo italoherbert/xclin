@@ -33,7 +33,7 @@ public class ConsultaResponse {
 	
 	private String dataFinalizacao;
 	
-	private String dataObservacao;
+	private String dataSaveObservacoes;
 				
 	private Long pacienteId;
 	
@@ -42,6 +42,10 @@ public class ConsultaResponse {
 	private Long clinicaId;
 	
 	private String clinicaNome;
+	
+	private Long profissionalId;
+	
+	private String profissionalNome;
 	
 	private Long especialidadeId;
 	

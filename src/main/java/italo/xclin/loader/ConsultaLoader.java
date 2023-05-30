@@ -18,9 +18,11 @@ import italo.xclin.model.Especialidade;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
+import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.response.ConsultaIniciadaResponse;
+import italo.xclin.model.response.ConsultaObservacoesResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.load.edit.ConsultaAlterLoadResponse;
@@ -68,7 +70,7 @@ public class ConsultaLoader {
 		c.setPaga( false );
 		c.setStatus( ConsultaStatus.REGISTRADA ); 
 		c.setObservacoes( request.getObservacoes() );
-		c.setDataObservacao( new Date() ); 
+		c.setDataSaveObservacoes( new Date() ); 
 	}
 	
 	public void loadBean( Consulta c, ConsultaAlterSaveRequest request ) throws LoaderException {
@@ -77,7 +79,12 @@ public class ConsultaLoader {
 		c.setPaga( request.isPaga() );
 		c.setStatus( consultaStatusEnumManager.getEnum( request.getStatus() ) ); 
 		c.setObservacoes( request.getObservacoes() );
-		c.setDataObservacao( new Date() ); 
+		c.setDataSaveObservacoes( new Date() ); 
+	}
+	
+	public void loadBean( Consulta c, ConsultaObservacoesSaveRequest request ) {
+		c.setObservacoes( request.getObservacoes() );
+		c.setDataSaveObservacoes( new Date() ); 
 	}
 	
 	public void loadResponse( ConsultaResponse resp, Consulta c ) {
@@ -97,7 +104,7 @@ public class ConsultaLoader {
 		
 		resp.setDataAgendamento( converter.dataHoraToString( c.getDataAgendamento() ) );
 		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAtendimento() ) ) );
-		resp.setDataObservacao( converter.dataHoraToString( c.getDataObservacao() ) ); 
+		resp.setDataSaveObservacoes( converter.dataHoraToString( c.getDataSaveObservacoes() ) ); 
 		
 		if ( c.getDataFinalizacao() != null )
 			resp.setDataFinalizacao( converter.dataHoraToString( c.getDataFinalizacao() ) );
@@ -156,12 +163,14 @@ public class ConsultaLoader {
 		return consulta;
 	}
 	
-	public ConsultaResponse novoResponse( Paciente p, Clinica c, Especialidade e ) {
+	public ConsultaResponse novoResponse( Clinica c, Profissional pr, Paciente pa, Especialidade e ) {
 		ConsultaResponse resp = new ConsultaResponse();
-		resp.setPacienteId( p.getId() );
-		resp.setPacienteNome( p.getNome() ); 
+		resp.setPacienteId( pa.getId() );
+		resp.setPacienteNome( pa.getNome() ); 
 		resp.setClinicaId( c.getId() );
 		resp.setClinicaNome( c.getNome() ); 
+		resp.setProfissionalId( pr.getId() );
+		resp.setProfissionalNome( pr.getNome() );
 		resp.setEspecialidadeId( e.getId() );
 		resp.setEspecialidadeNome( e.getNome() ); 
 		return resp;
@@ -223,9 +232,11 @@ public class ConsultaLoader {
 		return resp;
 	}
 	
-	public ConsultaIniciadaResponse novoIniciadaResponse( ConsultaResponse cresp ) {
+	public ConsultaIniciadaResponse novoIniciadaResponse( 
+			ConsultaResponse cresp, List<ConsultaObservacoesResponse> historicoObservacoes ) {
 		ConsultaIniciadaResponse resp = new ConsultaIniciadaResponse();
 		resp.setConsulta( cresp );
+		resp.setHistoricoObservacoes( historicoObservacoes );
 		resp.setConsultaIniciada( true );
 		return resp;
 	}
@@ -233,6 +244,13 @@ public class ConsultaLoader {
 	public ConsultaIniciadaResponse novoNenhumaIniciadaResponse() {
 		ConsultaIniciadaResponse resp = new ConsultaIniciadaResponse();
 		resp.setConsultaIniciada( false ); 
+		return resp;
+	}
+	
+	public ConsultaObservacoesResponse novoObservacoesResponse( Consulta c ) {
+		ConsultaObservacoesResponse resp = new ConsultaObservacoesResponse();
+		resp.setObservacoes( c.getObservacoes() );
+		resp.setDataSaveObservacoes( converter.dataHoraToString( c.getDataSaveObservacoes() ) ); 
 		return resp;
 	}
 	

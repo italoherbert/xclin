@@ -41,6 +41,8 @@ export class ConsultaDetalhesComponent {
     status: '',
     pacienteId: 0,
     pacienteNome: '',
+    profissionalId: 0,
+    profissionalNome: '',
     clinicaId: 0,
     clinicaNome: '',
     especialidadeId: 0,

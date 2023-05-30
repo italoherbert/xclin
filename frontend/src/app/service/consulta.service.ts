@@ -107,12 +107,12 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/'+consultaId, { headers: headers, withCredentials: true } );
   }
 
-  getConsultaIniciada( clinicaId : any, turno : any ): Observable<any> {
+  getConsultaIniciada( clinicaId : any, turno : any, histObsPagaSize : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/consulta/get/iniciada/'+clinicaId+'/'+turno, { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/consulta/get/iniciada/'+clinicaId+'/'+turno+'/'+histObsPagaSize, { headers: headers, withCredentials: true } );
   
   }
 

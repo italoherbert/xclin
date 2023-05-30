@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { faCirclePause, faCirclePlay, faClockRotateLeft, faSave } from '@fortawesome/free-solid-svg-icons';
 import { Consulta } from 'src/app/bean/consulta/consulta';
+import { ConsultaObservacoes } from 'src/app/bean/consulta/consulta-observacoes';
 import { ConsultaObservacoesAlter } from 'src/app/bean/consulta/consulta-observacoes-alter';
 import { ConsultaService } from 'src/app/service/consulta.service';
 import { SistemaService } from 'src/app/service/sistema.service';
@@ -38,6 +39,8 @@ export class ConsultaAtendimentoComponent {
     status: '',
     pacienteId: 0,
     pacienteNome: '',
+    profissionalId: 0,
+    profissionalNome: '',
     clinicaId: 0,
     clinicaNome: '',
     especialidadeId: 0,
@@ -49,6 +52,11 @@ export class ConsultaAtendimentoComponent {
   observacoesSave : ConsultaObservacoesAlter = {
     observacoes : ''
   }
+
+  historicoObservacoes : ConsultaObservacoes[] = [
+    { observacoes: '', dataSaveObservacoes: '' }
+  ];
+  historicoObservacoesPageSize : number = 10;
 
   clinicaId : number = 0;
   turno: string = '';
@@ -114,10 +122,15 @@ export class ConsultaAtendimentoComponent {
       return;
     }
 
-    this.consultaService.getConsultaIniciada( this.clinicaId, this.turno ).subscribe({
+    this.consultaService.getConsultaIniciada( 
+          this.clinicaId, 
+          this.turno, 
+          this.historicoObservacoesPageSize ).subscribe({
+
       next: (resp) => {
         if ( resp.consultaIniciada == true ) {
           this.consulta = resp.consulta;
+          this.historicoObservacoes = resp.historicoObservacoes;
         } else {
           this.infoMsg = "Nenhuma consulta iniciada por enquanto."
         }
@@ -153,10 +166,6 @@ export class ConsultaAtendimentoComponent {
         this.showSpinner = false;
       }
     });
-  }
-
-  carregaHistorico() {
-
   }
 
 }

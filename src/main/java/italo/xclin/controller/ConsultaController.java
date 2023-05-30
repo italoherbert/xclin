@@ -169,21 +169,23 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@GetMapping("/get/iniciada/{clinicaId}/{turno}")
+	@GetMapping("/get/iniciada/{clinicaId}/{turno}/{histObsPageSize}")
 	public ResponseEntity<Object> getIniciada(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
-			@PathVariable String turno ) throws SistemaException {
+			@PathVariable String turno,
+			@PathVariable int histObsPageSize ) throws SistemaException {
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
-		ConsultaIniciadaResponse resp = consultaService.getIniciada( logadoUID, clinicaId, turno );
+		ConsultaIniciadaResponse resp = 
+				consultaService.getIniciada( logadoUID, clinicaId, turno, histObsPageSize );
 		return ResponseEntity.ok( resp );	
 	}
-	
+		
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/reg/{profissionalId}")
 	public ResponseEntity<Object> getRegLoad( 

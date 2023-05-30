@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import italo.xclin.enums.ConsultaStatusEnumManager;
@@ -29,6 +30,7 @@ import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaRemarcarSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.response.ConsultaIniciadaResponse;
+import italo.xclin.model.response.ConsultaObservacoesResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ListaResponse;
@@ -204,14 +206,13 @@ public class ConsultaService {
 			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
 		
 		Consulta consulta = consultaOp.get();
-		consulta.setObservacoes( request.getObservacoes() );
-		consulta.setDataObservacao( new Date() ); 
+		consultaLoader.loadBean( consulta, request ); 
 		
 		consultaRepository.save( consulta );
 	}
 	
 	public ConsultaIniciadaResponse getIniciada( 
-			Long logadoUID, Long clinicaId, String turnoStr ) throws ServiceException {
+			Long logadoUID, Long clinicaId, String turnoStr, int histObsPageSize ) throws ServiceException {
 		
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
@@ -225,21 +226,41 @@ public class ConsultaService {
 		
 		Optional<Consulta> consultaOp = consultaRepository.getIniciada( clinicaId, profissionalId, data, turno );
 		
-		if ( consultaOp.isPresent() ) {
+		if ( consultaOp.isPresent() ) {						
 			Consulta consulta = consultaOp.get();
-			Paciente p = consulta.getPaciente();
 			Clinica c = consulta.getClinica();
+			Profissional pr = consulta.getProfissional();
+			Paciente pa = consulta.getPaciente();
 			Especialidade e = consulta.getEspecialidade();
 						
-			ConsultaResponse cresp = consultaLoader.novoResponse( p, c, e );
+			ConsultaResponse cresp = consultaLoader.novoResponse( c, pr, pa, e );
 			consultaLoader.loadResponse( cresp, consulta );
 			
-			return consultaLoader.novoIniciadaResponse( cresp );
+			Long pacienteId = pa.getId();
+			
+			List<ConsultaObservacoesResponse> historicoObservacoes = this.getUltimasObservacoes( 
+					clinicaId, profissionalId, pacienteId, histObsPageSize );			
+			
+			return consultaLoader.novoIniciadaResponse( cresp, historicoObservacoes );
 		}
 		
 		return consultaLoader.novoNenhumaIniciadaResponse();		
 	}
 	
+	private List<ConsultaObservacoesResponse> getUltimasObservacoes( 
+			Long clinicaId, Long profissionalId, Long pacienteId, int pageSize ) throws ServiceException {
+		
+		List<Consulta> consultas = consultaRepository.getUltimasObservacoes(
+				clinicaId, profissionalId, pacienteId, PageRequest.of( 0, pageSize ) );
+		
+		List<ConsultaObservacoesResponse> lista = new ArrayList<>();
+		for( Consulta c : consultas ) {
+			ConsultaObservacoesResponse resp = consultaLoader.novoObservacoesResponse( c );
+			lista.add( resp );
+		}
+		return lista;
+	}
+		
 	public List<ConsultaResponse> filtra( Long clinicaId, ConsultaFiltroRequest request ) throws ServiceException {
 		Date dataIni = converter.stringToDataNEx( request.getDataInicio() );
 		Date dataFim = converter.stringToDataNEx( request.getDataFim() );
@@ -259,12 +280,14 @@ public class ConsultaService {
 				dataIni, dataFim );
 		
 		List<ConsultaResponse> lista = new ArrayList<>();
-		for( Consulta c : consultas ) {
-			Paciente p = c.getPaciente();
-			Clinica cl = c.getClinica();
-			Especialidade e = c.getEspecialidade();
-			ConsultaResponse resp = consultaLoader.novoResponse( p, cl, e );
-			consultaLoader.loadResponse( resp, c );
+		for( Consulta consulta : consultas ) {
+			Clinica c = consulta.getClinica();
+			Profissional pr = consulta.getProfissional();
+			Paciente pa = consulta.getPaciente();
+			Especialidade e = consulta.getEspecialidade();
+						
+			ConsultaResponse resp = consultaLoader.novoResponse( c, pr, pa, e );
+			consultaLoader.loadResponse( resp, consulta );
 			
 			lista.add( resp );
 		}
@@ -284,12 +307,14 @@ public class ConsultaService {
 				clinicaId, profissionalId, data, turno, status );
 		
 		List<ConsultaResponse> lista = new ArrayList<>();
-		for( Consulta c : fila ) {
-			Paciente p = c.getPaciente();
-			Clinica cl = c.getClinica();
-			Especialidade e = c.getEspecialidade();
-			ConsultaResponse resp = consultaLoader.novoResponse( p, cl, e );
-			consultaLoader.loadResponse( resp, c );
+		for( Consulta consulta : fila ) {
+			Clinica c = consulta.getClinica();
+			Profissional pr = consulta.getProfissional();
+			Paciente pa = consulta.getPaciente();
+			Especialidade e = consulta.getEspecialidade();
+						
+			ConsultaResponse resp = consultaLoader.novoResponse( c, pr, pa, e );
+			consultaLoader.loadResponse( resp, consulta );
 			
 			lista.add( resp );
 		}
@@ -302,11 +327,12 @@ public class ConsultaService {
 			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
 		
 		Consulta consulta = consultaOp.get();
-		Clinica clinica = consulta.getClinica();
-		Paciente paciente = consulta.getPaciente();
-		Especialidade especialidade = consulta.getEspecialidade();
-		
-		ConsultaResponse resp = consultaLoader.novoResponse( paciente, clinica, especialidade );
+		Clinica c = consulta.getClinica();
+		Profissional pr = consulta.getProfissional();
+		Paciente pa = consulta.getPaciente();
+		Especialidade e = consulta.getEspecialidade();
+					
+		ConsultaResponse resp = consultaLoader.novoResponse( c, pr, pa, e );
 		consultaLoader.loadResponse( resp, consulta );
 		
 		return resp;
@@ -346,11 +372,12 @@ public class ConsultaService {
 			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
 		
 		Consulta consulta = consultaOp.get();
-		Paciente paciente = consulta.getPaciente();
 		Clinica clinica = consulta.getClinica();
+		Profissional profissional = consulta.getProfissional();
+		Paciente paciente = consulta.getPaciente();
 		Especialidade especialidade = consulta.getEspecialidade();
 		
-		ConsultaResponse cresp = consultaLoader.novoResponse( paciente, clinica, especialidade );
+		ConsultaResponse cresp = consultaLoader.novoResponse( clinica, profissional, paciente, especialidade );
 		consultaLoader.loadResponse( cresp, consulta );
 		
 		ConsultaAlterLoadResponse resp = consultaLoader.novoAlterResponse( cresp );

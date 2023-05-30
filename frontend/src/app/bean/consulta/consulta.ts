@@ -10,6 +10,8 @@ export interface Consulta {
     turno : string;
     pacienteId : number;
     pacienteNome : string;
+    profissionalId : number;
+    profissionalNome : string;
     clinicaId : number;
     clinicaNome : string; 
     especialidadeId : number;

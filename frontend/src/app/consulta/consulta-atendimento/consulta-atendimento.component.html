@@ -97,17 +97,17 @@
                 </div>                               
             </div>
         </mat-card-content>
-    </mat-card>
-    <div class="d-flex justify-content-center">
-        <button mat-raised-button color="primary" (click)="carregaHistorico()">
-            <fa-icon [icon]="icons.faClockRotateLeft"></fa-icon>
-            Histórico de consultas
-        </button>
-    </div>    
-    <br />
+    </mat-card>               
+</div>
 
-    <div class="bg-light rounded-1 border-dark" *ngIf="let obs of observacoes">
-        
+<br />
+<h1>Histórico de observações recentes</h1>
+
+<div class="rounded-3 my-2 p-1" style="background-color: #55A" *ngFor="let obs of historicoObservacoes">
+    <div class="text-white p-1">
+        {{obs.dataSaveObservacoes | date: 'dd/MM/YYYY HH:mm:ss' }}
     </div>
-
+    <div class="text-secondary bg-white p-3 rounded-3">
+        {{obs.observacoes}}
+    </div>
 </div>

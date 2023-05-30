@@ -41,7 +41,7 @@ public class Consulta {
 	private Date dataFinalizacao;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataObservacao;
+	private Date dataSaveObservacoes;
 		
 	@Enumerated(EnumType.STRING)
 	private ConsultaStatus status;

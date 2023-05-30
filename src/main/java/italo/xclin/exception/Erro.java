@@ -7,6 +7,7 @@ public interface Erro {
 	public final static String PROFISSIONAL_ACESSO_NAO_AUTORIZADO = "Seu usuário não é o profissional com permissão para realizar essa função.";
 	
 	public final static String NAO_PODE_INICIAR_CONSULTA = "Você não pode iniciar a consulta por este formulário.";
+	public final static String USUARIO_NAO_DELETADO_POR_PERFIL = "Não é possível deletar um usuário com perfil diferente de RAIZ e ADMIN por aqui.";
 	
 	public final static String USERNAME_OBRIGATORIO = "O username é um campo de preenchimento obrigatório.";
 	public final static String SENHA_OBRIGATORIA = "A senha é um campo de preenchimento obrigatório.";

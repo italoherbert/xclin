@@ -136,6 +136,10 @@ public class UsuarioService {
 		if ( !uop.isPresent() )
 			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );
 		
+		Usuario u = uop.get();
+		if ( u.getPerfil() != UsuarioPerfil.RAIZ && u.getPerfil() != UsuarioPerfil.ADMIN )
+			throw new ServiceException( Erro.USUARIO_NAO_DELETADO_POR_PERFIL );
+		
 		usuarioRepository.deleteById( id );
 	}
 		

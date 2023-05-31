@@ -196,6 +196,7 @@ export class ConsultaFilaComponent {
     this.consultaService.iniciaConsulta( this.clinicaId, this.profissionalId, consultaId, turno ).subscribe({
       next: (resp) => {
         this.showSpinner = false;        
+        this.consultaFilaFiltro.status = 'INICIADA';
         this.filtra();
       },
       error: (erro) => {

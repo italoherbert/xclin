@@ -2,8 +2,8 @@
 -- xclinQL database dump
 --
 
--- Dumped from database version 15.2
--- Dumped by pg_dump version 15.2
+-- Dumped from database version 12.15 (Ubuntu 12.15-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.15 (Ubuntu 12.15-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,13 +23,9 @@ SET row_security = off;
 CREATE FUNCTION public.lower_unaccent(character varying) RETURNS character varying
     LANGUAGE plpgsql
     AS $_$
-
 begin
-
     return translate( lower($1), 'Ã¢Ã£Ã¡Ã ÃªÃ©Ã¨Ã­Ã¬Ã´ÃµÃ³Ã²ÃºÃ¹Ã¼Ã§', 'aaaaeeeiioooouuuc' );
-
 end;
-
 $_$;
 
 
@@ -821,7 +817,8 @@ COPY public.clinica (id, email, nome, telefone, usuario_id, endereco_id) FROM st
 --
 
 COPY public.consulta (id, paga, retorno, status, valor, paciente_id, profissional_id, turno, clinica_id, observacoes, data_agendamento, data_atendimento, data_finalizacao, especialidade_id) FROM stdin;
-17	f	f	REGISTRADA	450	2	5	MANHA	2	aaa	2023-05-27 12:11:00.052	2023-05-27	\N	1
+17	f	f	REGISTRADA	450	2	5	MANHA	2	3000abc	2023-05-27 16:09:00.324	2023-05-27	\N	1
+18	f	f	REGISTRADA	450	3	5	MANHA	2	Xxxxx	2023-05-28 18:02:48.921	2023-05-27	\N	1
 \.
 
 
@@ -830,7 +827,6 @@ COPY public.consulta (id, paga, retorno, status, valor, paciente_id, profissiona
 --
 
 COPY public.diretor (id, nome, usuario_id) FROM stdin;
-4	diretor	10
 \.
 
 
@@ -839,7 +835,6 @@ COPY public.diretor (id, nome, usuario_id) FROM stdin;
 --
 
 COPY public.diretor_clinica_vinculo (id, clinica_id, diretor_id) FROM stdin;
-5	2	4
 \.
 
 
@@ -884,7 +879,7 @@ COPY public.paciente (id, cpf, data_nascimento, data_registro, email, estado_civ
 --
 
 COPY public.profissional (id, funcao, nome, valor_consulta, usuario_id) FROM stdin;
-5	0	joao	0	12
+5	0	Carlos Alberto Teixeira	0	12
 \.
 
 
@@ -942,11 +937,9 @@ COPY public.recurso (id, nome) FROM stdin;
 --
 
 COPY public.usuario (id, perfil, senha, username, criador_id) FROM stdin;
-2	ADMIN	59f62a0320ea304cbec2498764c5c6742bfcabf1b591e26a3bea6bfcca3e358e	admin	\N
-10	DIRETOR	9ca2623b06e4192ea3d41f4c709a5fbd98fcddb12a59ac11fe3c44667667e14a	diretor	1
-12	PROFISSIONAL	ed2befb11499489e2570cb053f774b8ed93e89eddab3f78867a2a5f32c58845e	joao	1
-13	RECEPCIONISTA	94aec9fbed989ece189a7e172c9cf41669050495152bc4c1dbf2a38d7fd85627	maria	1
-1	RAIZ	2a28015f54317b64ee6616a0069a0808ae0579eaf91856ecd6c92132a1a59e6f	raiz	\N
+12	PROFISSIONAL	c56132f2aa181259dfbd2f1acab8157dd926466227758f6ee6c430631a0692b6	profissional	1
+13	RECEPCIONISTA	0f514e517827dd16a54c85c3ffbaa1cec8dee097558d2b6750a6c986ed4baa00	maria	1
+1	RAIZ	e0c4dddd77efedd2cdd0c3e2b55b79f6410586bdfc1ca539c2a36686b10b3c32	raiz	\N
 \.
 
 
@@ -969,7 +962,6 @@ COPY public.usuario_grupo (id, nome) FROM stdin;
 
 COPY public.usuario_grupo_vinculo (id, grupo_id, usuario_id) FROM stdin;
 1	1	1
-2	2	2
 3	3	1
 4	4	1
 5	5	13
@@ -996,7 +988,7 @@ SELECT pg_catalog.setval('public.clinica_id_seq', 4, true);
 -- Name: consulta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.consulta_id_seq', 17, true);
+SELECT pg_catalog.setval('public.consulta_id_seq', 18, true);
 
 
 --

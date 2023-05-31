@@ -15,5 +15,7 @@ public class LoginResponse {
 	private String username; 
 	
 	private UsuarioPerfil perfil;
+	
+	private String perfilLabel;
 		
 }

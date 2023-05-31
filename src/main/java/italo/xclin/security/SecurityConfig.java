@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 	private final String[] PUBLIC = {
-		"/*", "/api/login", "/api/localidade/**", "/assets/**"
+		"/*", "/api/login", "/api/localidade/**", "/assets/**", 
 		//"/v3/api-docs**/**", "/swagger-ui**/**"
 	};
 	

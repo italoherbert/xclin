@@ -8,13 +8,13 @@ import { Component } from '@angular/core';
 export class HomeComponent {
 
   username : string = '';
-  perfil : string = '';
+  perfilLabel : string = '';
 
   constructor() {}
 
   ngOnInit() {
     this.username = ''+localStorage.getItem( 'username' );
-    this.perfil = ''+localStorage.getItem( 'perfil' );
+    this.perfilLabel = ''+localStorage.getItem( 'perfil-label' );
   }
 
 }

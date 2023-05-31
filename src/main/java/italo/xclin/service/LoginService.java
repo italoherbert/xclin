@@ -77,7 +77,8 @@ public class LoginService {
 		LoginResponse resp = new LoginResponse();
 		resp.setToken( jwtLogica.geraToken( username, roles, perfil, u.getId(), clinicasIDs ) );
 		resp.setUsername( username );
-		resp.setPerfil( u.getPerfil() ); 
+		resp.setPerfil( u.getPerfil() );
+		resp.setPerfilLabel( u.getPerfil().label() ); 
 		return resp;		
 	}
 	

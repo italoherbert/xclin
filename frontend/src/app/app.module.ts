@@ -90,6 +90,7 @@ import { ProfissionalContaEspecialidadesComponent } from './usuario-conta/profis
 import { ProfissionalContaEspecialidadeSaveComponent } from './usuario-conta/profissional/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
 import { RealInputDirective } from './directive/real-input.directive';
 import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/consulta-atendimento.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -197,7 +198,7 @@ import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/co
     MatNativeDateModule,
     MatAutocompleteModule,
     MatStepperModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue:"pt-br"}

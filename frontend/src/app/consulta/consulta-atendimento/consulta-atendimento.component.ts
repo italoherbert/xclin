@@ -57,6 +57,7 @@ export class ConsultaAtendimentoComponent {
     { observacoes: '', dataSaveObservacoes: '' }
   ];
   historicoObservacoesPageSize : number = 10;
+  quantPacientesNaFila: number = 0;
 
   clinicaId : number = 0;
   turno: string = '';
@@ -91,6 +92,8 @@ export class ConsultaAtendimentoComponent {
         if ( this.turnos.length > 0 )
           this.turno = this.turnos[ 0 ].name;
         
+        this.carregaConsultaIniciada();
+
         this.showSpinner = false;               
       },
       error: (erro) => {
@@ -100,23 +103,7 @@ export class ConsultaAtendimentoComponent {
     });
   }
 
-  iniciaCarregamento() {
-    if ( !this.carregarAtivado ) {
-      this.carregarAtivado = true;
-      this.carregaConsultaIniciada();
-    }
-  }
-
-  paraCarregamento() {
-    this.carregarAtivado = false;
-  }
-
   carregaConsultaIniciada() {
-    this.infoMsg = null;
-    this.erroMsg = null;
-
-    this.showSpinner = true;
-
     if ( this.turno == '' ) {
       this.erroMsg = 'Selecione o turno.';
       return;
@@ -128,24 +115,30 @@ export class ConsultaAtendimentoComponent {
           this.historicoObservacoesPageSize ).subscribe({
 
       next: (resp) => {
+        this.quantPacientesNaFila = resp.quantPacientesNaFila;
+
+        this.erroMsg = null;
+
         if ( resp.consultaIniciada == true ) {
-          this.consulta = resp.consulta;
           this.historicoObservacoes = resp.historicoObservacoes;
+
+          if ( resp.consulta.id !== this.consulta.id ) {
+            this.consulta = resp.consulta;
+            this.observacoesSave.observacoes = resp.consulta.observacoes;
+          }
+
+          this.infoMsg = null;
         } else {
           this.infoMsg = "Nenhuma consulta iniciada por enquanto."
         }
-        
-        this.showSpinner = false;   
-        
-        if ( this.carregarAtivado === true ) {
-          setTimeout( () => {
-            this.carregaConsultaIniciada();
-          }, 5000 );
-        }
+                
+        setTimeout( () => {
+          this.carregaConsultaIniciada();
+        }, 5000 );        
       },
       error: (erro) => {
+        this.infoMsg = null;
         this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
       }
     });
   }

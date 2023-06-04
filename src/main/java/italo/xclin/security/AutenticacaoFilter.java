@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
@@ -59,6 +60,16 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 				
 			} catch ( ExpiredJwtException e ) {
 				String resp = "{ \"mensagem\" : \"Token expirado, por favor faça login novamente.\" }";
+				response.setContentType( "application/json" );
+				response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
+				
+				PrintWriter writer = new PrintWriter( response.getOutputStream() );
+				writer.print( resp ); 
+				writer.flush();		
+				
+				return;
+			} catch ( MalformedJwtException e ) {
+				String resp = "{ \"mensagem\" : \"Token inválido.\" }";
 				response.setContentType( "application/json" );
 				response.setStatus( HttpServletResponse.SC_BAD_REQUEST );
 				

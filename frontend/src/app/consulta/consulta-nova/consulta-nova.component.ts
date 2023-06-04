@@ -46,22 +46,8 @@ export class ConsultaNovaComponent {
     if ( this.profissionalId === 0 ) {
       this.erroMsg = "Selecione o profissional.";      
     } else {
-      this.showSpinner = true;
-      
-      this.consultaService.getQuantidadesAgrupadas( 
-              this.clinicaId, this.profissionalId, this.mes, this.ano ).subscribe( {
-        next: (resp ) => {
-          this.quantidadesAgrupadasPorDia = resp;
-          
-          stepper.next();
-
-          this.showSpinner = false;
-        },
-        error: (erro) => {
-          this.erroMsg = this.sistemaService.mensagemErro( erro );
-          this.showSpinner = false;
-        }
-      } );          
+      stepper.next();            
+      this.atualizaQuantidades();    
     }
   }
 
@@ -74,7 +60,7 @@ export class ConsultaNovaComponent {
       stepper.next();
     }
   }
-
+  
   onProfissionalSelecionado( event : any ) {
     this.profissionalId = event.profissionalId;    
     this.consultaRegistro.recarrega( event.profissionalId );
@@ -86,7 +72,10 @@ export class ConsultaNovaComponent {
 
   onCalendarioAlterado( event : any ) {
     this.mes = event.mes;
-    this.ano = event.ano;
+    this.ano = event.ano;    
+
+    if ( this.profissionalId !== 0 )
+      this.atualizaQuantidades();
   }
 
   onDiaTurnoAlterado( event : any ) {
@@ -94,6 +83,25 @@ export class ConsultaNovaComponent {
     this.mes = event.mes;
     this.dia = event.dia;
     this.turno = event.turno; 
+  }
+
+  atualizaQuantidades() {
+    this.erroMsg = null;
+    this.erroMsg = null;
+    this.showSpinner = true;
+    
+    this.consultaService.getQuantidadesAgrupadas( 
+            this.clinicaId, this.profissionalId, this.mes, this.ano ).subscribe( {
+      next: (resp ) => {
+        this.quantidadesAgrupadasPorDia = resp;
+                
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    } );
   }
 
 }

@@ -13,6 +13,8 @@ public class ConsultaIniciadaResponse {
 	
 	private ConsultaResponse consulta;
 	
+	private int quantPacientesNaFila;
+	
 	private List<ConsultaObservacoesResponse> historicoObservacoes;
 		
 	private boolean consultaIniciada;

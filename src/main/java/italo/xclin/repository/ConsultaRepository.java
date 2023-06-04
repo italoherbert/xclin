@@ -54,10 +54,9 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 	
 	@Query("select c "
 			+ "from Consulta c "
-				+ "join Clinica cl "
 				+ "join ProfissionalClinicaVinculo v "
 			+ "where "
-				+ "cl.id=?1 and "
+				+ "c.clinica.id=?1 and "
 				+ "v.profissional.id=?2 and "
 				+ "c.dataAtendimento=?3 and "
 				+ "c.turno=?4 and "
@@ -67,38 +66,46 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 			Long clinicaId, Long profissionalId, 
 			Date data, 
 			Turno turno, 
-			ConsultaStatus status );		
+			ConsultaStatus status );
+	
+
+	@Query("select count(*) "
+			+ "from Consulta c "
+			+ "where c.clinica.id=?1 and "
+				+ "c.profissional.id=?2 and "
+				+ "date(c.dataAtendimento)=current_date and "
+				+ "c.turno=?3 and "
+				+ "(c.status='REGISTRADA' or c.status='INICIADA')")
+	public int contaFila( Long clinicaId, Long profissionalId, Turno turno );
 	
 	@Query( "select c "
 			+ "from Consulta c "
 			+ "where c.status='INICIADA' and "
 				+ "c.clinica.id=?1 and "
 				+ "c.profissional.id=?2 and "
-				+ "c.dataAtendimento=?3 and "
-				+ "c.turno=?4")
+				+ "date(c.dataAtendimento)=current_date and "
+				+ "c.turno=?3")
 	public Optional<Consulta> getIniciada(
 			Long clinicaId, Long profissionalId, 
-			Date data, 
 			Turno turno);
-	
+		
 	@Query("select c "
 			+ "from Consulta c "
 			+ "where c.clinica.id=?1 and c.profissional.id=?2 and c.paciente.id=?3 "
 			+ "order by c.dataSaveObservacoes desc")
 	public List<Consulta> getUltimasObservacoes( 
 			Long clinicaId, Long profissionalId, Long pacienteId, Pageable p );
-	
+		
 	@Modifying
 	@Query( "update Consulta c set "
 			+ 	"status=(case when c.status='INICIADO' then 'FINALIDADO' else c.status end) "
 			+ "where "
 				+ "c.clinica.id=?1 and "
 				+ "c.profissional.id=?2 and "
-				+ "c.dataAtendimento=?3 and "
-				+ "c.turno=?4")
+				+ "date(c.dataAtendimento)=current_date and "
+				+ "c.turno=?3")
 	public void finalizaConsultasIniciadas( 
 			Long clinicaId, Long profissionalId, 
-			Date data, 
 			Turno turno );
 	
 }

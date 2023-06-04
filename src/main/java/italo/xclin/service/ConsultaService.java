@@ -185,10 +185,9 @@ public class ConsultaService {
 		if ( !existeProfissional )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
 				
-		Date data = new Date();
 		Turno turno = turnoEnumManager.getEnum( turnoStr );		
 		
-		consultaRepository.finalizaConsultasIniciadas( clinicaId, profissionalId, data, turno );
+		consultaRepository.finalizaConsultasIniciadas( clinicaId, profissionalId, turno );
 				
 		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
 		if ( !consultaOp.isPresent() )
@@ -217,15 +216,16 @@ public class ConsultaService {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
-		
+				
 		Profissional profissional = profissionalOp.get();
 		Long profissionalId = profissional.getId();
 		
-		Date data = new Date();
 		Turno turno = turnoEnumManager.getEnum( turnoStr );		
 		
-		Optional<Consulta> consultaOp = consultaRepository.getIniciada( clinicaId, profissionalId, data, turno );
-		
+		Optional<Consulta> consultaOp = consultaRepository.getIniciada( clinicaId, profissionalId, turno );
+				
+		int quantPacientesNaFila = consultaRepository.contaFila( clinicaId, profissionalId, turno );
+
 		if ( consultaOp.isPresent() ) {						
 			Consulta consulta = consultaOp.get();
 			Clinica c = consulta.getClinica();
@@ -241,10 +241,10 @@ public class ConsultaService {
 			List<ConsultaObservacoesResponse> historicoObservacoes = this.getUltimasObservacoes( 
 					clinicaId, profissionalId, pacienteId, histObsPageSize );			
 			
-			return consultaLoader.novoIniciadaResponse( cresp, historicoObservacoes );
+			return consultaLoader.novoIniciadaResponse( cresp, historicoObservacoes, quantPacientesNaFila );
 		}
 		
-		return consultaLoader.novoNenhumaIniciadaResponse();		
+		return consultaLoader.novoNenhumaIniciadaResponse( quantPacientesNaFila );		
 	}
 	
 	private List<ConsultaObservacoesResponse> getUltimasObservacoes( 

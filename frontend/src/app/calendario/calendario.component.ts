@@ -48,8 +48,6 @@ export class CalendarioComponent {
   clinicaSelecionadaID : number = 0;
   profissionalSelecionadoID : number = 0;
 
-  quantidadesAgrupadasPorDia : any[][] = [];
-
   diaTurnoClicadoI : number = 0;
   diaTurnoClicadoJ : number = 0;
   diaTurnoClicadoTurno : number = 0;
@@ -63,7 +61,7 @@ export class CalendarioComponent {
 
     for( let i = -20; i <= 20; i++ )
       this.anos.push( this.ano + i );
-
+    
     this.geraCalendario();
   }
 

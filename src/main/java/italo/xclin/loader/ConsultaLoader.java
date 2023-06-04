@@ -233,16 +233,20 @@ public class ConsultaLoader {
 	}
 	
 	public ConsultaIniciadaResponse novoIniciadaResponse( 
-			ConsultaResponse cresp, List<ConsultaObservacoesResponse> historicoObservacoes ) {
+			ConsultaResponse cresp, 
+			List<ConsultaObservacoesResponse> historicoObservacoes, 
+			int filaQuant ) {
 		ConsultaIniciadaResponse resp = new ConsultaIniciadaResponse();
 		resp.setConsulta( cresp );
 		resp.setHistoricoObservacoes( historicoObservacoes );
+		resp.setQuantPacientesNaFila( filaQuant );
 		resp.setConsultaIniciada( true );
 		return resp;
 	}
 	
-	public ConsultaIniciadaResponse novoNenhumaIniciadaResponse() {
+	public ConsultaIniciadaResponse novoNenhumaIniciadaResponse( int filaQuant ) {
 		ConsultaIniciadaResponse resp = new ConsultaIniciadaResponse();
+		resp.setQuantPacientesNaFila( filaQuant ); 
 		resp.setConsultaIniciada( false ); 
 		return resp;
 	}

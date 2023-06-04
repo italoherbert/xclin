@@ -6,13 +6,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import italo.xclin.config.FeighConfiguration;
 import italo.xclin.model.response.MunicipioResponse;
 import italo.xclin.model.response.UFResponse;
 
 @FeignClient(value = "localidades-api", 
-			 url = "https://servicodados.ibge.gov.br/api/v1/localidades",
-			 configuration = FeighConfiguration.class)
+			 url = "https://servicodados.ibge.gov.br/api/v1/localidades")
 public interface LocalidadesIBGEIntegracao {
 
 	@GetMapping("/estados?orderBy=nome")

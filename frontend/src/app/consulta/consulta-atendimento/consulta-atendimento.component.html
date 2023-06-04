@@ -13,7 +13,7 @@
 
 <mat-form-field>
     <mat-label>Turno</mat-label>
-    <mat-select placeholder="Selecione a clínica" [(ngModel)]="turno">
+    <mat-select placeholder="Selecione o turno" [(ngModel)]="turno">
         <mat-option *ngFor="let t of turnos" [value]="t.name">
             {{t.label}}
         </mat-option>
@@ -22,21 +22,20 @@
 
 <br />
 
-<button *ngIf="carregarAtivado === false" mat-raised-button color="primary" 
-        (click)="iniciaCarregamento()">
-    <fa-icon [icon]="icons.faCirclePlay"></fa-icon>
-    Carregamento automático
-</button>
-
-<button *ngIf="carregarAtivado === true" mat-raised-button color="accent" (click)="paraCarregamento()">
-    <fa-icon [icon]="icons.faCirclePause"></fa-icon>
-    Pausar carregamento
-</button>
-
-<br />
-
 <div class="d-flex justify-content-center">
     <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    <div class="p-3 bg-secondary d-flex align-items-center">
+        <span class="fs-6 text-white">
+            Nº pacientes na fila: 
+        </span>
+        <span class="p-2"></span>
+        <span class="fs-2 text-white">
+            {{quantPacientesNaFila}}
+        </span>        
+    </div>
 </div>
 
 <div class="d-flex justify-content-center mt-3">
@@ -87,7 +86,7 @@
                     <div class="fs-5 text-black">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Observações</mat-label>
-                            <textarea matInput rows="6" placeholder="Digite as observações" [(ngModel)]="consulta.observacoes"></textarea>
+                            <textarea matInput rows="6" placeholder="Digite as observações" [(ngModel)]="observacoesSave.observacoes"></textarea>
                             <button mat-raised-button color="primary" (click)="salvaObservacao()">
                                 <fa-icon [icon]="icons.faSave"></fa-icon>
                                 Salvar
@@ -103,11 +102,13 @@
 <br />
 <h1>Histórico de observações recentes</h1>
 
-<div class="rounded-3 my-2 p-1" style="background-color: #55A" *ngFor="let obs of historicoObservacoes">
-    <div class="text-white p-1">
-        {{obs.dataSaveObservacoes | date: 'dd/MM/YYYY HH:mm:ss' }}
-    </div>
-    <div class="text-secondary bg-white p-3 rounded-3">
-        {{obs.observacoes}}
+<div *ngFor="let obs of historicoObservacoes">
+    <div *ngIf="obs.observacoes.length > 0" class="rounded-3 my-2 p-1" style="background-color: #55A">
+        <div class="text-white p-1">
+            {{obs.dataSaveObservacoes | date: 'dd/MM/YYYY HH:mm:ss' }}
+        </div>
+        <div class="text-secondary bg-white p-3 rounded-3">
+            {{obs.observacoes}}
+        </div>
     </div>
 </div>

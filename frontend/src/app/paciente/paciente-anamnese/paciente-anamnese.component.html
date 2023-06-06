@@ -1,6 +1,9 @@
 <h1>Anamnese do paciente</h1>
 
-<br />
+<button mat-raised-button color="primary" class="my-1" (click)="downloadRelatorio()">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Gerar relatorio</span>
+</button>
 
 <div class="d-flex justify-content-center">
     <mat-card class="p-3" style="width: 50em">
@@ -34,6 +37,8 @@
             <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
                 {{erroMsg}}
             </div>
+
+            <br />
 
             <mat-stepper [linear]="true" #anamneseEditStepper>
                 <mat-step>

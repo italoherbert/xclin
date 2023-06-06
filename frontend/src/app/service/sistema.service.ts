@@ -20,6 +20,13 @@ export class SistemaService {
     }
   }
 
+  criaDownloadAncora( arrayBuffer : ArrayBuffer ) {
+    const a = document.createElement( "a" );
+    a.href = URL.createObjectURL( new Blob( [arrayBuffer], { type: "application/pdf"} ) );
+    a.download = "anamnese.pdf";
+    a.click();
+  }
+
   getTimeFormat( d : string ) {    
     return moment( d, 'YYYY-MM-DD HH:mm:ss' ).format( 'HH:mm' );
   }

@@ -44,4 +44,13 @@ export class AnamneseService {
     return this.http.get( '/api/paciente/anamnese/get/edit/'+pacienteId, { headers : headers, withCredentials: true } );
   }
 
+  getRelatorioAnamnese( pacienteId : any ): Observable<any> {
+    let headers = new HttpHeaders( {
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    } );
+
+    return this.http.get( '/api/paciente/anamnese/relatorio/'+pacienteId, { headers : headers, withCredentials: true, responseType: 'arraybuffer' } );
+  
+  }
+
 }

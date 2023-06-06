@@ -87,4 +87,8 @@ public interface Erro {
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";
 	
 	public final static String PACIENTE_CLINICA_NAO_CORRESPONDEM = "O paciente não corresponde a clínica informada.";
+	
+	public final static String FALHA_GER_ANAMNESE_PDF = "Falha na geração do relatório de anamnese.";
+	
+	public final static String FALHA_LEITURA_IMG_DE_RELATORIO = "A imagem: $1 do relatório não foi encontrada no classpath.";
 }

@@ -129,4 +129,24 @@ export class PacienteAnamneseComponent {
     });    
   }
 
+  downloadRelatorio() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let pacienteId = this.actRoute.snapshot.paramMap.get( 'id' );
+
+    this.anamneseService.getRelatorioAnamnese( pacienteId ).subscribe({
+      next: (resp) => {
+        this.sistemaService.criaDownloadAncora( resp );
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });  
+  }
+
 }

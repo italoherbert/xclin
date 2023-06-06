@@ -34,7 +34,7 @@ public class ConsultaValidator {
 		try {
 			converter.stringToData( request.getDataAtendimento() );
 		} catch (ConverterException e) {
-			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getDataAtendimento() );
+			throw new ValidationException( Erro.DATA_ATENDIMENTO_INVALIDA );
 		}
 	}
 	
@@ -57,13 +57,13 @@ public class ConsultaValidator {
 		try {
 			converter.stringToData( request.getDataInicio() );
 		} catch (ConverterException e) {
-			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getDataInicio() );
+			throw new ValidationException( Erro.DATA_INI_INVALIDA );
 		}
 		
 		try {
 			converter.stringToData( request.getDataFim() );
 		} catch (ConverterException e) {
-			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getDataFim() );
+			throw new ValidationException( Erro.DATA_FIM_INVALIDA );
 		}
 		
 		if ( request.isIncluirPaciente() ) {
@@ -96,7 +96,7 @@ public class ConsultaValidator {
 		try {
 			converter.stringToData( request.getData() );
 		} catch ( ConverterException e ) {
-			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getData() );
+			throw new ValidationException( Erro.DATA_CONSULTA_FILA_INVALIDA );
 		}
 		
 		if ( !turnoEnumManager.enumValida( request.getTurno() ) )

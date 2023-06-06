@@ -30,7 +30,7 @@ import italo.xclin.model.response.load.edit.ProfissionalEditLoadResponse;
 import italo.xclin.model.response.load.reg.ProfissionalRegLoadResponse;
 import italo.xclin.service.ProfissionalEspecialidadeVinculoService;
 import italo.xclin.service.ProfissionalService;
-import italo.xclin.service.auth.Autorizador;
+import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.service.shared.ProfissionalSharedService;
 import italo.xclin.validator.ProfissionalValidator;
 

@@ -35,7 +35,7 @@ import italo.xclin.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaTelaLoadResponse;
 import italo.xclin.service.ConsultaService;
-import italo.xclin.service.auth.Autorizador;
+import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.validator.ConsultaValidator;
 
 @RestController

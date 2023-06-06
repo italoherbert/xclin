@@ -55,6 +55,7 @@ import { EspecialidadeSaveComponent } from './especialidade/especialidade-save/e
 import { ProfissionalContaEspecialidadeSaveComponent } from './usuario-conta/profissional/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
 import { ProfissionalContaEspecialidadesComponent } from './usuario-conta/profissional/profissional-conta-especialidades/profissional-conta-especialidades.component';
 import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/consulta-atendimento.component';
+import { PacienteAnamneseComponent } from './paciente/paciente-anamnese/paciente-anamnese.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -120,6 +121,7 @@ const routes: Routes = [
     { path: 'paciente-tela', component: PacienteTelaComponent, outlet: 'page' },
     { path: 'paciente-detalhes/:id', component: PacienteDetalhesComponent, outlet: 'page' },
     { path: 'paciente-save/:id', component: PacienteSaveComponent, outlet: 'page' },
+    { path: 'paciente-anamnese/:id', component: PacienteAnamneseComponent, outlet: 'page' },
     
     { path: 'consulta-nova', component: ConsultaNovaComponent, outlet: 'page' },
     { path: 'consulta-tela', component: ConsultaTelaComponent, outlet: 'page' },

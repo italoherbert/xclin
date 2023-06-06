@@ -40,6 +40,7 @@ export class PacienteDetalhesComponent {
       nacionalidade: '',
       ocupacao : '',
       observacoes: '',
+      anamnesePreenchida : false,
       endereco : {
         id : 0,
         logradouro : '',

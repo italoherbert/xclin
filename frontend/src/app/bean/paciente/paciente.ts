@@ -14,6 +14,7 @@ export interface Paciente {
     ocupacao : string;
     observacao : string;
     endereco : Endereco;
+    anamnesePreenchida : boolean;
     clinicaId: number;
     clinicaNome: string;
 }

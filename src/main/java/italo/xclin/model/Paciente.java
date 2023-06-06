@@ -45,7 +45,7 @@ public class Paciente {
 	private String cpf;
 	
 	private String rg;
-	
+		
 	@Enumerated(EnumType.STRING)
 	private Sexo sexo;
 	
@@ -65,9 +65,14 @@ public class Paciente {
 	
 	private String observacoes;
 		
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	private boolean anamnesePreenchida;
+
+	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, optional = true)
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
+	
+	@OneToOne(mappedBy="paciente", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	private Anamnese anamnese;
 	
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="clinica_id")

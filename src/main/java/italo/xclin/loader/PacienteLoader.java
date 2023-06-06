@@ -52,6 +52,7 @@ public class PacienteLoader {
 		p.setOcupacao( request.getOcupacao() );
 		p.setObservacoes( request.getObservacoes() );
 		p.setDataRegistro( new Date() ); 
+		p.setAnamnesePreenchida( false ); 
 
 		try {
 			p.setDataNascimento( converter.stringToData( request.getDataNascimento() ) );
@@ -67,6 +68,7 @@ public class PacienteLoader {
 		resp.setEmail( p.getEmail() );
 		resp.setCpf( p.getCpf() );
 		resp.setRg( p.getRg() );
+		resp.setAnamnesePreenchida( p.isAnamnesePreenchida() ); 
 		
 		if ( p.getSexo() != null )
 			resp.setSexo( p.getSexo().name() );

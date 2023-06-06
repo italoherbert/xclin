@@ -25,11 +25,7 @@ public interface Erro {
 	public final static String PROFISSIONAL_NOME_INI_OBRIGATORIO = "O início do nome do profissional é um campo de preenchimento obrigatório.";
 	public final static String DATA_INI_OBRIGATORIA = "A data de início é um campo de preenchimento obrigatório.";
 	public final static String DATA_FIM_OBRIGATORIA = "A data de fim é um campo de preenchimento obrigatório.";
-	
-	public final static String ENDERECO_NULL = "Objeto endereço não informado.";
-	public final static String USUARIO_NULL = "Objeto usuário não informado.";
-	public final static String OBSERVACOES_NULL = "Observações null.";
-	
+		
 	public final static String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
 	public final static String USUARIO_GRUPO_NAO_ENCONTRADO = "Grupo não encontrado.";
 	public final static String RECURSO_NAO_ENCONTRADO = "Recurso não encontrado.";
@@ -46,9 +42,12 @@ public interface Erro {
 	public final static String CONSULTA_NAO_ENCONTRADA = "Consulta não encontrada.";
 	public final static String ESPECIALIDADE_NAO_ENCONTRADA = "Especialidade não encontrada.";
 	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrada a especialidade para adicioná-la ao profissional.";
-	
+	public final static String ANAMNESE_NAO_ENCONTRADA = "Anamnese do paciente não encontrada.";
+		
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	
+	public final static String ANAMNESE_NAO_PREENCHIDA = "A anamnese do paciente ainda não foi preenchida.";
+
 	public final static String USUARIO_JA_EXISTE = "Já existe um outro usuário com o username informado.";
 	public final static String USUARIO_GRUPO_JA_EXISTE = "Já existe um outro grupo de usuário com o nome informado.";
 	public final static String RECURSO_JA_EXISTE = "Já existe um recurso com o nome informado.";
@@ -62,9 +61,27 @@ public interface Erro {
 
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	
+	public final static String ENDERECO_NULL = "Objeto endereço não informado.";
+	public final static String USUARIO_NULL = "Objeto usuário não informado.";
+	public final static String OBSERVACOES_NULL = "Observações null.";
+	public final static String PRESSAO_ARTERIAL_NULA = "Pressão arterial nula.";
+	public final static String CICATRIZACAO_NULA = "Cicatrização nula.";
+	public final static String TIPO_SANGRAMENTO_NULO = "Tipo de sangramento nulo.";
+	public final static String DATA_ULTIMO_TRATAMENTO_NULA = "A data de último tratamento é nula.";
+	
 	public final static String PERFIL_INVALIDO = "Perfil inválido: $1";
 	public final static String CONSULTA_STATUS_INVALIDO = "Status da consulta inválido: $1";
 	public final static String TURNO_INVALIDO = "Turno inválido: $1";
+	public final static String PRESSAO_ARTERIAL_INVALIDA = "Pressão arterial inválida: $1";
+	public final static String CICATRIZACAO_INVALIDA = "Cicatrização inválida: $1";
+	public final static String TIPO_SANGRAMENTO_INVALIDO = "Tipo de sangramento inválido: $1";
+	
+	public final static String DATA_NASCIMENTO_INVALIDA = "A data de nascimento está em formato inválido.";
+	public final static String DATA_ULTIMO_TRATAMENTO_INVALIDA = "A data de última tratamento está em formato inválido.";
+	public final static String DATA_ATENDIMENTO_INVALIDA = "A data de atendimento está em formato inválido.";
+	public final static String DATA_INI_INVALIDA = "A data de início está em formato inválido.";
+	public final static String DATA_FIM_INVALIDA = "A data de fim está em formato inválido.";
+	public final static String DATA_CONSULTA_FILA_INVALIDA = "A data do dia da fila está em formato inválido.";
 	
 	public final static String STRNUM_INVALIDO = "Não foi possível converter o texto: '$1' em número.";
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";

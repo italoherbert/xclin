@@ -27,7 +27,7 @@ import italo.xclin.model.response.load.edit.PacienteEditLoadResponse;
 import italo.xclin.model.response.load.reg.PacienteRegLoadResponse;
 import italo.xclin.model.response.load.tela.PacienteTelaLoadResponse;
 import italo.xclin.service.PacienteService;
-import italo.xclin.service.auth.Autorizador;
+import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.validator.PacienteValidator;
 
 @RestController

@@ -20,7 +20,7 @@ import italo.xclin.model.request.filtro.NaoAdminProfissionalFiltroRequest;
 import italo.xclin.model.response.ProfissionalResponse;
 import italo.xclin.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
 import italo.xclin.model.response.load.tela.NaoAdminProfissionalTelaLoadResponse;
-import italo.xclin.service.auth.Autorizador;
+import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.service.naoadmin.NaoAdminProfissionalService;
 import italo.xclin.validator.ProfissionalValidator;
 

@@ -28,6 +28,7 @@ import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { AppComponent } from './app.component';
 import { LoginLayoutComponent } from './login-layout/login-layout.component';
@@ -91,6 +92,7 @@ import { ProfissionalContaEspecialidadeSaveComponent } from './usuario-conta/pro
 import { RealInputDirective } from './directive/real-input.directive';
 import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/consulta-atendimento.component';
 import { RouterModule } from '@angular/router';
+import { PacienteAnamneseComponent } from './paciente/paciente-anamnese/paciente-anamnese.component';
 
 
 @NgModule({
@@ -168,7 +170,8 @@ import { RouterModule } from '@angular/router';
     ProfissionalContaEspecialidadesComponent,
     ProfissionalContaEspecialidadeSaveComponent,
     RealInputDirective,
-    ConsultaAtendimentoComponent
+    ConsultaAtendimentoComponent,
+    PacienteAnamneseComponent
   ],
   imports: [
     BrowserModule,
@@ -199,6 +202,7 @@ import { RouterModule } from '@angular/router';
     MatAutocompleteModule,
     MatStepperModule,
     MatButtonToggleModule,
+    MatRadioModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue:"pt-br"}

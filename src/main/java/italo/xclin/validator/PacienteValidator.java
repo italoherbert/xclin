@@ -28,7 +28,7 @@ public class PacienteValidator {
 		try {
 			converter.stringToData( request.getDataNascimento() );	
 		} catch ( ConverterException e ) {
-			throw new ValidationException( Erro.STRDATA_INVALIDO, request.getDataNascimento() );
+			throw new ValidationException( Erro.DATA_NASCIMENTO_INVALIDA );
 		}
 		
 	}

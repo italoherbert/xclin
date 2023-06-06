@@ -19,7 +19,7 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.filtro.NaoAdminRecepcionistaFiltroRequest;
 import italo.xclin.model.response.RecepcionistaResponse;
 import italo.xclin.model.response.load.tela.NaoAdminRecepcionistaTelaLoadResponse;
-import italo.xclin.service.auth.Autorizador;
+import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.service.naoadmin.NaoAdminRecepcionistaService;
 import italo.xclin.validator.RecepcionistaValidator;
 

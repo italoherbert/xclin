@@ -63,6 +63,7 @@ export class PacienteAnamneseComponent {
   sangramentoNaGengivaTipos : any[] = [];
 
   pacienteNome : string = '';
+  anamnesePreenchida : boolean = false;
 
   constructor( 
     private actRoute : ActivatedRoute,
@@ -70,6 +71,10 @@ export class PacienteAnamneseComponent {
     private sistemaService: SistemaService ) {}
 
   ngOnInit() {
+    this.carrega();
+  }
+  
+  carrega() {
     this.infoMsg = null;
     this.erroMsg = null;
 
@@ -84,6 +89,7 @@ export class PacienteAnamneseComponent {
         this.sangramentoTipos = resp.sangramentoTipos;
         this.sangramentoNaGengivaTipos = resp.sangramentoNaGengivaTipos;
         this.pacienteNome = resp.pacienteNome;
+        this.anamnesePreenchida = resp.anamnesePreenchida;
 
         if ( this.pressaoArterialTipos.length > 0 )
           this.anamneseSave.pressaoArterial = this.pressaoArterialTipos[ 0 ].name;
@@ -96,8 +102,8 @@ export class PacienteAnamneseComponent {
 
         if ( this.sangramentoNaGengivaTipos.length > 0 )
           this.anamneseSave.sangramentoNaGengiva = this.sangramentoNaGengivaTipos[ 0 ].name;
-
-        if ( resp.anamnesePreenchida === true )
+        
+        if ( this.anamnesePreenchida === true )
           this.anamneseSave = resp.anamnese;     
         
         this.showSpinner = false;
@@ -112,14 +118,15 @@ export class PacienteAnamneseComponent {
   salva() {    
     this.infoMsg = null;
     this.erroMsg = null;
-
+    
     this.showSpinner = true;
 
-    let pacienteId = this.actRoute.snapshot.paramMap.get( 'id' );
+    let pacienteId = this.actRoute.snapshot.paramMap.get( 'id' );    
 
     this.anamneseService.salvaAnamnese( pacienteId, this.anamneseSave ).subscribe({
       next: (resp) => {
-        this.infoMsg = "Anamnese salva com sucesso.";
+        this.anamnesePreenchida = true;
+        this.infoMsg = "Anamnese salva com sucesso.";        
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -133,6 +140,11 @@ export class PacienteAnamneseComponent {
     this.infoMsg = null;
     this.erroMsg = null;
 
+    if ( this.anamnesePreenchida == false ) {
+      this.infoMsg = "A anamnese do paciente não foi preenchida ainda.";
+      return;
+    }
+
     this.showSpinner = true;
 
     let pacienteId = this.actRoute.snapshot.paramMap.get( 'id' );
@@ -143,6 +155,7 @@ export class PacienteAnamneseComponent {
         this.showSpinner = false;
       },
       error: (erro) => {
+        alert( JSON.stringify( erro ) );
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }

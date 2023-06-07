@@ -74,7 +74,7 @@ public class AnamneseJRDataSource implements JRDataSource {
 		} else if ( jrfname.equals( "quaisReacoesTeveComAnestesiaDental" ) ) {
 			return anamnese.getQuaisReacoesTeveComAnestesiaDental();
 		} else if ( jrfname.equals( "dataUltimoTratamentoDentario" ) ) {
-			return converter.dataToString( anamnese.getDataUltimoTratamentoDentario() );
+			return converter.formataDataBR( anamnese.getDataUltimoTratamentoDentario() );
 		} else if ( jrfname.equals( "senteDoresNosDentesOuGengiva" ) ) {
 			return anamnese.isSenteDoresNosDentesOuGengiva() ? "Sim" : "Não";
 		} else if ( jrfname.equals( "sangramentoNaGengiva" ) ) {

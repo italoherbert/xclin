@@ -12,7 +12,9 @@ export class SistemaService {
   mensagemErro( erro : any ) {
     switch( erro.status ) {
       case 400:
-        return erro.error.mensagem;
+        if ( erro.error.mensagem !== undefined && erro.error.mensagem !== null )
+          return erro.error.mensagem;
+        return erro.message;
       case 403:
         return "Seu usuário não tem permissão para acessar este recurso.";
       default: 

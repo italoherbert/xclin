@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import italo.xclin.exception.ServiceException;
 import italo.xclin.exception.SistemaException;
 import italo.xclin.model.request.save.AnamneseSaveRequest;
 import italo.xclin.model.response.AnamneseResponse;
@@ -80,12 +81,12 @@ public class AnamneseController {
 	@GetMapping(value="/relatorio/{pacienteId}", produces = MediaType.APPLICATION_PDF_VALUE )
 	@ResponseBody
 	public byte[] getRelatorioPDF(
-			@RequestHeader( "Authorization") String authorizationHeader,
+			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long pacienteId ) throws SistemaException {
 		 
 		autorizador.autorizaSePacienteDeClinica( authorizationHeader, pacienteId );
 		
-		return relatorioService.geraRelatorio( pacienteId );				
+		return relatorioService.geraRelatorio( pacienteId );		
 	}
 	
 }

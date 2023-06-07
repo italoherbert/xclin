@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>xclin</name>
-	<description>Sistema de Clínica Médica</description>
+	<description>Sistema de Clínica Odontológica</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.2</spring-cloud.version>
@@ -103,7 +103,7 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
 			<version>6.20.5</version>
-		</dependency>
+		</dependency>		
 	</dependencies>
 
 	<build>

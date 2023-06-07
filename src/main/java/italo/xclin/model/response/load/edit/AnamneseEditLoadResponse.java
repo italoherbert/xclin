@@ -18,7 +18,7 @@ public class AnamneseEditLoadResponse {
 	private AnamneseResponse anamnese;
 
 	private String pacienteNome;
-
+	
 	private List<TipoResponse> pressaoArterialTipos;
 	
 	private List<TipoResponse> cicatrizacaoTipos;

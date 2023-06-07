@@ -19,6 +19,8 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 
 @Service
 public class RelatorioService {
@@ -36,9 +38,9 @@ public class RelatorioService {
 		
 		Paciente p = pacienteOp.get();
 		String pacienteNome = p.getNome();
-		
+				
 		if ( !p.isAnamnesePreenchida() )
-			throw new ServiceException( Erro.ANAMNESE_NAO_PREENCHIDA );		
+			throw new ServiceException( Erro.ANAMNESE_NAO_PREENCHIDA );						
 		
 		Anamnese a = p.getAnamnese();		
 
@@ -51,7 +53,8 @@ public class RelatorioService {
 					
 		InputStream reportJasperFile = getClass().getResourceAsStream( "/anamnese.jasper" );
 		try {			
-			JasperPrint jrprint = JasperFillManager.fillReport( reportJasperFile, paramsMap, anamneseJRDS );
+			JasperReport report = (JasperReport)JRLoader.loadObject( reportJasperFile );
+			JasperPrint jrprint = JasperFillManager.fillReport( report, paramsMap, anamneseJRDS );
 			return JasperExportManager.exportReportToPdf( jrprint );			
 		} catch ( JRException e ) {
 			e.printStackTrace();

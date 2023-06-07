@@ -14,10 +14,24 @@ public class Converter {
 
 	private final String DATAHORA_BD_FORMATO = "yyyy-MM-dd HH:mm:ss";
 	private final String DATA_BD_FORMATO = "yyyy-MM-dd";
+	
+	private final String DATAHORA_BR_FORMATO = "dd/MM/yyyy HH:mm:ss";
+	private final String DATA_BR_FORMATO = "dd/MM/yyyy";
 		
 	private final SimpleDateFormat dataHoraBDFormato = new SimpleDateFormat( DATAHORA_BD_FORMATO );
 	private final SimpleDateFormat dataBDFormato = new SimpleDateFormat( DATA_BD_FORMATO );
 
+	private final SimpleDateFormat dataHoraBRFormato = new SimpleDateFormat( DATAHORA_BR_FORMATO );
+	private final SimpleDateFormat dataBRFormato = new SimpleDateFormat( DATA_BR_FORMATO );
+
+	public String formataDataHoraBR( Date data ) {
+		return dataHoraBRFormato.format( data );
+	}
+	
+	public String formataDataBR( Date data ) {
+		return dataBRFormato.format( data ); 
+	}
+	
 	public Date stringToDataHora( String datastr ) throws ConverterException {
 		try {
 			return dataHoraBDFormato.parse( datastr );

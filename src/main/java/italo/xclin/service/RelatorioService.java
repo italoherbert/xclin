@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 
 import italo.xclin.exception.Erro;
 import italo.xclin.exception.ServiceException;
+import italo.xclin.logica.Converter;
 import italo.xclin.model.Anamnese;
 import italo.xclin.model.Paciente;
 import italo.xclin.relatorio.jrdatasource.AnamneseJRDataSource;
 import italo.xclin.repository.PacienteRepository;
-import net.sf.jasperreports.engine.JREmptyDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -25,6 +25,9 @@ public class RelatorioService {
 	
 	@Autowired
 	private PacienteRepository pacienteRepository;		
+	
+	@Autowired
+	private Converter converter;
 	
 	public byte[] geraRelatorio( Long pacienteId ) throws ServiceException {
 		Optional<Paciente> pacienteOp = pacienteRepository.findById( pacienteId ); 
@@ -39,13 +42,12 @@ public class RelatorioService {
 		
 		Anamnese a = p.getAnamnese();		
 
-		AnamneseJRDataSource anamneseJRDS = new AnamneseJRDataSource( a, pacienteNome );
+		AnamneseJRDataSource anamneseJRDS = new AnamneseJRDataSource( a, pacienteNome, converter );
 		
 		InputStream logoIS = getClass().getResourceAsStream( "/xclin-logo.png" );
 		
 		Map<String, Object> paramsMap = new HashMap<>();
 		paramsMap.put( "logo", logoIS );
-		paramsMap.put( "anamneseJRDS", anamneseJRDS );
 					
 		InputStream reportJasperFile = getClass().getResourceAsStream( "/anamnese.jasper" );
 		try {			

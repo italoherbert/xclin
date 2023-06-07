@@ -43,7 +43,7 @@ export class PacienteAnamneseComponent {
     problemasDeSaude : '',
     queixaPrincipal : '',
     jaTeveReacaoComAnestesiaDental : false,
-    quaisReacoesQueTeveComAnestesiaDental: '',
+    quaisReacoesTeveComAnestesiaDental: '',
     dataUltimoTratamentoDentario : '',
     senteDoresNosDentesOuGengiva : false,
     sangramentoNaGengiva : '',

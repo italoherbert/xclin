@@ -1,5 +1,6 @@
 package italo.xclin.relatorio.jrdatasource;
 
+import italo.xclin.logica.Converter;
 import italo.xclin.model.Anamnese;
 import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
@@ -9,13 +10,15 @@ public class AnamneseJRDataSource implements JRDataSource {
 
 	private String pacienteNome;
 	private Anamnese anamnese;
+	private Converter converter;
 	
 	private int i = -1;
 	private int size = 1;
 	
-	public AnamneseJRDataSource( Anamnese anamnese, String pacienteNome ) {
+	public AnamneseJRDataSource( Anamnese anamnese, String pacienteNome, Converter converter ) {
 		this.anamnese = anamnese;
 		this.pacienteNome = pacienteNome;
+		this.converter = converter;
 	}
 	
 	@Override
@@ -61,11 +64,39 @@ public class AnamneseJRDataSource implements JRDataSource {
 		} else if ( jrfname.equals( "ehGestante" ) ) {
 			return anamnese.isEhGestante() ? "Sim" : "Não";
 		} else if ( jrfname.equals( "semanasDeGestacao" ) ) {
-			return anamnese.getSemanasDeGestacao();
+			return String.valueOf( anamnese.getSemanasDeGestacao() );
 		} else if ( jrfname.equals( "problemasDeSaude" ) ) {
 			return anamnese.getProblemasDeSaude();
 		} else if ( jrfname.equals( "queixaPrincipal" ) ) {
 			return anamnese.getQueixaPrincipal();
+		} else if ( jrfname.equals( "jaTeveReacaoComAnestesiaDental" ) ) {
+			return anamnese.isJaTeveReacaoComAnestesiaDental() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "quaisReacoesTeveComAnestesiaDental" ) ) {
+			return anamnese.getQuaisReacoesTeveComAnestesiaDental();
+		} else if ( jrfname.equals( "dataUltimoTratamentoDentario" ) ) {
+			return converter.dataToString( anamnese.getDataUltimoTratamentoDentario() );
+		} else if ( jrfname.equals( "senteDoresNosDentesOuGengiva" ) ) {
+			return anamnese.isSenteDoresNosDentesOuGengiva() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "sangramentoNaGengiva" ) ) {
+			if ( anamnese.getSangramentoNaGengiva() != null ) 
+				return anamnese.getSangramentoNaGengiva().label();
+			return "";
+		} else if ( jrfname.equals( "senteGostoRuimNaBoca" ) ) {
+			return anamnese.isSenteGostoRuimNaBoca() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "quantasVezesEscovaOsDentes" ) ) {
+			return String.valueOf( anamnese.getQuantasVezesEscovaOsDentes() );
+		} else if ( jrfname.equals( "usaFioDental" ) ) {
+			return anamnese.isUsaFioDental() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "senteDoresNoMaxilarOuOuvido" ) ) {
+			return anamnese.isSenteDoresNoMaxilarOuOuvido() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "rangeOsDentes" ) ) {
+			return anamnese.isRangeOsDentes() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "teveFeridaNaFaceOuNosLabios" ) ) {
+			return anamnese.isTeveFeridaNaFaceOuNosLabios() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "fuma" ) ) {
+			return anamnese.isFuma() ? "Sim" : "Não";
+		} else if ( jrfname.equals( "quantidadeQueFuma" ) ) {
+			return anamnese.getQuantidadeQueFuma();
 		}
 		return null;
 	}

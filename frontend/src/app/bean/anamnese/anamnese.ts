@@ -18,7 +18,7 @@ export interface Anamnese {
     problemasDeSaude : string;
     queixaPrincipal : string;
     jaTeveReacaoComAnestesiaDental : boolean;
-    quaisReacoesQueTeveComAnestesiaDental : string;
+    quaisReacoesTeveComAnestesiaDental : string;
     dataUltimoTratamentoDentario : string;
     senteDoresNosDentesOuGengiva : boolean;
     sangramentoNaGengiva : string;

@@ -16,7 +16,7 @@
                     Paciente
                 </div>
                 <div class="fs-5">
-                   <p class="py-2">{{pacienteNome}}</p>
+                   <p class="py-2" style="color:dimgrey">{{pacienteNome}}</p>
                 </div>
             </div>
 
@@ -65,7 +65,8 @@
                         <p>Quais (posologia e dose)?</p>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Quais?</mat-label>
-                            <input matInput type="text" placeholder="Quais?" [(ngModel)]="anamneseSave.quaisMedicamentos" />
+                            <textarea matInput type="text" placeholder="Quais?" [(ngModel)]="anamneseSave.quaisMedicamentos">
+                            </textarea>
                         </mat-form-field>
                     </div>
 
@@ -80,7 +81,8 @@
                         <p>Quais alergias?</p>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Quais alergias</mat-label>
-                            <input matInput type="text" placeholder="Quais alergias" [(ngModel)]="anamneseSave.quaisAlergias" />
+                            <textarea matInput type="text" placeholder="Quais alergias" [(ngModel)]="anamneseSave.quaisAlergias">
+                            </textarea>
                         </mat-form-field>
                     </div>
 
@@ -107,7 +109,8 @@
                         <p>Quais problemas do coração?</p>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Quais?</mat-label>
-                            <input matInput type="text" placeholder="Quais?" [(ngModel)]="anamneseSave.quaisProblemasDoCoracao" />
+                            <textarea matInput type="text" placeholder="Quais?" [(ngModel)]="anamneseSave.quaisProblemasDoCoracao">
+                            </textarea>
                         </mat-form-field>
                     </div>
 
@@ -227,7 +230,7 @@
                         <p>Quais reações teve?</p>
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Reações que teve?</mat-label>
-                            <textarea matInput placeholder="Reações que teve?" [(ngModel)]="anamneseSave.quaisReacoesQueTeveComAnestesiaDental">
+                            <textarea matInput placeholder="Reações que teve?" [(ngModel)]="anamneseSave.quaisReacoesTeveComAnestesiaDental">
                             </textarea>
                         </mat-form-field>
                     </div>

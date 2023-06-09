@@ -5,12 +5,19 @@
     <span class="mx-3">Gerar relatorio</span>
 </button>
 
-<div class="d-flex justify-content-center">
+<div class="d-flex justify-content-center mt-3">
     <mat-card class="p-3" style="width: 50em">
         <mat-card-header>
             <h1>Anamnese</h1>
         </mat-card-header>
         <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+                {{erroMsg}}
+            </div>
+
             <div>
                 <div class="fs-6 text-secondary">
                     Paciente

@@ -94,7 +94,7 @@
                     <div class="fs-6 text-secondary">
                         Sexo:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-black" *ngIf="pacienteDetalhes.sexo !== null">
                         {{pacienteDetalhes.sexo.label}}
                     </div>
                 </div>
@@ -102,7 +102,7 @@
                     <div class="fs-6 text-secondary">
                         Estado Civil:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-black" *ngIf="pacienteDetalhes.sexo !== null">
                         {{pacienteDetalhes.estadoCivil.label}}
                     </div>
                 </div>
@@ -110,7 +110,7 @@
                     <div class="fs-6 text-secondary">
                         Nacionalidade:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-black" *ngIf="pacienteDetalhes.nacionalidade !== null">
                         {{pacienteDetalhes.nacionalidade.label}}
                     </div>
                 </div>

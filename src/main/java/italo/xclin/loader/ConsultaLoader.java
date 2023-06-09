@@ -173,6 +173,7 @@ public class ConsultaLoader {
 		resp.setProfissionalNome( pr.getNome() );
 		resp.setEspecialidadeId( e.getId() );
 		resp.setEspecialidadeNome( e.getNome() ); 
+		resp.setPacienteAnamnesePreenchida( pa.isAnamnesePreenchida() ); 
 		return resp;
 	}
 	

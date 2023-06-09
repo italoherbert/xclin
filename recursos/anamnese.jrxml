@@ -70,7 +70,7 @@
 				<text><![CDATA[Está tomando algum medicamento? ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement x="213" y="10" width="167" height="20" forecolor="#6633FF" uuid="7fbf31fc-9655-43a8-8c6d-2dce1216f5ce"/>
+				<reportElement x="200" y="10" width="167" height="20" forecolor="#6633FF" uuid="7fbf31fc-9655-43a8-8c6d-2dce1216f5ce"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -84,14 +84,14 @@
 				<text><![CDATA[Quais (posologia e dose)?]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement x="170" y="30" width="380" height="30" forecolor="#6633FF" uuid="954d38f6-471e-4be0-9937-9d99ea0c184e"/>
+				<reportElement x="150" y="30" width="380" height="30" forecolor="#6633FF" uuid="954d38f6-471e-4be0-9937-9d99ea0c184e"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{quaisMedicamentos}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement x="108" y="60" width="172" height="20" forecolor="#6633FF" uuid="1a0c3d40-d707-47c9-8f40-270d5de94720"/>
+				<reportElement x="100" y="60" width="172" height="20" forecolor="#6633FF" uuid="1a0c3d40-d707-47c9-8f40-270d5de94720"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -119,7 +119,7 @@
 				<text><![CDATA[Quais alergias?]]></text>
 			</staticText>
 			<textField isBlankWhenNull="false">
-				<reportElement x="120" y="110" width="160" height="20" forecolor="#6633FF" uuid="36ad4cfc-32ad-4df8-afe8-4dcbd1bf20a8"/>
+				<reportElement x="113" y="110" width="160" height="20" forecolor="#6633FF" uuid="36ad4cfc-32ad-4df8-afe8-4dcbd1bf20a8"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -133,7 +133,7 @@
 				<text><![CDATA[Pressão arterial?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="237" y="130" width="243" height="20" forecolor="#6633FF" uuid="049598bf-b3cf-4885-9f84-a5d5530e70f2"/>
+				<reportElement x="220" y="130" width="243" height="20" forecolor="#6633FF" uuid="049598bf-b3cf-4885-9f84-a5d5530e70f2"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -147,7 +147,7 @@
 				<text><![CDATA[Tem ou teve algum problema do coração?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="186" y="150" width="360" height="30" forecolor="#6633FF" uuid="f207ec7d-75a2-4679-81ca-7cd982b6832c"/>
+				<reportElement x="170" y="150" width="360" height="30" forecolor="#6633FF" uuid="f207ec7d-75a2-4679-81ca-7cd982b6832c"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -168,14 +168,14 @@
 				<text><![CDATA[Tem diabetes?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="108" y="200" width="112" height="20" forecolor="#6633FF" uuid="14e785cd-e2d3-4658-a435-2eda2a2ab180"/>
+				<reportElement x="100" y="200" width="112" height="20" forecolor="#6633FF" uuid="14e785cd-e2d3-4658-a435-2eda2a2ab180"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{temDiabetes}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="200" y="180" width="170" height="20" forecolor="#6633FF" uuid="5b4f6187-2a1f-4f0a-b996-f7169564db0d"/>
+				<reportElement x="192" y="180" width="170" height="20" forecolor="#6633FF" uuid="5b4f6187-2a1f-4f0a-b996-f7169564db0d"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -203,7 +203,7 @@
 				<text><![CDATA[Quando se corta há um sangramento:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="117" y="238" width="100" height="20" forecolor="#6633FF" uuid="1ea53277-3fd8-4a22-b6c8-3fb76cd70a09"/>
+				<reportElement x="110" y="238" width="100" height="20" forecolor="#6633FF" uuid="1ea53277-3fd8-4a22-b6c8-3fb76cd70a09"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -217,7 +217,7 @@
 				<text><![CDATA[A cicatrizaçao é:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="150" y="258" width="150" height="19" forecolor="#6633FF" uuid="56a12f7b-54c8-455e-b1f3-e32eed5e57ca"/>
+				<reportElement x="140" y="258" width="150" height="19" forecolor="#6633FF" uuid="56a12f7b-54c8-455e-b1f3-e32eed5e57ca"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -273,7 +273,7 @@
 				<text><![CDATA[Problemas de saúde que já teve:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="117" y="333" width="422" height="30" forecolor="#6633FF" uuid="4e41d4ad-3509-4e3a-a92c-492460b53bbf"/>
+				<reportElement x="110" y="333" width="422" height="30" forecolor="#6633FF" uuid="4e41d4ad-3509-4e3a-a92c-492460b53bbf"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -287,7 +287,7 @@
 				<text><![CDATA[Queixa principal:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="218" y="363" width="220" height="20" forecolor="#6633FF" uuid="88663052-1cc5-4a93-9035-4eb63fcb2410"/>
+				<reportElement x="209" y="363" width="220" height="20" forecolor="#6633FF" uuid="88663052-1cc5-4a93-9035-4eb63fcb2410"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -301,7 +301,7 @@
 				<text><![CDATA[Já teve reação com anestesia dental?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="80" y="383" width="459" height="30" forecolor="#6633FF" uuid="ea1204ab-27b7-4b3d-b7b0-554bcc4e00fc"/>
+				<reportElement x="71" y="383" width="459" height="30" forecolor="#6633FF" uuid="ea1204ab-27b7-4b3d-b7b0-554bcc4e00fc"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -315,7 +315,7 @@
 				<text><![CDATA[Quais?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="230" y="413" width="198" height="20" forecolor="#6633FF" uuid="04e00fbb-e0d7-4aac-a0fb-d31d19e0ae9b"/>
+				<reportElement x="222" y="413" width="198" height="20" forecolor="#6633FF" uuid="04e00fbb-e0d7-4aac-a0fb-d31d19e0ae9b"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -329,7 +329,7 @@
 				<text><![CDATA[Quando foi o último tratamento dentário?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="248" y="433" width="222" height="17" forecolor="#6633FF" uuid="a420099c-e634-4a1e-ab1e-ec17eae390a6"/>
+				<reportElement x="230" y="433" width="222" height="17" forecolor="#6633FF" uuid="a420099c-e634-4a1e-ab1e-ec17eae390a6"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -343,7 +343,7 @@
 				<text><![CDATA[Tem sentido dores nos dentes ou gengiva?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="130" y="450" width="180" height="18" forecolor="#6633FF" uuid="2f1c3bc8-8a55-4273-ae63-f3d6b77a5c18"/>
+				<reportElement x="120" y="450" width="180" height="18" forecolor="#6633FF" uuid="2f1c3bc8-8a55-4273-ae63-f3d6b77a5c18"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -357,7 +357,7 @@
 				<text><![CDATA[A gengiva sangra?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="230" y="468" width="190" height="19" forecolor="#6633FF" uuid="004e58d6-d48d-4ad3-843c-099d77a445f3"/>
+				<reportElement x="220" y="468" width="190" height="19" forecolor="#6633FF" uuid="004e58d6-d48d-4ad3-843c-099d77a445f3"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -371,7 +371,7 @@
 				<text><![CDATA[Sente gosto ruim na boca ou boca seca?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="237" y="487" width="201" height="23" forecolor="#6633FF" uuid="942a4319-7b29-4ee7-a844-8bd789c522a6"/>
+				<reportElement x="227" y="487" width="201" height="23" forecolor="#6633FF" uuid="942a4319-7b29-4ee7-a844-8bd789c522a6"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -385,7 +385,7 @@
 				<text><![CDATA[Quantas vezes escova os dentes por dia?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="113" y="510" width="117" height="21" forecolor="#6633FF" uuid="dcede84e-033f-4094-a350-19c8ca0c2487"/>
+				<reportElement x="100" y="510" width="117" height="21" forecolor="#6633FF" uuid="dcede84e-033f-4094-a350-19c8ca0c2487"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -399,14 +399,14 @@
 				<text><![CDATA[Usa fio dental?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="267" y="530" width="203" height="19" forecolor="#6633FF" uuid="46b4ab20-1e9d-4814-9b4e-6494a44234d0"/>
+				<reportElement x="260" y="531" width="203" height="19" forecolor="#6633FF" uuid="46b4ab20-1e9d-4814-9b4e-6494a44234d0"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{senteDoresNoMaxilarOuOuvido}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="30" y="531" width="237" height="19" uuid="cd110aab-c437-4e4f-8160-dbd74789ca7e"/>
+				<reportElement x="30" y="531" width="260" height="19" uuid="cd110aab-c437-4e4f-8160-dbd74789ca7e"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>
@@ -427,7 +427,7 @@
 				<text><![CDATA[Range os dentes?]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="290" y="570" width="210" height="19" forecolor="#6633FF" uuid="3a707cf5-da76-4881-9294-be8de0027b5c"/>
+				<reportElement x="280" y="570" width="210" height="19" forecolor="#6633FF" uuid="3a707cf5-da76-4881-9294-be8de0027b5c"/>
 				<textElement>
 					<font size="10"/>
 				</textElement>

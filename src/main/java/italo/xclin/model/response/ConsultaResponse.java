@@ -50,5 +50,7 @@ public class ConsultaResponse {
 	private Long especialidadeId;
 	
 	private String especialidadeNome;
+	
+	private boolean pacienteAnamnesePreenchida;
 		
 }

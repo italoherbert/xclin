@@ -1,61 +1,61 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { LoginLayoutComponent } from './login-layout/login-layout.component';
-import { HomeComponent } from './home/home.component';
-import { UsuarioTelaComponent } from './usuario/usuario-tela/usuario-tela.component';
-import { UsuarioDetalhesComponent } from './usuario/usuario-detalhes/usuario-detalhes.component';
-import { UsuarioSaveComponent } from './usuario/usuario-save/usuario-save.component';
-import { AppLayoutComponent } from './app-layout/app-layout.component';
-import { UsuarioGrupoTelaComponent } from './usuario-grupo/usuario-grupo-tela/usuario-grupo-tela.component';
-import { UsuarioGrupoDetalhesComponent } from './usuario-grupo/usuario-grupo-detalhes/usuario-grupo-detalhes.component';
-import { UsuarioGrupoSaveComponent } from './usuario-grupo/usuario-grupo-save/usuario-grupo-save.component';
-import { UsuarioGrupoAcessosComponent } from './usuario-grupo/usuario-grupo-acessos/usuario-grupo-acessos.component';
-import { RecursoTelaComponent } from './recurso/recurso-tela/recurso-tela.component';
-import { RecursoDetalhesComponent } from './recurso/recurso-detalhes/recurso-detalhes.component';
-import { RecursoSaveComponent } from './recurso/recurso-save/recurso-save.component';
-import { UsuarioGrupoVinculosComponent } from './usuario/usuario-grupo-vinculos/usuario-grupo-vinculos.component';
-import { ClinicaTelaComponent } from './clinica/clinica-tela/clinica-tela.component';
-import { ClinicaDetalhesComponent } from './clinica/clinica-detalhes/clinica-detalhes.component';
-import { ClinicaSaveComponent } from './clinica/clinica-save/clinica-save.component';
-import { DiretorTelaComponent } from './diretor/diretor-tela/diretor-tela.component';
-import { DiretorDetalhesComponent } from './diretor/diretor-detalhes/diretor-detalhes.component';
-import { DiretorSaveComponent } from './diretor/diretor-save/diretor-save.component';
-import { DiretorClinicaVinculosComponent } from './diretor/diretor-clinica-vinculos/diretor-clinica-vinculos.component';
-import { ProfissionalTelaComponent } from './profissional/profissional-tela/profissional-tela.component';
-import { ProfissionalDetalhesComponent } from './profissional/profissional-detalhes/profissional-detalhes.component';
-import { ProfissionalSaveComponent } from './profissional/profissional-save/profissional-save.component';
-import { ProfissionalClinicaVinculosComponent } from './profissional/profissional-clinica-vinculos/profissional-clinica-vinculos.component';
-import { RecepcionistaSaveComponent } from './recepcionista/recepcionista-save/recepcionista-save.component';
-import { RecepcionistaDetalhesComponent } from './recepcionista/recepcionista-detalhes/recepcionista-detalhes.component';
-import { RecepcionistaTelaComponent } from './recepcionista/recepcionista-tela/recepcionista-tela.component';
-import { PacienteTelaComponent } from './paciente/paciente-tela/paciente-tela.component';
-import { PacienteDetalhesComponent } from './paciente/paciente-detalhes/paciente-detalhes.component';
-import { PacienteSaveComponent } from './paciente/paciente-save/paciente-save.component';
-import { ConsultaDetalhesComponent } from './consulta/consulta-detalhes/consulta-detalhes.component';
-import { ConsultaRemarcarComponent } from './consulta/consulta-remarcar/consulta-remarcar.component';
-import { ConsultaNovaComponent } from './consulta/consulta-nova/consulta-nova.component';
-import { ConsultaTelaComponent } from './consulta/consulta-tela/consulta-tela.component';
-import { ConsultaFilaComponent } from './consulta/consulta-fila/consulta-fila.component';
-import { NaoAdminDiretorTelaComponent } from './diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
-import { NaoAdminProfissionalTelaComponent } from './profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
-import { NaoAdminRecepcionistaTelaComponent } from './recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
-import { NaoAdminClinicaTelaComponent } from './clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
-import { ConsultaAlterarComponent } from './consulta/consulta-alterar/consulta-alterar.component';
-import { ProfissionalContaAlterarComponent } from './usuario-conta/profissional/profissional-conta-alterar/profissional-conta-alterar.component';
-import { RecepcionistaContaAlterarComponent } from './usuario-conta/recepcionista/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
-import { DiretorContaAlterarComponent } from './usuario-conta/diretor/diretor-conta-alterar/diretor-conta-alterar.component';
-import { UsuarioContaAlteraSenhaComponent } from './usuario-conta/usuario-conta-altera-senha/usuario-conta-altera-senha.component';
-import { ProfissionalContaDetalhesComponent } from './usuario-conta/profissional/profissional-conta-detalhes/profissional-conta-detalhes.component';
-import { RecepcionistaContaDetalhesComponent } from './usuario-conta/recepcionista/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
-import { DiretorContaDetalhesComponent } from './usuario-conta/diretor/diretor-conta-detalhes/diretor-conta-detalhes.component';
-import { EspecialidadeTelaComponent } from './especialidade/especialidade-tela/especialidade-tela.component';
-import { EspecialidadeDetalhesComponent } from './especialidade/especialidade-detalhes/especialidade-detalhes.component';
-import { EspecialidadeSaveComponent } from './especialidade/especialidade-save/especialidade-save.component';
-import { ProfissionalContaEspecialidadeSaveComponent } from './usuario-conta/profissional/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
-import { ProfissionalContaEspecialidadesComponent } from './usuario-conta/profissional/profissional-conta-especialidades/profissional-conta-especialidades.component';
-import { ConsultaAtendimentoComponent } from './consulta/consulta-atendimento/consulta-atendimento.component';
-import { PacienteAnamneseComponent } from './paciente/paciente-anamnese/paciente-anamnese.component';
+import { LoginComponent } from './features/login/login.component';
+import { LoginLayoutComponent } from './features/login-layout/login-layout.component';
+import { HomeComponent } from './features/home/home.component';
+import { UsuarioTelaComponent } from './features/usuario/usuario-tela/usuario-tela.component';
+import { UsuarioDetalhesComponent } from './features/usuario/usuario-detalhes/usuario-detalhes.component';
+import { UsuarioSaveComponent } from './features/usuario/usuario-save/usuario-save.component';
+import { AppLayoutComponent } from './features/app-layout/app-layout.component';
+import { UsuarioGrupoTelaComponent } from './features/usuario-grupo/usuario-grupo-tela/usuario-grupo-tela.component';
+import { UsuarioGrupoDetalhesComponent } from './features/usuario-grupo/usuario-grupo-detalhes/usuario-grupo-detalhes.component';
+import { UsuarioGrupoSaveComponent } from './features/usuario-grupo/usuario-grupo-save/usuario-grupo-save.component';
+import { UsuarioGrupoAcessosComponent } from './features/usuario-grupo/usuario-grupo-acessos/usuario-grupo-acessos.component';
+import { RecursoTelaComponent } from './features/recurso/recurso-tela/recurso-tela.component';
+import { RecursoDetalhesComponent } from './features/recurso/recurso-detalhes/recurso-detalhes.component';
+import { RecursoSaveComponent } from './features/recurso/recurso-save/recurso-save.component';
+import { UsuarioGrupoVinculosComponent } from './features/usuario/usuario-grupo-vinculos/usuario-grupo-vinculos.component';
+import { ClinicaTelaComponent } from './features/clinica/clinica-tela/clinica-tela.component';
+import { ClinicaDetalhesComponent } from './features/clinica/clinica-detalhes/clinica-detalhes.component';
+import { ClinicaSaveComponent } from './features/clinica/clinica-save/clinica-save.component';
+import { DiretorTelaComponent } from './features/diretor/diretor-tela/diretor-tela.component';
+import { DiretorDetalhesComponent } from './features/diretor/diretor-detalhes/diretor-detalhes.component';
+import { DiretorSaveComponent } from './features/diretor/diretor-save/diretor-save.component';
+import { DiretorClinicaVinculosComponent } from './features/diretor/diretor-clinica-vinculos/diretor-clinica-vinculos.component';
+import { ProfissionalTelaComponent } from './features/profissional/profissional-tela/profissional-tela.component';
+import { ProfissionalDetalhesComponent } from './features/profissional/profissional-detalhes/profissional-detalhes.component';
+import { ProfissionalSaveComponent } from './features/profissional/profissional-save/profissional-save.component';
+import { ProfissionalClinicaVinculosComponent } from './features/profissional/profissional-clinica-vinculos/profissional-clinica-vinculos.component';
+import { RecepcionistaSaveComponent } from './features/recepcionista/recepcionista-save/recepcionista-save.component';
+import { RecepcionistaDetalhesComponent } from './features/recepcionista/recepcionista-detalhes/recepcionista-detalhes.component';
+import { RecepcionistaTelaComponent } from './features/recepcionista/recepcionista-tela/recepcionista-tela.component';
+import { PacienteTelaComponent } from './features/paciente/paciente-tela/paciente-tela.component';
+import { PacienteDetalhesComponent } from './features/paciente/paciente-detalhes/paciente-detalhes.component';
+import { PacienteSaveComponent } from './features/paciente/paciente-save/paciente-save.component';
+import { ConsultaDetalhesComponent } from './features/consulta/consulta-detalhes/consulta-detalhes.component';
+import { ConsultaRemarcarComponent } from './features/consulta/consulta-remarcar/consulta-remarcar.component';
+import { ConsultaNovaComponent } from './features/consulta/consulta-nova/consulta-nova.component';
+import { ConsultaTelaComponent } from './features/consulta/consulta-tela/consulta-tela.component';
+import { ConsultaFilaComponent } from './features/consulta/consulta-fila/consulta-fila.component';
+import { NaoAdminDiretorTelaComponent } from './features/diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
+import { NaoAdminProfissionalTelaComponent } from './features/profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
+import { NaoAdminRecepcionistaTelaComponent } from './features/recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
+import { NaoAdminClinicaTelaComponent } from './features/clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
+import { ConsultaAlterarComponent } from './features/consulta/consulta-alterar/consulta-alterar.component';
+import { ProfissionalContaAlterarComponent } from './features/usuario-conta/profissional-conta/profissional-conta-alterar/profissional-conta-alterar.component';
+import { RecepcionistaContaAlterarComponent } from './features/usuario-conta/recepcionista-conta/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
+import { DiretorContaAlterarComponent } from './features/usuario-conta/diretor-conta/diretor-conta-alterar/diretor-conta-alterar.component';
+import { ContaAlterarSenhaComponent } from './features/usuario-conta/conta-alterar-senha/conta-alterar-senha.component';
+import { ProfissionalContaDetalhesComponent } from './features/usuario-conta/profissional-conta/profissional-conta-detalhes/profissional-conta-detalhes.component';
+import { RecepcionistaContaDetalhesComponent } from './features/usuario-conta/recepcionista-conta/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
+import { DiretorContaDetalhesComponent } from './features/usuario-conta/diretor-conta/diretor-conta-detalhes/diretor-conta-detalhes.component';
+import { EspecialidadeTelaComponent } from './features/especialidade/especialidade-tela/especialidade-tela.component';
+import { EspecialidadeDetalhesComponent } from './features/especialidade/especialidade-detalhes/especialidade-detalhes.component';
+import { EspecialidadeSaveComponent } from './features/especialidade/especialidade-save/especialidade-save.component';
+import { ProfissionalContaEspecialidadeSaveComponent } from './features/usuario-conta/profissional-conta/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
+import { ProfissionalContaEspecialidadesComponent } from './features/usuario-conta/profissional-conta/profissional-conta-especialidades/profissional-conta-especialidades.component';
+import { ConsultaAtendimentoComponent } from './features/consulta/consulta-atendimento/consulta-atendimento.component';
+import { PacienteAnamneseComponent } from './features/paciente/paciente-anamnese/paciente-anamnese.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -65,7 +65,7 @@ const routes: Routes = [
   { path: 'app', component: AppLayoutComponent, children: [
     { path: 'home', component: HomeComponent, outlet: 'page'},
 
-    { path: 'usuario-conta-alterar-senha', component: UsuarioContaAlteraSenhaComponent, outlet: 'page' },
+    { path: 'usuario-conta-alterar-senha', component: ContaAlterarSenhaComponent, outlet: 'page' },
     
     { path: 'profissional-conta-especialidades', component: ProfissionalContaEspecialidadesComponent, outlet: 'page' },
     { path: 'profissional-conta-especialidade-save', component: ProfissionalContaEspecialidadeSaveComponent, outlet: 'page' },

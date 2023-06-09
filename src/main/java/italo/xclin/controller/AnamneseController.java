@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import italo.xclin.exception.ServiceException;
 import italo.xclin.exception.SistemaException;
 import italo.xclin.model.request.save.AnamneseSaveRequest;
 import italo.xclin.model.response.AnamneseResponse;

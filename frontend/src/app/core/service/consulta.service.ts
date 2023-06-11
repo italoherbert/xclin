@@ -7,6 +7,7 @@ import { ConsultaFiltro } from '../bean/consulta/consulta-filtro';
 import { ConsultaFilaFiltro } from '../bean/consulta/consulta-fila-filtro';
 import { ConsultaAlter } from '../bean/consulta/consulta-alter';
 import { ConsultaObservacoesAlter } from '../bean/consulta/consulta-observacoes-alter';
+import { ConsultaFilaCompletaFiltro } from '../bean/consulta/consulta-fila-completa-filtro';
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +91,15 @@ export class ConsultaService {
     return this.http.post( '/api/consulta/lista/fila/'+clinicaId+'/'+profissionalId, filtro, { headers: headers, withCredentials: true } );
   }
 
+  listaFilaCompleta( clinicaId : any, profissionalId : any, filtro : ConsultaFilaCompletaFiltro ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.post( '/api/consulta/lista/fila/completa/'+clinicaId+'/'+profissionalId, filtro, { headers: headers, withCredentials: true } );
+  }
+
   filtraConsultas( clinicaId : any, filtro : ConsultaFiltro ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
@@ -164,11 +174,18 @@ export class ConsultaService {
     return this.http.get( '/api/consulta/get/iniciada/tela', { headers: headers, withCredentials: true } );
   }
 
-  getNovaConsultaProfissionalSelect() : Observable<any> {
+  getNovaConsultaTela() : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
-    return this.http.get( '/api/consulta/get/novaconsulta/profissional/select', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/consulta/get/novaconsulta/tela', { headers: headers, withCredentials: true } );
+  }
+
+  getConsultaAgendaTela() : Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/consulta/get/agenda/tela', { headers: headers, withCredentials: true } );
   }
 
   getQuantidadesAgrupadas( clinicaId : any, profissionalId : any, mes : any, ano : any ) : Observable<any> {

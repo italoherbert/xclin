@@ -7,12 +7,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ConsultaListaFilaRequest {
+public class ConsultaListaFilaCompletaFiltroRequest {
 
 	private String data;
 	
 	private String turno;
-	
-	private String status;
 	
 }

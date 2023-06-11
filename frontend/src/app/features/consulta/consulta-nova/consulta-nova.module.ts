@@ -14,6 +14,7 @@ import { ConsultaNovaComponent } from './consulta-nova.component';
 import { ConsultaProfissionalSelectComponent } from './consulta-profissional-select/consulta-profissional-select.component';
 import { ConsultaRegistroComponent } from './consulta-registro/consulta-registro.component';
 import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -36,6 +37,7 @@ import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.
     MatSelectModule,
     MatOptionModule,
     MatAutocompleteModule,
+    MatCheckboxModule,
     
     RealInputModule
   ],

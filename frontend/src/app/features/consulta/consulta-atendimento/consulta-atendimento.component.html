@@ -53,34 +53,34 @@
 
             <div class="row">
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Paciente:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.pacienteNome}}
                     </div>
                 </div>                    
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Especialidade:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.especialidadeNome}}
                     </div>
                 </div>                                                 
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Retorno:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.retorno == true ? 'Sim' : 'Não' }}
                     </div>
                 </div>               
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Anamnese:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         <a class="text-primary text-decoration-none" [routerLink]="[]" (click)="geraRelatorioAnamnese()">
                             <fa-icon [icon]="icons.faEye"></fa-icon>
                             visualizar
@@ -94,7 +94,7 @@
                     <div *ngIf="obsErroMsg !== null" class="alert alert-danger mb-2">
                         {{obsErroMsg}}
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Observações</mat-label>
                             <textarea matInput rows="6" placeholder="Digite as observações" [(ngModel)]="observacoesSave.observacoes"></textarea>
@@ -118,7 +118,7 @@
         <div class="text-white p-1">
             {{obs.dataSaveObservacoes | date: 'dd/MM/YYYY HH:mm:ss' }}
         </div>
-        <div class="text-secondary bg-white p-3 rounded-3">
+        <div class="text-gray bg-white p-3 rounded-3">
             {{obs.observacoes}}
         </div>
     </div>

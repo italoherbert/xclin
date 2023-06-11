@@ -46,7 +46,7 @@ export class ConsultaProfissionalSelectComponent {
 
     this.showSpinner = true;
 
-    this.consultaService.getNovaConsultaProfissionalSelect().subscribe({
+    this.consultaService.getNovaConsultaTela().subscribe({
       next: (resp) => {
         this.clinicasIDs = resp.clinicasIDs;
         this.clinicasNomes = resp.clinicasNomes;

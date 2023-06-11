@@ -33,55 +33,55 @@
 
             <div class="row">
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Paciente:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.pacienteNome}}
                     </div>
                 </div>    
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Clínica:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.clinicaNome}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Especialidade:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.especialidadeNome}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Data de atendimento:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.dataAtendimento}}
                     </div>
                 </div>                 
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Turno:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.turnoLabel}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Retorno:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.retorno == true ? 'Sim' : 'Não' }}
                     </div>
                 </div> 
                 <div class="col-sm-8 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Status:
                     </div>
                     <div class="fs-5" [ngClass]="consulta.status == 'FINALIZADA' ? 'text-success' : 'text-primary'">
@@ -89,7 +89,7 @@
                     </div>
                 </div>  
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Paga:
                     </div>
                     <div class="fs-5" [ngClass]="consulta.paga == true ? 'text-success' : 'text-danger'">
@@ -101,7 +101,7 @@
                     </div>
                 </div> 
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Valor
                     </div>
                     <div class="fs-5">
@@ -109,10 +109,10 @@
                     </div>
                 </div>                   
                 <div class="col-sm-12 my-3">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-gray">
                         Observações:
                     </div>
-                    <div class="fs-5 text-black">
+                    <div class="fs-5 text-secondary">
                         {{consulta.observacoes}}
                     </div>
                 </div>                               

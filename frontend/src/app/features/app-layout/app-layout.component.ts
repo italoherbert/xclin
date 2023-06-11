@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faAdd, faArrowLeft, faBox, faCalendarDays, faChevronDown, faChevronUp, faCircleUser, faDisplay, faFilter, faHospital, faHospitalUser, faListOl, faUmbrella, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faArrowLeft, faBox, faCalendarCheck, faCalendarDays, faChevronDown, faChevronUp, faCircleUser, faCubes, faDisplay, faFilter, faHospital, faHospitalUser, faListOl, faUmbrella, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { SistemaService } from '../../core/service/sistema.service';
 
 @Component({
@@ -24,12 +24,14 @@ export class AppLayoutComponent {
     faUserTie : faUserTie,
     faHospitalUser : faHospitalUser,
     faCalendarDays : faCalendarDays,
+    faCalendarCheck : faCalendarCheck,
     faWrench : faWrench,
     faAdd : faAdd,
     faDisplay : faDisplay,
     faFilter : faFilter,
     faListOl : faListOl,
-    faUmbrella : faUmbrella
+    faUmbrella : faUmbrella,
+    faCubes : faCubes
   }
 
   usuarioMenuShow : boolean = false;

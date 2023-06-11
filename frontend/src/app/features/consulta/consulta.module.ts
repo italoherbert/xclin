@@ -7,10 +7,13 @@ import { ConsultaFilaModule } from './consulta-fila/consulta-fila.module';
 import { ConsultaNovaModule } from './consulta-nova/consulta-nova.module';
 import { ConsultaRemarcarModule } from './consulta-remarcar/consulta-remarcar.module';
 import { ConsultaTelaModule } from './consulta-tela/consulta-tela.module';
+import { ConsultaAgendaModule } from './consulta-agenda/consulta-agenda.module';
+import { ConsultaFilaCompletaModule } from './consulta-fila-completa/consulta-fila-completa.module';
 
 
 @NgModule({
   declarations: [ 
+  
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,9 @@ import { ConsultaTelaModule } from './consulta-tela/consulta-tela.module';
     ConsultaFilaModule,
     ConsultaNovaModule,
     ConsultaRemarcarModule,
-    ConsultaTelaModule
+    ConsultaTelaModule,
+    ConsultaAgendaModule,
+    ConsultaFilaCompletaModule
   ]
 })
 export class ConsultaModule { }

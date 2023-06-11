@@ -9,6 +9,7 @@ import { ConsultaRemoveDialog, ConsultaTelaComponent } from './consulta-tela.com
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -28,7 +29,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatSelectModule,
     MatOptionModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCheckboxModule
   ]
 })
 export class ConsultaTelaModule { }

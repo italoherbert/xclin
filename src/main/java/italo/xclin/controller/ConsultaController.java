@@ -20,7 +20,8 @@ import italo.xclin.exception.SistemaException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
-import italo.xclin.model.request.filtro.ConsultaListaFilaRequest;
+import italo.xclin.model.request.filtro.ConsultaListaFilaCompletaFiltroRequest;
+import italo.xclin.model.request.filtro.ConsultaListaFilaFiltroRequest;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
 import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaRemarcarSaveRequest;
@@ -28,8 +29,9 @@ import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.response.ConsultaIniciadaResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.load.edit.ConsultaAlterLoadResponse;
+import italo.xclin.model.response.load.outros.ConsultaAgendaLoadResponse;
 import italo.xclin.model.response.load.outros.ConsultaRemarcarLoadResponse;
-import italo.xclin.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
+import italo.xclin.model.response.load.outros.NovaConsultaLoadResponse;
 import italo.xclin.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
@@ -276,7 +278,7 @@ public class ConsultaController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable Long profissionalId,
-			@RequestBody ConsultaListaFilaRequest request ) throws SistemaException {
+			@RequestBody ConsultaListaFilaFiltroRequest request ) throws SistemaException {
 				
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		autorizador.autorizaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
@@ -290,17 +292,48 @@ public class ConsultaController {
 	}
 	
 	@PreAuthorize("hasAuthority('consultaREAD')")
-	@GetMapping("/get/novaconsulta/profissional/select")
-	public ResponseEntity<Object> getNovaConsultaProfissionalSelectLoad( 
+	@PostMapping("/lista/fila/completa/{clinicaId}/{profissionalId}")
+	public ResponseEntity<Object> listaFilaCompleta(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long clinicaId,
+			@PathVariable Long profissionalId,
+			@RequestBody ConsultaListaFilaCompletaFiltroRequest request ) throws SistemaException {
+				
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
+		autorizador.autorizaSeProfissionalDeClinica( authorizationHeader, clinicaId, profissionalId );
+		
+		consultaValidator.validaListaFilaCompleta( request );
+		
+		List<ConsultaResponse> lista = consultaService.listaFilaCompleta( 
+				clinicaId, profissionalId, request );
+		
+		return ResponseEntity.ok( lista );
+	}
+	
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/novaconsulta/tela")
+	public ResponseEntity<Object> getNovaConsultaLoad( 
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 				
-		NovaConsultaProfissionalSelectLoadResponse resp = consultaService.getNovaConsultaProfissionalSelectLoad( clinicasIDs );
+		NovaConsultaLoadResponse resp = consultaService.getNovaConsultaLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 
+	@PreAuthorize("hasAuthority('consultaREAD')")
+	@GetMapping("/get/agenda/tela")
+	public ResponseEntity<Object> getConsultaAgendaLoad( 
+			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+				
+		ConsultaAgendaLoadResponse resp = consultaService.getConsultaAgendaLoad( clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
+	
 	@PreAuthorize("hasAuthority('consultaREAD')")
 	@GetMapping("/get/quantidades/pordia/{clinicaId}/{profissionalId}/{mes}/{ano}")
 	public ResponseEntity<Object> agrupaPorDiaDoMes(

@@ -56,6 +56,8 @@ import { ProfissionalContaEspecialidadeSaveComponent } from './features/usuario-
 import { ProfissionalContaEspecialidadesComponent } from './features/usuario-conta/profissional-conta/profissional-conta-especialidades/profissional-conta-especialidades.component';
 import { ConsultaAtendimentoComponent } from './features/consulta/consulta-atendimento/consulta-atendimento.component';
 import { PacienteAnamneseComponent } from './features/paciente/paciente-anamnese/paciente-anamnese.component';
+import { ConsultaAgendaComponent } from './features/consulta/consulta-agenda/consulta-agenda.component';
+import { ConsultaFilaCompletaComponent } from './features/consulta/consulta-fila-completa/consulta-fila-completa.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -126,10 +128,12 @@ const routes: Routes = [
     { path: 'consulta-nova', component: ConsultaNovaComponent, outlet: 'page' },
     { path: 'consulta-tela', component: ConsultaTelaComponent, outlet: 'page' },
     { path: 'consulta-fila', component: ConsultaFilaComponent, outlet: 'page' },
+    { path: 'consulta-fila-completa/:clinicaId/:profissionalId/:ano/:mes/:dia/:turno', component: ConsultaFilaCompletaComponent, outlet: 'page' },
     { path: 'consulta-atendimento', component: ConsultaAtendimentoComponent, outlet: 'page' },
     { path: 'consulta-remarcar/:consultaId', component: ConsultaRemarcarComponent, outlet: 'page' },
     { path: 'consulta-alterar/:consultaId', component: ConsultaAlterarComponent, outlet: 'page' },
     { path: 'consulta-detalhes/:consultaId', component: ConsultaDetalhesComponent, outlet: 'page' },
+    { path: 'consulta-agenda', component: ConsultaAgendaComponent, outlet: 'page' }
   ] },
 ];
 

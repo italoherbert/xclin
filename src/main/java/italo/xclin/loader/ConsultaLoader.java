@@ -26,8 +26,9 @@ import italo.xclin.model.response.ConsultaObservacoesResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.load.edit.ConsultaAlterLoadResponse;
+import italo.xclin.model.response.load.outros.ConsultaAgendaLoadResponse;
 import italo.xclin.model.response.load.outros.ConsultaRemarcarLoadResponse;
-import italo.xclin.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
+import italo.xclin.model.response.load.outros.NovaConsultaLoadResponse;
 import italo.xclin.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
@@ -150,6 +151,10 @@ public class ConsultaLoader {
 		resp.setTurnos( turnoEnumManager.tipoResponses() );		
 	}
 	
+	public void loadConsultaAgendaResponse( ConsultaAgendaLoadResponse resp ) {
+		resp.setTurnos( turnoEnumManager.tipoResponses() ); 
+	}
+	
 	public Consulta novoBean( 
 			Profissional profissional,
 			Especialidade especialidade,
@@ -177,11 +182,20 @@ public class ConsultaLoader {
 		return resp;
 	}
 	
-	public NovaConsultaProfissionalSelectLoadResponse novoProfissionalSelectLoadResponse( 
+	public NovaConsultaLoadResponse novoNovaConsultaLoadResponse( 
 			List<Long> clinicasIDs, 
 			List<String> clinicasNomes ) {
 		
-		NovaConsultaProfissionalSelectLoadResponse resp = new NovaConsultaProfissionalSelectLoadResponse();
+		NovaConsultaLoadResponse resp = new NovaConsultaLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
+		return resp;
+	}
+	
+	public ConsultaAgendaLoadResponse novoConsultaAgendaLoadResponse(
+			List<Long> clinicasIDs,
+			List<String> clinicasNomes ) {
+		ConsultaAgendaLoadResponse resp = new ConsultaAgendaLoadResponse();
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;

@@ -114,18 +114,24 @@
                         <fa-icon [icon]="icons.faAdd"></fa-icon>
                         <div class="mx-2">Nova consulta</div>
                     </div>                       
-                </a>                                 
+                </a>                                                 
                 <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-fila' } } ]" (click)="sidenav.toggle()">
                     <div class="d-flex flex-row">
-                        <fa-icon [icon]="icons.faFilter"></fa-icon>
+                        <fa-icon [icon]="icons.faCubes"></fa-icon>
                         <div class="mx-2">Fila de consultas</div>
                     </div>
                 </a>
                 <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-tela' } } ]" (click)="sidenav.toggle()">
                     <div class="d-flex flex-row">
-                        <fa-icon [icon]="icons.faDisplay"></fa-icon>
-                        <div class="mx-2">Tela de consultas</div>
+                        <fa-icon [icon]="icons.faFilter"></fa-icon>
+                        <div class="mx-2">Filtro de consultas</div>
                     </div>
+                </a>
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-agenda' } } ]" (click)="sidenav.toggle()">
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faCalendarCheck"></fa-icon>
+                        <div class="mx-2">Fila por agenda</div>
+                    </div>                       
                 </a>
             </div>
 

@@ -1,0 +1,38 @@
+<h1>Agenda de consultas</h1>
+
+<div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+    {{infoMsg}}
+</div>
+<div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+    {{erroMsg}}
+</div>
+
+<div class="table-responsive mt-3" style="height: 20em">    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Paciente</th>
+                <th>Novo status</th>
+                <th>Data de atendimento</th>                
+                <th>Turno</th>
+                <th>Detalhes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let c of consultas">
+                <td class="align-middle">{{c.pacienteNome}}</td>                
+                <td>
+                    {{c.statusLabel}}                    
+                </td>                
+                <td class="align-middle">{{c.dataAtendimento | date: 'dd/MM/yyyy'}}</td>
+                <td class="align-middle">{{c.turnoLabel}}</td>
+                <td class="align-middle">
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'consulta-detalhes/'+c.id }}]">
+                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                        detalhes
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

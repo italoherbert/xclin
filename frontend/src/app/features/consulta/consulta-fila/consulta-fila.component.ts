@@ -46,8 +46,6 @@ export class ConsultaFilaComponent {
   turnos : any[] = [];
   statuses : any[] = [];
 
-  showFormFiltro : boolean = false;
-
   constructor(
     private consultaService: ConsultaService, 
     private profissionalService: ProfissionalService,
@@ -58,9 +56,6 @@ export class ConsultaFilaComponent {
     this.erroMsg = null;
 
     this.showSpinner = true;
-
-    let filaFiltroStr = localStorage.getItem( 'fila-filtro' );
-    this.showFormFiltro = filaFiltroStr === null;
     
     this.consultaService.getListaFilaTela().subscribe({
       next: (resp) => {
@@ -152,7 +147,6 @@ export class ConsultaFilaComponent {
             clinicaId : this.clinicaId,
             profissionalId : this.profissionalId,            
             filtro : this.consultaFilaFiltro,
-            showFormFiltro : this.showFormFiltro
           }
 
           localStorage.setItem( 'fila-filtro', JSON.stringify( filaFiltro ) );

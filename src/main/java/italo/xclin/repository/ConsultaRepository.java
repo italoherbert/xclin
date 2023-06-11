@@ -62,11 +62,25 @@ public interface ConsultaRepository extends JpaRepository<Consulta, Long> {
 				+ "c.turno=?4 and "
 				+ "c.status=?5 "
 			+ "order by c.dataAgendamento asc")
-	public List<Consulta> listaFila( 
+	public List<Consulta> listaFilaPorStatus( 
 			Long clinicaId, Long profissionalId, 
 			Date data, 
 			Turno turno, 
 			ConsultaStatus status );
+	
+	@Query("select c "
+			+ "from Consulta c "
+				+ "join ProfissionalClinicaVinculo v "
+			+ "where "
+				+ "c.clinica.id=?1 and "
+				+ "v.profissional.id=?2 and "
+				+ "c.dataAtendimento=?3 and "
+				+ "c.turno=?4 "
+			+ "order by c.dataAgendamento asc")
+	public List<Consulta> listaFilaCompleta( 
+			Long clinicaId, Long profissionalId,
+			Date data,
+			Turno turno );
 	
 
 	@Query("select count(*) "

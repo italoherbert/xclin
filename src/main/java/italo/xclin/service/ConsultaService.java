@@ -24,7 +24,8 @@ import italo.xclin.model.Especialidade;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
-import italo.xclin.model.request.filtro.ConsultaListaFilaRequest;
+import italo.xclin.model.request.filtro.ConsultaListaFilaCompletaFiltroRequest;
+import italo.xclin.model.request.filtro.ConsultaListaFilaFiltroRequest;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
 import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaRemarcarSaveRequest;
@@ -35,8 +36,9 @@ import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.load.edit.ConsultaAlterLoadResponse;
+import italo.xclin.model.response.load.outros.ConsultaAgendaLoadResponse;
 import italo.xclin.model.response.load.outros.ConsultaRemarcarLoadResponse;
-import italo.xclin.model.response.load.outros.NovaConsultaProfissionalSelectLoadResponse;
+import italo.xclin.model.response.load.outros.NovaConsultaLoadResponse;
 import italo.xclin.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
@@ -293,17 +295,49 @@ public class ConsultaService {
 		}
 		return lista;
 	}
+	
+	/*
+	 * Fila incluíndo qualquer status
+	 * */
+	public List<ConsultaResponse> listaFilaCompleta(
+			Long clinicaId, 
+			Long profissionalId, 
+			ConsultaListaFilaCompletaFiltroRequest request ) throws ServiceException {
 		
+		Date data = converter.stringToDataNEx( request.getData() );
+		Turno turno = turnoEnumManager.getEnum( request.getTurno() );
+		
+		List<Consulta> fila = consultaRepository.listaFilaCompleta(
+				clinicaId, profissionalId, data, turno );
+		
+		List<ConsultaResponse> lista = new ArrayList<>();
+		for( Consulta consulta : fila ) {
+			Clinica c = consulta.getClinica();
+			Profissional pr = consulta.getProfissional();
+			Paciente pa = consulta.getPaciente();
+			Especialidade e = consulta.getEspecialidade();
+						
+			ConsultaResponse resp = consultaLoader.novoResponse( c, pr, pa, e );
+			consultaLoader.loadResponse( resp, consulta );
+			
+			lista.add( resp );
+		}
+		return lista;
+	}
+		
+	/*
+	 * Fila incluíndo filtro por status
+	 * */
 	public List<ConsultaResponse> listaFila( 
 			Long clinicaId, 
 			Long profissionalId, 
-			ConsultaListaFilaRequest request ) throws ServiceException {
+			ConsultaListaFilaFiltroRequest request ) throws ServiceException {
 		
 		Date data = converter.stringToDataNEx( request.getData() );
 		Turno turno = turnoEnumManager.getEnum( request.getTurno() );
 		ConsultaStatus status = consultaStatusEnumManager.getEnum( request.getStatus() );
 		
-		List<Consulta> fila = consultaRepository.listaFila(
+		List<Consulta> fila = consultaRepository.listaFilaPorStatus(
 				clinicaId, profissionalId, data, turno, status );
 		
 		List<ConsultaResponse> lista = new ArrayList<>();
@@ -430,10 +464,18 @@ public class ConsultaService {
 		return resp;
 	}
 	
-	public NovaConsultaProfissionalSelectLoadResponse getNovaConsultaProfissionalSelectLoad( Long[] clinicasIDs ) {
+	public NovaConsultaLoadResponse getNovaConsultaLoad( Long[] clinicasIDs ) {
 		ListaResponse resp = clinicaSharedService.listaPorIDs( clinicasIDs );
 		
-		return consultaLoader.novoProfissionalSelectLoadResponse( resp.getIds(), resp.getNomes() ); 
+		return consultaLoader.novoNovaConsultaLoadResponse( resp.getIds(), resp.getNomes() ); 
+	}
+	
+	public ConsultaAgendaLoadResponse getConsultaAgendaLoad( Long[] clinicasIDs ) {
+		ListaResponse lresp = clinicaSharedService.listaPorIDs( clinicasIDs );
+		
+		ConsultaAgendaLoadResponse resp = consultaLoader.novoConsultaAgendaLoadResponse( lresp.getIds(), lresp.getNomes() );
+		consultaLoader.loadConsultaAgendaResponse( resp ); 
+		return resp;
 	}
 		
 	public List<Object[]> agrupaPorDiaDeMes( Long consultaId, int mes, int ano ) throws ServiceException {

@@ -10,7 +10,8 @@ import italo.xclin.exception.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
-import italo.xclin.model.request.filtro.ConsultaListaFilaRequest;
+import italo.xclin.model.request.filtro.ConsultaListaFilaCompletaFiltroRequest;
+import italo.xclin.model.request.filtro.ConsultaListaFilaFiltroRequest;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
 import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
@@ -89,7 +90,21 @@ public class ConsultaValidator {
 				throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				
 	}
 	
-	public void validaListaFila( ConsultaListaFilaRequest request ) throws ValidationException {
+	public void validaListaFila( ConsultaListaFilaFiltroRequest request ) throws ValidationException {
+		if ( request.getData() == null )
+			throw new ValidationException( Erro.DATA_OBRIGATORIA );
+		
+		try {
+			converter.stringToData( request.getData() );
+		} catch ( ConverterException e ) {
+			throw new ValidationException( Erro.DATA_CONSULTA_FILA_INVALIDA );
+		}
+		
+		if ( !turnoEnumManager.enumValida( request.getTurno() ) )
+			throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				
+	}
+	
+	public void validaListaFilaCompleta( ConsultaListaFilaCompletaFiltroRequest request ) throws ValidationException {
 		if ( request.getData() == null )
 			throw new ValidationException( Erro.DATA_OBRIGATORIA );
 		

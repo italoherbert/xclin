@@ -1,0 +1,1 @@
+for /l %%x in (1,1,1000) do curl -X CONNECT https://www.xclin.com.br/www.baidu.com:443

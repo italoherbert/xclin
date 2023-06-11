@@ -1,32 +1,31 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ConsultaAlterarComponent } from './consulta-alterar.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatCardModule } from '@angular/material/card';
+import { ConsultaAgendaComponent } from './consulta-agenda.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
+import { CalendarioModule } from 'src/app/shared/calendario/calendario.module';
+import { MatInputModule } from '@angular/material/input';
 
 
 
 @NgModule({
   declarations: [
-    ConsultaAlterarComponent
+    ConsultaAgendaComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
 
-    MatCardModule,
+    CalendarioModule,
+
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule,
     MatSelectModule,
     MatOptionModule,
-    MatCheckboxModule
+    MatButtonModule
   ]
 })
-export class ConsultaAlterarModule { }
+export class ConsultaAgendaModule { }

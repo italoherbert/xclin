@@ -135,13 +135,21 @@
                 </a>
             </div>
 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]" (click)="sidenav.toggle()"
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'lancamento-tela' } } ]" (click)="sidenav.toggle()"
                     *ngIf="sistemaService.isAdminEscopo() == false">
                 <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
-                    <div class="mx-2">Pacientes</div>
+                    <fa-icon [icon]="icons.faMoneyBillTrendUp"></fa-icon>
+                    <div class="mx-2">Lançamentos</div>
                 </div>
             </mat-list-item> 
+
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]" (click)="sidenav.toggle()"
+            *ngIf="sistemaService.isAdminEscopo() == false">
+        <div class="d-flex flex-row">
+            <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
+            <div class="mx-2">Pacientes</div>
+        </div>
+    </mat-list-item> 
 
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'profissional-tela' } } ]" (click)="sidenav.toggle()"
                     *ngIf="sistemaService.isAdminEscopo() == true">                       

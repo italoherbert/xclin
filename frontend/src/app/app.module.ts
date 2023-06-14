@@ -20,6 +20,8 @@ import { DiretorModule } from './features/diretor/diretor.module';
 import { ConsultaModule } from './features/consulta/consulta.module';
 import { ClinicaModule } from './features/clinica/clinica.module';
 import { UsuarioContaModule } from './features/usuario-conta/usuario-conta.module';
+import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
+import { LancamentoModule } from './features/lancamento/lancamento.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { UsuarioContaModule } from './features/usuario-conta/usuario-conta.modul
     
     UsuarioModule,
     UsuarioGrupoModule,
-    RecursoModule
+    RecursoModule,
+
+    LancamentoModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue:"pt-br"}

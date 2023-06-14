@@ -4,6 +4,7 @@ import { UsuarioGrupoDetalhesComponent } from './usuario-grupo-detalhes.componen
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -17,7 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
     SharedModule,
 
     MatCardModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckboxModule
   ]
 })
 export class UsuarioGrupoDetalhesModule { }

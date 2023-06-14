@@ -1,0 +1,95 @@
+<h1>Tela de lançamentos</h1>
+
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'lancamento-novo' }}]">
+    <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
+    <span class="mx-3">Novo lançamento</span>
+</a>
+
+<br />
+<br />
+
+<mat-form-field appearance="fill">
+    <mat-label>Clínica</mat-label>
+    <mat-select placeholder="Selecione o profissional" [(ngModel)]="clinicaId">
+        <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+            {{clinicasNomes[ i ]}} 
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<span class="p-2"></span>
+
+<mat-form-field appearance="fill">
+    <mat-label>Data de início</mat-label>
+    <input matInput [matDatepicker]="dataIniDatepicker" placeholder="DD/MM/YYYY" [(ngModel)]="lancamentoFiltro.dataInicio"/>
+    <mat-datepicker-toggle matIconSuffix [for]="dataIniDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #dataIniDatepicker></mat-datepicker>
+</mat-form-field>
+
+<span class="p-2"></span>
+
+<mat-form-field appearance="fill">
+    <mat-label>Data de fim</mat-label>
+    <input matInput [matDatepicker]="dataFimDatepicker" placeholder="DD/MM/YYYY" [(ngModel)]="lancamentoFiltro.dataFim"/>
+    <mat-datepicker-toggle matIconSuffix [for]="dataFimDatepicker"></mat-datepicker-toggle>
+    <mat-datepicker #dataFimDatepicker></mat-datepicker>
+</mat-form-field>
+
+<br />
+
+<mat-form-field appearance="fill">
+    <mat-label>Nome de usuário</mat-label>
+    <input matInput type="text" placeholder="Nome de usuário" [(ngModel)]="lancamentoFiltro.filtroUsername" />
+</mat-form-field>
+
+<span class="p-2"></span>
+
+<mat-checkbox color="primary" [(ngModel)]="lancamentoFiltro.incluirUsername">Incluír username</mat-checkbox>
+
+<br />
+
+<div class="d-flex flex-row align-items-center">
+    <button mat-raised-button color="primary" (click)="filtra()">
+        <fa-icon [icon]="icons.faFilter"></fa-icon>
+        <span class="mx-3">Filtrar</span>
+    </button>
+</div>
+
+<div *ngIf="showSpinner === true" class="m-2 spinner-border text-primary"></div>
+
+<div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+    {{infoMsg}}
+</div>
+<div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+    {{erroMsg}}
+</div>
+
+<br />
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Saldo</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let l of lancamentos; index as i">
+                <td>{{ l.dataLancamento | date: 'dd/MM/yyyy'}}</td>
+                <td>{{ l.tipoLabel }}</td>
+                <td>{{ l.valor | currency: 'BRL'}}</td>
+                <td [ngClass]="saldos[i] < 0 ? 'text-danger' : 'text-primary'">{{ saldos[ i ] | currency: 'BRL'}}</td>
+                <td>
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(l.id)">
+                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                        remover
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

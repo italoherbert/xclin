@@ -14,7 +14,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 			+ "from Lancamento l "
 			+ "where (date(l.dataLancamento) between ?1 and ?2) and "
 			+ 	"(?3=false or (?3=true and l.usuario.username like ?4) ) "
-			+ "order by l.dataLancamento desc")
+			+ "order by l.dataLancamento asc")
 	public List<Lancamento> filtra( 
 			Date dataIni, Date dataFim, 
 			boolean incluirUsername, 

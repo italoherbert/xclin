@@ -18,6 +18,8 @@ import italo.xclin.model.Usuario;
 import italo.xclin.model.request.filtro.LancamentoFiltroRequest;
 import italo.xclin.model.request.save.LancamentoSaveRequest;
 import italo.xclin.model.response.LancamentoResponse;
+import italo.xclin.model.response.load.reg.LancamentoRegLoadResponse;
+import italo.xclin.model.response.load.tela.LancamentoTelaLoadResponse;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.UsuarioRepository;
@@ -93,6 +95,38 @@ public class LancamentoService {
 			lista.add( resp );
 		}
 		return lista;
+	}
+	
+	public LancamentoTelaLoadResponse getLancamentoTelaLoad( Long[] clinicasIDs ) {
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		
+		for( Clinica c : clinicas ) {
+			clinicasIDs2.add( c.getId() );
+			clinicasNomes2.add( c.getNome() );
+		}
+		
+		return lancamentoLoader.novoLancamentoTelaResponse( clinicasIDs2, clinicasNomes2 );
+	}
+	
+	public LancamentoRegLoadResponse getLancamentoRegLoad( Long[] clinicasIDs ) {
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		
+		for( Clinica c : clinicas ) {
+			clinicasIDs2.add( c.getId() );
+			clinicasNomes2.add( c.getNome() );
+		}
+		
+		LancamentoRegLoadResponse resp = 
+				lancamentoLoader.novoLancamentoRegResponse( clinicasIDs2, clinicasNomes2 );
+		
+		lancamentoLoader.loadRegResponse( resp );
+		return resp;
 	}
 	
 	public void deleta( Long lancamentoId ) throws ServiceException {

@@ -20,6 +20,8 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.filtro.LancamentoFiltroRequest;
 import italo.xclin.model.request.save.LancamentoSaveRequest;
 import italo.xclin.model.response.LancamentoResponse;
+import italo.xclin.model.response.load.reg.LancamentoRegLoadResponse;
+import italo.xclin.model.response.load.tela.LancamentoTelaLoadResponse;
 import italo.xclin.service.LancamentoService;
 import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.validator.LancamentoValidator;
@@ -58,7 +60,7 @@ public class LancamentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('lancamentoREAD')")
-	@GetMapping("/filtra/{clinicaId}")
+	@PostMapping("/filtra/{clinicaId}")
 	public ResponseEntity<Object> filtra( 
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId, 
@@ -70,6 +72,30 @@ public class LancamentoController {
 		List<LancamentoResponse> lista = lancamentoService.filtra( request );
 		return ResponseEntity.ok( lista );
 	}		
+	
+	@PreAuthorize("hasAuthority('lancamentoREAD')")
+	@GetMapping("/get/tela/load")
+	public ResponseEntity<Object> getTelaLoad(
+			@RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		LancamentoTelaLoadResponse resp = lancamentoService.getLancamentoTelaLoad( clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('lancamentoREAD')")
+	@GetMapping("/get/reg/load")
+	public ResponseEntity<Object> getRegLoad(
+			@RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		LancamentoRegLoadResponse resp = lancamentoService.getLancamentoRegLoad( clinicasIDs );
+		return ResponseEntity.ok( resp );
+	}
 	
 	@PreAuthorize("hasAuthority('lancamentoDELETE')")
 	@DeleteMapping("/deleta/{lancamentoId}")

@@ -58,6 +58,8 @@ import { ConsultaAtendimentoComponent } from './features/consulta/consulta-atend
 import { PacienteAnamneseComponent } from './features/paciente/paciente-anamnese/paciente-anamnese.component';
 import { ConsultaAgendaComponent } from './features/consulta/consulta-agenda/consulta-agenda.component';
 import { ConsultaFilaCompletaComponent } from './features/consulta/consulta-fila-completa/consulta-fila-completa.component';
+import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
+import { LancamentoNovoComponent } from './features/lancamento/lancamento-novo/lancamento-novo.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -133,7 +135,10 @@ const routes: Routes = [
     { path: 'consulta-remarcar/:consultaId', component: ConsultaRemarcarComponent, outlet: 'page' },
     { path: 'consulta-alterar/:consultaId', component: ConsultaAlterarComponent, outlet: 'page' },
     { path: 'consulta-detalhes/:consultaId', component: ConsultaDetalhesComponent, outlet: 'page' },
-    { path: 'consulta-agenda', component: ConsultaAgendaComponent, outlet: 'page' }
+    { path: 'consulta-agenda', component: ConsultaAgendaComponent, outlet: 'page' },
+
+    { path: 'lancamento-tela', component: LancamentoTelaComponent, outlet: 'page' },
+    { path: 'lancamento-novo', component: LancamentoNovoComponent, outlet: 'page' }
   ] },
 ];
 

@@ -19,6 +19,7 @@ public interface Erro {
 	public final static String DATA_OBRIGATORIA = "A data é um campo de preenchimento obrigatório.";
 	
 	public final static String USERNAME_INI_OBRIGATORIO = "O início do username é um campo de preenchimento obrigatório.";
+	public final static String USERNAME_FILTRO_OBRIGATORIO = "O username para filtro é um campo de preenchimento obrigatório.";
 	public final static String NOME_INI_OBRIGATORIO = "O início do nome é um campo de preenchimento obrigatório.";
 	public final static String CLINICA_NOME_INI_OBRIGATORIO = "O início do nome da clínica é um campo de preenchimento obrigatório.";
 	public final static String PACIENTE_NOME_INI_OBRIGATORIO = "O início do nome do paciente é um campo de preenchimento obrigatório.";
@@ -43,6 +44,7 @@ public interface Erro {
 	public final static String ESPECIALIDADE_NAO_ENCONTRADA = "Especialidade não encontrada.";
 	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrada a especialidade para adicioná-la ao profissional.";
 	public final static String ANAMNESE_NAO_ENCONTRADA = "Anamnese do paciente não encontrada.";
+	public final static String LANCAMENTO_NAO_ENCONTRADO = "Lancamento não encontrado.";
 		
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	
@@ -82,6 +84,7 @@ public interface Erro {
 	public final static String DATA_INI_INVALIDA = "A data de início está em formato inválido.";
 	public final static String DATA_FIM_INVALIDA = "A data de fim está em formato inválido.";
 	public final static String DATA_CONSULTA_FILA_INVALIDA = "A data do dia da fila está em formato inválido.";
+	public final static String LANCAMENTO_TIPO_INVALIDO = "O tipo do lançamento não foi reconhecido.";
 	
 	public final static String STRNUM_INVALIDO = "Não foi possível converter o texto: '$1' em número.";
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";

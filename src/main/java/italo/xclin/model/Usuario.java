@@ -43,4 +43,7 @@ public class Usuario {
 	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
 	private List<UsuarioGrupoVinculo> usuarioGrupoVinculos;
 		
+	@OneToMany(mappedBy="usuario", cascade=CascadeType.ALL)
+	private List<Lancamento> lancamentos;
+	
 }

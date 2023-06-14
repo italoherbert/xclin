@@ -13,11 +13,13 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.Anamnese;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
+import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.ProfissionalClinicaVinculo;
 import italo.xclin.repository.AnamneseRepository;
 import italo.xclin.repository.ConsultaRepository;
+import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteRepository;
 import italo.xclin.repository.ProfissionalRepository;
 
@@ -38,6 +40,22 @@ public class Autorizador {
 	
 	@Autowired
 	private ProfissionalRepository profissionalRepository;
+	
+	@Autowired
+	private LancamentoRepository lancamentoRepository;
+	
+	public void autorizaSeLancamentoDeClinica( String authorizationHeader, Long lancamentoId ) throws AutorizadorException {
+		Optional<Lancamento> lancamentoOp = lancamentoRepository.findById( lancamentoId );
+		if ( !lancamentoOp.isPresent() )
+			throw new AutorizadorException( Erro.LANCAMENTO_NAO_ENCONTRADO );
+		
+		Lancamento l = lancamentoOp.get();
+		Clinica c = l.getClinica();
+		
+		Long clinicaId = c.getId();
+		
+		this.autorizaPorClinica( authorizationHeader, clinicaId );
+	}
 	
 	public void autorizaSeAnamneseDePacienteDeClinica( String authorizationHeader, Long anamneseId ) throws AutorizadorException {
 		Optional<Anamnese> anamneseOp = anamneseRepository.findById( anamneseId );

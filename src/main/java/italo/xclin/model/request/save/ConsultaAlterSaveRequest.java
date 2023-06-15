@@ -12,9 +12,7 @@ public class ConsultaAlterSaveRequest {
 	private double valor;
 
 	private boolean retorno;
-	
-	private boolean paga;
-	
+		
 	private String status;
 		
 	private String observacoes;

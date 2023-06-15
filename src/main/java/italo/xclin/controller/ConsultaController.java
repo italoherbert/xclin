@@ -101,14 +101,18 @@ public class ConsultaController {
 	}	
 	
 	@PreAuthorize("hasAuthority('consultaWRITE')")
-	@PatchMapping("/paga/{consultaId}")
+	@PatchMapping("/seta/pagamento/{consultaId}/{paga}")
 	public ResponseEntity<Object> registraPagamento(
 			@RequestHeader("Authorization") String authorizationHeader,
-			@PathVariable Long consultaId ) throws SistemaException {
+			@PathVariable Long consultaId,
+			@PathVariable boolean paga ) throws SistemaException {
 		
 		autorizador.autorizaPorConsultaEClinica( authorizationHeader, consultaId );
 		
-		consultaService.registraPagamento( consultaId );
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+				
+		consultaService.setaPagamento( logadoUID, consultaId, paga );
 		return ResponseEntity.ok().build();		
 	}
 	

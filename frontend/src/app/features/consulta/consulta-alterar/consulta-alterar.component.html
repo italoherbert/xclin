@@ -12,18 +12,18 @@
         <mat-card-content>
             <div class="row">       
                 <div class="col-sm-6">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-dark">
                         Paciente
                     </div>
-                    <div class="fs-5 text-dark">
+                    <div class="fs-5 text-secondary">
                         {{pacienteNome}}
                     </div>
                 </div>
                 <div class="col-sm-6">
-                    <div class="fs-6 text-secondary">
+                    <div class="fs-6 text-dark">
                         Clínica
                     </div>
-                    <div class="fs-5 text-dark">
+                    <div class="fs-5 text-secondary">
                         {{clinicaNome}}
                     </div>
                 </div>
@@ -46,7 +46,6 @@
                     </mat-form-field>
                 </div>
                 <div class="col-sm-12">
-                    <mat-checkbox color="primary" [(ngModel)]="consultaAlter.paga">Paga</mat-checkbox>
                     <mat-checkbox color="primary" [(ngModel)]="consultaAlter.retorno">Retorno</mat-checkbox>
                 </div>
                 <div class="col-sm-12">

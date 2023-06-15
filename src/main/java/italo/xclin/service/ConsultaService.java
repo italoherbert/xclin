@@ -12,17 +12,21 @@ import org.springframework.stereotype.Service;
 import italo.xclin.enums.ConsultaStatusEnumManager;
 import italo.xclin.enums.TurnoEnumManager;
 import italo.xclin.enums.tipos.ConsultaStatus;
+import italo.xclin.enums.tipos.LancamentoTipo;
 import italo.xclin.enums.tipos.Turno;
 import italo.xclin.exception.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.ConsultaLoader;
 import italo.xclin.loader.EspecialidadeLoader;
+import italo.xclin.loader.LancamentoLoader;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
 import italo.xclin.model.Especialidade;
+import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
+import italo.xclin.model.Usuario;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
 import italo.xclin.model.request.filtro.ConsultaListaFilaCompletaFiltroRequest;
 import italo.xclin.model.request.filtro.ConsultaListaFilaFiltroRequest;
@@ -46,8 +50,10 @@ import italo.xclin.model.response.load.tela.ConsultaTelaLoadResponse;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
+import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteRepository;
 import italo.xclin.repository.ProfissionalRepository;
+import italo.xclin.repository.UsuarioRepository;
 import italo.xclin.service.shared.ClinicaSharedService;
 import jakarta.transaction.Transactional;
 
@@ -73,10 +79,19 @@ public class ConsultaService {
 	private PacienteRepository pacienteRepository;
 	
 	@Autowired
+	private LancamentoRepository lancamentoRepository;
+	
+	@Autowired
+	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
 	private ConsultaLoader consultaLoader;
 	
 	@Autowired
 	private EspecialidadeLoader especialidadeLoader;
+	
+	@Autowired
+	private LancamentoLoader lancamentoLoader;
 	
 	@Autowired
 	private Converter converter;
@@ -147,17 +162,36 @@ public class ConsultaService {
 		consultaRepository.save( consulta );
 	}
 	
-	public void registraPagamento( Long consultaId ) throws ServiceException {
+	@Transactional
+	public void setaPagamento( Long logadoUID, Long consultaId, boolean paga ) throws ServiceException {				
 		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
 		if ( !consultaOp.isPresent() )
 			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
 				
 		Consulta consulta = consultaOp.get();
-		consulta.setPaga( true );
+		consulta.setPaga( paga );			
 		
-		consultaRepository.save( consulta );		
+		Optional<Usuario> usuarioLogadoOp = usuarioRepository.findById( logadoUID );
+		if ( !usuarioLogadoOp.isPresent() )
+			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
+		
+		Usuario usuarioLogado = usuarioLogadoOp.get();
+		
+		consultaRepository.save( consulta );
+					
+		Clinica c = consulta.getClinica();
+		Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, c );
+		lanc.setDataLancamento( new Date() );
+		if ( paga ) {			
+			lanc.setTipo( LancamentoTipo.CREDITO );
+		} else {
+			lanc.setTipo( LancamentoTipo.DEBITO ); 
+		}
+		lanc.setValor( consulta.getValor() ); 
+		
+		lancamentoRepository.save( lanc );
 	}
-	
+		
 	public void cancelaConsulta( Long consultaId ) throws ServiceException {
 		this.alteraStatus( consultaId, ConsultaStatus.CANCELADA ); 
 	}

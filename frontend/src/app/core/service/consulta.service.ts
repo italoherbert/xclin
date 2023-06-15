@@ -51,12 +51,12 @@ export class ConsultaService {
     );
   }
 
-  registraPagamentoConsulta( consultaId : any ): Observable<any> {
+  setaPagamentoConsulta( consultaId : any, paga : boolean ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
-    return this.http.patch( '/api/consulta/paga/'+consultaId, {}, { headers: headers, withCredentials: true } );
+    return this.http.patch( '/api/consulta/seta/pagamento/'+consultaId+'/'+paga, {}, { headers: headers, withCredentials: true } );
   }
 
   alteraObservacoes( consultaId : any, observacoesSave : ConsultaObservacoesAlter ): Observable<any> {

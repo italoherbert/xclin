@@ -26,7 +26,6 @@ export class ConsultaAlterarComponent {
     status : '',
     valor : 0,
     retorno : false,
-    paga : false,
     observacoes : '',
   }
 

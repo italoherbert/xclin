@@ -82,15 +82,25 @@ export class ConsultaDetalhesComponent {
     });
   }
 
-  registraPagamento() {
+  realizarPagamento() {
+    this.setaPagamento( true );
+  }
+
+  desfazerPagamento() {
+    this.setaPagamento( false );
+  }
+
+  setaPagamento( paga : boolean ) {
     this.infoMsg = null;
     this.erroMsg = null;
 
     this.showSpinner = true;
 
+    alert( paga );
+
     let id = this.actRoute.snapshot.paramMap.get( 'consultaId' );
 
-    this.consultaService.registraPagamentoConsulta( id ).subscribe({
+    this.consultaService.setaPagamentoConsulta( id, paga ).subscribe({
       next: (resp) => {
         this.showSpinner = false;
         this.carrega();

@@ -79,7 +79,7 @@ public class LancamentoService {
 		Date dataIni = converter.stringToDataNEx( request.getDataInicio() );
 		Date dataFim = converter.stringToDataNEx( request.getDataFim() );
 		boolean incluirUsername = request.isIncluirUsername();
-		String filtroUsername = request.getFiltroUsername(); 
+		String filtroUsername = "%"+request.getFiltroUsername()+"%"; 
 		
 		List<Lancamento> lancamentos = 
 				lancamentoRepository.filtra( dataIni, dataFim, incluirUsername, filtroUsername );

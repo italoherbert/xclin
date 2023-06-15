@@ -60,6 +60,7 @@ import { ConsultaAgendaComponent } from './features/consulta/consulta-agenda/con
 import { ConsultaFilaCompletaComponent } from './features/consulta/consulta-fila-completa/consulta-fila-completa.component';
 import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
 import { LancamentoNovoComponent } from './features/lancamento/lancamento-novo/lancamento-novo.component';
+import { LancamentoDetalhesComponent } from './features/lancamento/lancamento-detalhes/lancamento-detalhes.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -138,7 +139,8 @@ const routes: Routes = [
     { path: 'consulta-agenda', component: ConsultaAgendaComponent, outlet: 'page' },
 
     { path: 'lancamento-tela', component: LancamentoTelaComponent, outlet: 'page' },
-    { path: 'lancamento-novo', component: LancamentoNovoComponent, outlet: 'page' }
+    { path: 'lancamento-novo', component: LancamentoNovoComponent, outlet: 'page' },
+    { path: 'lancamento-detalhes/:lancamentoId', component: LancamentoDetalhesComponent, outlet: 'page' }
   ] },
 ];
 

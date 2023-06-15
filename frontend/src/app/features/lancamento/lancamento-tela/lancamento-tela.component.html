@@ -74,6 +74,7 @@
                 <th>Tipo</th>
                 <th>Valor</th>
                 <th>Saldo</th>
+                <th>Detalhes</th>
                 <th>Remover</th>
             </tr>
         </thead>
@@ -83,6 +84,12 @@
                 <td>{{ l.tipoLabel }}</td>
                 <td>{{ l.valor | currency: 'BRL'}}</td>
                 <td [ngClass]="saldos[i] < 0 ? 'text-danger' : 'text-primary'">{{ saldos[ i ] | currency: 'BRL'}}</td>
+                <td>
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'lancamento-detalhes/'+l.id }}]">
+                        <fa-icon [icon]="icons.faEye"></fa-icon>
+                        detalhes
+                    </a>
+                </td>
                 <td>
                     <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(l.id)">
                         <fa-icon [icon]="icons.faTrashCan"></fa-icon>

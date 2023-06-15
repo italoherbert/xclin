@@ -74,6 +74,18 @@ public class LancamentoController {
 	}		
 	
 	@PreAuthorize("hasAuthority('lancamentoREAD')")
+	@GetMapping("/get/{lancamentoId}")
+	public ResponseEntity<Object> get(
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long lancamentoId ) throws SistemaException {
+		
+		autorizador.autorizaSeLancamentoDeClinica( authorizationHeader, lancamentoId );
+		
+		LancamentoResponse resp = lancamentoService.get( lancamentoId );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('lancamentoREAD')")
 	@GetMapping("/get/tela/load")
 	public ResponseEntity<Object> getTelaLoad(
 			@RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {

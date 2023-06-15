@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { faFilter, faPlus, faPlusCircle, faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faEye, faFilter, faPlus, faPlusCircle, faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Lancamento } from 'src/app/core/bean/lancamento/lancamento';
 import { LancamentoFiltro } from 'src/app/core/bean/lancamento/lancamento-filtro';
 import { LancamentoService } from 'src/app/core/service/lancamento.service';
@@ -23,7 +23,8 @@ export class LancamentoTelaComponent {
   icons : any = {
     faFilter : faFilter,
     faPlusCircle : faPlusCircle,
-    faTrashCan : faTrashCan
+    faTrashCan : faTrashCan,
+    faEye: faEye
   }
 
   lancamentoFiltro : LancamentoFiltro = {

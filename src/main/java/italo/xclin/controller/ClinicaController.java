@@ -20,6 +20,7 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.filtro.ClinicaFiltroRequest;
 import italo.xclin.model.request.save.ClinicaSaveRequest;
 import italo.xclin.model.response.ClinicaResponse;
+import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.load.detalhes.ClinicaDetalhesLoadResponse;
 import italo.xclin.model.response.load.edit.ClinicaEditLoadResponse;
 import italo.xclin.model.response.load.reg.ClinicaRegLoadResponse;
@@ -78,6 +79,16 @@ public class ClinicaController {
 	public ResponseEntity<Object> filtra( @PathVariable String nomeIni ) throws SistemaException {		
 		List<ClinicaResponse> lista = clinicaService.filtraPorNome( nomeIni );
 		return ResponseEntity.ok( lista );
+	}
+	
+	@PreAuthorize("hasAuthority('clinicaREAD')")
+	@GetMapping("/lista/limite/{nomeIni}/{quant}")
+	public ResponseEntity<Object> listaPorNomeEClinica(
+			@PathVariable String nomeIni,
+			@PathVariable int quant ) throws SistemaException {
+						
+		ListaResponse resp = clinicaService.listaPorNome( nomeIni, quant );
+		return ResponseEntity.ok( resp );
 	}
 		
 	@PreAuthorize("hasAuthority('clinicaREAD')")

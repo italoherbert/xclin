@@ -1,1 +1,1 @@
-for /l %%x in (1,1,1000) do curl -X GET https://www.xclin.com.br/polyfills.48032dd0403ca3fa.js
+for /l %%x in (1,1,1000) do curl -X POST https://www.xclin.com.br/

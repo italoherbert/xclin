@@ -22,6 +22,30 @@ export class UsuarioService {
     return this.http.post( '/api/login', login, { headers: headers, withCredentials: true } );
   }
 
+  criaClinicaVinculo( usuarioId : any, clinicaId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.post( '/api/usuario/clinica/vinculos/vincula/'+usuarioId+'/'+clinicaId, {}, { headers: headers, withCredentials: true } );
+  }
+
+  getClinicasVinculos( usuarioId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/usuario/clinica/vinculos/lista/'+usuarioId, { headers: headers, withCredentials: true } );
+  }
+
+  deletaClinicaVinculo( vinculoId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.delete( '/api/usuario/clinica/vinculos/deleta/'+vinculoId, { headers: headers, withCredentials: true } );
+  }
+
   getUsuarioGrupoVinculados( id : any ) : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

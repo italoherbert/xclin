@@ -154,7 +154,7 @@ public class PacienteController {
 
 	@PreAuthorize("hasAuthority('pacienteREAD')")
 	@GetMapping("/lista/limite/{clinicaId}/{nomeIni}/{quant}")
-	public ResponseEntity<Object> getListaPorNome(
+	public ResponseEntity<Object> listaPorNomeEClinica(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable String nomeIni,

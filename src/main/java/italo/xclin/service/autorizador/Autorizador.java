@@ -16,7 +16,8 @@ import italo.xclin.model.Consulta;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
-import italo.xclin.model.ProfissionalClinicaVinculo;
+import italo.xclin.model.Usuario;
+import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.repository.AnamneseRepository;
 import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.LancamentoRepository;
@@ -90,9 +91,10 @@ public class Autorizador {
 			throw new AutorizadorException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
 				
 		Profissional profissional = profissionalOp.get();
-				
-		List<ProfissionalClinicaVinculo> vinculos = profissional.getProfissionalClinicaVinculos();
-		for( ProfissionalClinicaVinculo v : vinculos ) {
+		Usuario usuario = profissional.getUsuario();
+		
+		List<UsuarioClinicaVinculo> vinculos = usuario.getUsuarioClinicaVinculos();
+		for( UsuarioClinicaVinculo v : vinculos ) {
 			Clinica c = v.getClinica();
 			if ( c.getId() == clinicaId )
 				return;

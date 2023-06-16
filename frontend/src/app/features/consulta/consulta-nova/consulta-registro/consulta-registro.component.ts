@@ -53,6 +53,7 @@ export class ConsultaRegistroComponent {
 
   pacienteNome : string = '';
   buscandoPacientes : boolean = false;
+  buscarPacientes : boolean = false;
 
   turnos : any[] = [];
   especialidades : Especialidade[] = [];
@@ -111,24 +112,41 @@ export class ConsultaRegistroComponent {
   }
 
   onPacienteInput( event : any ) {
-    if ( this.pacienteNome.length == 0 )
+    if ( this.pacienteNome.length == 0 ) {
+      this.pacientesIDs.splice( 0, this.pacientesIDs.length );
+      this.pacientesNomes.splice( 0, this.pacientesNomes.length );
       return;    
-
-    if ( this.buscandoPacientes === false ) { 
-      this.buscandoPacientes = true;
-
-      this.pacienteService.listaPacientesLimite( this.clinicaId, this.pacienteNome, 4 ).subscribe( {
-        next: (resp) => {
-          this.pacientesIDs = resp.ids;
-          this.pacientesNomes = resp.nomes;
-          this.buscandoPacientes = false;
-        },
-        error: (erro) => {
-          this.erroMsg = this.sistemaService.mensagemErro( erro );
-          this.buscandoPacientes = false;
-        }
-      } );
     }
+
+    this.buscarPacientes = true;
+
+    if ( this.buscandoPacientes === true )
+      return;
+
+    this.showSpinner = true;
+    this.showSpinner = true;
+    this.buscandoPacientes = true;
+
+    this.pacienteService.listaPorNomePorClinica( this.clinicaId, this.pacienteNome, 4 ).subscribe( {
+      next: (resp) => {
+        this.pacientesIDs = resp.ids;
+        this.pacientesNomes = resp.nomes;
+
+        this.showSpinner = false;
+        this.buscandoPacientes = false;
+
+        if ( this.buscarPacientes === true ) {
+          this.buscarPacientes = false;
+          this.onPacienteInput( event );
+        }
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+        this.buscandoPacientes = false;
+        this.buscarPacientes = false;
+      }
+    } );    
   }
 
   onPacienteSelected( event : any ) {

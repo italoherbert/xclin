@@ -235,7 +235,7 @@ public class PacienteService {
 	}
 	
 	public ListaResponse listaPorNome( Long clinicaId, String nomeIni, int limit ) throws ServiceException {
-		List<Paciente> pacientes = pacienteRepository.filtra( "%"+nomeIni+"%", clinicaId, PageRequest.of( 0, limit ) );
+		List<Paciente> pacientes = pacienteRepository.lista( "%"+nomeIni+"%", clinicaId, PageRequest.of( 0, limit ) );
 		
 		List<Long> ids = new ArrayList<>();
 		List<String> nomes = new ArrayList<>();

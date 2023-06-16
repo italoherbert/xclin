@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import italo.xclin.exception.Erro;
@@ -19,6 +20,7 @@ import italo.xclin.model.request.filtro.ClinicaFiltroRequest;
 import italo.xclin.model.request.save.ClinicaSaveRequest;
 import italo.xclin.model.response.ClinicaResponse;
 import italo.xclin.model.response.EnderecoResponse;
+import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.MunicipioResponse;
 import italo.xclin.model.response.UFResponse;
 import italo.xclin.model.response.UsuarioResponse;
@@ -115,6 +117,19 @@ public class ClinicaService {
 		}
 		
 		return this.clinicasToResponse( clinicas );
+	}
+	
+	public ListaResponse listaPorNome( String nomeIni, int limit ) throws ServiceException {
+		List<Clinica> clinicas = clinicaRepository.lista( "%"+nomeIni+"%", PageRequest.of( 0, limit ) );
+		
+		List<Long> ids = new ArrayList<>();
+		List<String> nomes = new ArrayList<>();
+		for( Clinica c : clinicas ) {
+			ids.add( c.getId() );
+			nomes.add( c.getNome() );
+		}
+		
+		return new ListaResponse( ids, nomes );
 	}
 			
 	public ClinicaResponse get( Long id ) throws ServiceException {

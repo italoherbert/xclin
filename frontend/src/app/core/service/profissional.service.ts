@@ -14,24 +14,6 @@ export class ProfissionalService {
 
   constructor( private http: HttpClient ) { }
 
-  getClinicaVinculos( id : any ): Observable<any> {
-    let headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-
-    return this.http.get( '/api/profissional/clinica/vinculos/get/'+id, { headers: headers, withCredentials: true } )
-  }
-
-  salvaProfissionalClinicas( id : any, vinculos : ProfissionalClinicaVinculos ): Observable<any> {
-    let headers = new HttpHeaders({
-      'Content-Type' : 'application/json',
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-
-    return this.http.put( '/api/profissional/clinica/vinculos/salva/'+id, vinculos, { headers: headers, withCredentials: true } )
- 
-  }
-
   registraProfissional( profissionalSave: ProfissionalSave ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',

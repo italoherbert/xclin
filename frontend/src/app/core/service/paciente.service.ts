@@ -12,6 +12,14 @@ export class PacienteService {
 
   constructor( private http: HttpClient ) { }
 
+  listaPorNomePorClinica( clinicaId : any, nomeIni : any, quant : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/paciente/lista/limite/'+clinicaId+'/'+nomeIni+'/'+quant, { headers: headers, withCredentials: true } )
+  }
+
   registraPaciente( clinicaId : any, pacienteSave: PacienteSave ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
@@ -77,15 +85,6 @@ export class PacienteService {
     });
 
     return this.http.get( '/api/paciente/get/detalhes/'+pacienteId, { headers: headers, withCredentials: true } )
-  }
-
-  listaPacientesLimite( clinicaId : any, nomeIni : any, quant : any ): Observable<any> {
-    let headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-
-    return this.http.get( '/api/paciente/lista/limite/'+clinicaId+'/'+nomeIni+'/'+quant, { headers: headers, withCredentials: true } )
- 
   }
 
   deletaPaciente(  pacienteId : any ): Observable<any> {

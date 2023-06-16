@@ -1,0 +1,71 @@
+<h1>Vínculos Usuário/Clínica</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Vínculos</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Clínica</mat-label>
+                <input matInput type="text" 
+                    placeholder="Escolha a clínica" 
+                    [matAutocomplete]="auto"
+                    [(ngModel)]="clinicaNome"
+                    (input)="onClinicaInput($event)" />
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onClinicaSelected($event)">
+                    <mat-option *ngFor="let nome of clinicasNomes; index as i" [value]="nome" [id]="''+i">
+                        {{nome}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <br />
+
+            <button mat-raised-button color="primary" (click)="vinculaClinica()">
+                <fa-icon [icon]="icons.faLink"></fa-icon>
+                Vincular clínica
+            </button>
+
+            <br />
+            <br />
+
+            <h2>Clínicas vinculadas</h2>
+
+            <div class="table-resposive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Clínica</th>
+                            <th>Remover</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let v of vinculos">
+                            <td>{{v.clinicaNome}}</td>
+                            <td>
+                                <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="removeVinculo(v.id)">
+                                    <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                                    remover
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>

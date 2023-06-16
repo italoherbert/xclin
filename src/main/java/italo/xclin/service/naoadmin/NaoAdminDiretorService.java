@@ -13,8 +13,8 @@ import italo.xclin.loader.DiretorLoader;
 import italo.xclin.loader.UsuarioLoader;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Diretor;
-import italo.xclin.model.DiretorClinicaVinculo;
 import italo.xclin.model.Usuario;
+import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.model.request.filtro.NaoAdminDiretorFiltroRequest;
 import italo.xclin.model.response.DiretorResponse;
 import italo.xclin.model.response.UsuarioResponse;
@@ -86,8 +86,8 @@ public class NaoAdminDiretorService {
 		
 		List<String> clinicas = new ArrayList<>();
 		
-		List<DiretorClinicaVinculo> vinculos = d.getDiretorClinicaVinculos();
-		for( DiretorClinicaVinculo v : vinculos )
+		List<UsuarioClinicaVinculo> vinculos = u.getUsuarioClinicaVinculos();
+		for( UsuarioClinicaVinculo v : vinculos )
 			clinicas.add( v.getClinica().getNome() );
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();

@@ -12,6 +12,14 @@ export class ClinicaService {
 
   constructor( private http: HttpClient ) { }
 
+  listaPorNome( nomeIni : any, limit : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/clinica/lista/limite/'+nomeIni+'/'+limit, { headers: headers, withCredentials: true } )
+  }
+
   registraClinica( clinicaSave: ClinicaSave ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',

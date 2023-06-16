@@ -16,19 +16,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="diretor_clinica_vinculo")
-public class DiretorClinicaVinculo {
+@Table(name="usuario_clinica_vinculo")
+public class UsuarioClinicaVinculo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="diretor_id")
-	private Diretor diretor;
+	@JoinColumn(name="usuario_id")
+	private Usuario usuario;
 	
-	@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="clinica_id")
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="clinica_id") 
 	private Clinica clinica;
-
+	
 }

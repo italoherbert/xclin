@@ -3,6 +3,7 @@ package italo.xclin.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,6 +20,11 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Long> {
 	@Query("select c from Clinica c where lower_unaccent(c.nome) like lower_unaccent(?1)")
 	public List<Clinica> filtra( String nomeIni );
 
+	@Query("select c "
+			+ "from Clinica c "
+			+ "where lower_unaccent(c.nome) like lower_unaccent(?1)")
+	public List<Clinica> lista( String nome, Pageable p );
+	
 	@Query("select c from Clinica c where c.id in (?1)")
 	public List<Clinica> buscaPorIDs( Long[] ids );
 	

@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { UsuarioClinicaVinculosComponent } from './usuario-clinica-vinculos.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatChipsModule } from '@angular/material/chips';
-import { DiretorClinicaVinculosComponent } from './diretor-clinica-vinculos.component';
-import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 
 @NgModule({
   declarations: [
-    DiretorClinicaVinculosComponent
+    UsuarioClinicaVinculosComponent
   ],
   imports: [
     CommonModule,
@@ -21,8 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatChipsModule,
-    MatIconModule
+    MatButtonModule,
+    MatAutocompleteModule
   ]
 })
-export class DiretorClinicaVinculosModule { }
+export class UsuarioClinicaVinculosModule { }

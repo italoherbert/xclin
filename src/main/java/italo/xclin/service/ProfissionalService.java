@@ -14,9 +14,9 @@ import italo.xclin.loader.ProfissionalLoader;
 import italo.xclin.loader.UsuarioLoader;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Profissional;
-import italo.xclin.model.ProfissionalClinicaVinculo;
 import italo.xclin.model.ProfissionalEspecialidadeVinculo;
 import italo.xclin.model.Usuario;
+import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.model.request.filtro.ProfissionalFiltroRequest;
 import italo.xclin.model.request.save.ProfissionalSaveRequest;
 import italo.xclin.model.response.ProfissionalResponse;
@@ -185,8 +185,8 @@ public class ProfissionalService {
 		
 		List<String> clinicas = new ArrayList<>();
 		
-		List<ProfissionalClinicaVinculo> pcVinculos = p.getProfissionalClinicaVinculos();
-		for( ProfissionalClinicaVinculo vinculo : pcVinculos ) {
+		List<UsuarioClinicaVinculo> pcVinculos = p.getUsuario().getUsuarioClinicaVinculos();
+		for( UsuarioClinicaVinculo vinculo : pcVinculos ) {
 			Clinica clinica = vinculo.getClinica();
 			clinicas.add( clinica.getNome() );
 		}

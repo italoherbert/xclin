@@ -40,12 +40,9 @@ public class Clinica {
 	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	@JoinColumn(name="usuario_id")
 	private Usuario criador;
-		
+			
 	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
-	private List<DiretorClinicaVinculo> diretorClinicaVinculos;
-	
-	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
-	private List<ProfissionalClinicaVinculo> profissionalClinicaVinculos;
+	private List<UsuarioClinicaVinculo> usuarioClinicaVinculos;
 	
 	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
 	private List<Paciente> pacientes;

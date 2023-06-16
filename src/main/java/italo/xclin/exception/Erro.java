@@ -32,6 +32,7 @@ public interface Erro {
 	public final static String RECURSO_NAO_ENCONTRADO = "Recurso não encontrado.";
 	public final static String ACESSO_RECURSO_NAO_ENCONTRADO = "Não foi possível encontrar o recurso pelo ID: $1";
 	public final static String VINCULO_USUARIO_GRUPO_NAO_ENCONTRADO = "Não foi possível encontrar o grupo de usuário pelo ID: $1";
+	public final static String VINCULO_USUARIO_CLINICA_NAO_ENCONTRADO = "Vínculo usuario/clínica não encontrado.";
 	public final static String CLINICA_NAO_ENCONTRADA = "Clínica não encontrada.";
 	public final static String MUNICIPIO_NAO_ENCONTRADO = "Município não encontrado.";
 	public final static String UF_NAO_ENCONTRADA = "Unidade Federetiva não encontrada.";
@@ -60,7 +61,8 @@ public interface Erro {
 	public final static String PACIENTE_JA_EXISTE = "Já existe um(a) paciente registrado(a) com o nome informado";
 	public final static String CLINICA_PACIENTE_JA_EXISTE = "Já existe um(a) paciente registrado(a) com o nome informado na clínica informada.";
 	public final static String ESPECIALIDADE_JA_EXISTE = "Já existe uma especialidade com o nome informado.";
-
+	public final static String VINCULO_USUARIO_CLINICA_JA_EXISTE = "Já existe um vínculo entre o usuário e clínica informados.";
+	
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	
 	public final static String ENDERECO_NULL = "Objeto endereço não informado.";

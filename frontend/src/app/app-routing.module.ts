@@ -21,11 +21,9 @@ import { ClinicaSaveComponent } from './features/clinica/clinica-save/clinica-sa
 import { DiretorTelaComponent } from './features/diretor/diretor-tela/diretor-tela.component';
 import { DiretorDetalhesComponent } from './features/diretor/diretor-detalhes/diretor-detalhes.component';
 import { DiretorSaveComponent } from './features/diretor/diretor-save/diretor-save.component';
-import { DiretorClinicaVinculosComponent } from './features/diretor/diretor-clinica-vinculos/diretor-clinica-vinculos.component';
 import { ProfissionalTelaComponent } from './features/profissional/profissional-tela/profissional-tela.component';
 import { ProfissionalDetalhesComponent } from './features/profissional/profissional-detalhes/profissional-detalhes.component';
 import { ProfissionalSaveComponent } from './features/profissional/profissional-save/profissional-save.component';
-import { ProfissionalClinicaVinculosComponent } from './features/profissional/profissional-clinica-vinculos/profissional-clinica-vinculos.component';
 import { RecepcionistaSaveComponent } from './features/recepcionista/recepcionista-save/recepcionista-save.component';
 import { RecepcionistaDetalhesComponent } from './features/recepcionista/recepcionista-detalhes/recepcionista-detalhes.component';
 import { RecepcionistaTelaComponent } from './features/recepcionista/recepcionista-tela/recepcionista-tela.component';
@@ -61,6 +59,7 @@ import { ConsultaFilaCompletaComponent } from './features/consulta/consulta-fila
 import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
 import { LancamentoNovoComponent } from './features/lancamento/lancamento-novo/lancamento-novo.component';
 import { LancamentoDetalhesComponent } from './features/lancamento/lancamento-detalhes/lancamento-detalhes.component';
+import { UsuarioClinicaVinculosComponent } from './features/usuario/usuario-clinica-vinculos/usuario-clinica-vinculos.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -87,6 +86,7 @@ const routes: Routes = [
     { path: 'usuario-detalhes/:id', component: UsuarioDetalhesComponent, outlet: 'page' },
     { path: 'usuario-save/:id', component: UsuarioSaveComponent, outlet: 'page' },
     { path: 'usuario-grupos-vinculos/:id', component: UsuarioGrupoVinculosComponent, outlet: 'page' },
+    { path: 'usuario-clinica-vinculos/:id', component: UsuarioClinicaVinculosComponent, outlet: 'page' },    
 
     { path: 'usuario-grupo-tela', component: UsuarioGrupoTelaComponent, outlet: 'page' },
     { path: 'usuario-grupo-detalhes/:id', component: UsuarioGrupoDetalhesComponent, outlet: 'page' },
@@ -109,13 +109,11 @@ const routes: Routes = [
     { path: 'diretor-tela', component: DiretorTelaComponent, outlet: 'page' },
     { path: 'diretor-detalhes/:id', component: DiretorDetalhesComponent, outlet: 'page' },
     { path: 'diretor-save/:id', component: DiretorSaveComponent, outlet: 'page' },
-    { path: 'diretor-clinica-vinculos/:id', component: DiretorClinicaVinculosComponent, outlet: 'page' },
     { path: 'nao-admin-diretor-tela', component: NaoAdminDiretorTelaComponent, outlet: 'page' },
 
     { path: 'profissional-tela', component: ProfissionalTelaComponent, outlet: 'page' },
     { path: 'profissional-detalhes/:id', component: ProfissionalDetalhesComponent, outlet: 'page' },
     { path: 'profissional-save/:id', component: ProfissionalSaveComponent, outlet: 'page' },
-    { path: 'profissional-clinica-vinculos/:id', component: ProfissionalClinicaVinculosComponent, outlet: 'page' },
     { path: 'nao-admin-profissional-tela', component: NaoAdminProfissionalTelaComponent, outlet: 'page' },
 
     { path: 'recepcionista-tela', component: RecepcionistaTelaComponent, outlet: 'page' },

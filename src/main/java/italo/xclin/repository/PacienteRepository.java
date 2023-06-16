@@ -34,7 +34,7 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 	@Query("select p "
 			+ "from Paciente p "
 			+ "where lower_unaccent(p.nome) like lower_unaccent(?1) and p.clinica.id=?2")
-	public List<Paciente> filtra( String nomeIni, Long clinicaId, Pageable pageable );
+	public List<Paciente> lista( String nomeIni, Long clinicaId, Pageable pageable );
 	
 	@Query("select p "
 			+ "from Paciente p "

@@ -13,9 +13,9 @@ import italo.xclin.loader.ProfissionalLoader;
 import italo.xclin.loader.UsuarioLoader;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Profissional;
-import italo.xclin.model.ProfissionalClinicaVinculo;
 import italo.xclin.model.ProfissionalEspecialidadeVinculo;
 import italo.xclin.model.Usuario;
+import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.model.request.filtro.NaoAdminProfissionalFiltroRequest;
 import italo.xclin.model.response.ProfissionalResponse;
 import italo.xclin.model.response.UsuarioResponse;
@@ -87,8 +87,8 @@ public class NaoAdminProfissionalService {
 		
 		List<String> clinicas = new ArrayList<>();
 		
-		List<ProfissionalClinicaVinculo> pcVinculos = p.getProfissionalClinicaVinculos();
-		for( ProfissionalClinicaVinculo v : pcVinculos )
+		List<UsuarioClinicaVinculo> pcVinculos = u.getUsuarioClinicaVinculos();
+		for( UsuarioClinicaVinculo v : pcVinculos )
 			clinicas.add( v.getClinica().getNome() );
 		
 		List<String> especialidades = new ArrayList<>();

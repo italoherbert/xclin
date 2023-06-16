@@ -118,13 +118,11 @@ export class ConsultaRegistroComponent {
       return;    
     }
 
-    this.buscarPacientes = true;
-
-    if ( this.buscandoPacientes === true )
+    if ( this.buscandoPacientes === true ) {
+      this.buscarPacientes = true;
       return;
+    }
 
-    this.showSpinner = true;
-    this.showSpinner = true;
     this.buscandoPacientes = true;
 
     this.pacienteService.listaPorNomePorClinica( this.clinicaId, this.pacienteNome, 4 ).subscribe( {
@@ -132,7 +130,6 @@ export class ConsultaRegistroComponent {
         this.pacientesIDs = resp.ids;
         this.pacientesNomes = resp.nomes;
 
-        this.showSpinner = false;
         this.buscandoPacientes = false;
 
         if ( this.buscarPacientes === true ) {
@@ -142,7 +139,6 @@ export class ConsultaRegistroComponent {
       },
       error: (erro) => {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
         this.buscandoPacientes = false;
         this.buscarPacientes = false;
       }

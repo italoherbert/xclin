@@ -92,8 +92,7 @@
                 </a>
             </div>
 
-            <mat-list-item [routerLink]="[]" (click)="consultaMenuShow = !consultaMenuShow" 
-                    *ngIf="sistemaService.isAdminEscopo() == false">
+            <mat-list-item [routerLink]="[]" (click)="consultaMenuShow = !consultaMenuShow">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
                     <div class="mx-2">Consultas</div>                    
@@ -135,8 +134,7 @@
                 </a>
             </div>
 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'lancamento-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == false">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'lancamento-tela' } } ]" (click)="sidenav.toggle()">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faMoneyBillTrendUp"></fa-icon>
                     <div class="mx-2">Lançamentos</div>

@@ -99,7 +99,6 @@ export class UsuarioClinicaVinculosComponent {
       return;    
     }
 
-    this.showSpinner = true;
     this.buscandoClinicas = true;
 
     this.clinicaService.listaPorNome( this.clinicaNome, 5 ).subscribe( {
@@ -108,7 +107,6 @@ export class UsuarioClinicaVinculosComponent {
         this.clinicasNomes = resp.nomes;
 
         this.buscandoClinicas = false;
-        this.showSpinner = false;
 
         if ( this.buscarClinicas === true ) {
           this.buscarClinicas = false;
@@ -118,7 +116,6 @@ export class UsuarioClinicaVinculosComponent {
       },
       error: (erro) => {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
         this.buscarClinicas = false;
       } 
     } );
@@ -140,7 +137,7 @@ export class UsuarioClinicaVinculosComponent {
       next: (resp) => {
         this.clinicaId = 0;
         this.clinicaNome = '';
-        
+
         this.carregaVinculos();
         this.showSpinner = false;
       },

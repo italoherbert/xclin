@@ -28,42 +28,42 @@
 
             <div class="row">
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Nome:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         {{profissionalDetalhes.profissional.nome}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Função:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         {{profissionalDetalhes.profissional.funcaoLabel}}
                     </div>
                 </div> 
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Nome de usuário:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         {{profissionalDetalhes.profissional.usuario.username}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Perfil:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         {{profissionalDetalhes.profissional.usuario.perfilLabel}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Clinicas:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         <mat-chip-listbox>
                             <mat-chip-option *ngFor="let clinica of profissionalDetalhes.clinicas"
                                     [selectable]="false"
@@ -74,10 +74,10 @@
                     </div>
                 </div>
                 <div class="col-sm-12 my-3">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Especialidades:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         <mat-chip-listbox>
                             <mat-chip-option *ngFor="let esp of profissionalDetalhes.especialidades"
                                     [selectable]="false"

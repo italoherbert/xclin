@@ -1,0 +1,68 @@
+<h1>Relatório de balanço</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Balanço do dia</h1>
+        </mat-card-header>
+        <mat-card-content>            
+            <mat-form-field appearance="fill">
+                <mat-label>Clínica</mat-label>
+                <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId" 
+                        (selectionChange)="clinicaSelecionada()">
+                    <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                        {{clinicasNomes[ i ]}} 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <span class="p-2"></span>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Usuário</mat-label>
+                <mat-select placeholder="Selecione o usuario" [(ngModel)]="usuarioId">
+                    <mat-option *ngFor="let uid of usuariosIDs; index as i" [value]="uid">
+                        {{usuariosNomes[ i ]}} 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <span class="p-2"></span>
+            
+            <mat-form-field appearance="fill">
+                <mat-label>Data do dia</mat-label>
+                <input matInput [matDatepicker]="dataDiaDatepicker" placeholder="DD/MM/YYYY" [(ngModel)]="balancoDoDia.dataDia"/>
+                <mat-datepicker-toggle matIconSuffix [for]="dataDiaDatepicker"></mat-datepicker-toggle>
+                <mat-datepicker #dataDiaDatepicker></mat-datepicker>
+            </mat-form-field>     
+
+            <br />
+
+            <mat-checkbox color="primary" [(ngModel)]="balancoDoDia.incluirTodosOsUsuarios">
+                Incluir todos os usuários
+            </mat-checkbox>
+
+            <br />
+            <br />
+            
+            <div class="d-flex justify-content-center">
+                <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+            </div>
+
+            <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+                {{erroMsg}}
+            </div>
+
+            <button mat-raised-button color="primary" (click)="geraRelatorioBalancoDoDia()">
+                <fa-icon [icon]="icons.faFilePdf"></fa-icon>
+                Gera relatorio
+            </button>
+            
+        </mat-card-content>
+    </mat-card>
+</div>

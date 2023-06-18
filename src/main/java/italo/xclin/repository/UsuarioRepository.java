@@ -21,5 +21,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 		
 	@Query("select u from Usuario u where lower(u.username) like lower(?1)")
 	public List<Usuario> buscaPorUsernameIni( String usernameIni );
+
+	@Query("select u "
+			+ "from Usuario u "
+				+ "join UsuarioClinicaVinculo v "
+			+ "where v.clinica.id=?1")
+	public List<Usuario> listaPorClinica( Long clinicaId );
 	
 }

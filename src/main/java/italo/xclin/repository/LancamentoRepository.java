@@ -20,4 +20,18 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 			boolean incluirUsername, 
 			String filtroUsername );
 	
+	@Query("select l "
+			+ "from Lancamento l "
+			+ "where l.clinica.id=?1 and date(l.dataLancamento)=date(?2)") 
+	public List<Lancamento> clinicaLancamentosDoDia( Long clinicaId, Date dataDia );
+	
+	@Query("select l "
+			+ "from Lancamento l "
+			+ "where "
+				+ "l.clinica.id=?1 and "
+				+ "l.usuario.id=?2 and "
+				+ "date(l.dataLancamento)=date(?3)") 	
+	public List<Lancamento> clinicaUsuarioLancamentosDoDia(
+			Long clinicaId, long usuarioId, Date dataDia );
+	
 }

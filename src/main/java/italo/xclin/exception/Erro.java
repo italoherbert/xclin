@@ -17,6 +17,7 @@ public interface Erro {
 	public final static String TURNO_OBRIGATORIO = "O turno é um campo de preenchimento obrigatório.";
 	public final static String STATUS_OBRIGATORIO = "O status é um campo de preenchimento obrigatório.";
 	public final static String DATA_OBRIGATORIA = "A data é um campo de preenchimento obrigatório.";
+	public final static String DATA_DIA_OBRIGATORIA = "A data do dia é um campo de preenchimento obrigatorio.";
 	
 	public final static String USERNAME_INI_OBRIGATORIO = "O início do username é um campo de preenchimento obrigatório.";
 	public final static String USERNAME_FILTRO_OBRIGATORIO = "O username para filtro é um campo de preenchimento obrigatório.";
@@ -72,6 +73,7 @@ public interface Erro {
 	public final static String CICATRIZACAO_NULA = "Cicatrização nula.";
 	public final static String TIPO_SANGRAMENTO_NULO = "Tipo de sangramento nulo.";
 	public final static String DATA_ULTIMO_TRATAMENTO_NULA = "A data de último tratamento é nula.";
+	public final static String DATA_DIA_NULA = "A data correspondente ao dia é nula.";
 	
 	public final static String PERFIL_INVALIDO = "Perfil inválido: $1";
 	public final static String CONSULTA_STATUS_INVALIDO = "Status da consulta inválido: $1";
@@ -87,13 +89,14 @@ public interface Erro {
 	public final static String DATA_FIM_INVALIDA = "A data de fim está em formato inválido.";
 	public final static String DATA_CONSULTA_FILA_INVALIDA = "A data do dia da fila está em formato inválido.";
 	public final static String LANCAMENTO_TIPO_INVALIDO = "O tipo do lançamento não foi reconhecido.";
+	public final static String DATA_DIA_INVALIDA = "A data correspondente ao dia está em formato inválido.";
 	
 	public final static String STRNUM_INVALIDO = "Não foi possível converter o texto: '$1' em número.";
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";
 	
 	public final static String PACIENTE_CLINICA_NAO_CORRESPONDEM = "O paciente não corresponde a clínica informada.";
 	
-	public final static String FALHA_GER_ANAMNESE_PDF = "Falha na geração do relatório de anamnese.";
+	public final static String FALHA_GER_PDF = "Falha na geração do relatório em formato PDF.";
 	
 	public final static String FALHA_LEITURA_IMG_DE_RELATORIO = "A imagem: $1 do relatório não foi encontrada no classpath.";
 }

@@ -6,6 +6,7 @@ import { ConsultaObservacoesAlter } from 'src/app/core/bean/consulta/consulta-ob
 import { ConsultaService } from 'src/app/core/service/consulta.service';
 import { AnamneseService } from 'src/app/core/service/anamnese.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
+import { RelatorioService } from 'src/app/core/service/relatorio.service';
 
 @Component({
   selector: 'app-consulta-atendimento',
@@ -74,7 +75,7 @@ export class ConsultaAtendimentoComponent {
 
   constructor(
     private consultaService : ConsultaService,
-    private anamneseService : AnamneseService,
+    private relatorioService : RelatorioService,
     private sistemaService : SistemaService
   ) {}
 
@@ -178,9 +179,9 @@ export class ConsultaAtendimentoComponent {
 
     let pacienteId = this.consulta.pacienteId;
 
-    this.anamneseService.getRelatorioAnamnese( pacienteId ).subscribe({
+    this.relatorioService.getRelatorioAnamnese( pacienteId ).subscribe({
       next: (resp) => {
-        this.sistemaService.criaDownloadAncora( resp );
+        this.sistemaService.criaDownloadAncora( resp, 'anamnese.pdf' );
         this.showSpinner = false;
       },
       error: (erro) => {

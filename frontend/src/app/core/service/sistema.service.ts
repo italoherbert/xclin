@@ -22,10 +22,10 @@ export class SistemaService {
     }
   }
 
-  criaDownloadAncora( arrayBuffer : ArrayBuffer ) {
+  criaDownloadAncora( arrayBuffer : ArrayBuffer, filename: string ) {
     const a = document.createElement( "a" );
     a.href = URL.createObjectURL( new Blob( [arrayBuffer], { type: "application/pdf"} ) );
-    a.download = "anamnese.pdf";
+    a.download = filename;
     a.click();
   }
 

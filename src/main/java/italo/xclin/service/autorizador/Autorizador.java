@@ -136,7 +136,7 @@ public class Autorizador {
 		for( Long cid : clinicasIDs )
 			if ( clinicaId == cid )
 				return;
-		
+				
 		throw new AutorizadorException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
 	}
 			

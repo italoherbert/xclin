@@ -1,4 +1,4 @@
-package italo.xclin.service;
+package italo.xclin.service.relatorio;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -13,8 +13,8 @@ import italo.xclin.exception.ServiceException;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Anamnese;
 import italo.xclin.model.Paciente;
-import italo.xclin.relatorio.jrdatasource.AnamneseJRDataSource;
 import italo.xclin.repository.PacienteRepository;
+import italo.xclin.service.relatorio.jrdatasource.AnamneseJRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -23,7 +23,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
 
 @Service
-public class RelatorioService {
+public class AnamneseRelatorioService {
 	
 	@Autowired
 	private PacienteRepository pacienteRepository;		
@@ -58,9 +58,8 @@ public class RelatorioService {
 			return JasperExportManager.exportReportToPdf( jrprint );			
 		} catch ( JRException e ) {
 			e.printStackTrace();
-			throw new ServiceException( Erro.FALHA_GER_ANAMNESE_PDF );
-		}
-		
+			throw new ServiceException( Erro.FALHA_GER_PDF );
+		}		
 	}
-	
+		
 }

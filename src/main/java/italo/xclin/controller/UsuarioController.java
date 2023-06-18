@@ -22,10 +22,12 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.filtro.UsuarioFiltroRequest;
 import italo.xclin.model.request.save.UsuarioSaveRequest;
 import italo.xclin.model.request.save.UsuarioSenhaSaveRequest;
+import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.edit.UsuarioEditLoadResponse;
 import italo.xclin.model.response.load.reg.UsuarioRegLoadResponse;
 import italo.xclin.service.UsuarioService;
+import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.validator.UsuarioValidator;
 
 @RestController
@@ -40,6 +42,9 @@ public class UsuarioController {
 	
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
+	
+	@Autowired
+	private Autorizador autorizador;
 	
 	@PreAuthorize("hasAuthority('usuarioWRITE')")
 	@PostMapping("/registra")
@@ -101,6 +106,18 @@ public class UsuarioController {
 	public ResponseEntity<Object> filtra( @RequestBody UsuarioFiltroRequest request ) throws SistemaException {
 		usuarioValidator.validaFiltro( request );
 		List<UsuarioResponse> lista = usuarioService.filtra( request );
+		return ResponseEntity.ok( lista );
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping("/lista/porclinica/{clinicaId}")
+	public ResponseEntity<Object> listaPorClinica(
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long clinicaId ) throws SistemaException {
+		
+		autorizador.autorizaPorClinica( authorizationHeader, clinicaId ); 
+		
+		ListaResponse lista = usuarioService.listaPorClinica( clinicaId );
 		return ResponseEntity.ok( lista );
 	}
 	

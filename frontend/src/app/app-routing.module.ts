@@ -60,6 +60,7 @@ import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/l
 import { LancamentoNovoComponent } from './features/lancamento/lancamento-novo/lancamento-novo.component';
 import { LancamentoDetalhesComponent } from './features/lancamento/lancamento-detalhes/lancamento-detalhes.component';
 import { UsuarioClinicaVinculosComponent } from './features/usuario/usuario-clinica-vinculos/usuario-clinica-vinculos.component';
+import { RelatorioBalancoDiaComponent } from './features/relatorio/relatorio-balanco-dia/relatorio-balanco-dia.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -138,7 +139,9 @@ const routes: Routes = [
 
     { path: 'lancamento-tela', component: LancamentoTelaComponent, outlet: 'page' },
     { path: 'lancamento-novo', component: LancamentoNovoComponent, outlet: 'page' },
-    { path: 'lancamento-detalhes/:lancamentoId', component: LancamentoDetalhesComponent, outlet: 'page' }
+    { path: 'lancamento-detalhes/:lancamentoId', component: LancamentoDetalhesComponent, outlet: 'page' },
+
+    { path: 'relatorio-balanco-dia', component: RelatorioBalancoDiaComponent, outlet: 'page' }
   ] },
 ];
 

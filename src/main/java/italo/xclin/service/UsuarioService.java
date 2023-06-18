@@ -16,6 +16,7 @@ import italo.xclin.model.Usuario;
 import italo.xclin.model.request.filtro.UsuarioFiltroRequest;
 import italo.xclin.model.request.save.UsuarioSaveRequest;
 import italo.xclin.model.request.save.UsuarioSenhaSaveRequest;
+import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.edit.UsuarioEditLoadResponse;
 import italo.xclin.model.response.load.reg.UsuarioRegLoadResponse;
@@ -103,6 +104,20 @@ public class UsuarioService {
 			resplist.add( resp );
 		}
 		return resplist;
+	}
+	
+	public ListaResponse listaPorClinica( Long clinicaId ) throws ServiceException {
+		List<Usuario> usuarios = usuarioRepository.listaPorClinica( clinicaId );
+				
+		List<Long> ids = new ArrayList<>();
+		List<String> nomes = new ArrayList<>();
+		
+		for( Usuario u : usuarios ) {
+			ids.add( u.getId() );
+			nomes.add( u.getUsername() );
+		}
+		
+		return new ListaResponse( ids, nomes );
 	}
 	
 	public UsuarioResponse get( Long id ) throws ServiceException {

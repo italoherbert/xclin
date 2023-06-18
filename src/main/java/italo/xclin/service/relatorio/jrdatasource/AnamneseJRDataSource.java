@@ -1,4 +1,4 @@
-package italo.xclin.relatorio.jrdatasource;
+package italo.xclin.service.relatorio.jrdatasource;
 
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Anamnese;

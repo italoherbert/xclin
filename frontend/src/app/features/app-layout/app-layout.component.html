@@ -141,55 +141,83 @@
                 </div>
             </mat-list-item> 
 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == false">
+            <mat-list-item [routerLink]="[]" (click)="pessoaMenuShow = !pessoaMenuShow">
                 <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
-                    <div class="mx-2">Pacientes</div>
-                </div>
-            </mat-list-item>    
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'profissional-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == true">                       
-                <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUserDoctor"></fa-icon>
-                    <div class="mx-2">Profissionais</div>
+                    <fa-icon [icon]="icons.faPeopleGroup"></fa-icon>
+                    <div class="mx-2">Pessoas</div>                    
+                    <fa-icon *ngIf="pessoaMenuShow === true" [icon]="icons.faChevronUp" class="ms-auto"></fa-icon>
+                    <fa-icon *ngIf="pessoaMenuShow === false" [icon]="icons.faChevronDown" class="ms-auto"></fa-icon>
                 </div>
             </mat-list-item>
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-profissional-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == false">                       
+            <div *ngIf="pessoaMenuShow === true" class="px-3"> 
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isAdminEscopo() == false">
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
+                        <div class="mx-2">Pacientes</div>
+                    </div>
+                </mat-list-item>    
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'profissional-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isAdminEscopo() == true">                       
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faUserDoctor"></fa-icon>
+                        <div class="mx-2">Profissionais</div>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-profissional-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isAdminEscopo() == false">                       
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faUserDoctor"></fa-icon>
+                        <div class="mx-2">Profissionais</div>
+                    </div>
+                </mat-list-item> 
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isAdminEscopo() == true">                              
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faUserTie"></fa-icon>
+                        <div class="mx-2">Recepcionistas</div>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-recepcionista-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isAdminEscopo() == false">                              
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faUserTie"></fa-icon>
+                        <div class="mx-2">Recepcionistas</div>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'diretor-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isAdminEscopo() == true">                     
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faUserNurse"></fa-icon>
+                        <div class="mx-2">Diretores</div>
+                    </div>
+                </mat-list-item>
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-diretor-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isAdminEscopo() == false">                     
+                    <div class="d-flex flex-row">
+                        <fa-icon [icon]="icons.faUserNurse"></fa-icon>
+                        <div class="mx-2">Diretores</div>
+                    </div>
+                </mat-list-item>
+            </div>                                                                                           
+
+            <mat-list-item [routerLink]="[]" (click)="relatorioMenuShow = !relatorioMenuShow">
                 <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUserDoctor"></fa-icon>
-                    <div class="mx-2">Profissionais</div>
-                </div>
-            </mat-list-item> 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'recepcionista-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == true">                              
-                <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUserTie"></fa-icon>
-                    <div class="mx-2">Recepcionistas</div>
+                    <fa-icon [icon]="icons.faFilePdf"></fa-icon>
+                    <div class="mx-2">Relatorios</div>                    
+                    <fa-icon *ngIf="relatorioMenuShow === true" [icon]="icons.faChevronUp" class="ms-auto"></fa-icon>
+                    <fa-icon *ngIf="relatorioMenuShow === false" [icon]="icons.faChevronDown" class="ms-auto"></fa-icon>
                 </div>
             </mat-list-item>
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-recepcionista-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == false">                              
-                <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUserTie"></fa-icon>
-                    <div class="mx-2">Recepcionistas</div>
-                </div>
-            </mat-list-item>
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'diretor-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == true">                     
-                <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUserNurse"></fa-icon>
-                    <div class="mx-2">Diretores</div>
-                </div>
-            </mat-list-item>
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-diretor-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == false">                     
-                <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUserNurse"></fa-icon>
-                    <div class="mx-2">Diretores</div>
-                </div>
-            </mat-list-item>
+            <div *ngIf="relatorioMenuShow === true" class="px-3"> 
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'relatorio-balanco-dia' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isRecepcionista() === false">               
+                    <div class="d-flex flex-row">
+                        <div class="mx-2">Balanço do dia</div>
+                    </div>
+                </mat-list-item> 
+            </div>
+
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'clinica-tela' } } ]" (click)="sidenav.toggle()"
                     *ngIf="sistemaService.isAdminEscopo() == true">               
                 <div class="d-flex flex-row">
@@ -210,8 +238,9 @@
                     <fa-icon [icon]="icons.faUmbrella"></fa-icon>
                     <div class="mx-2">Especialidades</div>
                 </div>
-            </mat-list-item>                                                                                 
-        </mat-nav-list>
+            </mat-list-item> 
+
+        </mat-nav-list>        
     </mat-sidenav>
     <mat-sidenav-content class="p-3">
         <router-outlet name="page"></router-outlet>

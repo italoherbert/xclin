@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import italo.xclin.model.Clinica;
 
 public interface ClinicaRepository extends JpaRepository<Clinica, Long> {
-
+		
 	@Query("select count(*)=1 from Clinica c where lower_unaccent(c.nome)=lower_unaccent(?1)")
 	public boolean existePorNome( String nome );
 	

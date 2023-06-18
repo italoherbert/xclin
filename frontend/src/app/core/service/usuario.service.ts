@@ -22,6 +22,15 @@ export class UsuarioService {
     return this.http.post( '/api/login', login, { headers: headers, withCredentials: true } );
   }
 
+  listaPorClinica( clinicaId : any ) : Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/usuario/lista/porclinica/'+clinicaId, { headers: headers, withCredentials: true } );
+  
+  }
+
   criaClinicaVinculo( usuarioId : any, clinicaId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { faAnglesLeft, faAnglesRight, faEye, faSave } from '@fortawesome/free-solid-svg-icons';
 import { AnamneseSave } from 'src/app/core/bean/anamnese/anamnese-save';
 import { AnamneseService } from 'src/app/core/service/anamnese.service';
+import { RelatorioService } from 'src/app/core/service/relatorio.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
 @Component({
@@ -67,6 +68,7 @@ export class PacienteAnamneseComponent {
   constructor( 
     private actRoute : ActivatedRoute,
     private anamneseService: AnamneseService, 
+    private relatorioService: RelatorioService,
     private sistemaService: SistemaService ) {}
 
   ngOnInit() {
@@ -148,9 +150,9 @@ export class PacienteAnamneseComponent {
 
     let pacienteId = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.anamneseService.getRelatorioAnamnese( pacienteId ).subscribe({
+    this.relatorioService.getRelatorioAnamnese( pacienteId ).subscribe({
       next: (resp) => {
-        this.sistemaService.criaDownloadAncora( resp );
+        this.sistemaService.criaDownloadAncora( resp, 'anamnese.pdf' );
         this.showSpinner = false;
       },
       error: (erro) => {

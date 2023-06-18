@@ -22,6 +22,7 @@ import { ClinicaModule } from './features/clinica/clinica.module';
 import { UsuarioContaModule } from './features/usuario-conta/usuario-conta.module';
 import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
 import { LancamentoModule } from './features/lancamento/lancamento.module';
+import { RelatorioModule } from './features/relatorio/relatorio.module';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { LancamentoModule } from './features/lancamento/lancamento.module';
     UsuarioGrupoModule,
     RecursoModule,
 
-    LancamentoModule
+    LancamentoModule,
+    RelatorioModule
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue:"pt-br"}

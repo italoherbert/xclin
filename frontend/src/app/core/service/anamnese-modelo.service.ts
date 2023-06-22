@@ -47,6 +47,22 @@ export class AnamneseModeloService {
     return this.http.get( '/api/anamnese/modelo/get/'+anamneseModeloId, { headers: headers, withCredentials: true } ); 
   }
 
+  detalhesLoad( anamneseModeloId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/anamnese/modelo/load/detalhes/'+anamneseModeloId, { headers: headers, withCredentials: true } );   
+  }
+
+  perguntasTelaLoad( anamneseModeloId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/anamnese/modelo/load/tela/perguntas/'+anamneseModeloId, { headers: headers, withCredentials: true } );   
+  }
+
   deleta( anamneseModeloId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )

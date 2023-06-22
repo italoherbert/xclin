@@ -27,6 +27,7 @@ export class LancamentoDetalhesComponent {
     tipo: '',
     tipoLabel: '',
     dataLancamento: '',
+    observacoes: '',
     clinicaId: 0,
     clinicaNome: '',
     usuarioId: 0,

@@ -7,13 +7,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.UsuarioClinicaVinculoLoader;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.model.response.UsuarioClinicaVinculoResponse;
+import italo.xclin.msg.Erro;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.UsuarioClinicaVinculoRepository;
 import italo.xclin.repository.UsuarioRepository;

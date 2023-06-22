@@ -12,5 +12,7 @@ public class LancamentoSaveRequest {
 	private String tipo;
 	
 	private double valor;
+	
+	private String observacoes;
 		
 }

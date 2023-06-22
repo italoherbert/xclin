@@ -1,7 +1,5 @@
 package italo.xclin.model.request.save;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +7,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UsuarioGrupoVinculoListaSaveRequest {
+public class AnamneseModeloPerguntaSaveRequest {
 
-	private List<Long> grupos;
+	private String pergunta;
+	
+	private String tipo;
+	
+	private String enumNames;
+	
+	private String enumValues;
 	
 }

@@ -4,6 +4,8 @@ export interface Lancamento {
     valor : number;
     tipo : string;
 
+    observacoes : string;
+
     dataLancamento : string;
 
     usuarioId : number;

@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import italo.xclin.exception.ConverterException;
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.request.relatorio.BalancoDoDiaRelatorioRequest;
+import italo.xclin.msg.Erro;
 
 @Component
 public class BalancoDoDiaRelatorioValidator {

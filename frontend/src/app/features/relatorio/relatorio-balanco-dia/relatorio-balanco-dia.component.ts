@@ -5,6 +5,8 @@ import { RelatorioService } from 'src/app/core/service/relatorio.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 import { UsuarioService } from 'src/app/core/service/usuario.service';
 
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-relatorio-balanco-dia',
   templateUrl: './relatorio-balanco-dia.component.html',
@@ -46,6 +48,8 @@ export class RelatorioBalancoDiaComponent {
     this.infoMsg = null;
 
     this.showSpinner = true;
+
+    this.balancoDoDia.dataDia = moment().format();
 
     this.relatorioService.getBalancoDoDiaLoad().subscribe({
       next: (resp) => {

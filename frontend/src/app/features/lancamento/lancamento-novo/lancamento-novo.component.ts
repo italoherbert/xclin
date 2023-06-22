@@ -23,7 +23,8 @@ export class LancamentoNovoComponent {
 
   lancamentoSave : LancamentoSave = {
     tipo: '',
-    valor: 0
+    valor: 0,
+    observacoes: ''
   }
 
   clinicasIDs : number[] = [];

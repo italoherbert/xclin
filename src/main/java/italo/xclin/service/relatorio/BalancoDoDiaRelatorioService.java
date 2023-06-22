@@ -1,7 +1,5 @@
 package italo.xclin.service.relatorio;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,13 +11,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import italo.xclin.exception.Erro;
+import italo.xclin.enums.tipos.LancamentoTipo;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.request.relatorio.BalancoDoDiaRelatorioRequest;
 import italo.xclin.model.response.load.relatorio.BalancoDoDiaLoadResponse;
+import italo.xclin.msg.Erro;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.service.relatorio.jrdatasource.LancamentosDoDiaJRDataSource;
@@ -59,7 +58,16 @@ public class BalancoDoDiaRelatorioService {
 			lancamentos = lancamentoRepository.clinicaUsuarioLancamentosDoDia( clinicaId, usuarioId, dataDia );
 		}
 				
-		LancamentosDoDiaJRDataSource lancamentosJRDS = new LancamentosDoDiaJRDataSource( lancamentos );
+		double total = 0;
+		for( Lancamento l : lancamentos ) {
+			if ( l.getTipo() == LancamentoTipo.CREDITO ) {
+				total += l.getValor();
+			} else if ( l.getTipo() == LancamentoTipo.DEBITO ) {
+				total -= l.getValor();
+			}
+		}
+		
+		LancamentosDoDiaJRDataSource lancamentosJRDS = new LancamentosDoDiaJRDataSource( lancamentos, converter );
 				
 		InputStream logoIS = getClass().getResourceAsStream( "/xclin-logo.png" );
 		
@@ -67,6 +75,8 @@ public class BalancoDoDiaRelatorioService {
 		paramsMap.put( "logo", logoIS );
 		paramsMap.put( "clinica", clinica.getNome() );
 		paramsMap.put( "dataDia", converter.formataDataBR( dataDia ) );
+		paramsMap.put( "total", converter.formataReal( total ) );
+		paramsMap.put( "totalValor", total );
 					
 		InputStream reportJasperFile = getClass().getResourceAsStream( "/balanco-do-dia.jasper" );
 		

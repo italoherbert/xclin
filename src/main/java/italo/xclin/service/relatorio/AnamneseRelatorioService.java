@@ -1,30 +1,10 @@
 package italo.xclin.service.relatorio;
 
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import italo.xclin.exception.Erro;
-import italo.xclin.exception.ServiceException;
-import italo.xclin.logica.Converter;
-import italo.xclin.model.Anamnese;
-import italo.xclin.model.Paciente;
-import italo.xclin.repository.PacienteRepository;
-import italo.xclin.service.relatorio.jrdatasource.AnamneseJRDataSource;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperExportManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
 
 @Service
 public class AnamneseRelatorioService {
-	
+/*	
 	@Autowired
 	private PacienteRepository pacienteRepository;		
 	
@@ -42,7 +22,7 @@ public class AnamneseRelatorioService {
 		if ( !p.isAnamnesePreenchida() )
 			throw new ServiceException( Erro.ANAMNESE_NAO_PREENCHIDA );						
 		
-		Anamnese a = p.getAnamnese();		
+		Anamnese2 a = p.getAnamnese();		
 
 		AnamneseJRDataSource anamneseJRDS = new AnamneseJRDataSource( a, pacienteNome, converter );
 		
@@ -61,5 +41,5 @@ public class AnamneseRelatorioService {
 			throw new ServiceException( Erro.FALHA_GER_PDF );
 		}		
 	}
-		
+*/	
 }

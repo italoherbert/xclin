@@ -6,7 +6,6 @@ import org.springframework.stereotype.Component;
 import italo.xclin.enums.ConsultaStatusEnumManager;
 import italo.xclin.enums.TurnoEnumManager;
 import italo.xclin.exception.ConverterException;
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
@@ -15,6 +14,7 @@ import italo.xclin.model.request.filtro.ConsultaListaFilaFiltroRequest;
 import italo.xclin.model.request.save.ConsultaAlterSaveRequest;
 import italo.xclin.model.request.save.ConsultaObservacoesSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
+import italo.xclin.msg.Erro;
 
 @Component
 public class ConsultaValidator {

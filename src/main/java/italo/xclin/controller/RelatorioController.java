@@ -38,6 +38,7 @@ public class RelatorioController {
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
 	
+	/*
 	@PreAuthorize("hasAuthority('pacienteREAD')")
 	@GetMapping(value="/anamnese/{pacienteId}", produces = MediaType.APPLICATION_PDF_VALUE )
 	@ResponseBody
@@ -49,6 +50,7 @@ public class RelatorioController {
 		
 		return anamneseRelatorioService.geraRelatorio( pacienteId );		
 	}
+	*/
 	
 	@PreAuthorize("hasAuthority('lancamentoREAD')")
 	@PostMapping(value="/balanco-do-dia/{clinicaId}", produces = MediaType.APPLICATION_PDF_VALUE )

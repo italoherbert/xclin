@@ -7,15 +7,15 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.AcessoLoader;
 import italo.xclin.model.Acesso;
 import italo.xclin.model.Recurso;
 import italo.xclin.model.UsuarioGrupo;
-import italo.xclin.model.request.save.AcessoListaSaveRequest;
 import italo.xclin.model.request.save.AcessoSaveRequest;
+import italo.xclin.model.request.save.lista.AcessoListaSaveRequest;
 import italo.xclin.model.response.AcessoResponse;
+import italo.xclin.msg.Erro;
 import italo.xclin.repository.AcessoRepository;
 import italo.xclin.repository.RecursoRepository;
 import italo.xclin.repository.UsuarioGrupoRepository;

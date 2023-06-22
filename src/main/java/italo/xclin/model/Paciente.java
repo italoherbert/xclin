@@ -70,15 +70,15 @@ public class Paciente {
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, optional = true)
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
-	
-	@OneToOne(mappedBy="paciente", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-	private Anamnese anamnese;
-	
+		
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
 	
 	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
 	private List<Consulta> consultas;
+	
+	@OneToMany(mappedBy="paciente", cascade = CascadeType.ALL)
+	private List<AnamnesePergunta> anamnesePergunta;
 	
 }

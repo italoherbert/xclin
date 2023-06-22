@@ -3,11 +3,11 @@ package italo.xclin.validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.model.request.filtro.NaoAdminProfissionalFiltroRequest;
 import italo.xclin.model.request.filtro.ProfissionalFiltroRequest;
 import italo.xclin.model.request.save.ProfissionalSaveRequest;
+import italo.xclin.msg.Erro;
 
 @Component
 public class ProfissionalValidator {

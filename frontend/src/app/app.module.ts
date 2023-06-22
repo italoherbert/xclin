@@ -23,6 +23,7 @@ import { UsuarioContaModule } from './features/usuario-conta/usuario-conta.modul
 import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
 import { LancamentoModule } from './features/lancamento/lancamento.module';
 import { RelatorioModule } from './features/relatorio/relatorio.module';
+import { AnamneseModeloModule } from './features/anamnese-modelo/anamnese-modelo.module';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,8 @@ import { RelatorioModule } from './features/relatorio/relatorio.module';
     UsuarioGrupoModule,
     RecursoModule,
 
+    AnamneseModeloModule,
+    
     LancamentoModule,
     RelatorioModule
   ],

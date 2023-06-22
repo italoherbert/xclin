@@ -17,6 +17,8 @@ public class LancamentoResponse {
 	
 	private String dataLancamento;
 	
+	private String observacoes;
+	
 	private Long usuarioId;
 	
 	private String usuarioUsername;

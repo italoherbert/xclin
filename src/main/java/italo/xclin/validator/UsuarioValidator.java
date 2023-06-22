@@ -4,11 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import italo.xclin.enums.UsuarioPerfilEnumManager;
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.model.request.filtro.UsuarioFiltroRequest;
 import italo.xclin.model.request.save.UsuarioSaveRequest;
 import italo.xclin.model.request.save.UsuarioSenhaSaveRequest;
+import italo.xclin.msg.Erro;
 
 @Component
 public class UsuarioValidator {

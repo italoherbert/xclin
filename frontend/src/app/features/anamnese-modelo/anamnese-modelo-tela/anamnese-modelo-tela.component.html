@@ -1,0 +1,65 @@
+<h1>Tela de modelos de anamnese</h1>
+
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'anamnese-modelo-save/-1' }}]">
+    <fa-icon [icon]="icons.faPlusCircle"></fa-icon>
+    <span class="mx-3">Novo modelo</span>
+</a>
+
+<br />
+
+<div class="mt-3">
+    <mat-form-field appearance="fill">
+        <mat-label>Nome</mat-label>
+        <input matInput type="text" placeholder="Informe o nome" [(ngModel)]="anamneseModeloFiltro.filtroNome" />
+    </mat-form-field>
+
+    <br />
+
+    <button mat-raised-button color="primary" (click)="filtra()">
+        <fa-icon [icon]="icons.faFilter"></fa-icon>
+        Filtrar
+    </button>
+
+    <div class="d-flex justify-content-center">
+        <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
+    </div>
+
+    <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+        {{infoMsg}}
+    </div>
+    <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+        {{erroMsg}}
+    </div>
+</div>
+
+<h1>Tabela de modelos</h1>
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Detalhes</th>
+                <th>Remover</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let am of anamneseModelos">
+                <td>{{am.nome}}</td>
+                <td>
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'anamnese-modelo-detalhes/'+am.id }}]">
+                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                        detalhes
+                    </a>
+                </td>
+                <td>
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(am.id)">
+                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                        remover
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+

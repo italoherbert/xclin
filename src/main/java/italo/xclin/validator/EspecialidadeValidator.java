@@ -2,10 +2,10 @@ package italo.xclin.validator;
 
 import org.springframework.stereotype.Component;
 
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.model.request.filtro.EspecialidadeFiltroRequest;
 import italo.xclin.model.request.save.EspecialidadeSaveRequest;
+import italo.xclin.msg.Erro;
 
 @Component
 public class EspecialidadeValidator {

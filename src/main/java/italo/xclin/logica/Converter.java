@@ -1,5 +1,6 @@
 package italo.xclin.logica;
 
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -7,7 +8,7 @@ import java.util.Date;
 import org.springframework.stereotype.Component;
 
 import italo.xclin.exception.ConverterException;
-import italo.xclin.exception.Erro;
+import italo.xclin.msg.Erro;
 
 @Component
 public class Converter {
@@ -24,6 +25,12 @@ public class Converter {
 	private final SimpleDateFormat dataHoraBRFormato = new SimpleDateFormat( DATAHORA_BR_FORMATO );
 	private final SimpleDateFormat dataBRFormato = new SimpleDateFormat( DATA_BR_FORMATO );
 
+	private DecimalFormat realDecimalFormat = new DecimalFormat( "R$ 0.00" ); 
+	
+	public String formataReal( double valor ) {
+		return realDecimalFormat.format( valor );
+	}
+	
 	public String formataDataHoraBR( Date data ) {
 		return dataHoraBRFormato.format( data );
 	}

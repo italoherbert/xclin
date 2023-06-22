@@ -14,7 +14,6 @@ import italo.xclin.enums.TurnoEnumManager;
 import italo.xclin.enums.tipos.ConsultaStatus;
 import italo.xclin.enums.tipos.LancamentoTipo;
 import italo.xclin.enums.tipos.Turno;
-import italo.xclin.exception.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.ConsultaLoader;
 import italo.xclin.loader.EspecialidadeLoader;
@@ -47,6 +46,8 @@ import italo.xclin.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaTelaLoadResponse;
+import italo.xclin.msg.Erro;
+import italo.xclin.msg.Info;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
@@ -184,8 +185,10 @@ public class ConsultaService {
 		lanc.setDataLancamento( new Date() );
 		if ( paga ) {			
 			lanc.setTipo( LancamentoTipo.CREDITO );
+			lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );
 		} else {
 			lanc.setTipo( LancamentoTipo.DEBITO ); 
+			lanc.setObservacoes( Info.PAGAMENTO_DEBITADO ); 
 		}
 		lanc.setValor( consulta.getValor() ); 
 		

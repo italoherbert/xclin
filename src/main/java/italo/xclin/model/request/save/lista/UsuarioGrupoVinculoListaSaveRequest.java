@@ -1,4 +1,4 @@
-package italo.xclin.model.request.save;
+package italo.xclin.model.request.save.lista;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class DiretorClinicaVinculoListaSaveRequest {
+public class UsuarioGrupoVinculoListaSaveRequest {
 
-	private List<Long> clinicas;
+	private List<Long> grupos;
 	
 }

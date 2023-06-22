@@ -1,4 +1,4 @@
-package italo.xclin.exception;
+package italo.xclin.msg;
 
 public interface Erro {
 
@@ -47,8 +47,10 @@ public interface Erro {
 	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrada a especialidade para adicioná-la ao profissional.";
 	public final static String ANAMNESE_NAO_ENCONTRADA = "Anamnese do paciente não encontrada.";
 	public final static String LANCAMENTO_NAO_ENCONTRADO = "Lancamento não encontrado.";
-		
+	public final static String ANAMNESE_MODELO_NAO_ENCONTRADO = "Modelo de anamnese não encontrado.";	
+	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
+	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";
 	
 	public final static String ANAMNESE_NAO_PREENCHIDA = "A anamnese do paciente ainda não foi preenchida.";
 
@@ -63,6 +65,7 @@ public interface Erro {
 	public final static String CLINICA_PACIENTE_JA_EXISTE = "Já existe um(a) paciente registrado(a) com o nome informado na clínica informada.";
 	public final static String ESPECIALIDADE_JA_EXISTE = "Já existe uma especialidade com o nome informado.";
 	public final static String VINCULO_USUARIO_CLINICA_JA_EXISTE = "Já existe um vínculo entre o usuário e clínica informados.";
+	public final static String ANAMNESE_MODELO_NOME_JA_EXISTE = "Já existe um modelo de anamnese registrado com o nome informado.";
 	
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	
@@ -95,6 +98,7 @@ public interface Erro {
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";
 	
 	public final static String PACIENTE_CLINICA_NAO_CORRESPONDEM = "O paciente não corresponde a clínica informada.";
+	public final static String ANAMNESE_MODELO_DE_OUTRO_PROFISSIONAL = "O modelo de anamnese que está tentando alterar pertence a outro profissional."; 
 	
 	public final static String FALHA_GER_PDF = "Falha na geração do relatório em formato PDF.";
 	

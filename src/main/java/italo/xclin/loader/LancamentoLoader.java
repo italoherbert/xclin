@@ -29,7 +29,8 @@ public class LancamentoLoader {
 	public void loadBean( Lancamento l, LancamentoSaveRequest request ) throws LoaderException {
 		l.setTipo( lancamentoTipoEnumManager.getEnum( request.getTipo() ) );
 		l.setValor( request.getValor() );
-		l.setDataLancamento( new Date() ); 		
+		l.setDataLancamento( new Date() ); 	
+		l.setObservacoes( request.getObservacoes() );
 	}
 	
 	public void loadResponse( LancamentoResponse resp, Lancamento l ) {		
@@ -39,7 +40,8 @@ public class LancamentoLoader {
 		resp.setTipoLabel( l.getTipo().label() );
 		
 		resp.setValor( l.getValor() );
-		resp.setDataLancamento( converter.dataHoraToString( l.getDataLancamento() ) );		
+		resp.setDataLancamento( converter.dataHoraToString( l.getDataLancamento() ) );
+		resp.setObservacoes( l.getObservacoes() );
 	}
 	
 	public void loadRegResponse( LancamentoRegLoadResponse resp ) {

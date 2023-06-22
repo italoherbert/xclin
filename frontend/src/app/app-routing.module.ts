@@ -61,6 +61,9 @@ import { LancamentoNovoComponent } from './features/lancamento/lancamento-novo/l
 import { LancamentoDetalhesComponent } from './features/lancamento/lancamento-detalhes/lancamento-detalhes.component';
 import { UsuarioClinicaVinculosComponent } from './features/usuario/usuario-clinica-vinculos/usuario-clinica-vinculos.component';
 import { RelatorioBalancoDiaComponent } from './features/relatorio/relatorio-balanco-dia/relatorio-balanco-dia.component';
+import { AnamneseModeloTelaComponent } from './features/anamnese-modelo/anamnese-modelo-tela/anamnese-modelo-tela.component';
+import { AnamneseModeloDetalhesComponent } from './features/anamnese-modelo/anamnese-modelo-detalhes/anamnese-modelo-detalhes.component';
+import { AnamneseModeloSaveComponent } from './features/anamnese-modelo/anamnese-modelo-save/anamnese-modelo-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -140,6 +143,10 @@ const routes: Routes = [
     { path: 'lancamento-tela', component: LancamentoTelaComponent, outlet: 'page' },
     { path: 'lancamento-novo', component: LancamentoNovoComponent, outlet: 'page' },
     { path: 'lancamento-detalhes/:lancamentoId', component: LancamentoDetalhesComponent, outlet: 'page' },
+
+    { path: 'anamnese-modelo-tela', component: AnamneseModeloTelaComponent, outlet: 'page' },
+    { path: 'anamnese-modelo-detalhes/:id', component: AnamneseModeloDetalhesComponent, outlet: 'page' },
+    { path: 'anamnese-modelo-save/:id', component: AnamneseModeloSaveComponent, outlet: 'page' },
 
     { path: 'relatorio-balanco-dia', component: RelatorioBalancoDiaComponent, outlet: 'page' }
   ] },

@@ -38,6 +38,8 @@ public class Lancamento {
 	@Temporal(TemporalType.TIMESTAMP) 
 	private Date dataLancamento;
 	
+	private String observacoes;
+	
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="usuario_id")
 	private Usuario usuario;

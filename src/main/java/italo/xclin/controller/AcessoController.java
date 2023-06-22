@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.xclin.exception.SistemaException;
-import italo.xclin.model.request.save.AcessoListaSaveRequest;
+import italo.xclin.model.request.save.lista.AcessoListaSaveRequest;
 import italo.xclin.model.response.AcessoResponse;
 import italo.xclin.service.AcessoService;
 

@@ -5,10 +5,9 @@ import { ClinicaSaveModule } from './clinica-save/clinica-save.module';
 import { ClinicaTelaModule } from './clinica-tela/clinica-tela.module';
 import { NaoAdminClinicaTelaModule } from './nao-admin-clinica-tela/nao-admin-clinica-tela.module';
 
-
-
 @NgModule({
-  declarations: [],
+  declarations: [
+  ],
   imports: [
     CommonModule,
 

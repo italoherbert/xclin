@@ -9,11 +9,16 @@ import org.springframework.stereotype.Service;
 
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.AnamneseModeloLoader;
+import italo.xclin.loader.AnamneseModeloPerguntaLoader;
 import italo.xclin.model.AnamneseModelo;
+import italo.xclin.model.AnamneseModeloPergunta;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.request.filtro.AnamneseModeloFiltroRequest;
 import italo.xclin.model.request.save.AnamneseModeloSaveRequest;
+import italo.xclin.model.response.AnamneseModeloPerguntaResponse;
 import italo.xclin.model.response.AnamneseModeloResponse;
+import italo.xclin.model.response.load.detalhes.AnamneseModeloDetalhesLoadResponse;
+import italo.xclin.model.response.load.outros.AnamneseModeloPerguntasLoadResponse;
 import italo.xclin.msg.Erro;
 import italo.xclin.repository.AnamneseModeloRepository;
 import italo.xclin.repository.ProfissionalRepository;
@@ -29,6 +34,9 @@ public class AnamneseModeloService {
 	
 	@Autowired
 	private AnamneseModeloLoader anamneseModeloLoader;
+	
+	@Autowired
+	private AnamneseModeloPerguntaLoader anamneseModeloPerguntaLoader;
 	
 	public void registra( Long logadoUID, AnamneseModeloSaveRequest request ) throws ServiceException {
 		boolean existe = anamneseModeloRepository.existePorNome( request.getNome() );
@@ -104,6 +112,56 @@ public class AnamneseModeloService {
 			lista.add( resp );
 		}
 		return lista;
+	}		
+	
+	public AnamneseModeloPerguntasLoadResponse novoPerguntasLoad( Long anamneseModeloId ) throws ServiceException {
+		Optional<AnamneseModelo> amOp = anamneseModeloRepository.findById( anamneseModeloId );
+		if ( !amOp.isPresent() )
+			throw new ServiceException( Erro.ANAMNESE_MODELO_NAO_ENCONTRADO );
+		
+		AnamneseModelo am = amOp.get();
+		List<AnamneseModeloPergunta> perguntas = am.getPerguntas();
+		
+		List<AnamneseModeloPerguntaResponse> lista = new ArrayList<>();
+		for( AnamneseModeloPergunta p : perguntas ) {
+			AnamneseModeloPerguntaResponse presp = anamneseModeloPerguntaLoader.novoResponse();
+			anamneseModeloPerguntaLoader.loadResponse( presp, p );
+			
+			lista.add( presp );
+		}
+		
+		AnamneseModeloResponse amResp = anamneseModeloLoader.novoResponse();
+		anamneseModeloLoader.loadResponse( amResp, am );
+		
+		AnamneseModeloPerguntasLoadResponse resp = anamneseModeloLoader.novoPerguntasResponse( amResp, lista );
+		anamneseModeloLoader.loadPerguntasResponse( resp );
+		
+		return resp;
+	}
+	
+	public AnamneseModeloDetalhesLoadResponse novoDetalhesLoad( Long anamneseModeloId ) throws ServiceException {
+		Optional<AnamneseModelo> amOp = anamneseModeloRepository.findById( anamneseModeloId );
+		if ( !amOp.isPresent() )
+			throw new ServiceException( Erro.ANAMNESE_MODELO_NAO_ENCONTRADO );
+		
+		AnamneseModelo am = amOp.get();
+		List<AnamneseModeloPergunta> perguntas = am.getPerguntas();
+		
+		List<AnamneseModeloPerguntaResponse> lista = new ArrayList<>();
+		for( AnamneseModeloPergunta p : perguntas ) {
+			AnamneseModeloPerguntaResponse presp = anamneseModeloPerguntaLoader.novoResponse();
+			anamneseModeloPerguntaLoader.loadResponse( presp, p );
+			
+			lista.add( presp );
+		}
+		
+		AnamneseModeloResponse amResp = anamneseModeloLoader.novoResponse();
+		anamneseModeloLoader.loadResponse( amResp, am );
+		
+		AnamneseModeloDetalhesLoadResponse resp = anamneseModeloLoader.novoDetalhesResponse( amResp, lista );
+		anamneseModeloLoader.loadDetalhesResponse( resp );
+		
+		return resp;
 	}
 	
 	public void deleta( Long amId ) throws ServiceException {

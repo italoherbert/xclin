@@ -21,6 +21,8 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.filtro.AnamneseModeloFiltroRequest;
 import italo.xclin.model.request.save.AnamneseModeloSaveRequest;
 import italo.xclin.model.response.AnamneseModeloResponse;
+import italo.xclin.model.response.load.detalhes.AnamneseModeloDetalhesLoadResponse;
+import italo.xclin.model.response.load.outros.AnamneseModeloPerguntasLoadResponse;
 import italo.xclin.service.AnamneseModeloService;
 import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.validator.AnamneseModeloValidator;
@@ -94,6 +96,30 @@ public class AnamneseModeloController {
 		anamneseModeloValidator.validaFiltro( request );
 		List<AnamneseModeloResponse> lista = anamneseModeloService.filtra( logadoUID, request );
 		return ResponseEntity.ok( lista );
+	}
+	
+	@PreAuthorize("hasAuthority('anamneseModeloREAD')")
+	@GetMapping("/load/detalhes/{anamneseModeloId}")
+	public ResponseEntity<Object> detalhesLoad( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long anamneseModeloId ) throws SistemaException {
+		
+		autorizador.autorizaSeAnamneseDeProfissionalLogado( authorizationHeader, anamneseModeloId );
+		
+		AnamneseModeloDetalhesLoadResponse resp = anamneseModeloService.novoDetalhesLoad( anamneseModeloId );
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('anamneseModeloREAD')")
+	@GetMapping("/load/tela/perguntas/{anamneseModeloId}")
+	public ResponseEntity<Object> perguntasTelaLoad( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long anamneseModeloId ) throws SistemaException {
+		
+		autorizador.autorizaSeAnamneseDeProfissionalLogado( authorizationHeader, anamneseModeloId );
+		
+		AnamneseModeloPerguntasLoadResponse resp = anamneseModeloService.novoPerguntasLoad( anamneseModeloId );
+		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('anamneseModeloDELETE')")

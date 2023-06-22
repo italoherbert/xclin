@@ -1,6 +1,6 @@
 package italo.xclin.model;
 
-import italo.xclin.enums.PerguntaTipo;
+import italo.xclin.enums.tipos.PerguntaTipo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;

@@ -1,4 +1,4 @@
-package italo.xclin.enums;
+package italo.xclin.enums.tipos;
 
 public enum PerguntaTipo {
 	STRING, BOOLEAN, ENUM;

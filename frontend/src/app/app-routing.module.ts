@@ -64,7 +64,7 @@ import { RelatorioBalancoDiaComponent } from './features/relatorio/relatorio-bal
 import { AnamneseModeloTelaComponent } from './features/anamnese-modelo/anamnese-modelo-tela/anamnese-modelo-tela.component';
 import { AnamneseModeloDetalhesComponent } from './features/anamnese-modelo/anamnese-modelo-detalhes/anamnese-modelo-detalhes.component';
 import { AnamneseModeloSaveComponent } from './features/anamnese-modelo/anamnese-modelo-save/anamnese-modelo-save.component';
-import { AnamneseModeloPerguntasComponent } from './features/anamnese-modelo/anamnese-modelo-perguntas/anamnese-modelo-perguntas.component';
+import { AnamneseModeloPerguntaSaveComponent } from './features/anamnese-modelo/anamnese-modelo-pergunta-save/anamnese-modelo-pergunta-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -148,7 +148,7 @@ const routes: Routes = [
     { path: 'anamnese-modelo-tela', component: AnamneseModeloTelaComponent, outlet: 'page' },
     { path: 'anamnese-modelo-detalhes/:id', component: AnamneseModeloDetalhesComponent, outlet: 'page' },
     { path: 'anamnese-modelo-save/:id', component: AnamneseModeloSaveComponent, outlet: 'page' },
-    { path: 'anamnese-modelo-perguntas/:id', component: AnamneseModeloPerguntasComponent, outlet: 'page' },
+    { path: 'anamnese-modelo-pergunta-save/:modeloId/:perguntaId', component: AnamneseModeloPerguntaSaveComponent, outlet: 'page' },
 
     { path: 'relatorio-balanco-dia', component: RelatorioBalancoDiaComponent, outlet: 'page' }
   ] },

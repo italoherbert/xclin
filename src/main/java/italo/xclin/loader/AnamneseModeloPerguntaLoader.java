@@ -8,6 +8,8 @@ import italo.xclin.model.AnamneseModelo;
 import italo.xclin.model.AnamneseModeloPergunta;
 import italo.xclin.model.request.save.AnamneseModeloPerguntaSaveRequest;
 import italo.xclin.model.response.AnamneseModeloPerguntaResponse;
+import italo.xclin.model.response.load.edit.AnamneseModeloPerguntaEditLoadResponse;
+import italo.xclin.model.response.load.reg.AnamneseModeloPerguntaRegLoadResponse;
 
 @Component
 public class AnamneseModeloPerguntaLoader {
@@ -18,8 +20,7 @@ public class AnamneseModeloPerguntaLoader {
 	public void loadBean( AnamneseModeloPergunta pergunta, AnamneseModeloPerguntaSaveRequest request ) {
 		pergunta.setPergunta( request.getPergunta() );
 		pergunta.setTipo( perguntaTipoEnumManager.getEnum( request.getTipo() ) );
-		pergunta.setEnumNames( request.getEnumNames() );
-		pergunta.setEnumValues( request.getEnumValues() ); 
+		pergunta.setEnums( request.getEnums() );
 	}
 	
 	public void loadResponse( AnamneseModeloPerguntaResponse resp, AnamneseModeloPergunta pergunta ) {
@@ -27,8 +28,15 @@ public class AnamneseModeloPerguntaLoader {
 		resp.setPergunta( pergunta.getPergunta() );
 		resp.setTipo( pergunta.getTipo().name() );
 		resp.setTipoLabel( pergunta.getTipo().label() );
-		resp.setEnumNames( pergunta.getEnumNames() );
-		resp.setEnumValues( pergunta.getEnumValues() );
+		resp.setEnums( pergunta.getEnums() );
+	}
+	
+	public void loadRegResponse( AnamneseModeloPerguntaRegLoadResponse resp ) {
+		resp.setPerguntaTipos( perguntaTipoEnumManager.tipoResponses() ); 
+	}
+	
+	public void loadEditResponse( AnamneseModeloPerguntaEditLoadResponse resp ) {
+		resp.setPerguntaTipos( perguntaTipoEnumManager.tipoResponses() ); 
 	}
 	
 	public AnamneseModeloPergunta novoBean( AnamneseModelo anModelo) {
@@ -41,4 +49,16 @@ public class AnamneseModeloPerguntaLoader {
 		return new AnamneseModeloPerguntaResponse();
 	}
 			
+	public AnamneseModeloPerguntaEditLoadResponse novoEditResponse( 
+			AnamneseModeloPerguntaResponse pergunta ) {
+		
+		AnamneseModeloPerguntaEditLoadResponse resp = new AnamneseModeloPerguntaEditLoadResponse();
+		resp.setPergunta( pergunta );
+		return resp;		
+	}
+	
+	public AnamneseModeloPerguntaRegLoadResponse novoRegResponse() {		
+		return new AnamneseModeloPerguntaRegLoadResponse();		
+	}
+	
 }

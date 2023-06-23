@@ -7,13 +7,13 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.RecursoLoader;
 import italo.xclin.model.Recurso;
 import italo.xclin.model.request.filtro.RecursoFiltroRequest;
 import italo.xclin.model.request.save.RecursoSaveRequest;
 import italo.xclin.model.response.RecursoResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.RecursoRepository;
 
 @Service

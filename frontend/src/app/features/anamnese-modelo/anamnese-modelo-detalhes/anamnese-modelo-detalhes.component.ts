@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faCircleLeft, faPenToSquare, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faAngleDown, faCircleLeft, faPenToSquare, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { AnamneseModelo } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo';
+import { AnamneseModeloPergunta } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo-pergunta';
 import { AnamneseModeloService } from 'src/app/core/service/anamnese-modelo.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
@@ -20,13 +21,16 @@ export class AnamneseModeloDetalhesComponent {
   icons : any = {
     faPenToSquare : faPenToSquare,
     faCircleLeft : faCircleLeft,
-    faPlusCircle : faPlusCircle
+    faPlusCircle : faPlusCircle,
+    faAngleDown : faAngleDown
   }
 
   modelo : AnamneseModelo = {
     id: 0,
     nome: ''
   }
+
+  perguntas : AnamneseModeloPergunta[] = [];
 
   constructor(
     private actRoute : ActivatedRoute,
@@ -42,9 +46,10 @@ export class AnamneseModeloDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.anamneseModeloService.get( id ).subscribe({
+    this.anamneseModeloService.loadDetalhes( id ).subscribe({
       next: (resp) => {
-        this.modelo = resp;
+        this.modelo = resp.anamneseModelo;
+        this.perguntas = resp.perguntas;
         this.showSpinner = false;
       },
       error: (erro) => {

@@ -11,6 +11,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.enums.tipos.LancamentoTipo;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.logica.Converter;
@@ -18,7 +19,6 @@ import italo.xclin.model.Clinica;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.request.relatorio.BalancoDoDiaRelatorioRequest;
 import italo.xclin.model.response.load.relatorio.BalancoDoDiaLoadResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.service.relatorio.jrdatasource.LancamentosDoDiaJRDataSource;

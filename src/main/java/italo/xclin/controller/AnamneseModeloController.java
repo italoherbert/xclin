@@ -22,7 +22,6 @@ import italo.xclin.model.request.filtro.AnamneseModeloFiltroRequest;
 import italo.xclin.model.request.save.AnamneseModeloSaveRequest;
 import italo.xclin.model.response.AnamneseModeloResponse;
 import italo.xclin.model.response.load.detalhes.AnamneseModeloDetalhesLoadResponse;
-import italo.xclin.model.response.load.outros.AnamneseModeloPerguntasLoadResponse;
 import italo.xclin.service.AnamneseModeloService;
 import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.validator.AnamneseModeloValidator;
@@ -65,7 +64,7 @@ public class AnamneseModeloController {
 			@PathVariable Long anamneseModeloId,
 			@RequestBody AnamneseModeloSaveRequest request ) throws SistemaException {
 		
-		autorizador.autorizaSeAnamneseDeProfissionalLogado( authorizationHeader, anamneseModeloId );
+		autorizador.autorizaSeAnamneseModeloDeProfissionalLogado( authorizationHeader, anamneseModeloId );
 								
 		anamneseModeloValidator.validaSave( request );
 		anamneseModeloService.altera( anamneseModeloId, request);
@@ -78,7 +77,7 @@ public class AnamneseModeloController {
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long anamneseModeloId ) throws SistemaException {
 		
-		autorizador.autorizaSeAnamneseDeProfissionalLogado( authorizationHeader, anamneseModeloId );
+		autorizador.autorizaSeAnamneseModeloDeProfissionalLogado( authorizationHeader, anamneseModeloId );
 		
 		AnamneseModeloResponse resp = anamneseModeloService.get( anamneseModeloId );
 		return ResponseEntity.ok( resp );
@@ -104,31 +103,19 @@ public class AnamneseModeloController {
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long anamneseModeloId ) throws SistemaException {
 		
-		autorizador.autorizaSeAnamneseDeProfissionalLogado( authorizationHeader, anamneseModeloId );
+		autorizador.autorizaSeAnamneseModeloDeProfissionalLogado( authorizationHeader, anamneseModeloId );
 		
 		AnamneseModeloDetalhesLoadResponse resp = anamneseModeloService.novoDetalhesLoad( anamneseModeloId );
 		return ResponseEntity.ok( resp );
 	}
-	
-	@PreAuthorize("hasAuthority('anamneseModeloREAD')")
-	@GetMapping("/load/tela/perguntas/{anamneseModeloId}")
-	public ResponseEntity<Object> perguntasTelaLoad( 
-			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long anamneseModeloId ) throws SistemaException {
 		
-		autorizador.autorizaSeAnamneseDeProfissionalLogado( authorizationHeader, anamneseModeloId );
-		
-		AnamneseModeloPerguntasLoadResponse resp = anamneseModeloService.novoPerguntasLoad( anamneseModeloId );
-		return ResponseEntity.ok( resp );
-	}
-	
 	@PreAuthorize("hasAuthority('anamneseModeloDELETE')")
 	@DeleteMapping("/deleta/{anamneseModeloId}")
 	public ResponseEntity<Object> deleta( 
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long anamneseModeloId ) throws SistemaException {
 		
-		autorizador.autorizaSeAnamneseDeProfissionalLogado( authorizationHeader, anamneseModeloId );
+		autorizador.autorizaSeAnamneseModeloDeProfissionalLogado( authorizationHeader, anamneseModeloId );
 		
 		anamneseModeloService.deleta( anamneseModeloId );
 		return ResponseEntity.ok().build();

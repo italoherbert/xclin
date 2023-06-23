@@ -2,9 +2,9 @@ package italo.xclin.validator;
 
 import org.springframework.stereotype.Component;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.model.request.LoginRequest;
-import italo.xclin.msg.Erro;
 
 @Component
 public class LoginValidator {

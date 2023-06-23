@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.UsuarioGrupoLoader;
 import italo.xclin.loader.UsuarioLoader;
@@ -17,7 +18,6 @@ import italo.xclin.model.request.save.lista.UsuarioGrupoVinculoListaSaveRequest;
 import italo.xclin.model.response.UsuarioGrupoResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.outros.UsuarioGrupoVinculosLoadResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.UsuarioGrupoRepository;
 import italo.xclin.repository.UsuarioGrupoVinculoRepository;
 import italo.xclin.repository.UsuarioRepository;

@@ -3,13 +3,13 @@ package italo.xclin.validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import italo.xclin.Erro;
 import italo.xclin.enums.LancamentoTipoEnumManager;
 import italo.xclin.exception.ConverterException;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.request.filtro.LancamentoFiltroRequest;
 import italo.xclin.model.request.save.LancamentoSaveRequest;
-import italo.xclin.msg.Erro;
 
 @Component
 public class LancamentoValidator {

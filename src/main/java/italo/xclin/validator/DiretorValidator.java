@@ -3,11 +3,11 @@ package italo.xclin.validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.model.request.filtro.DiretorFiltroRequest;
 import italo.xclin.model.request.filtro.NaoAdminDiretorFiltroRequest;
 import italo.xclin.model.request.save.DiretorSaveRequest;
-import italo.xclin.msg.Erro;
 
 @Component
 public class DiretorValidator {

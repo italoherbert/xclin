@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AnamneseModeloPerguntasComponent } from './anamnese-modelo-perguntas.component';
+import { AnamneseModeloPerguntaSaveComponent } from './anamnese-modelo-pergunta-save.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -13,7 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
-    AnamneseModeloPerguntasComponent
+    AnamneseModeloPerguntaSaveComponent
   ],
   imports: [
     CommonModule,
@@ -27,4 +27,4 @@ import { MatButtonModule } from '@angular/material/button';
     MatButtonModule
   ]
 })
-export class AnamneseModeloPerguntasModule { }
+export class AnamneseModeloPerguntaSaveModule { }

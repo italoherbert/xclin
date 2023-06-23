@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.ProfissionalEspecialidadeVinculoLoader;
 import italo.xclin.loader.ProfissionalLoader;
@@ -17,7 +18,6 @@ import italo.xclin.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.xclin.model.response.ProfissionalEspecialidadeVinculoResponse;
 import italo.xclin.model.response.load.outros.ProfissionalContaEspecialidadeSaveLoadResponse;
 import italo.xclin.model.response.load.outros.ProfissionalEspecialidadeVinculosLoadResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.EspecialidadeRepository;
 import italo.xclin.repository.ProfissionalEspecialidadeVinculoRepository;
 import italo.xclin.repository.ProfissionalRepository;

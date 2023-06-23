@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.AcessoLoader;
 import italo.xclin.loader.UsuarioGrupoLoader;
@@ -19,7 +20,6 @@ import italo.xclin.model.response.AcessoResponse;
 import italo.xclin.model.response.UsuarioGrupoResponse;
 import italo.xclin.model.response.load.detalhes.UsuarioGrupoDetalhesLoadResponse;
 import italo.xclin.model.response.load.edit.UsuarioGrupoEditLoadResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.AcessoRepository;
 import italo.xclin.repository.UsuarioGrupoRepository;
 

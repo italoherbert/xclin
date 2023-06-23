@@ -1,4 +1,4 @@
-package italo.xclin.msg;
+package italo.xclin;
 
 public interface Info {
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.logica.HashUtil;
 import italo.xclin.logica.JWTTokenLogica;
@@ -16,7 +17,6 @@ import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.model.UsuarioGrupo;
 import italo.xclin.model.request.LoginRequest;
 import italo.xclin.model.response.LoginResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.UsuarioRepository;
 
 @Service

@@ -2,10 +2,10 @@ package italo.xclin.validator;
 
 import org.springframework.stereotype.Component;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ValidationException;
 import italo.xclin.model.request.filtro.UsuarioGrupoFiltroRequest;
 import italo.xclin.model.request.save.UsuarioGrupoSaveRequest;
-import italo.xclin.msg.Erro;
 
 @Component
 public class UsuarioGrupoValidator {

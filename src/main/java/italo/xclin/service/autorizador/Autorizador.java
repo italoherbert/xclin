@@ -6,10 +6,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.AutorizadorException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.AnamneseModelo;
+import italo.xclin.model.AnamneseModeloPergunta;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
 import italo.xclin.model.Lancamento;
@@ -17,7 +19,7 @@ import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
-import italo.xclin.msg.Erro;
+import italo.xclin.repository.AnamneseModeloPerguntaRepository;
 import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteRepository;
@@ -39,9 +41,12 @@ public class Autorizador {
 	private ProfissionalRepository profissionalRepository;
 	
 	@Autowired
+	private AnamneseModeloPerguntaRepository anamneseModeloPerguntaRepository;
+	
+	@Autowired
 	private LancamentoRepository lancamentoRepository;
 	
-	public void autorizaSeAnamneseDeProfissionalLogado( String authorizationHeader, Long anamneseModeloId ) throws AutorizadorException {
+	public void autorizaSeAnamneseModeloDeProfissionalLogado( String authorizationHeader, Long anamneseModeloId ) throws AutorizadorException {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
@@ -57,6 +62,29 @@ public class Autorizador {
 				return;
 		
 		throw new AutorizadorException( Erro.ANAMNESE_MODELO_DE_OUTRO_PROFISSIONAL );
+	}
+	
+	public void autorizaSeAnamneseModeloPerguntaDeProfissionalLogado(
+			 String authorizationHeader, Long anamneseModeloPerguntaId ) throws AutorizadorException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
+		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
+		if ( !profissionalOp.isPresent() )
+			throw new AutorizadorException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
+		
+		Profissional p = profissionalOp.get();
+		
+		Optional<AnamneseModeloPergunta> perguntaOp = anamneseModeloPerguntaRepository.findById( anamneseModeloPerguntaId );
+		if ( !perguntaOp.isPresent() )
+			throw new AutorizadorException( Erro.ANAMNESE_MODELO_PERGUNTA_NAO_ENCONTRADA );
+		
+		AnamneseModeloPergunta pergunta = perguntaOp.get();
+		Profissional p2 = pergunta.getAnamneseModelo().getProfissional();
+		
+		if ( p.getId() != p2.getId() )
+			throw new AutorizadorException( Erro.ANAMNESE_MODELO_PERGUNTA_DE_OUTRO_PROFISSIONAL );
 	}
 	
 	public void autorizaSeLancamentoDeClinica( String authorizationHeader, Long lancamentoId ) throws AutorizadorException {

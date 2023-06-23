@@ -7,8 +7,8 @@ import java.util.Date;
 
 import org.springframework.stereotype.Component;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ConverterException;
-import italo.xclin.msg.Erro;
 
 @Component
 public class Converter {

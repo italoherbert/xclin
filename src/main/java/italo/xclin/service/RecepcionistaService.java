@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.enums.tipos.UsuarioPerfil;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.RecepcionistaLoader;
@@ -20,7 +21,6 @@ import italo.xclin.model.response.RecepcionistaResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.edit.RecepcionistaEditLoadResponse;
 import italo.xclin.model.response.load.reg.RecepcionistaRegLoadResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.RecepcionistaRepository;
 import italo.xclin.repository.UsuarioRepository;

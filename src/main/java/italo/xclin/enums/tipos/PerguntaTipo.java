@@ -5,9 +5,9 @@ public enum PerguntaTipo {
 	
 	public String label() {
 		switch( this ) {
-			case STRING: return "String";
-			case BOOLEAN: return "Boolean";
-			case ENUM: return "Enumeração";
+			case STRING: return "Texto";
+			case BOOLEAN: return "Sim/Não";
+			case ENUM: return "Seleção";
 		}
 		return null;
 	}

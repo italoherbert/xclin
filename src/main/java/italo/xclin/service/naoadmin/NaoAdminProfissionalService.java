@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.ProfissionalLoader;
 import italo.xclin.loader.UsuarioLoader;
@@ -20,7 +21,6 @@ import italo.xclin.model.response.ProfissionalResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
 import italo.xclin.model.response.load.tela.NaoAdminProfissionalTelaLoadResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.ProfissionalRepository;
 

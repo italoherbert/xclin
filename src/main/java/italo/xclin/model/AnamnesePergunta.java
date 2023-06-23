@@ -29,13 +29,15 @@ public class AnamnesePergunta {
 	
 	@Enumerated(EnumType.STRING)
 	private PerguntaTipo tipo;
+		
+	private String respostaString;
 	
-	private String enumNames;
-	
-	private String enumValues;
+	private boolean respostaBoolean;
+
+	private String respostaEnum;
 	
 	@ManyToOne
-	@JoinColumn(name="paciente_id")
-	private Paciente paciente;
+	@JoinColumn(name="anamnese_id")
+	private Anamnese anamnese;
 	
 }

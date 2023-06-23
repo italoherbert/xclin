@@ -5,12 +5,12 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.enums.tipos.UsuarioPerfil;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioGrupo;
 import italo.xclin.model.UsuarioGrupoVinculo;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.UsuarioGrupoRepository;
 import italo.xclin.repository.UsuarioGrupoVinculoRepository;
 

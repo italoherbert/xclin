@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
 import italo.xclin.enums.tipos.UsuarioPerfil;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.DiretorLoader;
@@ -20,7 +21,6 @@ import italo.xclin.model.request.save.DiretorSaveRequest;
 import italo.xclin.model.response.DiretorResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.detalhes.DiretorDetalhesLoadResponse;
-import italo.xclin.msg.Erro;
 import italo.xclin.repository.DiretorRepository;
 import italo.xclin.repository.UsuarioRepository;
 import italo.xclin.service.shared.UsuarioSharedService;

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
+import italo.xclin.Info;
 import italo.xclin.enums.ConsultaStatusEnumManager;
 import italo.xclin.enums.TurnoEnumManager;
 import italo.xclin.enums.tipos.ConsultaStatus;
@@ -46,8 +48,6 @@ import italo.xclin.model.response.load.reg.ConsultaRegLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaListaFilaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.ConsultaTelaLoadResponse;
-import italo.xclin.msg.Erro;
-import italo.xclin.msg.Info;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.EspecialidadeRepository;

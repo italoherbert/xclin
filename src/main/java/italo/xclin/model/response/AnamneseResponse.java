@@ -11,6 +11,8 @@ import lombok.Setter;
 @Setter
 public class AnamneseResponse {
 
+	private Long id;
+	
 	private String nome;
 	
 	private String dataCriacao;

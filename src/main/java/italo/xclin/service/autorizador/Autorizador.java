@@ -63,7 +63,7 @@ public class Autorizador {
 		
 		throw new AutorizadorException( Erro.ANAMNESE_MODELO_DE_OUTRO_PROFISSIONAL );
 	}
-	
+		
 	public void autorizaSeAnamneseModeloPerguntaDeProfissionalLogado(
 			 String authorizationHeader, Long anamneseModeloPerguntaId ) throws AutorizadorException {
 		

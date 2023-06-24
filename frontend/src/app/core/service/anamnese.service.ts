@@ -1,8 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
-import { AnamneseSave } from '../bean/anamnese/anamnese-save';
+import { Anamnese } from '../bean/anamnese/anamnese';
 
 @Injectable({
   providedIn: 'root'
@@ -11,37 +10,46 @@ export class AnamneseService {
 
   constructor( private http: HttpClient ) { }
 
-  salvaAnamnese( pacienteId : any, anamneseSave : AnamneseSave ): Observable<any> {
+  vinculaModelo( pacienteId : any, anamneseModeloId : any ): Observable<any> {
     let headers = new HttpHeaders( {
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.post( '/api/paciente/anamnese/salva/'+pacienteId, anamneseSave, { headers : headers, withCredentials: true } );
+    return this.http.post( '/api/anamnese/vincula/'+pacienteId+'/'+anamneseModeloId, {}, { headers : headers, withCredentials: true } );
   }
 
-  getAnamnese( pacienteId : any ): Observable<any> {
+  altera( anamneseId : any, anamnese: Anamnese ): Observable<any> {
+    let headers = new HttpHeaders( {
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    } );
+
+    return this.http.put( '/api/anamnese/altera/'+anamneseId, anamnese, { headers : headers, withCredentials: true } );
+  }
+
+  get( anamneseId : any ): Observable<any> {
     let headers = new HttpHeaders( {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.get( '/api/paciente/anamnese/get/'+pacienteId, { headers : headers, withCredentials: true } );
+    return this.http.get( '/api/anamnese/get/'+anamneseId, { headers : headers, withCredentials: true } );
   }
 
-  getRegAnamnese(): Observable<any> {
+  loadRegTela(): Observable<any> {
     let headers = new HttpHeaders( {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.get( '/api/paciente/anamnese/get/reg', { headers : headers, withCredentials: true } );
+    return this.http.get( '/api/anamnese/load/reg', { headers : headers, withCredentials: true } );
   }
 
-  getEditAnamnese( pacienteId : any ): Observable<any> {
+  loadEditTela( anamneseId : any ): Observable<any> {
     let headers = new HttpHeaders( {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.get( '/api/paciente/anamnese/get/edit/'+pacienteId, { headers : headers, withCredentials: true } );
+    return this.http.get( '/api/anamnese/load/edit/'+anamneseId, { headers : headers, withCredentials: true } );
   }
 
 }

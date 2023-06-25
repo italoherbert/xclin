@@ -15,7 +15,7 @@ public class AnamneseModeloPerguntaResponse {
 	
 	private String tipo;
 	
-	private String enums;
+	private String enumValues;
 	
 	private String tipoLabel;
 		

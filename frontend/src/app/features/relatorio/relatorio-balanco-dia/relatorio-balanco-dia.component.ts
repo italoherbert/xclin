@@ -51,7 +51,7 @@ export class RelatorioBalancoDiaComponent {
 
     this.balancoDoDia.dataDia = moment().format();
 
-    this.relatorioService.getBalancoDoDiaLoad().subscribe({
+    this.relatorioService.loadBalancoDoDiaTela().subscribe({
       next: (resp) => {
         this.clinicasIDs = resp.clinicasIDs;
         this.clinicasNomes = resp.clinicasNomes;

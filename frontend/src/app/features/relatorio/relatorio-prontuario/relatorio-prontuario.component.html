@@ -1,0 +1,47 @@
+<h1>Relatório de prontuário</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Balanço do dia</h1>
+        </mat-card-header>
+        <mat-card-content>            
+            <mat-form-field appearance="fill">
+                <mat-label>Clínica</mat-label>
+                <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId">
+                    <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                        {{clinicasNomes[ i ]}} 
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+            <span class="p-2"></span>
+
+            <app-paciente-autocomplete-input 
+                [clinicaId]="clinicaId" 
+                (onSelect)="pacienteOnSelect( $event )" 
+                (onErroCreate)="pacienteOnErroCreate( $event )">
+            </app-paciente-autocomplete-input>
+
+            <div class="d-flex justify-content-center">
+                <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+            </div>
+
+            <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
+                {{erroMsg}}
+            </div>
+
+            <br />
+
+            <button mat-raised-button color="primary" (click)="geraRelatorioProntuario()">
+                <fa-icon [icon]="icons.faFilePdf"></fa-icon>
+                Gera relatorio
+            </button>
+        </mat-card-content>
+    </mat-card>
+</div>

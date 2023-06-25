@@ -46,17 +46,21 @@ public class AnamneseLoader {
 	}
 	
 	public AnamneseRegLoadResponse novoRegResponse(
-			ListaResponse anamneseModelos ) {
+			ListaResponse anamneseModelos, Paciente paciente ) {
 		AnamneseRegLoadResponse resp = new AnamneseRegLoadResponse();
 		resp.setAnamneseModelos( anamneseModelos ); 
+		resp.setPacienteId( paciente.getId() );
+		resp.setPacienteNome( paciente.getNome() );
 		return resp;
 	}
 	
 	public AnamneseEditLoadResponse novoEditResponse(
-			AnamneseResponse aresp, ListaResponse anamneseModelos ) {
+			AnamneseResponse aresp, ListaResponse anamneseModelos, Paciente paciente ) {
 		AnamneseEditLoadResponse resp = new AnamneseEditLoadResponse();
 		resp.setAnamnese( aresp );
 		resp.setAnamneseModelos( anamneseModelos ); 
+		resp.setPacienteId( paciente.getId() );
+		resp.setPacienteNome( paciente.getNome() ); 
 		return resp;
 	}
 	

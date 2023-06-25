@@ -24,7 +24,7 @@ public class AnamneseModeloPerguntaValidator {
 		if ( perguntaTipoEnumManager.enumValida( request.getTipo() ) ) {
 			PerguntaTipo pt = perguntaTipoEnumManager.getEnum( request.getTipo() );
 			if ( pt == PerguntaTipo.ENUM ) {
-				if ( !request.getEnums().matches( "(.*,{0,1})+" ) )
+				if ( !request.getEnumValues().matches( "(.*,{0,1})+" ) )
 					throw new ValidationException( Erro.PERGUNTA_TIPO_INVALIDA );
 			}
 		} else {

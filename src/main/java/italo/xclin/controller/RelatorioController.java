@@ -17,17 +17,18 @@ import italo.xclin.exception.SistemaException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.relatorio.BalancoDoDiaRelatorioRequest;
-import italo.xclin.model.response.load.relatorio.BalancoDoDiaLoadResponse;
+import italo.xclin.model.response.load.relatorio.BalancoDoDiaLoadTelaResponse;
+import italo.xclin.model.response.load.relatorio.ProntuarioLoadTelaResponse;
 import italo.xclin.service.autorizador.Autorizador;
-import italo.xclin.service.relatorio.AnamneseRelatorioService;
 import italo.xclin.service.relatorio.BalancoDoDiaRelatorioService;
+import italo.xclin.service.relatorio.ProntuarioRelatorioService;
 
 @RestController
 @RequestMapping("/api/relatorio")
 public class RelatorioController {
 
 	@Autowired
-	private AnamneseRelatorioService anamneseRelatorioService;
+	private ProntuarioRelatorioService prontuarioRelatorioService;
 	
 	@Autowired
 	private BalancoDoDiaRelatorioService balancoDoDiaRelatorioService;
@@ -37,21 +38,7 @@ public class RelatorioController {
 	
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
-	
-	/*
-	@PreAuthorize("hasAuthority('pacienteREAD')")
-	@GetMapping(value="/anamnese/{pacienteId}", produces = MediaType.APPLICATION_PDF_VALUE )
-	@ResponseBody
-	public byte[] getAnamnesePDF(
-			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long pacienteId ) throws SistemaException {
-		 
-		autorizador.autorizaSePacienteDeClinica( authorizationHeader, pacienteId );
 		
-		return anamneseRelatorioService.geraRelatorio( pacienteId );		
-	}
-	*/
-	
 	@PreAuthorize("hasAuthority('lancamentoREAD')")
 	@PostMapping(value="/balanco-do-dia/{clinicaId}", produces = MediaType.APPLICATION_PDF_VALUE )
 	@ResponseBody
@@ -73,8 +60,32 @@ public class RelatorioController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		BalancoDoDiaLoadResponse resp = balancoDoDiaRelatorioService.loadTelaBalancoDoDia( clinicasIDs );
+		BalancoDoDiaLoadTelaResponse resp = balancoDoDiaRelatorioService.loadTelaBalancoDoDia( clinicasIDs );
 		return ResponseEntity.ok( resp );		
 	}
+	
+	@PreAuthorize("hasAuthority('anamneseREAD')")
+	@GetMapping(value="/prontuario/{pacienteId}", produces = MediaType.APPLICATION_PDF_VALUE )
+	@ResponseBody
+	public byte[] getProntuarioPDF(
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long pacienteId ) throws SistemaException {
+		 
+		autorizador.autorizaSePacienteDeClinica( authorizationHeader, pacienteId );
 		
+		return prontuarioRelatorioService.geraRelatorio( pacienteId );		
+	}
+	
+	@PreAuthorize("isAuthenticated()")
+	@GetMapping(value="/prontuario/load" )
+	public ResponseEntity<Object> prontuarioLoad(
+			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		ProntuarioLoadTelaResponse resp = prontuarioRelatorioService.loadTelaProntuario( clinicasIDs );
+		return ResponseEntity.ok( resp );		
+	}
+			
 }

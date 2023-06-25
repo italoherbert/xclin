@@ -9,7 +9,7 @@
 
 <a mat-raised-button color="primary" class="my-1" 
         [routerLink]="[ '/app', { outlets : { page : 
-            'paciente-anamnese/'+pacienteDetalhes.paciente.id }}]">
+            'paciente-anamnese/'+pacienteDetalhes.paciente.id+'/'+pacienteDetalhes.paciente.anamneseCriada }}]">
     <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
     <span class="mx-3">Alterar anamnese</span>
 </a>

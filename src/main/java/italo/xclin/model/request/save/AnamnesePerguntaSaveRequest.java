@@ -12,6 +12,8 @@ public class AnamnesePerguntaSaveRequest {
 	private String pergunta;
 	
 	private String tipo;
+	
+	private String enumValues;
 		
 	private String respostaString;
 	

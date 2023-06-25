@@ -51,6 +51,6 @@ public class ConsultaResponse {
 	
 	private String especialidadeNome;
 	
-	private boolean pacienteAnamnesePreenchida;
+	private boolean pacienteAnamneseCriada;
 		
 }

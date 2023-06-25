@@ -30,7 +30,7 @@ public class AnamneseModeloPergunta {
 	@Enumerated(EnumType.STRING)
 	private PerguntaTipo tipo;
 	
-	private String enums;
+	private String enumValues;
 	
 	@ManyToOne
 	@JoinColumn(name="anamnese_modelo_id")

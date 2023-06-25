@@ -221,6 +221,12 @@
                         <div class="mx-2">Balanço do dia</div>
                     </div>
                 </mat-list-item> 
+                <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'relatorio-prontuario' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isProfissional() === true">               
+                    <div class="d-flex flex-row">
+                        <div class="mx-2">Prontuário</div>
+                    </div>
+                </mat-list-item> 
             </div>
 
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'clinica-tela' } } ]" (click)="sidenav.toggle()"

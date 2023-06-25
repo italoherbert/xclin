@@ -37,61 +37,61 @@ public class AnamneseController {
 	
 	@PreAuthorize("hasAuthority('anamneseWRITE')")
 	@PostMapping("/vincula/{pacienteId}/{anamneseModeloId}")
-	public ResponseEntity<Object> vinculaAnamnese(
+	public ResponseEntity<Object> vinculaAnamneseModelo(
 			@RequestHeader( "Authorization" ) String authorizationHeader, 
 			@PathVariable Long pacienteId, 
 			@PathVariable Long anamneseModeloId ) throws SistemaException {
 		
 		autorizador.autorizaSePacienteDeClinica( authorizationHeader, pacienteId );
-		autorizador.autorizaSeAnamneseModeloDeProfissionalLogado( authorizationHeader, anamneseModeloId );
 	
-		anamneseService.vinculaAnamnese( pacienteId, anamneseModeloId );
+		anamneseService.vinculaAnamneseModelo( pacienteId, anamneseModeloId );
 		return ResponseEntity.ok().build();
 	}
 	
 	@PreAuthorize("hasAuthority('anamneseWRITE')")
-	@PutMapping("/altera/{anamneseId}")	
+	@PutMapping("/altera/{pacienteId}")	
 	public ResponseEntity<Object> alteraPerguntas(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long anamneseId, 
+			@PathVariable Long pacienteId, 
 			@RequestBody AnamneseSaveRequest request ) throws SistemaException {
 				
-		anamneseService.alteraAnamnesePerguntas( anamneseId, request );
+		anamneseService.alteraAnamnese( pacienteId, request );
 		return ResponseEntity.ok().build();
 	}
 	
 	@PreAuthorize("hasAuthority('anamneseREAD')")
-	@GetMapping("/get/{anamneseId}")	
+	@GetMapping("/get/{pacienteId}")	
 	public ResponseEntity<Object> get(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long anamneseId ) throws SistemaException {
+			@PathVariable Long pacienteId ) throws SistemaException {
 				
-		AnamneseResponse resp = anamneseService.get( anamneseId );
+		AnamneseResponse resp = anamneseService.get( pacienteId );
 		return ResponseEntity.ok( resp ); 
 	}
 	
 	@PreAuthorize("hasAuthority('anamneseREAD')")
-	@GetMapping("/load/reg")	
+	@GetMapping("/load/reg/{pacienteId}")	
 	public ResponseEntity<Object> loadRegTela(
-			@RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable Long pacienteId ) throws SistemaException {
 				
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
-		AnamneseRegLoadResponse resp = anamneseService.loadRegTela( logadoUID );
+		AnamneseRegLoadResponse resp = anamneseService.loadRegTela( logadoUID, pacienteId );
 		return ResponseEntity.ok( resp ); 
 	}
 	
 	@PreAuthorize("hasAuthority('anamneseREAD')")
-	@GetMapping("/load/edit/{anamneseId}")	
+	@GetMapping("/load/edit/{pacienteId}")	
 	public ResponseEntity<Object> loadEditTela(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
-			@PathVariable Long anamneseId ) throws SistemaException {
+			@PathVariable Long pacienteId ) throws SistemaException {
 				
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
-		AnamneseEditLoadResponse resp = anamneseService.loadEditTela( logadoUID, anamneseId );
+		AnamneseEditLoadResponse resp = anamneseService.loadEditTela( logadoUID, pacienteId );
 		return ResponseEntity.ok( resp ); 
 	}
 		

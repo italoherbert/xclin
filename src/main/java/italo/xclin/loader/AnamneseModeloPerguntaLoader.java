@@ -20,7 +20,7 @@ public class AnamneseModeloPerguntaLoader {
 	public void loadBean( AnamneseModeloPergunta pergunta, AnamneseModeloPerguntaSaveRequest request ) {
 		pergunta.setPergunta( request.getPergunta() );
 		pergunta.setTipo( perguntaTipoEnumManager.getEnum( request.getTipo() ) );
-		pergunta.setEnums( request.getEnums() );
+		pergunta.setEnumValues( request.getEnumValues() );
 	}
 	
 	public void loadResponse( AnamneseModeloPerguntaResponse resp, AnamneseModeloPergunta pergunta ) {
@@ -28,7 +28,7 @@ public class AnamneseModeloPerguntaLoader {
 		resp.setPergunta( pergunta.getPergunta() );
 		resp.setTipo( pergunta.getTipo().name() );
 		resp.setTipoLabel( pergunta.getTipo().label() );
-		resp.setEnums( pergunta.getEnums() );
+		resp.setEnumValues( pergunta.getEnumValues() );
 	}
 	
 	public void loadRegResponse( AnamneseModeloPerguntaRegLoadResponse resp ) {

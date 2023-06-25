@@ -10,6 +10,10 @@ import lombok.Setter;
 @Setter
 public class AnamneseRegLoadResponse {
 
+	private Long pacienteId;
+	
+	private String pacienteNome;
+	
 	private ListaResponse anamneseModelos;
 	
 }

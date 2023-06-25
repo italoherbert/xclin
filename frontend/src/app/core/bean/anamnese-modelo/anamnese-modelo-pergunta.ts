@@ -4,5 +4,5 @@ export interface AnamneseModeloPergunta {
     pergunta : string;
     tipo : string;
     tipoLabel : string;
-    enums : string;
+    enumValues : string;
 }

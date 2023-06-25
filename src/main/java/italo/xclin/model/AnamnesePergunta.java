@@ -29,6 +29,8 @@ public class AnamnesePergunta {
 	
 	@Enumerated(EnumType.STRING)
 	private PerguntaTipo tipo;
+	
+	private String enumValues;
 		
 	private String respostaString;
 	

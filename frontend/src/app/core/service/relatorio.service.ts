@@ -28,12 +28,28 @@ export class RelatorioService {
     return this.http.post( '/api/relatorio/balanco-do-dia/'+clinicaId, balancoDoDia, { headers : headers, withCredentials: true, responseType: 'arraybuffer' } );
   }
 
-  getBalancoDoDiaLoad(): Observable<any> {
+  getRelatorioProntuario( pacienteId : any ): Observable<any> {
+    let headers = new HttpHeaders( {
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    } );
+
+    return this.http.get( '/api/relatorio/prontuario/'+pacienteId, { headers : headers, withCredentials: true, responseType: 'arraybuffer' } );
+  }
+
+  loadBalancoDoDiaTela(): Observable<any> {
     let headers = new HttpHeaders( {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
     return this.http.get( '/api/relatorio/balanco-do-dia/load', { headers: headers, withCredentials: true } )
+  }
+
+  loadProntuarioTela(): Observable<any> {
+    let headers = new HttpHeaders( {
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    } );
+
+    return this.http.get( '/api/relatorio/prontuario/load', { headers: headers, withCredentials: true } )
   }
 
 }

@@ -18,7 +18,7 @@ import italo.xclin.logica.Converter;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.request.relatorio.BalancoDoDiaRelatorioRequest;
-import italo.xclin.model.response.load.relatorio.BalancoDoDiaLoadResponse;
+import italo.xclin.model.response.load.relatorio.BalancoDoDiaLoadTelaResponse;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.service.relatorio.jrdatasource.LancamentosDoDiaJRDataSource;
@@ -90,7 +90,7 @@ public class BalancoDoDiaRelatorioService {
 		}		
 	}
 	
-	public BalancoDoDiaLoadResponse loadTelaBalancoDoDia( Long[] clinicasIDs ) throws ServiceException {
+	public BalancoDoDiaLoadTelaResponse loadTelaBalancoDoDia( Long[] clinicasIDs ) throws ServiceException {
 		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
@@ -101,7 +101,7 @@ public class BalancoDoDiaRelatorioService {
 			clinicasNomes2.add( c.getNome() );
 		}
 		
-		BalancoDoDiaLoadResponse resp = new BalancoDoDiaLoadResponse();
+		BalancoDoDiaLoadTelaResponse resp = new BalancoDoDiaLoadTelaResponse();
 		resp.setClinicasIDs( clinicasIDs2 ); 
 		resp.setClinicasNomes( clinicasNomes2 );
 		return resp;

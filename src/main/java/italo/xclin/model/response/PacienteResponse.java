@@ -23,7 +23,7 @@ public class PacienteResponse {
 	
 	private String dataNascimento;
 	
-	private boolean anamnesePreenchida;
+	private boolean anamneseCriada;
 	
 	private String sexo;
 	

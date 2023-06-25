@@ -29,7 +29,7 @@ export class AnamneseModeloPerguntaSaveComponent {
   perguntaSave : AnamneseModeloPerguntaSave = {
     pergunta: '',
     tipo: '',
-    enums: ''
+    enumValues: ''
   }
 
   perguntas : AnamneseModeloPergunta = {
@@ -37,7 +37,7 @@ export class AnamneseModeloPerguntaSaveComponent {
     pergunta: '',
     tipo: '',
     tipoLabel: '',
-    enums: ''
+    enumValues: ''
   }
 
   perguntaTipos : any[] = [];
@@ -112,11 +112,11 @@ export class AnamneseModeloPerguntaSaveComponent {
     this.showSpinner = false;
 
     if ( this.perguntaSave.tipo == 'ENUM' ) {
-      this.perguntaSave.enums = '';
+      this.perguntaSave.enumValues = '';
       for( let i = 0; i < this.enums.length; i++ ) {
-        this.perguntaSave.enums += this.enums[ i ];
+        this.perguntaSave.enumValues += this.enums[ i ];
         if ( i < this.enums.length-1 )
-          this.perguntaSave.enums += ',';
+          this.perguntaSave.enumValues += ',';
       }
     }
 
@@ -155,7 +155,7 @@ export class AnamneseModeloPerguntaSaveComponent {
     if ( this.perguntaTipos.length > 0 )
       this.perguntaSave.tipo = this.perguntaTipos[ 0 ].name;
 
-    this.perguntaSave.enums = '';
+    this.perguntaSave.enumValues = '';
 
     this.enum = '';
     this.enums.splice( 0, this.enums.length );

@@ -19,37 +19,37 @@ export class AnamneseService {
     return this.http.post( '/api/anamnese/vincula/'+pacienteId+'/'+anamneseModeloId, {}, { headers : headers, withCredentials: true } );
   }
 
-  altera( anamneseId : any, anamnese: Anamnese ): Observable<any> {
+  altera( pacienteId : any, anamnese: Anamnese ): Observable<any> {
     let headers = new HttpHeaders( {
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.put( '/api/anamnese/altera/'+anamneseId, anamnese, { headers : headers, withCredentials: true } );
+    return this.http.put( '/api/anamnese/altera/'+pacienteId, anamnese, { headers : headers, withCredentials: true } );
   }
 
-  get( anamneseId : any ): Observable<any> {
+  get( pacienteId : any ): Observable<any> {
     let headers = new HttpHeaders( {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.get( '/api/anamnese/get/'+anamneseId, { headers : headers, withCredentials: true } );
+    return this.http.get( '/api/anamnese/get/'+pacienteId, { headers : headers, withCredentials: true } );
   }
 
-  loadRegTela(): Observable<any> {
+  loadRegTela( pacienteId : any ): Observable<any> {
     let headers = new HttpHeaders( {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.get( '/api/anamnese/load/reg', { headers : headers, withCredentials: true } );
+    return this.http.get( '/api/anamnese/load/reg/'+pacienteId, { headers : headers, withCredentials: true } );
   }
 
-  loadEditTela( anamneseId : any ): Observable<any> {
+  loadEditTela( pacienteId : any ): Observable<any> {
     let headers = new HttpHeaders( {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     } );
 
-    return this.http.get( '/api/anamnese/load/edit/'+anamneseId, { headers : headers, withCredentials: true } );
+    return this.http.get( '/api/anamnese/load/edit/'+pacienteId, { headers : headers, withCredentials: true } );
   }
 
 }

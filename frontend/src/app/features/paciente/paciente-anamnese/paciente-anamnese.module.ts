@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PacienteAnamneseComponent } from './paciente-anamnese.component';
+import { PacienteAnamneseComponent, PacienteAnamneseVinculaModeloDialog } from './paciente-anamnese.component';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,12 +10,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
-import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
-    PacienteAnamneseComponent
+    PacienteAnamneseComponent,
+    PacienteAnamneseVinculaModeloDialog
   ],
   imports: [
     CommonModule,
@@ -29,8 +30,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatRadioModule,
     MatSelectModule,
     MatOptionModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
+    MatRadioModule,
+    MatDialogModule
   ]
 })
 export class PacienteAnamneseModule { }

@@ -54,7 +54,7 @@ public interface Erro {
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";
 	
-	public final static String ANAMNESE_NAO_PREENCHIDA = "A anamnese do paciente ainda não foi preenchida.";
+	public final static String ANAMNESE_NAO_CRIADA = "A anamnese do paciente ainda não foi criada.";
 
 	public final static String USUARIO_JA_EXISTE = "Já existe um outro usuário com o username informado.";
 	public final static String USUARIO_GRUPO_JA_EXISTE = "Já existe um outro grupo de usuário com o nome informado.";
@@ -101,6 +101,7 @@ public interface Erro {
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";
 	
 	public final static String PACIENTE_CLINICA_NAO_CORRESPONDEM = "O paciente não corresponde a clínica informada.";
+	public final static String PERGUNTA_TIPOS_NAO_CORRESPONDEM = "O tipo da pergunta não corresponse ao registrado no banco de dados.";
 	public final static String ANAMNESE_MODELO_DE_OUTRO_PROFISSIONAL = "O modelo de anamnese que está tentando alterar pertence a outro profissional."; 
 	public final static String ANAMNESE_MODELO_PERGUNTA_DE_OUTRO_PROFISSIONAL = "A pergunta do modelo de anamnese que está tentando alterar pertence a outro profissional."; 
 	

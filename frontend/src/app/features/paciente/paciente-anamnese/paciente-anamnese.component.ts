@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { faAnglesLeft, faAnglesRight, faEye, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faAnglesLeft, faAnglesRight, faEye, faLink, faSave } from '@fortawesome/free-solid-svg-icons';
 import { AnamneseModelo } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo';
 import { Anamnese } from 'src/app/core/bean/anamnese/anamnese';
 import { AnamneseService } from 'src/app/core/service/anamnese.service';
@@ -23,7 +24,8 @@ export class PacienteAnamneseComponent {
     faSave : faSave,
     faAnglesLeft : faAnglesLeft,
     faAnglesRight : faAnglesRight,
-    faEye : faEye
+    faEye : faEye,
+    faLink : faLink
   }
 
   anamnese : Anamnese = {
@@ -38,10 +40,10 @@ export class PacienteAnamneseComponent {
   anamneseModelosNomes : number[] = [];
 
   pacienteNome : string = '';
-  anamnesePreenchida : boolean = false;
 
   constructor( 
     private actRoute : ActivatedRoute,
+    private matDialog : MatDialog,
     private anamneseService: AnamneseService, 
     private relatorioService: RelatorioService,
     private sistemaService: SistemaService ) {}
@@ -56,13 +58,15 @@ export class PacienteAnamneseComponent {
 
     this.showSpinner = true;
 
-    let anamneseId = this.actRoute.snapshot.paramMap.get( 'anamneseId' );
+    let pacienteId = this.actRoute.snapshot.paramMap.get( 'pacienteId' );
+    let anamneseCriada = this.actRoute.snapshot.paramMap.get( 'anamneseCriada' );
 
-    if ( anamneseId == '-1' ) {
-      this.anamneseService.loadRegTela().subscribe({
+    if ( anamneseCriada == 'false' ) {
+      this.anamneseService.loadRegTela( pacienteId ).subscribe({
         next: ( resp ) => {
           this.anamneseModelosIDs = resp.anamneseModelos.ids;
           this.anamneseModelosNomes = resp.anamneseModelos.nomes;
+          this.pacienteNome = resp.pacienteNome;
          
           this.showSpinner = false;
         },
@@ -71,12 +75,15 @@ export class PacienteAnamneseComponent {
           this.showSpinner = false;
         }
       });
-    } else {
-      this.anamneseService.loadEditTela( anamneseId ).subscribe({
+    } else {      
+      this.anamneseService.loadEditTela( pacienteId ).subscribe({
         next: ( resp ) => {
           this.anamnese = resp.anamnese;
           this.anamneseModelosIDs = resp.anamneseModelos.ids;
           this.anamneseModelosNomes = resp.anamneseModelos.nomes;
+          this.pacienteNome = resp.pacienteNome;
+
+          this.carregaAnamnesePerguntas();
          
           this.showSpinner = false;
         },
@@ -94,23 +101,54 @@ export class PacienteAnamneseComponent {
     
     this.showSpinner = true;
 
-    let pacienteId = this.actRoute.snapshot.paramMap.get( 'id' );    
+    let pacienteId = this.actRoute.snapshot.paramMap.get( 'pacienteId' );    
 
+    this.anamneseService.altera( pacienteId, this.anamnese ).subscribe({
+      next: (resp) => { 
+        this.infoMsg = "Anamnese salva com sucesso.";
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
       
+  }
+
+  carregaAnamnesePerguntas() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let pacienteId = this.actRoute.snapshot.paramMap.get( 'pacienteId' );    
+
+    this.anamneseService.get( pacienteId ).subscribe({
+      next: (resp) => {
+        this.anamnese = resp;
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
   }
 
   downloadRelatorio() {
     this.infoMsg = null;
     this.erroMsg = null;
 
-    if ( this.anamnesePreenchida == false ) {
-      this.infoMsg = "A anamnese do paciente não foi preenchida ainda.";
+    let anamneseCriada = this.actRoute.snapshot.paramMap.get( 'anamneseCriada' );
+    if ( anamneseCriada == 'false' ) {
+      this.infoMsg = "A anamnese do paciente não foi criada ainda.";
       return;
     }
 
     this.showSpinner = true;
 
-    let pacienteId = this.actRoute.snapshot.paramMap.get( 'id' );
+    let pacienteId = this.actRoute.snapshot.paramMap.get( 'pacienteId' );
 
     this.relatorioService.getRelatorioAnamnese( pacienteId ).subscribe({
       next: (resp) => {
@@ -124,4 +162,54 @@ export class PacienteAnamneseComponent {
     });  
   }
 
+  vinculaModelo() {
+    let anamneseCriada = this.actRoute.snapshot.paramMap.get( 'anamneseCriada' );
+
+    if ( anamneseCriada == 'true' ) {
+      this.mostraVinculoConfirmDialog();
+    } else {
+      this.vinculaModeloSeConfirmado();
+    }
+
+  }
+
+  vinculaModeloSeConfirmado() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let pacienteId = this.actRoute.snapshot.paramMap.get( 'pacienteId' );    
+
+    this.anamneseService.vinculaModelo( pacienteId, this.anamneseModeloId ).subscribe({
+      next: (resp) => {
+        this.carregaAnamnesePerguntas();
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  mostraVinculoConfirmDialog() {
+    let dialogRef = this.matDialog.open(PacienteAnamneseVinculaModeloDialog );
+    dialogRef.afterClosed().subscribe( (result) => {
+      if ( result === true )
+        this.vinculaModeloSeConfirmado();
+    } );
+    
+  }
+
 }
+
+
+@Component({
+  selector: 'paciente-anamnese-vincula-modelo-dialog',
+  templateUrl: 'paciente-anamnese-vincula-modelo-dialog.html',
+})
+export class PacienteAnamneseVinculaModeloDialog {
+
+}
+

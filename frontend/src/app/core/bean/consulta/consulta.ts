@@ -16,7 +16,7 @@ export interface Consulta {
     clinicaNome : string; 
     especialidadeId : number;
     especialidadeNome : string;
-    pacienteAnamnesePreenchida : boolean;
+    pacienteAnamneseCriada : boolean;
     statusLabel : string;
     turnoLabel : string;
 }

@@ -65,7 +65,7 @@ public class Paciente {
 	
 	private String observacoes;
 		
-	private boolean anamnesePreenchida;
+	private boolean anamneseCriada;
 
 	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL, optional = true)
 	@JoinColumn(name="endereco_id")

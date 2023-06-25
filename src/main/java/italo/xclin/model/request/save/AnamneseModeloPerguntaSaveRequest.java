@@ -13,6 +13,6 @@ public class AnamneseModeloPerguntaSaveRequest {
 	
 	private String tipo;
 	
-	private String enums;
+	private String enumValues;
 		
 }

@@ -15,6 +15,8 @@ public class AnamnesePerguntaResponse {
 	
 	private String tipo;
 	
+	private String enumValues;
+	
 	private String tipoLabel;
 	
 	private String respostaString;

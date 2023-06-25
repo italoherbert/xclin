@@ -13,6 +13,7 @@ import italo.xclin.loader.AnamneseLoader;
 import italo.xclin.loader.AnamnesePerguntaLoader;
 import italo.xclin.model.Anamnese;
 import italo.xclin.model.AnamneseModelo;
+import italo.xclin.model.AnamneseModeloPergunta;
 import italo.xclin.model.AnamnesePergunta;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
@@ -54,7 +55,8 @@ public class AnamneseService {
 	@Autowired
 	private AnamnesePerguntaLoader anamnesePerguntaLoader;
 		
-	public void vinculaAnamnese( Long pacienteId, Long anamneseModeloId ) throws ServiceException {
+	@Transactional
+	public void vinculaAnamneseModelo( Long pacienteId, Long anamneseModeloId ) throws ServiceException {
 		Optional<AnamneseModelo> anamneseModeloOp = anamneseModeloRepository.findById( anamneseModeloId );
 		if ( !anamneseModeloOp.isPresent() )
 			throw new ServiceException( Erro.ANAMNESE_MODELO_NAO_ENCONTRADO );
@@ -69,16 +71,36 @@ public class AnamneseService {
 		Anamnese anamnese = anamneseLoader.novoBean( paciente );
 		anamneseLoader.loadBean( anamnese, modelo );
 		
+		List<AnamnesePergunta> anamnesePerguntas = new ArrayList<>();
+		
+		List<AnamneseModeloPergunta> perguntas = modelo.getPerguntas();
+		for( AnamneseModeloPergunta pergunta : perguntas ) {
+			AnamnesePergunta p = anamnesePerguntaLoader.novoBean( anamnese );
+			anamnesePerguntaLoader.loadModeloPerguntaBean( p, pergunta );
+			
+			anamnesePerguntas.add( p );
+		}
+		
+		anamnese.setPerguntas( anamnesePerguntas );		
 		anamneseRepository.save( anamnese );
+		
+		paciente.setAnamneseCriada( true );
+		pacienteRepository.save( paciente );		
 	}
 	
 	@Transactional
-	public void alteraAnamnesePerguntas( Long anamneseId, AnamneseSaveRequest request ) throws ServiceException {
-		Optional<Anamnese> anamneseOp = anamneseRepository.findById( anamneseId );
-		if ( !anamneseOp.isPresent() )
-			throw new ServiceException( Erro.ANAMNESE_NAO_ENCONTRADA );
-					
-		Anamnese anamnese = anamneseOp.get();
+	public void alteraAnamnese( Long pacienteId, AnamneseSaveRequest request ) throws ServiceException {
+		Optional<Paciente> pacienteOp = pacienteRepository.findById( pacienteId );
+		if ( !pacienteOp.isPresent() )
+			throw new ServiceException( Erro.PACIENTE_NAO_ENCONTRADO );
+		
+		Paciente paciente = pacienteOp.get();
+		
+		if ( !paciente.isAnamneseCriada() )
+			throw new ServiceException( Erro.ANAMNESE_NAO_CRIADA );
+		
+		Anamnese anamnese = paciente.getAnamnese();
+		Long anamneseId = anamnese.getId();
 		
 		anamnesePerguntaRepository.deleteByAnamneseId( anamneseId );
 		
@@ -90,12 +112,17 @@ public class AnamneseService {
 		}		
 	}
 	
-	public AnamneseResponse get( Long anamneseId ) throws ServiceException {
-		Optional<Anamnese> anamneseOp = anamneseRepository.findById( anamneseId );
-		if ( !anamneseOp.isPresent() )
-			throw new ServiceException( Erro.ANAMNESE_NAO_ENCONTRADA );
+	public AnamneseResponse get( Long pacienteId ) throws ServiceException {
+		Optional<Paciente> pacienteOp = pacienteRepository.findById( pacienteId );
+		if ( !pacienteOp.isPresent() )
+			throw new ServiceException( Erro.PACIENTE_NAO_ENCONTRADO );
 					
-		Anamnese anamnese = anamneseOp.get();
+		Paciente paciente = pacienteOp.get();
+		
+		if ( !paciente.isAnamneseCriada() )
+			throw new ServiceException( Erro.ANAMNESE_NAO_CRIADA );
+			
+		Anamnese anamnese = paciente.getAnamnese();
 		List<AnamnesePergunta> perguntas = anamnese.getPerguntas();
 		
 		List<AnamnesePerguntaResponse> pLista = new ArrayList<>();
@@ -112,10 +139,14 @@ public class AnamneseService {
 		return resp;
 	}
 	
-	public AnamneseRegLoadResponse loadRegTela( Long logadoUID ) throws ServiceException {
+	public AnamneseRegLoadResponse loadRegTela( Long logadoUID, Long pacienteId ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
+		
+		Optional<Paciente> pacienteOp = pacienteRepository.findById( pacienteId );
+		if ( !pacienteOp.isPresent() )
+			throw new ServiceException( Erro.PACIENTE_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 		
@@ -128,21 +159,30 @@ public class AnamneseService {
 			nomes.add( modelo.getNome() );
 		}
 		
-		return anamneseLoader.novoRegResponse( new ListaResponse( ids, nomes ) );
+		ListaResponse lresp = new ListaResponse( ids, nomes );
 		
+		Paciente paciente = pacienteOp.get();
+		
+		return anamneseLoader.novoRegResponse( lresp, paciente );		
 	}
 		
-	public AnamneseEditLoadResponse loadEditTela( Long logadoUID, Long anamneseId ) throws ServiceException {
+	public AnamneseEditLoadResponse loadEditTela( Long logadoUID, Long pacienteId ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
-		Optional<Anamnese> anamneseOp = anamneseRepository.findById( anamneseId );
-		if ( !anamneseOp.isPresent() )
-			throw new ServiceException( Erro.ANAMNESE_NAO_ENCONTRADA );
+		Optional<Paciente> pacienteOp = pacienteRepository.findById( pacienteId );
+		if ( !pacienteOp.isPresent() )
+			throw new ServiceException( Erro.PACIENTE_NAO_ENCONTRADO );
 
 		Profissional profissional = profissionalOp.get();
-		Anamnese anamnese = anamneseOp.get();
+		
+		Paciente paciente = pacienteOp.get();
+		
+		if ( !paciente.isAnamneseCriada() )
+			throw new ServiceException( Erro.ANAMNESE_NAO_CRIADA );
+				
+		Anamnese anamnese = paciente.getAnamnese();
 		
 		List<Long> modelosIDs = new ArrayList<>();
 		List<String> modelosNomes = new ArrayList<>();
@@ -168,7 +208,7 @@ public class AnamneseService {
 		
 		ListaResponse anamneseModelosLista = new ListaResponse( modelosIDs, modelosNomes );
 		
-		return anamneseLoader.novoEditResponse( aresp, anamneseModelosLista );
+		return anamneseLoader.novoEditResponse( aresp, anamneseModelosLista, paciente );
 	}
 	
 }

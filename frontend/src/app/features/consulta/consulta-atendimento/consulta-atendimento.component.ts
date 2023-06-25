@@ -42,7 +42,7 @@ export class ConsultaAtendimentoComponent {
     status: '',
     pacienteId: 0,
     pacienteNome: '',
-    pacienteAnamnesePreenchida : false,
+    pacienteAnamneseCriada : false,
     profissionalId: 0,
     profissionalNome: '',
     clinicaId: 0,
@@ -170,8 +170,8 @@ export class ConsultaAtendimentoComponent {
     this.infoMsg = null;
     this.erroMsg = null;
 
-    if ( this.consulta.pacienteAnamnesePreenchida == false ) {
-      this.infoMsg = "A anamnese do paciente não foi preenchida ainda.";
+    if ( this.consulta.pacienteAnamneseCriada == false ) {
+      this.infoMsg = "A anamnese do paciente não foi criada ainda.";
       return;
     }
 

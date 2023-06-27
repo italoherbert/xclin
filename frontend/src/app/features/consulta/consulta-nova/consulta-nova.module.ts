@@ -15,6 +15,7 @@ import { ConsultaProfissionalSelectComponent } from './consulta-profissional-sel
 import { ConsultaRegistroComponent } from './consulta-registro/consulta-registro.component';
 import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PacienteAutocompleteInputModule } from 'src/app/shared/paciente-autocomplete-input/paciente-autocomplete-input.module';
 
 
 
@@ -29,6 +30,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     SharedModule,
 
     CalendarioModule,
+    PacienteAutocompleteInputModule,
 
     MatStepperModule,
     MatFormFieldModule,

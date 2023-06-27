@@ -1,0 +1,62 @@
+<h1>Anexos do paciente</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Anexos</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+
+            <button mat-raised-button color="primary" (click)="anexoInput.click()">
+                Adicione um anexo
+            </button>
+            <input hidden #anexoInput type="file" (change)="anexoOnChange($event)" />           
+
+            <br /> 
+            <br />
+
+            <h2>Anexos já registrados</h2>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nome</th>
+                            <th>Remover</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let anexo of anexos">
+                            <td>
+                                <a class="link-primary text-decoration-none" [routerLink]="[]" 
+                                        (click)="downloadAnexo( anexo.id )">
+                                    {{anexo.nome}}
+                                </a>
+                            </td>
+                            <td>
+                                <a  class="link-danger text-decoration-none" [routerLink]="[]"
+                                        (click)="removeAnexo( anexo.id )">
+                                    <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                                    remover
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>    

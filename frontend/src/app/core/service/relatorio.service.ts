@@ -8,16 +8,7 @@ import { BalancoDoDia } from '../bean/relatorio/balanco-do-dia';
 })
 export class RelatorioService {
 
-  constructor( private http : HttpClient) { }
-
-  getRelatorioAnamnese( pacienteId : any ): Observable<any> {
-    let headers = new HttpHeaders( {
-      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
-    } );
-
-    return this.http.get( '/api/relatorio/anamnese/'+pacienteId, { headers : headers, withCredentials: true, responseType: 'arraybuffer' } );
-  
-  }
+  constructor( private http : HttpClient) { }  
 
   getRelatorioBalancoDoDia( clinicaId : any, balancoDoDia : BalancoDoDia ): Observable<any> {
     let headers = new HttpHeaders( {

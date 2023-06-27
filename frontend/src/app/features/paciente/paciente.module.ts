@@ -5,6 +5,7 @@ import { PacienteAnamneseModule } from './paciente-anamnese/paciente-anamnese.mo
 import { PacienteDetalhesModule } from './paciente-detalhes/paciente-detalhes.module';
 import { PacienteSaveModule } from './paciente-save/paciente-save.module';
 import { PacienteTelaModule } from './paciente-tela/paciente-tela.module';
+import { PacienteAnexosModule } from './paciente-anexos/paciente-anexos.module';
 
 @NgModule({
   declarations: [],
@@ -14,24 +15,8 @@ import { PacienteTelaModule } from './paciente-tela/paciente-tela.module';
     PacienteTelaModule,
     PacienteDetalhesModule,
     PacienteSaveModule,
-    PacienteAnamneseModule,
-    /*
-    SharedModule,
-
-    FontAwesomeModule,
-
-    BrowserAnimationsModule,
-    MatIconModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatOptionModule,
-    MatDialogModule,
-    MatSelectModule,    
-    MatDatepickerModule,
-    MatNativeDateModule,
-    */
+    PacienteAnamneseModule,    
+    PacienteAnexosModule
   ],
   exports: [
     

@@ -38,7 +38,7 @@ public class ConsultaResponse {
 	private Long pacienteId;
 	
 	private String pacienteNome;
-	
+		
 	private Long clinicaId;
 	
 	private String clinicaNome;

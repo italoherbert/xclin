@@ -6,20 +6,12 @@
 
 <div style="width: 50em">
     <div class="row">                            
-        <div class="col-sm-8">
-            <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Paciente</mat-label>
-                <input matInput type="text" 
-                    placeholder="Escolha o paciente" 
-                    [matAutocomplete]="auto"
-                    [(ngModel)]="pacienteNome"
-                    (input)="onPacienteInput($event)" />
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onPacienteSelected($event)">
-                    <mat-option *ngFor="let nome of pacientesNomes; index as i" [value]="nome" [id]="''+i">
-                        {{nome}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>                        
+        <div class="col-sm-8">            
+            <app-paciente-autocomplete-input
+                    [clinicaId]="clinicaId"
+                    (onSelect)="pacienteOnSelect($event)"
+                    (onErroCreate)="pacienteOnErroCreate($event)">
+            </app-paciente-autocomplete-input>                    
         </div>      
         <div class="col-sm-8">
             <mat-form-field appearance="fill" class="w-100">

@@ -16,7 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
     SharedModule,
 
     MatCardModule,
-    MatButtonModule,
+    MatButtonModule,    
   ]
 })
 export class PacienteDetalhesModule { }

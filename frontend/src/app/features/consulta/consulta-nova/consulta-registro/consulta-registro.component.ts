@@ -110,45 +110,7 @@ export class ConsultaRegistroComponent {
       }
     });    
   }
-
-  onPacienteInput( event : any ) {
-    if ( this.pacienteNome.length == 0 ) {
-      this.pacientesIDs.splice( 0, this.pacientesIDs.length );
-      this.pacientesNomes.splice( 0, this.pacientesNomes.length );
-      return;    
-    }
-
-    if ( this.buscandoPacientes === true ) {
-      this.buscarPacientes = true;
-      return;
-    }
-
-    this.buscandoPacientes = true;
-
-    this.pacienteService.listaPorNomePorClinica( this.clinicaId, this.pacienteNome, 4 ).subscribe( {
-      next: (resp) => {
-        this.pacientesIDs = resp.ids;
-        this.pacientesNomes = resp.nomes;
-
-        this.buscandoPacientes = false;
-
-        if ( this.buscarPacientes === true ) {
-          this.buscarPacientes = false;
-          this.onPacienteInput( event );
-        }
-      },
-      error: (erro) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.buscandoPacientes = false;
-        this.buscarPacientes = false;
-      }
-    } );    
-  }
-
-  onPacienteSelected( event : any ) {
-    this.pacienteId = this.pacientesIDs[ event.option.id ];
-  }
-
+  
   onEspecialidadeSelected( event : any ) {
     this.erroMsg = null;
     this.infoMsg = null;
@@ -170,6 +132,14 @@ export class ConsultaRegistroComponent {
 
   onValorConsultaAlterado( e : any ) {
     this.consultaSave.valor = e.valorReal;
+  }
+
+  pacienteOnSelect( pacienteId : number ) {
+    this.pacienteId = pacienteId;
+  }
+
+  pacienteOnErroCreate( erro : any ) {
+    this.erroMsg = this.sistemaService.mensagemErro( erro );
   }
 
 }

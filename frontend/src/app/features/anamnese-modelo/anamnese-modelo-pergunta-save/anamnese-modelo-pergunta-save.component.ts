@@ -84,7 +84,7 @@ export class AnamneseModeloPerguntaSaveComponent {
         next: (resp) => {
           this.perguntaTipos = resp.perguntaTipos;
           this.perguntaSave = resp.pergunta;
-          this.enums = resp.pergunta.enums.split( ',' );
+          this.enums = resp.pergunta.enumValues.split( ',' );
           this.enum = '';
           this.showSpinner = false;
         },

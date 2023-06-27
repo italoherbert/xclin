@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import * as moment from 'moment';
 
-import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { faCircleLeft, faLink, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { PacienteService } from 'src/app/core/service/paciente.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
@@ -21,7 +21,8 @@ export class PacienteDetalhesComponent {
 
   icons : any = {
     faPenToSquare : faPenToSquare,
-    faCircleLeft : faCircleLeft
+    faCircleLeft : faCircleLeft,
+    faLink : faLink
   }
 
   pacienteDetalhes = {

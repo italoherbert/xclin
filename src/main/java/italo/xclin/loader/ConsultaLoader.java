@@ -25,6 +25,7 @@ import italo.xclin.model.response.ConsultaIniciadaResponse;
 import italo.xclin.model.response.ConsultaObservacoesResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
+import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.load.edit.ConsultaAlterLoadResponse;
 import italo.xclin.model.response.load.outros.ConsultaAgendaLoadResponse;
 import italo.xclin.model.response.load.outros.ConsultaRemarcarLoadResponse;
@@ -249,10 +250,13 @@ public class ConsultaLoader {
 	public ConsultaIniciadaResponse novoIniciadaResponse( 
 			ConsultaResponse cresp, 
 			List<ConsultaObservacoesResponse> historicoObservacoes, 
+			List<PacienteAnexoResponse> anexos,
 			int filaQuant ) {
+		
 		ConsultaIniciadaResponse resp = new ConsultaIniciadaResponse();
 		resp.setConsulta( cresp );
 		resp.setHistoricoObservacoes( historicoObservacoes );
+		resp.setPacienteAnexos( anexos ); 
 		resp.setQuantPacientesNaFila( filaQuant );
 		resp.setConsultaIniciada( true );
 		return resp;

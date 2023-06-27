@@ -78,6 +78,9 @@ public class Paciente {
 	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
 	private List<Consulta> consultas;
 	
+	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
+	private List<PacienteAnexo> anexos;
+	
 	@OneToOne(mappedBy="paciente", cascade = CascadeType.ALL)
 	private Anamnese anamnese;
 	

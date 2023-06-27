@@ -15,6 +15,8 @@ public class ConsultaIniciadaResponse {
 	
 	private int quantPacientesNaFila;
 	
+	private List<PacienteAnexoResponse> pacienteAnexos;
+	
 	private List<ConsultaObservacoesResponse> historicoObservacoes;
 		
 	private boolean consultaIniciada;

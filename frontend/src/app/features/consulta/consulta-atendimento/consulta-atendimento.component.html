@@ -53,40 +53,52 @@
 
             <div class="row">
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Paciente:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         {{consulta.pacienteNome}}
                     </div>
                 </div>                    
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Especialidade:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         {{consulta.especialidadeNome}}
                     </div>
                 </div>                                                 
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-gray">
+                    <div class="fs-6 fw-bold">
                         Retorno:
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         {{consulta.retorno == true ? 'Sim' : 'Não' }}
                     </div>
                 </div>               
                 <div class="col-sm-6 my-2">
-                    <div class="fs-6 text-gray">
-                        Anamnese:
+                    <div class="fs-6 fw-bold">
+                        Prontuário:
                     </div>
-                    <div class="fs-5 text-secondary">
-                        <a class="text-primary text-decoration-none" [routerLink]="[]" (click)="geraRelatorioAnamnese()">
+                    <div class="fs-5">
+                        <a class="text-primary text-decoration-none" [routerLink]="[]" (click)="geraRelatorioProntuario()">
                             <fa-icon [icon]="icons.faEye"></fa-icon>
-                            visualizar
+                            Gerar relatório
                         </a>
                     </div>
-                </div>    
+                </div>  
+                <div class="col-sm-12 my-2">
+                    <div class="fs-6 fw-bold">
+                        Anexos:
+                    </div>
+                    <div class="p-2">
+                        <div *ngFor="let anexo of pacienteAnexos">
+                            <a class="text-primary" [routerLink]="[]" (click)="geraDownloadAnexo( anexo.id )">
+                                {{anexo.nome}}
+                            </a>                        
+                        </div>
+                    </div>
+                </div>  
                 <div class="col-sm-12 my-2">
                     <div *ngIf="obsInfoMsg !== null" class="alert alert-success mb-2">
                         {{obsInfoMsg}}
@@ -94,7 +106,7 @@
                     <div *ngIf="obsErroMsg !== null" class="alert alert-danger mb-2">
                         {{obsErroMsg}}
                     </div>
-                    <div class="fs-5 text-secondary">
+                    <div class="fs-5">
                         <mat-form-field appearance="fill" class="w-100">
                             <mat-label>Observações</mat-label>
                             <textarea matInput rows="6" placeholder="Digite as observações" [(ngModel)]="observacoesSave.observacoes"></textarea>
@@ -118,7 +130,7 @@
         <div class="text-white p-1">
             {{obs.dataSaveObservacoes | date: 'dd/MM/YYYY HH:mm:ss' }}
         </div>
-        <div class="text-gray bg-white p-3 rounded-3">
+        <div class="bg-white p-3 rounded-3">
             {{obs.observacoes}}
         </div>
     </div>

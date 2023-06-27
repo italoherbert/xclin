@@ -22,6 +22,13 @@ export class SistemaService {
     }
   }
 
+  base64ToDownload( base64File : any, filename : string ) {
+    const a = document.createElement( "a" );
+    a.href = base64File;
+    a.download = filename;
+    a.click();
+  }
+
   criaDownloadAncora( arrayBuffer : ArrayBuffer, filename: string ) {
     const a = document.createElement( "a" );
     a.href = URL.createObjectURL( new Blob( [arrayBuffer], { type: "application/pdf"} ) );

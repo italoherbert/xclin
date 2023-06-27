@@ -63,6 +63,7 @@
 
                         <mat-menu #menu="matMenu">
                             <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'anamnese-modelo-pergunta-save/'+modelo.id+'/'+p.id}}]">Editar</a>
+                            <button mat-menu-item (click)="removePergunta(p.id)">Remover</button>
                         </mat-menu>
                     </div>                    
                 </div>  

@@ -16,12 +16,14 @@ import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
+import italo.xclin.model.PacienteAnexo;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.repository.AnamneseModeloPerguntaRepository;
 import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.LancamentoRepository;
+import italo.xclin.repository.PacienteAnexoRepository;
 import italo.xclin.repository.PacienteRepository;
 import italo.xclin.repository.ProfissionalRepository;
 
@@ -45,6 +47,20 @@ public class Autorizador {
 	
 	@Autowired
 	private LancamentoRepository lancamentoRepository;
+	
+	@Autowired
+	private PacienteAnexoRepository pacienteAnexoRepository;
+	
+	public void autorizaSeAnexoDeClinica( String authorizationHeader, Long pacienteAnexoId ) throws AutorizadorException {
+		Optional<PacienteAnexo> pacienteAnexoOp = pacienteAnexoRepository.findById( pacienteAnexoId );
+		if ( !pacienteAnexoOp.isPresent() )
+			throw new AutorizadorException( Erro.PACIENTE_ANEXO_NAO_ENCONTRADO );
+		
+		PacienteAnexo anexo = pacienteAnexoOp.get();
+		Long pacienteId = anexo.getPaciente().getId();
+		
+		this.autorizaSePacienteDeClinica( authorizationHeader, pacienteId );
+	}
 	
 	public void autorizaSeAnamneseModeloDeProfissionalLogado( String authorizationHeader, Long anamneseModeloId ) throws AutorizadorException {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );

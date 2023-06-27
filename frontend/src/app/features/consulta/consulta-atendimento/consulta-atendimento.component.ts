@@ -7,6 +7,7 @@ import { ConsultaService } from 'src/app/core/service/consulta.service';
 import { AnamneseService } from 'src/app/core/service/anamnese.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 import { RelatorioService } from 'src/app/core/service/relatorio.service';
+import { PacienteAnexoService } from 'src/app/core/service/paciente-anexo.service';
 
 @Component({
   selector: 'app-consulta-atendimento',
@@ -66,6 +67,8 @@ export class ConsultaAtendimentoComponent {
   clinicaId : number = 0;
   turno: string = '';
 
+  pacienteAnexos : any[] = [];
+
   turnos : any[] = [];
 
   clinicasIDs : number[] = [];
@@ -75,6 +78,7 @@ export class ConsultaAtendimentoComponent {
 
   constructor(
     private consultaService : ConsultaService,
+    private pacienteAnexoService : PacienteAnexoService,
     private relatorioService : RelatorioService,
     private sistemaService : SistemaService
   ) {}
@@ -129,6 +133,7 @@ export class ConsultaAtendimentoComponent {
 
           if ( resp.consulta.id !== this.consulta.id ) {
             this.consulta = resp.consulta;
+            this.pacienteAnexos = resp.pacienteAnexos;
             this.observacoesSave.observacoes = resp.consulta.observacoes;
           }
 
@@ -166,7 +171,7 @@ export class ConsultaAtendimentoComponent {
     });
   }
 
-  geraRelatorioAnamnese() {
+  geraRelatorioProntuario() {
     this.infoMsg = null;
     this.erroMsg = null;
 
@@ -179,9 +184,9 @@ export class ConsultaAtendimentoComponent {
 
     let pacienteId = this.consulta.pacienteId;
 
-    this.relatorioService.getRelatorioAnamnese( pacienteId ).subscribe({
+    this.relatorioService.getRelatorioProntuario( pacienteId ).subscribe({
       next: (resp) => {
-        this.sistemaService.criaDownloadAncora( resp, 'anamnese.pdf' );
+        this.sistemaService.criaDownloadAncora( resp, 'prontuario.pdf' );
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -189,6 +194,24 @@ export class ConsultaAtendimentoComponent {
         this.showSpinner = false;
       }
     }); 
+  }
+
+  geraDownloadAnexo( anexoId : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    this.pacienteAnexoService.getArquivo( anexoId ).subscribe({
+      next: (resp) => {        
+        this.sistemaService.base64ToDownload( resp.arquivo, resp.nome );
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
   }
 
 }

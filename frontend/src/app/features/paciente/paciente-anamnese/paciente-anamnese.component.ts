@@ -136,32 +136,6 @@ export class PacienteAnamneseComponent {
     });
   }
 
-  downloadRelatorio() {
-    this.infoMsg = null;
-    this.erroMsg = null;
-
-    let anamneseCriada = this.actRoute.snapshot.paramMap.get( 'anamneseCriada' );
-    if ( anamneseCriada == 'false' ) {
-      this.infoMsg = "A anamnese do paciente não foi criada ainda.";
-      return;
-    }
-
-    this.showSpinner = true;
-
-    let pacienteId = this.actRoute.snapshot.paramMap.get( 'pacienteId' );
-
-    this.relatorioService.getRelatorioAnamnese( pacienteId ).subscribe({
-      next: (resp) => {
-        this.sistemaService.criaDownloadAncora( resp, 'anamnese.pdf' );
-        this.showSpinner = false;
-      },
-      error: (erro) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });  
-  }
-
   vinculaModelo() {
     let anamneseCriada = this.actRoute.snapshot.paramMap.get( 'anamneseCriada' );
 

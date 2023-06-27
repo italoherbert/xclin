@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { faAngleDown, faCircleLeft, faPenToSquare, faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import { AnamneseModelo } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo';
 import { AnamneseModeloPergunta } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo-pergunta';
+import { AnamenseModeloPerguntaService } from 'src/app/core/service/anamense-modelo-pergunta.service';
 import { AnamneseModeloService } from 'src/app/core/service/anamnese-modelo.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
@@ -35,10 +36,15 @@ export class AnamneseModeloDetalhesComponent {
   constructor(
     private actRoute : ActivatedRoute,
     private anamneseModeloService : AnamneseModeloService,
+    private anamneseModeloPerguntaService : AnamenseModeloPerguntaService,
     private sistemaService : SistemaService
   ) {}
 
   ngOnInit() {
+    this.carrega();
+  }
+
+  carrega() {
     this.infoMsg = null;
     this.erroMsg = null;
 
@@ -50,6 +56,24 @@ export class AnamneseModeloDetalhesComponent {
       next: (resp) => {
         this.modelo = resp.anamneseModelo;
         this.perguntas = resp.perguntas;
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  removePergunta( id : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+    
+    this.showSpinner = true;
+
+    this.anamneseModeloPerguntaService.deleta( id ).subscribe({
+      next: (resp) => {
+        this.carrega();
         this.showSpinner = false;
       },
       error: (erro) => {

@@ -20,12 +20,14 @@ import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.ConsultaLoader;
 import italo.xclin.loader.EspecialidadeLoader;
 import italo.xclin.loader.LancamentoLoader;
+import italo.xclin.loader.PacienteAnexoLoader;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
 import italo.xclin.model.Especialidade;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
+import italo.xclin.model.PacienteAnexo;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.request.filtro.ConsultaFiltroRequest;
@@ -40,6 +42,7 @@ import italo.xclin.model.response.ConsultaObservacoesResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ListaResponse;
+import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.load.edit.ConsultaAlterLoadResponse;
 import italo.xclin.model.response.load.outros.ConsultaAgendaLoadResponse;
 import italo.xclin.model.response.load.outros.ConsultaRemarcarLoadResponse;
@@ -93,6 +96,9 @@ public class ConsultaService {
 	
 	@Autowired
 	private LancamentoLoader lancamentoLoader;
+	
+	@Autowired
+	private PacienteAnexoLoader pacienteAnexoLoader;
 	
 	@Autowired
 	private Converter converter;
@@ -280,7 +286,18 @@ public class ConsultaService {
 			List<ConsultaObservacoesResponse> historicoObservacoes = this.getUltimasObservacoes( 
 					clinicaId, profissionalId, pacienteId, histObsPageSize );			
 			
-			return consultaLoader.novoIniciadaResponse( cresp, historicoObservacoes, quantPacientesNaFila );
+			List<PacienteAnexo> anexos = pa.getAnexos();
+			
+			List<PacienteAnexoResponse> respAnexos = new ArrayList<>();
+			for( PacienteAnexo a : anexos ) {
+				PacienteAnexoResponse aresp = pacienteAnexoLoader.novoResponse();
+				pacienteAnexoLoader.loadResponse( aresp, a );
+				
+				respAnexos.add( aresp );
+			}
+			
+			return consultaLoader.novoIniciadaResponse( 
+					cresp, historicoObservacoes, respAnexos, quantPacientesNaFila );
 		}
 		
 		return consultaLoader.novoNenhumaIniciadaResponse( quantPacientesNaFila );		

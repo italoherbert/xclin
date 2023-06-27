@@ -3,6 +3,7 @@ package italo.xclin.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -94,11 +95,11 @@ public class AnamneseModeloPerguntaController {
 	}
 	
 	@PreAuthorize("hasAuthority('anamneseModeloDELETE')")
-	@GetMapping("/delete/{anamneseModeloPerguntaId}")
+	@DeleteMapping("/deleta/{anamneseModeloPerguntaId}")
 	public ResponseEntity<Object> deleta(
 			@RequestHeader( "Authorization" ) String authorizationHeader, 
 			@PathVariable Long anamneseModeloPerguntaId ) throws SistemaException {
-		
+				
 		autorizador.autorizaSeAnamneseModeloPerguntaDeProfissionalLogado( authorizationHeader, anamneseModeloPerguntaId );
 		
 		anamneseModeloPerguntaService.deleta( anamneseModeloPerguntaId );

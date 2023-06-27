@@ -28,6 +28,7 @@ public interface Erro {
 	public final static String PROFISSIONAL_NOME_INI_OBRIGATORIO = "O início do nome do profissional é um campo de preenchimento obrigatório.";
 	public final static String DATA_INI_OBRIGATORIA = "A data de início é um campo de preenchimento obrigatório.";
 	public final static String DATA_FIM_OBRIGATORIA = "A data de fim é um campo de preenchimento obrigatório.";
+	public final static String NOME_ANEXO_OBRIGATORIO = "O nome do anexo é obrigatório.";
 		
 	public final static String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
 	public final static String USUARIO_GRUPO_NAO_ENCONTRADO = "Grupo não encontrado.";
@@ -50,6 +51,7 @@ public interface Erro {
 	public final static String LANCAMENTO_NAO_ENCONTRADO = "Lancamento não encontrado.";
 	public final static String ANAMNESE_MODELO_NAO_ENCONTRADO = "Modelo de anamnese não encontrado.";
 	public final static String ANAMNESE_MODELO_PERGUNTA_NAO_ENCONTRADA = "A pergunta de modelo de anamnese não foi encontrada.";
+	public final static String PACIENTE_ANEXO_NAO_ENCONTRADO = "O anexo do paciente não foi encontrado.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";
@@ -79,6 +81,8 @@ public interface Erro {
 	public final static String TIPO_SANGRAMENTO_NULO = "Tipo de sangramento nulo.";
 	public final static String DATA_ULTIMO_TRATAMENTO_NULA = "A data de último tratamento é nula.";
 	public final static String DATA_DIA_NULA = "A data correspondente ao dia é nula.";
+	public final static String NOME_ANEXO_NULO = "O nome do anexo tem valor nulo.";
+	public final static String ANEXO_NULO = "O anexo tem valor nulo.";
 	
 	public final static String PERFIL_INVALIDO = "Perfil inválido: $1";
 	public final static String CONSULTA_STATUS_INVALIDO = "Status da consulta inválido: $1";
@@ -104,6 +108,8 @@ public interface Erro {
 	public final static String PERGUNTA_TIPOS_NAO_CORRESPONDEM = "O tipo da pergunta não corresponse ao registrado no banco de dados.";
 	public final static String ANAMNESE_MODELO_DE_OUTRO_PROFISSIONAL = "O modelo de anamnese que está tentando alterar pertence a outro profissional."; 
 	public final static String ANAMNESE_MODELO_PERGUNTA_DE_OUTRO_PROFISSIONAL = "A pergunta do modelo de anamnese que está tentando alterar pertence a outro profissional."; 
+	
+	public final static String ANEXO_LIMITE_EXCEDIDO = "Limite de tamanho excedido. O tamanho máximo permitido é de $1.";
 	
 	public final static String FALHA_GER_PDF = "Falha na geração do relatório em formato PDF.";
 	

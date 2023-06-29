@@ -47,7 +47,6 @@ export class EspecialidadeSaveComponent {
           this.showSpinner = false;
         },
         error: ( erro ) => {
-          console.log( erro );
           this.erroMsg = this.sistemaService.mensagemErro( erro );
           this.showSpinner = false;
         }

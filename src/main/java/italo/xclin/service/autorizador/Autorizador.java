@@ -13,6 +13,7 @@ import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.AnamneseModelo;
 import italo.xclin.model.AnamneseModeloPergunta;
 import italo.xclin.model.Clinica;
+import italo.xclin.model.ClinicaExame;
 import italo.xclin.model.Consulta;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
@@ -21,6 +22,7 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.repository.AnamneseModeloPerguntaRepository;
+import italo.xclin.repository.ClinicaExameRepository;
 import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteAnexoRepository;
@@ -50,6 +52,20 @@ public class Autorizador {
 	
 	@Autowired
 	private PacienteAnexoRepository pacienteAnexoRepository;
+	
+	@Autowired
+	private ClinicaExameRepository clinicaExameRepository;
+	
+	public void autorizaSeExameDeClinica( String authorizationHeader, Long clinicaExameId ) throws AutorizadorException {
+		Optional<ClinicaExame> clinicaExameOp = clinicaExameRepository.findById( clinicaExameId );
+		if ( !clinicaExameOp.isPresent() )
+			throw new AutorizadorException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
+		
+		ClinicaExame exame = clinicaExameOp.get();
+		Long clinicaId = exame.getClinica().getId();
+		
+		this.autorizaPorClinica( authorizationHeader, clinicaId );
+	}
 	
 	public void autorizaSeAnexoDeClinica( String authorizationHeader, Long pacienteAnexoId ) throws AutorizadorException {
 		Optional<PacienteAnexo> pacienteAnexoOp = pacienteAnexoRepository.findById( pacienteAnexoId );

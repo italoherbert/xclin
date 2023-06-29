@@ -11,6 +11,7 @@ import { SistemaService } from 'src/app/core/service/sistema.service';
   styleUrls: ['./especialidade-tela.component.css']
 })
 export class EspecialidadeTelaComponent {
+  
   infoMsg : any = null;
   erroMsg : any = null;
 

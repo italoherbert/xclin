@@ -24,10 +24,14 @@ import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/l
 import { LancamentoModule } from './features/lancamento/lancamento.module';
 import { RelatorioModule } from './features/relatorio/relatorio.module';
 import { AnamneseModeloModule } from './features/anamnese-modelo/anamnese-modelo.module';
+import { ClinicaExameTelaComponent } from './features/clinica-exame/clinica-exame-tela/clinica-exame-tela.component';
+import { ClinicaExameSaveComponent } from './features/clinica-exame/clinica-exame-save/clinica-exame-save.component';
+import { ClinicaExameDetalhesComponent } from './features/clinica-exame/clinica-exame-detalhes/clinica-exame-detalhes.component';
+import { ClinicaExameModule } from './features/clinica-exame/clinica-exame.module';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,    
   ],
   imports: [
     BrowserModule,
@@ -56,8 +60,9 @@ import { AnamneseModeloModule } from './features/anamnese-modelo/anamnese-modelo
     RecursoModule,
 
     AnamneseModeloModule,
-    
+    ClinicaExameModule,    
     LancamentoModule,
+
     RelatorioModule
   ],
   providers: [

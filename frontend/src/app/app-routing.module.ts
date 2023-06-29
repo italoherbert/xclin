@@ -67,6 +67,9 @@ import { AnamneseModeloSaveComponent } from './features/anamnese-modelo/anamnese
 import { AnamneseModeloPerguntaSaveComponent } from './features/anamnese-modelo/anamnese-modelo-pergunta-save/anamnese-modelo-pergunta-save.component';
 import { RelatorioProntuarioComponent } from './features/relatorio/relatorio-prontuario/relatorio-prontuario.component';
 import { PacienteAnexosComponent } from './features/paciente/paciente-anexos/paciente-anexos.component';
+import { ClinicaExameTelaComponent } from './features/clinica-exame/clinica-exame-tela/clinica-exame-tela.component';
+import { ClinicaExameSaveComponent } from './features/clinica-exame/clinica-exame-save/clinica-exame-save.component';
+import { ClinicaExameDetalhesComponent } from './features/clinica-exame/clinica-exame-detalhes/clinica-exame-detalhes.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -152,6 +155,10 @@ const routes: Routes = [
     { path: 'anamnese-modelo-detalhes/:id', component: AnamneseModeloDetalhesComponent, outlet: 'page' },
     { path: 'anamnese-modelo-save/:id', component: AnamneseModeloSaveComponent, outlet: 'page' },
     { path: 'anamnese-modelo-pergunta-save/:modeloId/:perguntaId', component: AnamneseModeloPerguntaSaveComponent, outlet: 'page' },
+
+    { path: 'clinica-exame-tela', component: ClinicaExameTelaComponent, outlet: 'page' },
+    { path: 'clinica-exame-detalhes/:clinicaExameId', component: ClinicaExameDetalhesComponent, outlet: 'page' },
+    { path: 'clinica-exame-save/:clinicaExameId', component: ClinicaExameSaveComponent, outlet: 'page' },
 
     { path: 'relatorio-balanco-dia', component: RelatorioBalancoDiaComponent, outlet: 'page' },
     { path: 'relatorio-prontuario', component: RelatorioProntuarioComponent, outlet: 'page' }

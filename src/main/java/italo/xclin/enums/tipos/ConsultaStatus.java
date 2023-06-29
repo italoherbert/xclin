@@ -8,7 +8,7 @@ public enum ConsultaStatus {
 			case REGISTRADA: return "Registrada";
 			case INICIADA: return "Iniciada";
 			case CANCELADA: return "Cancelada";
-			case FINALIZADA: return "Finalizada";								
+			case FINALIZADA: return "Finalizada";
 		}
 		return null;
 	}

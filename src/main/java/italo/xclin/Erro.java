@@ -19,17 +19,19 @@ public interface Erro {
 	public final static String DATA_OBRIGATORIA = "A data é um campo de preenchimento obrigatório.";
 	public final static String DATA_DIA_OBRIGATORIA = "A data do dia é um campo de preenchimento obrigatorio.";
 	public final static String PERGUNTA_OBRIGATORIA = "A pergunta é um campo de preenchimento obrigatório.";
+	public final static String NOME_ANEXO_OBRIGATORIO = "O nome do anexo é obrigatório.";
 	
 	public final static String USERNAME_INI_OBRIGATORIO = "O início do username é um campo de preenchimento obrigatório.";
-	public final static String USERNAME_FILTRO_OBRIGATORIO = "O username para filtro é um campo de preenchimento obrigatório.";
 	public final static String NOME_INI_OBRIGATORIO = "O início do nome é um campo de preenchimento obrigatório.";
 	public final static String CLINICA_NOME_INI_OBRIGATORIO = "O início do nome da clínica é um campo de preenchimento obrigatório.";
 	public final static String PACIENTE_NOME_INI_OBRIGATORIO = "O início do nome do paciente é um campo de preenchimento obrigatório.";
 	public final static String PROFISSIONAL_NOME_INI_OBRIGATORIO = "O início do nome do profissional é um campo de preenchimento obrigatório.";
 	public final static String DATA_INI_OBRIGATORIA = "A data de início é um campo de preenchimento obrigatório.";
 	public final static String DATA_FIM_OBRIGATORIA = "A data de fim é um campo de preenchimento obrigatório.";
-	public final static String NOME_ANEXO_OBRIGATORIO = "O nome do anexo é obrigatório.";
-		
+
+	public final static String USERNAME_FILTRO_OBRIGATORIO = "O username para filtro é um campo de preenchimento obrigatório.";
+	public final static String NOME_FILTRO_OBRIGATORIO = "O nome para filtro é um campo de preenchimento obrigatório.";
+
 	public final static String USUARIO_NAO_ENCONTRADO = "Usuário não encontrado.";
 	public final static String USUARIO_GRUPO_NAO_ENCONTRADO = "Grupo não encontrado.";
 	public final static String RECURSO_NAO_ENCONTRADO = "Recurso não encontrado.";
@@ -52,6 +54,7 @@ public interface Erro {
 	public final static String ANAMNESE_MODELO_NAO_ENCONTRADO = "Modelo de anamnese não encontrado.";
 	public final static String ANAMNESE_MODELO_PERGUNTA_NAO_ENCONTRADA = "A pergunta de modelo de anamnese não foi encontrada.";
 	public final static String PACIENTE_ANEXO_NAO_ENCONTRADO = "O anexo do paciente não foi encontrado.";
+	public final static String CLINICA_EXAME_NAO_ENCONTRADO = "O exame de clínica não foi encontrado.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";
@@ -70,6 +73,7 @@ public interface Erro {
 	public final static String ESPECIALIDADE_JA_EXISTE = "Já existe uma especialidade com o nome informado.";
 	public final static String VINCULO_USUARIO_CLINICA_JA_EXISTE = "Já existe um vínculo entre o usuário e clínica informados.";
 	public final static String ANAMNESE_MODELO_NOME_JA_EXISTE = "Já existe um modelo de anamnese registrado com o nome informado.";
+	public final static String CLINICA_EXAME_JA_EXISTE = "O exame de clínica com nome informado já existe.";
 	
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	

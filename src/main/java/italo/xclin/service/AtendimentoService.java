@@ -44,10 +44,10 @@ import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
-import italo.xclin.model.response.load.outros.AtendimentoAgendaLoadResponse;
-import italo.xclin.model.response.load.outros.AtendimentoRemarcarLoadResponse;
-import italo.xclin.model.response.load.outros.NovoAtendimentoLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
+import italo.xclin.model.response.load.reg.NovoAtendimentoLoadResponse;
+import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoListaFilaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoTelaLoadResponse;
@@ -149,7 +149,7 @@ public class AtendimentoService {
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 		
 		AtendimentoStatus status = atendimentoStatusEnumManager.getEnum( request.getStatus() );		
-		if ( status == AtendimentoStatus.INICIADA )
+		if ( status == AtendimentoStatus.INICIADO )
 			throw new ServiceException( Erro.NAO_PODE_INICIAR_ATENDIMENTO );
 		
 		Atendimento atendimento = atendimentoOp.get();		
@@ -202,11 +202,11 @@ public class AtendimentoService {
 	}
 		
 	public void cancelaConsulta( Long atendimentoId ) throws ServiceException {
-		this.alteraStatus( atendimentoId, AtendimentoStatus.CANCELADA ); 
+		this.alteraStatus( atendimentoId, AtendimentoStatus.CANCELADO ); 
 	}
 	
 	public void finalizaConsulta( Long atendimentoId ) throws ServiceException {
-		this.alteraStatus( atendimentoId, AtendimentoStatus.FINALIZADA );
+		this.alteraStatus( atendimentoId, AtendimentoStatus.FINALIZADO );
 	}
 	
 	public void alteraStatus( Long atendimentoId, AtendimentoStatus status ) throws ServiceException {
@@ -239,7 +239,7 @@ public class AtendimentoService {
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 		
 		Atendimento atendimento = atendimentoOp.get();
-		atendimento.setStatus( AtendimentoStatus.INICIADA );
+		atendimento.setStatus( AtendimentoStatus.INICIADO );
 		
 		atendimentoRepository.save( atendimento );
 	}

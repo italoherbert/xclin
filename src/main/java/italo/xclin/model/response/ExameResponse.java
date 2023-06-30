@@ -17,6 +17,4 @@ public class ExameResponse {
 	
 	private double valor;
 	
-	private String dataExame;
-	
 }

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import italo.xclin.exception.SistemaException;
 import italo.xclin.model.request.save.lista.UsuarioGrupoVinculoListaSaveRequest;
-import italo.xclin.model.response.load.outros.UsuarioGrupoVinculosLoadResponse;
+import italo.xclin.model.response.load.vinculos.UsuarioGrupoVinculosLoadResponse;
 import italo.xclin.service.UsuarioGrupoVinculoService;
 
 @RestController

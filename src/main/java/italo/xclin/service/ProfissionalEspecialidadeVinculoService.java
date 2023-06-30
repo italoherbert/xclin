@@ -16,8 +16,8 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.ProfissionalEspecialidadeVinculo;
 import italo.xclin.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.xclin.model.response.ProfissionalEspecialidadeVinculoResponse;
-import italo.xclin.model.response.load.outros.ProfissionalContaEspecialidadeSaveLoadResponse;
-import italo.xclin.model.response.load.outros.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.xclin.model.response.load.edit.ProfissionalContaEspecialidadeSaveLoadResponse;
+import italo.xclin.model.response.load.vinculos.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.xclin.repository.EspecialidadeRepository;
 import italo.xclin.repository.ProfissionalEspecialidadeVinculoRepository;
 import italo.xclin.repository.ProfissionalRepository;
@@ -120,7 +120,7 @@ public class ProfissionalEspecialidadeVinculoService {
 		return resp;
 	}
 		
-	public void salvaAdd( Long logadoUID, Long especialidadeId ) throws ServiceException {
+	public void vinculaPorLogadoUID( Long logadoUID, Long especialidadeId ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
@@ -159,7 +159,7 @@ public class ProfissionalEspecialidadeVinculoService {
 			throw new ServiceException( Erro.VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO );
 		
 		ProfissionalEspecialidadeVinculo vinculo = vinculoOp.get();
-		vinculo.setConsultaValor( request.getConsultaValor() ); 
+		profissionalEspecialidadeVinculoLoader.loadBean( vinculo, request ); 
 		
 		profissionalEspecialidadeVinculoRepository.save( vinculo );
 	}

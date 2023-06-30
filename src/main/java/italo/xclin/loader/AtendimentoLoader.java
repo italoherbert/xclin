@@ -27,10 +27,10 @@ import italo.xclin.model.response.AtendimentoResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
-import italo.xclin.model.response.load.outros.AtendimentoAgendaLoadResponse;
-import italo.xclin.model.response.load.outros.AtendimentoRemarcarLoadResponse;
-import italo.xclin.model.response.load.outros.NovoAtendimentoLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
+import italo.xclin.model.response.load.reg.NovoAtendimentoLoadResponse;
+import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoListaFilaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoTelaLoadResponse;
@@ -70,7 +70,7 @@ public class AtendimentoLoader {
 		} 
 		
 		c.setPaga( false );
-		c.setStatus( AtendimentoStatus.REGISTRADA ); 
+		c.setStatus( AtendimentoStatus.REGISTRADO ); 
 		c.setObservacoes( request.getObservacoes() );
 		c.setDataSaveObservacoes( new Date() ); 
 	}
@@ -130,7 +130,7 @@ public class AtendimentoLoader {
 		
 		int index = -1;
 		for( int i = 0; index == -1 && i < size; i++ )
-			if ( resp.getStatuses().get( i ).getName().equalsIgnoreCase( AtendimentoStatus.INICIADA.name() ) )
+			if ( resp.getStatuses().get( i ).getName().equalsIgnoreCase( AtendimentoStatus.INICIADO.name() ) )
 				index = i;		
 		
 		if ( index != -1 )

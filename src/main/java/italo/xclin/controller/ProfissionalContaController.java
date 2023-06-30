@@ -20,9 +20,9 @@ import italo.xclin.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.xclin.model.request.save.ProfissionalSaveRequest;
 import italo.xclin.model.response.ProfissionalEspecialidadeVinculoResponse;
 import italo.xclin.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
+import italo.xclin.model.response.load.edit.ProfissionalContaEspecialidadeSaveLoadResponse;
 import italo.xclin.model.response.load.edit.ProfissionalEditLoadResponse;
-import italo.xclin.model.response.load.outros.ProfissionalContaEspecialidadeSaveLoadResponse;
-import italo.xclin.model.response.load.outros.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.xclin.model.response.load.vinculos.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.xclin.service.ProfissionalEspecialidadeVinculoService;
 import italo.xclin.service.ProfissionalService;
 import italo.xclin.validator.ProfissionalValidator;
@@ -80,7 +80,7 @@ public class ProfissionalContaController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
-		profissionalEspecialidadeVinculosService.salvaAdd( logadoUID, especialidadeId );
+		profissionalEspecialidadeVinculosService.vinculaPorLogadoUID( logadoUID, especialidadeId );
 		return ResponseEntity.ok().build();
 	}
 	

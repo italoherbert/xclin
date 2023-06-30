@@ -82,12 +82,12 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 				+ "a.profissional.id=?2 and "
 				+ "date(a.dataAtendimento)=current_date and "
 				+ "a.turno=?3 and "
-				+ "(a.status='REGISTRADA' or a.status='INICIADA')")
+				+ "(a.status='REGISTRADO' or a.status='INICIADO')")
 	public int contaFila( Long clinicaId, Long profissionalId, Turno turno );
 	
 	@Query( "select a "
 			+ "from Atendimento a "
-			+ "where a.status='INICIADA' and "
+			+ "where a.status='INICIADO' and "
 				+ "a.clinica.id=?1 and "
 				+ "a.profissional.id=?2 and "
 				+ "date(a.dataAtendimento)=current_date and "

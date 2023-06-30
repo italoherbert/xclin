@@ -4,5 +4,4 @@ export interface Exame {
     nome : string;
     descricao : string;
     valor : number;
-    dataExame : string;
 }

@@ -5,60 +5,60 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import italo.xclin.model.Clinica;
-import italo.xclin.model.ClinicaExame;
+import italo.xclin.model.Exame;
 import italo.xclin.model.request.save.ClinicaExameSaveRequest;
-import italo.xclin.model.response.ClinicaExameResponse;
-import italo.xclin.model.response.load.edit.ClinicaExameEditLoadResponse;
-import italo.xclin.model.response.load.reg.ClinicaExameRegLoadResponse;
-import italo.xclin.model.response.load.tela.ClinicaExameTelaLoadResponse;
+import italo.xclin.model.response.ExameResponse;
+import italo.xclin.model.response.load.edit.ExameEditLoadResponse;
+import italo.xclin.model.response.load.reg.ExameRegLoadResponse;
+import italo.xclin.model.response.load.tela.ExameTelaLoadResponse;
 
 @Component
 public class ClinicaExameLoader {
 
-	public void loadBean( ClinicaExame exame, ClinicaExameSaveRequest request ) {
+	public void loadBean( Exame exame, ClinicaExameSaveRequest request ) {
 		exame.setNome( request.getNome() );
 		exame.setDescricao( request.getDescricao() );
 		exame.setValor( request.getValor() );
 	}
 	
-	public void loadResponse( ClinicaExameResponse resp, ClinicaExame exame ) {
+	public void loadResponse( ExameResponse resp, Exame exame ) {
 		resp.setId( exame.getId() );
 		resp.setNome( exame.getNome() );
 		resp.setDescricao( exame.getDescricao() );
 		resp.setValor( exame.getValor() ); 
 	}
 	
-	public ClinicaExame novoBean( Clinica clinica ) {
-		ClinicaExame exame = new ClinicaExame();
+	public Exame novoBean( Clinica clinica ) {
+		Exame exame = new Exame();
 		exame.setClinica( clinica );
 		return exame;
 	}
 	
-	public ClinicaExameResponse novoResponse() {
-		return new ClinicaExameResponse();
+	public ExameResponse novoResponse() {
+		return new ExameResponse();
 	}
 	
-	public ClinicaExameTelaLoadResponse novoTelaResponse(
+	public ExameTelaLoadResponse novoTelaResponse(
 			List<Long> clinicasIDs, List<String> clinicasNomes ) {
-		ClinicaExameTelaLoadResponse resp = new ClinicaExameTelaLoadResponse();
+		ExameTelaLoadResponse resp = new ExameTelaLoadResponse();
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;
 	}
 	
-	public ClinicaExameRegLoadResponse novoRegResponse(
+	public ExameRegLoadResponse novoRegResponse(
 			List<Long> clinicasIDs, List<String> clinicasNomes ) {
-		ClinicaExameRegLoadResponse resp = new ClinicaExameRegLoadResponse();
+		ExameRegLoadResponse resp = new ExameRegLoadResponse();
 		resp.setClinicasIDs( clinicasIDs );
 		resp.setClinicasNomes( clinicasNomes ); 
 		return resp;
 	}
 	
-	public ClinicaExameEditLoadResponse novoEditResponse( 
-			ClinicaExameResponse eresp,
+	public ExameEditLoadResponse novoEditResponse( 
+			ExameResponse eresp,
 			Clinica clinica ) {
 		
-		ClinicaExameEditLoadResponse resp = new ClinicaExameEditLoadResponse();
+		ExameEditLoadResponse resp = new ExameEditLoadResponse();
 		resp.setExame( eresp );
 		
 		resp.setClinicaId( clinica.getId() );

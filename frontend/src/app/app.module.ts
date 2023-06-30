@@ -23,7 +23,6 @@ import { UsuarioContaModule } from './features/usuario-conta/usuario-conta.modul
 import { LancamentoModule } from './features/lancamento/lancamento.module';
 import { RelatorioModule } from './features/relatorio/relatorio.module';
 import { AnamneseModeloModule } from './features/anamnese-modelo/anamnese-modelo.module';
-import { ClinicaExameModule } from './features/clinica-exame/clinica-exame.module';
 import { ExameModule } from './features/exame/exame.module';
 
 @NgModule({
@@ -57,7 +56,6 @@ import { ExameModule } from './features/exame/exame.module';
     RecursoModule,
 
     AnamneseModeloModule,
-    ClinicaExameModule,   
     ExameModule, 
     LancamentoModule,
 

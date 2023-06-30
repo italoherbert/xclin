@@ -1,14 +1,14 @@
 package italo.xclin.enums.tipos;
 
 public enum AtendimentoStatus {
-	REGISTRADA, INICIADA, CANCELADA, FINALIZADA;
+	REGISTRADO, INICIADO, CANCELADO, FINALIZADO;
 	
 	public String label() {
 		switch( this ) {
-			case REGISTRADA: return "Registrada";
-			case INICIADA: return "Iniciada";
-			case CANCELADA: return "Cancelada";
-			case FINALIZADA: return "Finalizada";
+			case REGISTRADO: return "Registrado";
+			case INICIADO: return "Iniciado";
+			case CANCELADO: return "Cancelado";
+			case FINALIZADO: return "Finalizado";
 		}
 		return null;
 	}

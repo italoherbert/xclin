@@ -9,7 +9,7 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.ProfissionalEspecialidadeVinculo;
 import italo.xclin.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.xclin.model.response.ProfissionalEspecialidadeVinculoResponse;
-import italo.xclin.model.response.load.outros.ProfissionalEspecialidadeVinculosLoadResponse;
+import italo.xclin.model.response.load.vinculos.ProfissionalEspecialidadeVinculosLoadResponse;
 
 @Component
 public class ProfissionalEspecialidadeVinculoLoader {

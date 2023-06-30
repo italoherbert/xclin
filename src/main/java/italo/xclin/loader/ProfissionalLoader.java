@@ -13,8 +13,8 @@ import italo.xclin.model.request.save.ProfissionalSaveRequest;
 import italo.xclin.model.response.ProfissionalResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
+import italo.xclin.model.response.load.edit.ProfissionalContaEspecialidadeSaveLoadResponse;
 import italo.xclin.model.response.load.edit.ProfissionalEditLoadResponse;
-import italo.xclin.model.response.load.outros.ProfissionalContaEspecialidadeSaveLoadResponse;
 import italo.xclin.model.response.load.reg.ProfissionalRegLoadResponse;
 import italo.xclin.model.response.load.tela.NaoAdminProfissionalTelaLoadResponse;
 

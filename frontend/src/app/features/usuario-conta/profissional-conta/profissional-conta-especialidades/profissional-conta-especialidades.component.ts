@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { faEdit, faPenToSquare, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { EspecialidadeService } from 'src/app/core/service/especialidade.service';
+import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { ProfissionalService } from 'src/app/core/service/profissional.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
@@ -26,8 +24,6 @@ export class ProfissionalContaEspecialidadesComponent {
   especialidades: any[] = [];     
 
   constructor( 
-    private matDialog: MatDialog,
-    private especialidadeService: EspecialidadeService,
     private profissionalService: ProfissionalService,
     private sistemaService: SistemaService
   ) {}

@@ -1,16 +1,16 @@
 package italo.xclin.model;
 
-import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.persistence.Temporal;
-import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -32,11 +32,11 @@ public class Exame {
 	
 	private double valor;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	private Date dataExame;
-	
 	@ManyToOne
-	@JoinColumn(name="paciente_id")
-	private Paciente paciente;
-		
+	@JoinColumn(name="clinica_id")
+	private Clinica clinica;
+	
+	@OneToMany(mappedBy="exame", cascade=CascadeType.REMOVE)
+	private List<ProfissionalExameVinculo> profissionalExameVinculos;
+	
 }

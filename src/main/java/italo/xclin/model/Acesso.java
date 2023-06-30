@@ -29,11 +29,11 @@ public class Acesso {
 	
 	private boolean remocao;
 	
-	@ManyToOne( fetch=FetchType.EAGER ) 
+	@ManyToOne( fetch=FetchType.LAZY ) 
 	@JoinColumn(name="grupo_id")
 	private UsuarioGrupo grupo;
 	
-	@ManyToOne( fetch=FetchType.EAGER ) 
+	@ManyToOne( fetch=FetchType.LAZY ) 
 	@JoinColumn(name="recurso_id")
 	private Recurso recurso;
 	

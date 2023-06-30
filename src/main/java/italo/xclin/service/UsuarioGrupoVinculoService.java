@@ -17,7 +17,7 @@ import italo.xclin.model.UsuarioGrupoVinculo;
 import italo.xclin.model.request.save.lista.UsuarioGrupoVinculoListaSaveRequest;
 import italo.xclin.model.response.UsuarioGrupoResponse;
 import italo.xclin.model.response.UsuarioResponse;
-import italo.xclin.model.response.load.outros.UsuarioGrupoVinculosLoadResponse;
+import italo.xclin.model.response.load.vinculos.UsuarioGrupoVinculosLoadResponse;
 import italo.xclin.repository.UsuarioGrupoRepository;
 import italo.xclin.repository.UsuarioGrupoVinculoRepository;
 import italo.xclin.repository.UsuarioRepository;

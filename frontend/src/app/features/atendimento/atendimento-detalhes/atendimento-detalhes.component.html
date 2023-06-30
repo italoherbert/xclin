@@ -1,0 +1,131 @@
+<h1>Detalhes da atendimento</h1>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'atendimento-remarcar/'+atendimento.id }}]">
+    <fa-icon [icon]="icons.faWrench"></fa-icon>
+    <span class="mx-3">Remarcar</span>
+</a>
+
+<span class="p-2"></span>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'atendimento-alterar/'+atendimento.id }}]">
+    <fa-icon [icon]="icons.faEdit"></fa-icon>
+    <span class="mx-3">Alterar</span>
+</a>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center mt-3">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Informações</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Paciente:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.pacienteNome}}
+                    </div>
+                </div>    
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Clínica:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.clinicaNome}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Especialidade:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.especialidadeNome}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Data de atendimento:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.dataAtendimento}}
+                    </div>
+                </div>                 
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Turno:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.turnoLabel}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Retorno:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.retorno == true ? 'Sim' : 'Não' }}
+                    </div>
+                </div> 
+                <div class="col-sm-8 my-3">
+                    <div class="fs-6 fw-bold">
+                        Status:
+                    </div>
+                    <div class="fs-5" [ngClass]="atendimento.status == 'FINALIZADA' ? 'text-success' : 'text-primary'">
+                        {{atendimento.statusLabel}}                        
+                    </div>
+                </div>  
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Paga:
+                    </div>
+                    <div class="fs-5" [ngClass]="atendimento.paga == true ? 'text-success' : 'text-danger'">
+                        {{atendimento.paga == true ? 'Sim' : 'Não' }}
+                        <button *ngIf="atendimento.paga == true" mat-raised-button color="primary" class="my-1" (click)="desfazerPagamento()">
+                            <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+                            <span class="mx-3">Desfazer pagamento</span>
+                        </button>
+                        <button *ngIf="atendimento.paga == false" mat-raised-button color="primary" class="my-1" (click)="realizarPagamento()">
+                            <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+                            <span class="mx-3">Realizar pagamento</span>
+                        </button>
+                    </div>
+                </div> 
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Valor
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.valor | currency: 'BRL' }}
+                    </div>
+                </div>                   
+                <div class="col-sm-12 my-3">
+                    <div class="fs-6 fw-bold">
+                        Observações:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.observacoes}}
+                    </div>
+                </div>                               
+            </div>
+
+            <a mat-stroked-button color="primary" class="mt-3" [routerLink]="[ '/app', { outlets : { page : 'atendimento-fila'} } ]">
+                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                <span class="mx-3">Tela de atendimentos</span>
+            </a>
+        </mat-card-content>
+    </mat-card>
+</div>

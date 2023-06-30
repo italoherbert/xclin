@@ -1,0 +1,68 @@
+<h1>Nova atendimento</h1>
+
+<div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+    {{infoMsg}}
+</div>
+<div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+    {{erroMsg}}
+</div>
+
+<mat-stepper [linear]="true" #novaConsultaStepper>
+    <mat-step>
+        <ng-template matStepLabel>O profissional</ng-template>
+        
+        <br />
+        
+        <app-atendimento-profissional-select 
+            (onClinicaSelecionada)="onClinicaSelecionada( $event )"
+            (onProfissionalSelecionado)="onProfissionalSelecionado( $event )">
+        </app-atendimento-profissional-select>
+        
+        <br />
+
+        <button mat-raised-button color="primary" (click)="profissionalSelectOnNext( novaConsultaStepper )">
+            <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
+            Próximo
+        </button>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Dia e turno</ng-template>
+
+        <button mat-raised-button matStepperPrevious color="primary">
+            <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
+            Anterior
+        </button>
+        <button mat-raised-button color="primary" class="mx-2" (click)="turnoSelectOnNext( novaConsultaStepper )">
+            <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
+            Próximo
+        </button>
+
+        <br />
+        <br />
+                
+        <app-calendario 
+            [quantidades]="quantidadesAgrupadasPorDia" 
+            (onDiaTurnoAlterado)="onDiaTurnoAlterado($event)"
+            (onCalendarioAlterado)="onCalendarioAlterado($event)">
+        </app-calendario>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>O registro</ng-template>
+        
+        <button mat-raised-button matStepperPrevious color="primary">
+            <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
+            Anterior
+        </button>
+        
+        <br />
+        <br />
+
+        <app-atendimento-registro #atendimentoRegistro
+            [clinicaId]="clinicaId" 
+            [profissionalId]="profissionalId" 
+            [dia]="dia"
+            [mes]="mes"
+            [ano]="ano"
+            [turno]="turno"></app-atendimento-registro>
+    </mat-step>
+</mat-stepper>

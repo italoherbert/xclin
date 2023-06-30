@@ -17,17 +17,14 @@ import { LoginModule } from './features/login/login.module';
 import { HomeModule } from './features/home/home.module';
 import { EspecialidadeModule } from './features/especialidade/especialidade.module';
 import { DiretorModule } from './features/diretor/diretor.module';
-import { ConsultaModule } from './features/consulta/consulta.module';
+import { AtendimentoModule } from './features/atendimento/atendimento.module';
 import { ClinicaModule } from './features/clinica/clinica.module';
 import { UsuarioContaModule } from './features/usuario-conta/usuario-conta.module';
-import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
 import { LancamentoModule } from './features/lancamento/lancamento.module';
 import { RelatorioModule } from './features/relatorio/relatorio.module';
 import { AnamneseModeloModule } from './features/anamnese-modelo/anamnese-modelo.module';
-import { ClinicaExameTelaComponent } from './features/clinica-exame/clinica-exame-tela/clinica-exame-tela.component';
-import { ClinicaExameSaveComponent } from './features/clinica-exame/clinica-exame-save/clinica-exame-save.component';
-import { ClinicaExameDetalhesComponent } from './features/clinica-exame/clinica-exame-detalhes/clinica-exame-detalhes.component';
 import { ClinicaExameModule } from './features/clinica-exame/clinica-exame.module';
+import { ExameModule } from './features/exame/exame.module';
 
 @NgModule({
   declarations: [
@@ -45,7 +42,7 @@ import { ClinicaExameModule } from './features/clinica-exame/clinica-exame.modul
     HomeModule,
 
     UsuarioContaModule,
-    ConsultaModule,
+    AtendimentoModule,
 
     PacienteModule,
     DiretorModule,
@@ -60,7 +57,8 @@ import { ClinicaExameModule } from './features/clinica-exame/clinica-exame.modul
     RecursoModule,
 
     AnamneseModeloModule,
-    ClinicaExameModule,    
+    ClinicaExameModule,   
+    ExameModule, 
     LancamentoModule,
 
     RelatorioModule

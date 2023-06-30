@@ -37,9 +37,12 @@ public class Profissional {
 	private Usuario usuario;
 	
 	@OneToMany(mappedBy="profissional", cascade=CascadeType.ALL)
-	private List<ProfissionalEspecialidadeVinculo> profissionalEspecialidadeVinculos;
+	private List<ProfissionalEspecialidadeVinculo> profissionalEspecialidadeVinculos;		
 	
-	@OneToMany(mappedBy="profissional", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy="profissional", cascade=CascadeType.REMOVE)
 	private List<AnamneseModelo> anamneseModelos;
+	
+	@OneToMany(mappedBy="profissional", cascade=CascadeType.ALL)
+	private List<Atendimento> atendimentos;
 	
 }

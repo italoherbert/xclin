@@ -56,14 +56,10 @@ public class ClinicaExameLoader {
 	
 	public ClinicaExameEditLoadResponse novoEditResponse( 
 			ClinicaExameResponse eresp,
-			List<Long> clinicasIDs,
-			List<String> clinicasNomes, 
 			Clinica clinica ) {
 		
 		ClinicaExameEditLoadResponse resp = new ClinicaExameEditLoadResponse();
 		resp.setExame( eresp );
-		resp.setClinicasIDs( clinicasIDs );
-		resp.setClinicasNomes( clinicasNomes );
 		
 		resp.setClinicaId( clinica.getId() );
 		resp.setClinicaNome( clinica.getNome() );

@@ -30,16 +30,16 @@ import { RecepcionistaTelaComponent } from './features/recepcionista/recepcionis
 import { PacienteTelaComponent } from './features/paciente/paciente-tela/paciente-tela.component';
 import { PacienteDetalhesComponent } from './features/paciente/paciente-detalhes/paciente-detalhes.component';
 import { PacienteSaveComponent } from './features/paciente/paciente-save/paciente-save.component';
-import { ConsultaDetalhesComponent } from './features/consulta/consulta-detalhes/consulta-detalhes.component';
-import { ConsultaRemarcarComponent } from './features/consulta/consulta-remarcar/consulta-remarcar.component';
-import { ConsultaNovaComponent } from './features/consulta/consulta-nova/consulta-nova.component';
-import { ConsultaTelaComponent } from './features/consulta/consulta-tela/consulta-tela.component';
-import { ConsultaFilaComponent } from './features/consulta/consulta-fila/consulta-fila.component';
+import { AtendimentoDetalhesComponent } from './features/atendimento/atendimento-detalhes/atendimento-detalhes.component';
+import { AtendimentoRemarcarComponent } from './features/atendimento/atendimento-remarcar/atendimento-remarcar.component';
+import { AtendimentoNovoComponent } from './features/atendimento/atendimento-novo/atendimento-novo.component';
+import { AtendimentoTelaComponent } from './features/atendimento/atendimento-tela/atendimento-tela.component';
+import { AtendimentoFilaComponent } from './features/atendimento/atendimento-fila/atendimento-fila.component';
 import { NaoAdminDiretorTelaComponent } from './features/diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
 import { NaoAdminProfissionalTelaComponent } from './features/profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
 import { NaoAdminRecepcionistaTelaComponent } from './features/recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
 import { NaoAdminClinicaTelaComponent } from './features/clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
-import { ConsultaAlterarComponent } from './features/consulta/consulta-alterar/consulta-alterar.component';
+import { AtendimentoAlterarComponent } from './features/atendimento/atendimento-alterar/atendimento-alterar.component';
 import { ProfissionalContaAlterarComponent } from './features/usuario-conta/profissional-conta/profissional-conta-alterar/profissional-conta-alterar.component';
 import { RecepcionistaContaAlterarComponent } from './features/usuario-conta/recepcionista-conta/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
 import { DiretorContaAlterarComponent } from './features/usuario-conta/diretor-conta/diretor-conta-alterar/diretor-conta-alterar.component';
@@ -52,10 +52,10 @@ import { EspecialidadeDetalhesComponent } from './features/especialidade/especia
 import { EspecialidadeSaveComponent } from './features/especialidade/especialidade-save/especialidade-save.component';
 import { ProfissionalContaEspecialidadeSaveComponent } from './features/usuario-conta/profissional-conta/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
 import { ProfissionalContaEspecialidadesComponent } from './features/usuario-conta/profissional-conta/profissional-conta-especialidades/profissional-conta-especialidades.component';
-import { ConsultaAtendimentoComponent } from './features/consulta/consulta-atendimento/consulta-atendimento.component';
+import { AtendimentoIniciadoComponent } from './features/atendimento/atendimento-iniciado/atendimento-iniciado.component';
 import { PacienteAnamneseComponent } from './features/paciente/paciente-anamnese/paciente-anamnese.component';
-import { ConsultaAgendaComponent } from './features/consulta/consulta-agenda/consulta-agenda.component';
-import { ConsultaFilaCompletaComponent } from './features/consulta/consulta-fila-completa/consulta-fila-completa.component';
+import { AtendimentoAgendaComponent } from './features/atendimento/atendimento-agenda/atendimento-agenda.component';
+import { AtendimentoFilaCompletaComponent } from './features/atendimento/atendimento-fila-completa/atendimento-fila-completa.component';
 import { LancamentoTelaComponent } from './features/lancamento/lancamento-tela/lancamento-tela.component';
 import { LancamentoNovoComponent } from './features/lancamento/lancamento-novo/lancamento-novo.component';
 import { LancamentoDetalhesComponent } from './features/lancamento/lancamento-detalhes/lancamento-detalhes.component';
@@ -70,6 +70,9 @@ import { PacienteAnexosComponent } from './features/paciente/paciente-anexos/pac
 import { ClinicaExameTelaComponent } from './features/clinica-exame/clinica-exame-tela/clinica-exame-tela.component';
 import { ClinicaExameSaveComponent } from './features/clinica-exame/clinica-exame-save/clinica-exame-save.component';
 import { ClinicaExameDetalhesComponent } from './features/clinica-exame/clinica-exame-detalhes/clinica-exame-detalhes.component';
+import { ExameTelaComponent } from './features/exame/exame-tela/exame-tela.component';
+import { ExameDetalhesComponent } from './features/exame/exame-detalhes/exame-detalhes.component';
+import { ExameNovoComponent } from './features/exame/exame-novo/exame-novo.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -137,15 +140,15 @@ const routes: Routes = [
     { path: 'paciente-anamnese/:pacienteId/:anamneseCriada', component: PacienteAnamneseComponent, outlet: 'page' },
     { path: 'paciente-anexos/:pacienteId', component: PacienteAnexosComponent, outlet: 'page' },
 
-    { path: 'consulta-nova', component: ConsultaNovaComponent, outlet: 'page' },
-    { path: 'consulta-tela', component: ConsultaTelaComponent, outlet: 'page' },
-    { path: 'consulta-fila', component: ConsultaFilaComponent, outlet: 'page' },
-    { path: 'consulta-fila-completa/:clinicaId/:profissionalId/:ano/:mes/:dia/:turno', component: ConsultaFilaCompletaComponent, outlet: 'page' },
-    { path: 'consulta-atendimento', component: ConsultaAtendimentoComponent, outlet: 'page' },
-    { path: 'consulta-remarcar/:consultaId', component: ConsultaRemarcarComponent, outlet: 'page' },
-    { path: 'consulta-alterar/:consultaId', component: ConsultaAlterarComponent, outlet: 'page' },
-    { path: 'consulta-detalhes/:consultaId', component: ConsultaDetalhesComponent, outlet: 'page' },
-    { path: 'consulta-agenda', component: ConsultaAgendaComponent, outlet: 'page' },
+    { path: 'atendimento-novo', component: AtendimentoNovoComponent, outlet: 'page' },
+    { path: 'atendimento-tela', component: AtendimentoTelaComponent, outlet: 'page' },
+    { path: 'atendimento-fila', component: AtendimentoFilaComponent, outlet: 'page' },
+    { path: 'atendimento-fila-completa/:clinicaId/:profissionalId/:ano/:mes/:dia/:turno', component: AtendimentoFilaCompletaComponent, outlet: 'page' },
+    { path: 'atendimento-iniciado', component: AtendimentoIniciadoComponent, outlet: 'page' },
+    { path: 'atendimento-remarcar/:atendimentoId', component: AtendimentoRemarcarComponent, outlet: 'page' },
+    { path: 'atendimento-alterar/:atendimentoId', component: AtendimentoAlterarComponent, outlet: 'page' },
+    { path: 'atendimento-detalhes/:atendimentoId', component: AtendimentoDetalhesComponent, outlet: 'page' },
+    { path: 'atendimento-agenda', component: AtendimentoAgendaComponent, outlet: 'page' },
 
     { path: 'lancamento-tela', component: LancamentoTelaComponent, outlet: 'page' },
     { path: 'lancamento-novo', component: LancamentoNovoComponent, outlet: 'page' },
@@ -159,6 +162,10 @@ const routes: Routes = [
     { path: 'clinica-exame-tela', component: ClinicaExameTelaComponent, outlet: 'page' },
     { path: 'clinica-exame-detalhes/:clinicaExameId', component: ClinicaExameDetalhesComponent, outlet: 'page' },
     { path: 'clinica-exame-save/:clinicaExameId', component: ClinicaExameSaveComponent, outlet: 'page' },
+
+    { path: 'exame-tela', component: ExameTelaComponent, outlet: 'page' },
+    { path: 'exame-detelhes/:exameId', component: ExameDetalhesComponent, outlet: 'page' },
+    { path: 'exame-registro', component: ExameNovoComponent, outlet: 'page' },
 
     { path: 'relatorio-balanco-dia', component: RelatorioBalancoDiaComponent, outlet: 'page' },
     { path: 'relatorio-prontuario', component: RelatorioProntuarioComponent, outlet: 'page' }

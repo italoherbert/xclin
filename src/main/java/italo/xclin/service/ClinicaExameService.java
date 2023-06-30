@@ -130,16 +130,7 @@ public class ClinicaExameService {
 		return clinicaExameLoader.novoRegResponse( clinicasIDs2, clinicasNomes2 );
 	}
 	
-	public ClinicaExameEditLoadResponse editLoad( Long[] clinicasIDs, Long clinicaExameId ) throws ServiceException {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
-		
-		List<Long> clinicasIDs2 = new ArrayList<>();
-		List<String> clinicasNomes2 = new ArrayList<>();		
-		for( Clinica clinica : clinicas ) {
-			clinicasIDs2.add( clinica.getId() );
-			clinicasNomes2.add( clinica.getNome() );
-		}
-		
+	public ClinicaExameEditLoadResponse editLoad( Long[] clinicasIDs, Long clinicaExameId ) throws ServiceException {				
 		Optional<ClinicaExame> exameOp = clinicaExameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
@@ -150,7 +141,7 @@ public class ClinicaExameService {
 		ClinicaExameResponse eresp = clinicaExameLoader.novoResponse();
 		clinicaExameLoader.loadResponse( eresp, exame );
 		
-		return clinicaExameLoader.novoEditResponse( eresp, clinicasIDs2, clinicasNomes2, clinica );
+		return clinicaExameLoader.novoEditResponse( eresp, clinica );
 	}
 		
 	public void deleta( Long clinicaExameId ) throws ServiceException {

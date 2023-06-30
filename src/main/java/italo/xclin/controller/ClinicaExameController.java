@@ -65,7 +65,7 @@ public class ClinicaExameController {
 			@PathVariable Long clinicaExameId,
 			@RequestBody ClinicaExameSaveRequest request ) throws SistemaException {
 		
-		autorizador.autorizaSeExameDeClinica( authorizationHeader, clinicaExameId );
+		autorizador.autorizaSeClinicaExameDeClinica( authorizationHeader, clinicaExameId );
 		
 		clinicaExameValidator.validaSave( request );
 		clinicaExameService.altera( clinicaExameId, request );
@@ -92,7 +92,7 @@ public class ClinicaExameController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaExameId ) throws SistemaException {
 		
-		autorizador.autorizaSeExameDeClinica( authorizationHeader, clinicaExameId ); 
+		autorizador.autorizaSeClinicaExameDeClinica( authorizationHeader, clinicaExameId ); 
 		
 		ClinicaExameResponse resp = clinicaExameService.get( clinicaExameId );
 		return ResponseEntity.ok( resp );
@@ -141,7 +141,7 @@ public class ClinicaExameController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaExameId ) throws SistemaException {
 		
-		autorizador.autorizaSeExameDeClinica( authorizationHeader, clinicaExameId ); 
+		autorizador.autorizaSeClinicaExameDeClinica( authorizationHeader, clinicaExameId ); 
 		
 		clinicaExameService.deleta( clinicaExameId );
 		return ResponseEntity.ok().build();

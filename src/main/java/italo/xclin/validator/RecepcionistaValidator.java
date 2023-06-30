@@ -22,7 +22,7 @@ public class RecepcionistaValidator {
 			throw new ValidationException( Erro.NOME_OBRIGATORIO );
 		
 		if ( request.getUsuario() == null )
-			throw new ValidationException( Erro.USUARIO_NULL );
+			throw new ValidationException( Erro.USUARIO_NULO );
 				
 		usuarioValidator.validaSave( request.getUsuario() ); 
 	}

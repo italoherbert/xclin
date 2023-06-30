@@ -1,7 +1,5 @@
 package italo.xclin.model.response.load.edit;
 
-import java.util.List;
-
 import italo.xclin.model.response.ClinicaExameResponse;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +15,5 @@ public class ClinicaExameEditLoadResponse {
 	private Long clinicaId;
 	
 	private String clinicaNome;
-	
-	private List<Long> clinicasIDs;
-	
-	private List<String> clinicasNomes;
-	
+		
 }

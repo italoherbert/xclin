@@ -97,47 +97,57 @@
                 </a>
             </div>
 
-            <mat-list-item [routerLink]="[]" (click)="consultaMenuShow = !consultaMenuShow">
+            <mat-list-item [routerLink]="[]" (click)="atendimentoMenuShow = !atendimentoMenuShow">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
-                    <div class="mx-2">Consultas</div>                    
-                    <fa-icon *ngIf="consultaMenuShow === true" [icon]="icons.faChevronUp" class="ms-auto"></fa-icon>
-                    <fa-icon *ngIf="consultaMenuShow === false" [icon]="icons.faChevronDown" class="ms-auto"></fa-icon>
+                    <div class="mx-2">Atendimentos</div>                    
+                    <fa-icon *ngIf="atendimentoMenuShow === true" [icon]="icons.faChevronUp" class="ms-auto"></fa-icon>
+                    <fa-icon *ngIf="atendimentoMenuShow === false" [icon]="icons.faChevronDown" class="ms-auto"></fa-icon>
                 </div>
             </mat-list-item>
-            <div *ngIf="consultaMenuShow === true" class="px-3">                
-                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-atendimento' } } ]" (click)="sidenav.toggle()"
+            <div *ngIf="atendimentoMenuShow === true" class="px-3">                
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'atendimento-iniciado' } } ]" (click)="sidenav.toggle()"
                         *ngIf="sistemaService.isProfissional()">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faListOl"></fa-icon>
-                        <div class="mx-2">Atendimento</div>
+                        <div class="mx-2">Atendimento iniciado</div>
                     </div>                       
                 </a>
-                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-nova' } } ]" (click)="sidenav.toggle()">
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'atendimento-novo' } } ]" (click)="sidenav.toggle()">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faAdd"></fa-icon>
-                        <div class="mx-2">Nova consulta</div>
+                        <div class="mx-2">Novo atendimento</div>
                     </div>                       
                 </a>                                                 
-                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-fila' } } ]" (click)="sidenav.toggle()">
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'atendimento-fila' } } ]" (click)="sidenav.toggle()">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faCubes"></fa-icon>
-                        <div class="mx-2">Fila de consultas</div>
+                        <div class="mx-2">Fila de atendimentos</div>
                     </div>
                 </a>
-                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-tela' } } ]" (click)="sidenav.toggle()">
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'atendimento-tela' } } ]" (click)="sidenav.toggle()">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faFilter"></fa-icon>
-                        <div class="mx-2">Filtro de consultas</div>
+                        <div class="mx-2">Filtro de atendimentos</div>
                     </div>
                 </a>
-                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'consulta-agenda' } } ]" (click)="sidenav.toggle()">
+                <a mat-list-item [routerLink]="[ '/app', { outlets : { page : 'atendimento-agenda' } } ]" (click)="sidenav.toggle()">
                     <div class="d-flex flex-row">
                         <fa-icon [icon]="icons.faCalendarCheck"></fa-icon>
                         <div class="mx-2">Fila por agenda</div>
                     </div>                       
                 </a>
             </div>
+
+            
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'exame-tela' } } ]" (click)="sidenav.toggle()"
+                    *ngIf="sistemaService.isProfissional()">
+                <div class="d-flex flex-row">
+                    <fa-icon [icon]="icons.faSteam"></fa-icon>
+                    <div class="mx-2">Exames</div>
+                </div>
+            </mat-list-item> 
+                
 
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'lancamento-tela' } } ]" (click)="sidenav.toggle()">
                 <div class="d-flex flex-row">

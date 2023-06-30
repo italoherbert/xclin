@@ -23,7 +23,7 @@ public class PacienteValidator {
 			throw new ValidationException( Erro.NOME_OBRIGATORIO );
 		
 		if ( request.getEndereco() == null )
-			throw new ValidationException( Erro.ENDERECO_NULL );	
+			throw new ValidationException( Erro.ENDERECO_NULO );	
 		
 		try {
 			converter.stringToData( request.getDataNascimento() );	

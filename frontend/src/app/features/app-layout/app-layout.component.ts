@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAdd, faArrowLeft, faBox, faCalendarCheck, faCalendarDays, faChevronDown, faChevronUp, faCircleUser, faCubes, faDisplay, faFilePdf, faFilter, faHospital, faHospitalUser, faListOl, faMoneyBillTrendUp, faPeopleGroup, faUmbrella, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { SistemaService } from '../../core/service/sistema.service';
+import { faSteam } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-layout',
@@ -34,11 +35,13 @@ export class AppLayoutComponent {
     faCubes : faCubes,
     faMoneyBillTrendUp : faMoneyBillTrendUp,
     faPeopleGroup : faPeopleGroup,
-    faFilePdf : faFilePdf
+    faFilePdf : faFilePdf,
+    faSteam : faSteam
   }
 
   usuarioMenuShow : boolean = false;
-  consultaMenuShow : boolean = false;
+  atendimentoMenuShow : boolean = false;
+  exameMenuShow : boolean = false;
   pessoaMenuShow : boolean = false;
   relatorioMenuShow : boolean = false;
 

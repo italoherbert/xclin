@@ -15,7 +15,7 @@ public class SistemaExceptionHandler extends ResponseEntityExceptionHandler {
 		ServiceException.class, 
 		ValidationException.class,
 		ConverterException.class,
-		AutorizadorException.class
+		AutorizacaoException.class
 	} )
 	protected ResponseEntity<Object> handle( Exception e, WebRequest request ) {
 		return ResponseEntity.badRequest().body( new ErroResponse( (SistemaException)e ) );

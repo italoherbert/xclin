@@ -71,15 +71,18 @@ public class Paciente {
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
 		
-	@ManyToOne(fetch=FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
 	
 	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
-	private List<Consulta> consultas;
+	private List<Atendimento> atendimentos;
 	
 	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
 	private List<PacienteAnexo> anexos;
+	
+	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
+	private List<Exame> exames;
 	
 	@OneToOne(mappedBy="paciente", cascade = CascadeType.ALL)
 	private Anamnese anamnese;

@@ -66,8 +66,11 @@ export class ClinicaExameSaveComponent {
       this.clinicaExameService.loadEditTela( exameId ).subscribe( {
         next: ( resp ) => {
           this.exameSave = resp.exame;
-          this.clinicasIDs = resp.clinicasIDs;
-          this.clinicasNomes = resp.clinicasNomes;
+          this.clinicasIDs = [];
+          this.clinicasNomes = [];
+
+          this.clinicasIDs.push( resp.clinicaId );
+          this.clinicasNomes.push( resp.clinicaNome );
 
           this.clinicaId = resp.clinicaId;
 

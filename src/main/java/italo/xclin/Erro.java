@@ -6,7 +6,7 @@ public interface Erro {
 	public final static String CLINICA_ACESSO_NAO_AUTORIZADO = "Seu usuário não tem vínculo com a clinica.";
 	public final static String PROFISSIONAL_ACESSO_NAO_AUTORIZADO = "Seu usuário não é o profissional com permissão para realizar essa função.";
 	
-	public final static String NAO_PODE_INICIAR_CONSULTA = "Você não pode iniciar a consulta por este formulário.";
+	public final static String NAO_PODE_INICIAR_ATENDIMENTO = "Você não pode iniciar a consulta por este formulário.";
 	public final static String USUARIO_NAO_DELETADO_POR_PERFIL = "Não é possível deletar um usuário com perfil diferente de RAIZ e ADMIN por aqui.";
 	
 	public final static String USERNAME_OBRIGATORIO = "O username é um campo de preenchimento obrigatório.";
@@ -46,7 +46,7 @@ public interface Erro {
 	public final static String RECEPCIONISTA_NAO_ENCONTRADO = "Recepcionista não encontrado(a).";
 	public final static String PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado.";
 	public final static String CLINICA_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado na clínica informada.";
-	public final static String CONSULTA_NAO_ENCONTRADA = "Consulta não encontrada.";
+	public final static String ATENDIMENTO_NAO_ENCONTRADO = "Consulta não encontrada.";
 	public final static String ESPECIALIDADE_NAO_ENCONTRADA = "Especialidade não encontrada.";
 	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrada a especialidade para adicioná-la ao profissional.";
 	public final static String ANAMNESE_NAO_ENCONTRADA = "Anamnese do paciente não encontrada.";
@@ -55,6 +55,7 @@ public interface Erro {
 	public final static String ANAMNESE_MODELO_PERGUNTA_NAO_ENCONTRADA = "A pergunta de modelo de anamnese não foi encontrada.";
 	public final static String PACIENTE_ANEXO_NAO_ENCONTRADO = "O anexo do paciente não foi encontrado.";
 	public final static String CLINICA_EXAME_NAO_ENCONTRADO = "O exame de clínica não foi encontrado.";
+	public final static String EXAME_NAO_ENCONTRADO = "O exame agendado não foi encontrado.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";
@@ -77,23 +78,18 @@ public interface Erro {
 	
 	public final static String USERNAME_NAO_DISPONIVEL = "Já existe um usuário com username: $1.";
 	
-	public final static String ENDERECO_NULL = "Objeto endereço não informado.";
-	public final static String USUARIO_NULL = "Objeto usuário não informado.";
-	public final static String OBSERVACOES_NULL = "Observações null.";
-	public final static String PRESSAO_ARTERIAL_NULA = "Pressão arterial nula.";
-	public final static String CICATRIZACAO_NULA = "Cicatrização nula.";
-	public final static String TIPO_SANGRAMENTO_NULO = "Tipo de sangramento nulo.";
+	public final static String ENDERECO_NULO = "Objeto endereço não informado.";
+	public final static String USUARIO_NULO = "Objeto usuário não informado.";
+	public final static String OBSERVACOES_NULO = "Observações nulas.";
 	public final static String DATA_ULTIMO_TRATAMENTO_NULA = "A data de último tratamento é nula.";
 	public final static String DATA_DIA_NULA = "A data correspondente ao dia é nula.";
 	public final static String NOME_ANEXO_NULO = "O nome do anexo tem valor nulo.";
+	public final static String NOME_EXAME_NULO = "O nome do exame tem valor nulo.";
 	public final static String ANEXO_NULO = "O anexo tem valor nulo.";
 	
 	public final static String PERFIL_INVALIDO = "Perfil inválido: $1";
 	public final static String CONSULTA_STATUS_INVALIDO = "Status da consulta inválido: $1";
 	public final static String TURNO_INVALIDO = "Turno inválido: $1";
-	public final static String PRESSAO_ARTERIAL_INVALIDA = "Pressão arterial inválida: $1";
-	public final static String CICATRIZACAO_INVALIDA = "Cicatrização inválida: $1";
-	public final static String TIPO_SANGRAMENTO_INVALIDO = "Tipo de sangramento inválido: $1";
 	
 	public final static String DATA_NASCIMENTO_INVALIDA = "A data de nascimento está em formato inválido.";
 	public final static String DATA_ULTIMO_TRATAMENTO_INVALIDA = "A data de última tratamento está em formato inválido.";
@@ -104,6 +100,7 @@ public interface Erro {
 	public final static String LANCAMENTO_TIPO_INVALIDO = "O tipo do lançamento não foi reconhecido.";
 	public final static String DATA_DIA_INVALIDA = "A data correspondente ao dia está em formato inválido.";
 	public final static String PERGUNTA_TIPO_INVALIDA = "O tipo da pergunta está em formato inválido ou nulo.";
+	public final static String DATA_EXAME_INVALIDA = "A data do exame está em formato inválido.";
 	
 	public final static String STRNUM_INVALIDO = "Não foi possível converter o texto: '$1' em número.";
 	public final static String STRDATA_INVALIDO = "Não foi possível converter o texto: '$1' em data.";

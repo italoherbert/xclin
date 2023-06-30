@@ -52,5 +52,5 @@ public class Clinica {
 	
 	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
 	private List<ClinicaExame> exames;
-	
+		
 }

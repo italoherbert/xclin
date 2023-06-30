@@ -26,7 +26,7 @@ import italo.xclin.model.response.load.reg.ExameRegLoadResponse;
 import italo.xclin.model.response.load.tela.ExameTelaLoadResponse;
 import italo.xclin.service.ExameService;
 import italo.xclin.service.autorizador.Autorizador;
-import italo.xclin.validator.ClinicaExameValidator;
+import italo.xclin.validator.ExameValidator;
 
 @RestController
 @RequestMapping("/api/exame")
@@ -36,7 +36,7 @@ public class ExameController {
 	private ExameService exameService;
 	
 	@Autowired
-	private ClinicaExameValidator exameValidator;
+	private ExameValidator exameValidator;
 	
 	@Autowired
 	private Autorizador autorizador;

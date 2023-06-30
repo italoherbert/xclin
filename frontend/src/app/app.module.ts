@@ -19,7 +19,7 @@ import { EspecialidadeModule } from './features/especialidade/especialidade.modu
 import { DiretorModule } from './features/diretor/diretor.module';
 import { AtendimentoModule } from './features/atendimento/atendimento.module';
 import { ClinicaModule } from './features/clinica/clinica.module';
-import { UsuarioContaModule } from './features/usuario-conta/usuario-conta.module';
+import { UsuarioContaModule } from './features/conta/usuario-conta.module';
 import { LancamentoModule } from './features/lancamento/lancamento.module';
 import { RelatorioModule } from './features/relatorio/relatorio.module';
 import { AnamneseModeloModule } from './features/anamnese-modelo/anamnese-modelo.module';

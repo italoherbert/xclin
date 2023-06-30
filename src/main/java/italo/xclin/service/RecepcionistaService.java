@@ -87,21 +87,24 @@ public class RecepcionistaService {
 	
 	public void altera( Long clinicaId, Long recepcionistaId, RecepcionistaSaveRequest request ) throws ServiceException {
 		Optional<Recepcionista> recepcionistaOp = recepcionistaRepository.findById( recepcionistaId );
+		if ( !recepcionistaOp.isPresent() )
+			throw new ServiceException( Erro.RECEPCIONISTA_NAO_ENCONTRADO );
+		
 		this.altera2( recepcionistaOp, clinicaId, request );
 	}
 	
 	public void alteraPorLogadoUID( Long logadoUID, Long clinicaId, RecepcionistaSaveRequest request ) throws ServiceException {
 		Optional<Recepcionista> recepcionistaOp = recepcionistaRepository.buscaPorUsuario( logadoUID );
+		if ( !recepcionistaOp.isPresent() )
+			throw new ServiceException( Erro.RECEP_LOGADO_NAO_ENCONTRADO );
+		
 		this.altera2( recepcionistaOp, clinicaId, request );
 	}
 	
 	public void altera2( 
 			Optional<Recepcionista> recepcionistaOp, 
 			Long clinicaId,
-			RecepcionistaSaveRequest request ) throws ServiceException {
-							
-		if ( !recepcionistaOp.isPresent() )
-			throw new ServiceException( Erro.RECEPCIONISTA_NAO_ENCONTRADO );
+			RecepcionistaSaveRequest request ) throws ServiceException {									
 		
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
 		if ( !clinicaOp.isPresent() )
@@ -170,18 +173,21 @@ public class RecepcionistaService {
 	
 	public RecepcionistaResponse get( Long id ) throws ServiceException {
 		Optional<Recepcionista> rop = recepcionistaRepository.findById( id );
+		if ( !rop.isPresent() )
+			throw new ServiceException( Erro.RECEPCIONISTA_NAO_ENCONTRADO );
+		
 		return this.get2( rop );
 	}
 	
 	public RecepcionistaResponse getPorLogadoUID( Long logadoUID ) throws ServiceException {
 		Optional<Recepcionista> rop = recepcionistaRepository.buscaPorUsuario( logadoUID );
+		if ( !rop.isPresent() )
+			throw new ServiceException( Erro.RECEP_LOGADO_NAO_ENCONTRADO );
+		
 		return this.get2( rop );
 	}
 	
-	public RecepcionistaResponse get2( Optional<Recepcionista> recepcionistaOp ) throws ServiceException {
-		if ( !recepcionistaOp.isPresent() )
-			throw new ServiceException( Erro.RECEPCIONISTA_NAO_ENCONTRADO );
-		
+	public RecepcionistaResponse get2( Optional<Recepcionista> recepcionistaOp ) throws ServiceException {				
 		Recepcionista r = recepcionistaOp.get();
 		
 		Usuario u = r.getUsuario();
@@ -198,18 +204,21 @@ public class RecepcionistaService {
 	
 	public RecepcionistaEditLoadResponse getEditLoad( Long id ) throws ServiceException {
 		Optional<Recepcionista> recepcionistaOp = recepcionistaRepository.findById( id );
+		if ( !recepcionistaOp.isPresent() )
+			throw new ServiceException( Erro.RECEPCIONISTA_NAO_ENCONTRADO );
+		
 		return this.getEditLoad2( recepcionistaOp );
 	}
 	
 	public RecepcionistaEditLoadResponse getEditLoadPorLogadoUID( Long logadoUID ) throws ServiceException {
-		Optional<Recepcionista> recepcionistaOp = recepcionistaRepository.buscaPorUsuario( logadoUID ); 
+		Optional<Recepcionista> recepcionistaOp = recepcionistaRepository.buscaPorUsuario( logadoUID );
+		if ( !recepcionistaOp.isPresent() )
+			throw new ServiceException( Erro.RECEP_LOGADO_NAO_ENCONTRADO );
+		
 		return this.getEditLoad2( recepcionistaOp );
 	}
 	
-	public RecepcionistaEditLoadResponse getEditLoad2( Optional<Recepcionista> recepcionistaOp ) throws ServiceException {
-		if ( !recepcionistaOp.isPresent() )
-			throw new ServiceException( Erro.RECEPCIONISTA_NAO_ENCONTRADO );
-		
+	public RecepcionistaEditLoadResponse getEditLoad2( Optional<Recepcionista> recepcionistaOp ) throws ServiceException {				
 		Recepcionista r = recepcionistaOp.get();
 		Usuario usuario = r.getUsuario();
 		Clinica clinica = r.getClinica();

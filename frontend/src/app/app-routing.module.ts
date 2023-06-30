@@ -40,18 +40,18 @@ import { NaoAdminProfissionalTelaComponent } from './features/profissional/nao-a
 import { NaoAdminRecepcionistaTelaComponent } from './features/recepcionista/nao-admin-recepcionista-tela/nao-admin-recepcionista-tela.component';
 import { NaoAdminClinicaTelaComponent } from './features/clinica/nao-admin-clinica-tela/nao-admin-clinica-tela.component';
 import { AtendimentoAlterarComponent } from './features/atendimento/atendimento-alterar/atendimento-alterar.component';
-import { ProfissionalContaAlterarComponent } from './features/usuario-conta/profissional-conta/profissional-conta-alterar/profissional-conta-alterar.component';
-import { RecepcionistaContaAlterarComponent } from './features/usuario-conta/recepcionista-conta/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
-import { DiretorContaAlterarComponent } from './features/usuario-conta/diretor-conta/diretor-conta-alterar/diretor-conta-alterar.component';
-import { ContaAlterarSenhaComponent } from './features/usuario-conta/conta-alterar-senha/conta-alterar-senha.component';
-import { ProfissionalContaDetalhesComponent } from './features/usuario-conta/profissional-conta/profissional-conta-detalhes/profissional-conta-detalhes.component';
-import { RecepcionistaContaDetalhesComponent } from './features/usuario-conta/recepcionista-conta/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
-import { DiretorContaDetalhesComponent } from './features/usuario-conta/diretor-conta/diretor-conta-detalhes/diretor-conta-detalhes.component';
+import { ProfissionalContaAlterarComponent } from './features/conta/profissional-conta/profissional-conta-alterar/profissional-conta-alterar.component';
+import { RecepcionistaContaAlterarComponent } from './features/conta/recepcionista-conta/recepcionista-conta-alterar/recepcionista-conta-alterar.component';
+import { DiretorContaAlterarComponent } from './features/conta/diretor-conta/diretor-conta-alterar/diretor-conta-alterar.component';
+import { ContaAlterarSenhaComponent } from './features/conta/conta-alterar-senha/conta-alterar-senha.component';
+import { ProfissionalContaDetalhesComponent } from './features/conta/profissional-conta/profissional-conta-detalhes/profissional-conta-detalhes.component';
+import { RecepcionistaContaDetalhesComponent } from './features/conta/recepcionista-conta/recepcionista-conta-detalhes/recepcionista-conta-detalhes.component';
+import { DiretorContaDetalhesComponent } from './features/conta/diretor-conta/diretor-conta-detalhes/diretor-conta-detalhes.component';
 import { EspecialidadeTelaComponent } from './features/especialidade/especialidade-tela/especialidade-tela.component';
 import { EspecialidadeDetalhesComponent } from './features/especialidade/especialidade-detalhes/especialidade-detalhes.component';
 import { EspecialidadeSaveComponent } from './features/especialidade/especialidade-save/especialidade-save.component';
-import { ProfissionalContaEspecialidadeSaveComponent } from './features/usuario-conta/profissional-conta/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
-import { ProfissionalContaEspecialidadesComponent } from './features/usuario-conta/profissional-conta/profissional-conta-especialidades/profissional-conta-especialidades.component';
+import { ProfissionalContaEspecialidadeSaveComponent } from './features/conta/profissional-conta/profissional-conta-especialidade-save/profissional-conta-especialidade-save.component';
+import { ProfissionalContaEspecialidadesComponent } from './features/conta/profissional-conta/profissional-conta-especialidades/profissional-conta-especialidades.component';
 import { AtendimentoIniciadoComponent } from './features/atendimento/atendimento-iniciado/atendimento-iniciado.component';
 import { PacienteAnamneseComponent } from './features/paciente/paciente-anamnese/paciente-anamnese.component';
 import { AtendimentoAgendaComponent } from './features/atendimento/atendimento-agenda/atendimento-agenda.component';
@@ -70,6 +70,7 @@ import { PacienteAnexosComponent } from './features/paciente/paciente-anexos/pac
 import { ExameTelaComponent } from './features/exame/exame-tela/exame-tela.component';
 import { ExameSaveComponent } from './features/exame/exame-save/exame-save.component';
 import { ExameDetalhesComponent } from './features/exame/exame-detalhes/exame-detalhes.component';
+import { ProfissionalContaExamesComponent } from './features/conta/profissional-conta/profissional-conta-exames/profissional-conta-exames.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -79,10 +80,11 @@ const routes: Routes = [
   { path: 'app', component: AppLayoutComponent, children: [
     { path: 'home', component: HomeComponent, outlet: 'page'},
 
-    { path: 'usuario-conta-alterar-senha', component: ContaAlterarSenhaComponent, outlet: 'page' },
+    { path: 'conta-alterar-senha', component: ContaAlterarSenhaComponent, outlet: 'page' },
     
     { path: 'profissional-conta-especialidades', component: ProfissionalContaEspecialidadesComponent, outlet: 'page' },
     { path: 'profissional-conta-especialidade-save', component: ProfissionalContaEspecialidadeSaveComponent, outlet: 'page' },
+    { path: 'profissional-conta-exames', component: ProfissionalContaExamesComponent, outlet: 'page'},
 
     { path: 'profissional-conta-detalhes', component: ProfissionalContaDetalhesComponent, outlet: 'page' },
     { path: 'recepcionista-conta-detalhes', component: RecepcionistaContaDetalhesComponent, outlet: 'page' },

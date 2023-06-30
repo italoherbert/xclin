@@ -96,28 +96,5 @@ export class RecepcionistaService {
     return this.http.get( '/api/naoadmin/recepcionista/get/tela', { headers: headers, withCredentials: true } );
   }
 
-  alteraRecepcionistaPorLogadoUID( clinicaId : any, recepcionistaSave: RecepcionistaSave ): Observable<any> {
-    let headers = new HttpHeaders({
-      'Content-Type' : 'application/json',
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-
-    return this.http.put( '/api/conta/recepcionista/altera/logado/'+clinicaId, recepcionistaSave, { headers: headers, withCredentials: true } )
-  }
-
-  getRecepcionistaEditPorLogadoUID(): Observable<any> {
-    let headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-    return this.http.get( '/api/conta/recepcionista/get/edit/logado', { headers: headers, withCredentials: true } );
-  }
-
-  getRecepcionistaPorLogadoUID(): Observable<any> {
-    let headers = new HttpHeaders({
-      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
-    });
-    return this.http.get( '/api/conta/recepcionista/get/logado', { headers: headers, withCredentials: true } );
-  }
-
 }
 

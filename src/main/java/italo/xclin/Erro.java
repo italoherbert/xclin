@@ -59,6 +59,8 @@ public interface Erro {
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";
+	public final static String DIRETOR_LOGADO_NAO_ENCONTRADO = "Você não está logado como diretor.";
+	public final static String RECEP_LOGADO_NAO_ENCONTRADO = "Você não está logado como recepcionista.";
 	
 	public final static String ANAMNESE_NAO_CRIADA = "A anamnese do paciente ainda não foi criada.";
 

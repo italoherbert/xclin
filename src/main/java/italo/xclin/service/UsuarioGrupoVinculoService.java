@@ -96,7 +96,6 @@ public class UsuarioGrupoVinculoService {
 			
 			gruposResp.add( grupoResp );
 			vinculadosFlagsResp.add( adicionado );
-			System.out.println( grupo.getNome() );
 		}						
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();

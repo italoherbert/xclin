@@ -30,12 +30,17 @@
                Suas especialidades
             </a>
 
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-exames' } }]" 
+                    *ngIf="sistemaService.isProfissional() === true">
+               Seus exames
+            </a>
+
             <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'anamnese-modelo-tela' } } ]"
                     *ngIf="sistemaService.isProfissional() === true">
                 Seus modelos de anamnese
             </a>
 
-            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'usuario-conta-alterar-senha' } }]">
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'conta-alterar-senha' } }]">
                Alterar senha
             </a>
 

@@ -20,17 +20,17 @@ import italo.xclin.model.request.save.ExameSaveRequest;
 import italo.xclin.model.response.ExameVinculoResponse;
 import italo.xclin.service.ExameVinculoService;
 import italo.xclin.service.autorizador.Autorizador;
-import italo.xclin.validator.ExameValidator;
+import italo.xclin.validator.ExameVinculoValidator;
 
 @RestController
 @RequestMapping("/api/exame/vinculo")
 public class ExameVinculoController {
 
 	@Autowired
-	private ExameVinculoService exameService;
+	private ExameVinculoService exameVinculoService;
 	
 	@Autowired
-	private ExameValidator exameValidator;
+	private ExameVinculoValidator exameVinculoValidator;
 	
 	@Autowired
 	private Autorizador autorizador;
@@ -44,8 +44,8 @@ public class ExameVinculoController {
 		
 		autorizador.autorizaSePacienteDeClinica( authorizationHeader, pacienteId );
 		
-		exameValidator.validaSave( request );
-		exameService.registra( pacienteId, request );
+		exameVinculoValidator.validaSave( request );
+		exameVinculoService.registra( pacienteId, request );
 		return ResponseEntity.ok().build();		
 	}
 	
@@ -58,8 +58,8 @@ public class ExameVinculoController {
 		
 		autorizador.autorizaSePacienteDeClinica( authorizationHeader, pacienteId );
 		
-		exameValidator.validaFiltro( request );
-		List<ExameVinculoResponse> lista = exameService.filtra( pacienteId, request );
+		exameVinculoValidator.validaFiltro( request );
+		List<ExameVinculoResponse> lista = exameVinculoService.filtra( pacienteId, request );
 		return ResponseEntity.ok( lista );
 	}	
 	
@@ -71,7 +71,7 @@ public class ExameVinculoController {
 		
 		autorizador.autorizaSeExameDeClinica( authorizationHeader, exameId );
 		
-		ExameVinculoResponse resp = exameService.get( exameId );
+		ExameVinculoResponse resp = exameVinculoService.get( exameId );
 		return ResponseEntity.ok( resp );
 	}	
 	
@@ -83,7 +83,7 @@ public class ExameVinculoController {
 		
 		autorizador.autorizaSeExameDeClinica( authorizationHeader, exameId );
 		
-		exameService.deleta( exameId );
+		exameVinculoService.deleta( exameId );
 		return ResponseEntity.ok().build();
 	}
 	

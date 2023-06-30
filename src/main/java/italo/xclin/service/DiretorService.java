@@ -84,7 +84,7 @@ public class DiretorService {
 		this.altera2( diretorOp, request );
 	}
 	
-	public void altera2( Optional<Diretor> diretorOp, DiretorSaveRequest request ) throws ServiceException {
+	private void altera2( Optional<Diretor> diretorOp, DiretorSaveRequest request ) throws ServiceException {
 		if ( !diretorOp.isPresent() )
 			throw new ServiceException( Erro.DIRETOR_NAO_ENCONTRADO );		
 		
@@ -157,21 +157,40 @@ public class DiretorService {
 		
 		return resp;
 	}
+	
+	public DiretorResponse getPorLogadoUID( Long logadoUID ) throws ServiceException {
+		Optional<Diretor> diretorOp = diretorRepository.buscaPorUsuario( logadoUID );
+		if ( !diretorOp.isPresent() )
+			throw new ServiceException( Erro.DIRETOR_LOGADO_NAO_ENCONTRADO );
+		
+		Diretor d = diretorOp.get();
+		
+		UsuarioResponse uresp = usuarioLoader.novoResponse();
+		usuarioLoader.loadResponse( uresp, d.getUsuario() ); 
+		
+		DiretorResponse resp = diretorLoader.novoResponse( uresp );
+		diretorLoader.loadResponse( resp, d );
+		
+		return resp;
+	}
 		
 	public DiretorDetalhesLoadResponse getDetalhesLoadPorLogadoUID( Long logadoUID ) throws ServiceException {
-		Optional<Diretor> diretorOp = diretorRepository.buscaPorUsuario( logadoUID );
+		Optional<Diretor> diretorOp = diretorRepository.buscaPorUsuario( logadoUID );		
+		if ( !diretorOp.isPresent() )
+			throw new ServiceException( Erro.DIRETOR_LOGADO_NAO_ENCONTRADO );
+		
 		return this.getDetalhesLoad2( diretorOp );
 	}
 	
 	public DiretorDetalhesLoadResponse getDetalhesLoad( Long id ) throws ServiceException {
 		Optional<Diretor> diretorOp = diretorRepository.findById( id );
-		return this.getDetalhesLoad2( diretorOp );
-	}
-	
-	public DiretorDetalhesLoadResponse getDetalhesLoad2( Optional<Diretor> diretorOp ) throws ServiceException {
 		if ( !diretorOp.isPresent() )
 			throw new ServiceException( Erro.DIRETOR_NAO_ENCONTRADO );
 		
+		return this.getDetalhesLoad2( diretorOp );
+	}
+	
+	public DiretorDetalhesLoadResponse getDetalhesLoad2( Optional<Diretor> diretorOp ) throws ServiceException {			
 		Diretor d = diretorOp.get();
 		
 		UsuarioResponse uresp = usuarioLoader.novoResponse();

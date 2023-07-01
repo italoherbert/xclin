@@ -48,7 +48,8 @@ public interface Erro {
 	public final static String CLINICA_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado na clínica informada.";
 	public final static String ATENDIMENTO_NAO_ENCONTRADO = "Consulta não encontrada.";
 	public final static String ESPECIALIDADE_NAO_ENCONTRADA = "Especialidade não encontrada.";
-	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrada a especialidade para adicioná-la ao profissional.";
+	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrar a especialidade para vinculá-lo ao profissional.";
+	public final static String VINCULO_PROFISSIONAL_EXAME_NAO_ENCONTRADO = "Não foi encontrar o exame para vinculá-lo ao profissional.";
 	public final static String ANAMNESE_NAO_ENCONTRADA = "Anamnese do paciente não encontrada.";
 	public final static String LANCAMENTO_NAO_ENCONTRADO = "Lancamento não encontrado.";
 	public final static String ANAMNESE_MODELO_NAO_ENCONTRADO = "Modelo de anamnese não encontrado.";

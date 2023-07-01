@@ -43,7 +43,7 @@ public class ProfissionalEspecialidadeVinculoService {
 	public ProfissionalEspecialidadeVinculosLoadResponse getVinculosLoad( Long logadoUID ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
-			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 		
@@ -65,7 +65,7 @@ public class ProfissionalEspecialidadeVinculoService {
 	public ProfissionalEspecialidadeSaveLoadResponse getEspecialidadeSaveLoad( Long logadoUID ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
-			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 		
@@ -96,7 +96,7 @@ public class ProfissionalEspecialidadeVinculoService {
 	public ProfissionalEspecialidadeVinculoResponse getPorLogadoUID( Long logadoUID, Long especialidadeId ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
-			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 		Long profissionalId = profissional.getId();
@@ -123,7 +123,7 @@ public class ProfissionalEspecialidadeVinculoService {
 	public void vinculaPorLogadoUID( Long logadoUID, Long especialidadeId ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
-			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
 		if ( !especialidadeOp.isPresent() )
@@ -147,7 +147,7 @@ public class ProfissionalEspecialidadeVinculoService {
 		
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
-			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 		Long profissionalId = profissional.getId();
@@ -167,7 +167,7 @@ public class ProfissionalEspecialidadeVinculoService {
 	public void deleta( Long logadoUID, Long especialidadeId ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
-			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 		Long profissionalId = profissional.getId();

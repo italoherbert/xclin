@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatChipsModule } from '@angular/material/chips';
 import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.module';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -23,7 +24,8 @@ import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatChipsModule
+    MatChipsModule,
+    MatButtonModule
   ]
 })
 export class ProfissionalContaExameSaveModule { }

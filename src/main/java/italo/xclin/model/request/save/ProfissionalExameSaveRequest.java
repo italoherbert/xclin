@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProfissionalClinicaExameSaveRequest {
+public class ProfissionalExameSaveRequest {
 
 	private double exameValor;
 	

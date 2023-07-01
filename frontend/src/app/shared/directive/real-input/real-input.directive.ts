@@ -15,8 +15,11 @@ export class RealInputDirective {
 
   ngOnChanges() {
     if ( this.valorInicialSetado === false && this.valorInicial > 0 ) {
-      this.valor = (''+this.valorInicial).replace( '.', '' );
-      this.el.nativeElement.value = (''+this.valorInicial).replace( '.', ',' );
+      this.valor = (''+this.valorInicial);
+      if ( this.valor.indexOf( '.' ) === -1 )
+        this.valor += ".00";
+      
+      this.el.nativeElement.value = (''+this.valor).replace( '.', ',' );
       this.valorInicialSetado = true;
     }
   }
@@ -41,5 +44,30 @@ export class RealInputDirective {
 
     this.onValorAlterado.emit( { valorReal : valorReal } );
   }  
+
+  setValor( valor : any ) {
+    this.valor = ""+valor;
+
+    if ( this.valor.indexOf( '.' ) === -1 ) {
+      this.valor += ".00";
+    }
+
+    this.valor = this.valor.replace( '.', '' );          
+
+    this.el.nativeElement.value = this.valor;
+
+    if ( this.valor.length > 2 ) {
+      this.el.nativeElement.value = 
+        this.valor.substring( 0, this.valor.length-2 ) + 
+        ',' + 
+        this.valor.substring( this.valor.length-2, this.valor.length );
+    }   
+    
+    let valorReal = 0;
+    if ( this.el.nativeElement.value.length > 0 )
+      valorReal = parseFloat( this.el.nativeElement.value.replace( ',', '.' ) );
+
+    this.onValorAlterado.emit( { valorReal : valorReal } );
+  }
 
 }

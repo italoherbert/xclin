@@ -7,14 +7,14 @@ import org.springframework.stereotype.Component;
 import italo.xclin.model.Exame;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.ProfissionalExameVinculo;
-import italo.xclin.model.request.save.ProfissionalClinicaExameSaveRequest;
+import italo.xclin.model.request.save.ProfissionalExameSaveRequest;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.load.edit.ProfissionalExameSaveLoadResponse;
 
 @Component
 public class ProfissionalExameVinculoLoader {
 
-	public void loadBean( ProfissionalExameVinculo vinculo, ProfissionalClinicaExameSaveRequest request ) {
+	public void loadBean( ProfissionalExameVinculo vinculo, ProfissionalExameSaveRequest request ) {
 		vinculo.setExameValor( request.getExameValor() );
 	}
 	

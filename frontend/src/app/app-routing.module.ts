@@ -71,6 +71,7 @@ import { ExameTelaComponent } from './features/exame/exame-tela/exame-tela.compo
 import { ExameSaveComponent } from './features/exame/exame-save/exame-save.component';
 import { ExameDetalhesComponent } from './features/exame/exame-detalhes/exame-detalhes.component';
 import { ProfissionalContaExamesComponent } from './features/conta/profissional-conta/profissional-conta-exames/profissional-conta-exames.component';
+import { ProfissionalContaExameSaveComponent } from './features/conta/profissional-conta/profissional-conta-exame-save/profissional-conta-exame-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -85,6 +86,7 @@ const routes: Routes = [
     { path: 'profissional-conta-especialidades', component: ProfissionalContaEspecialidadesComponent, outlet: 'page' },
     { path: 'profissional-conta-especialidade-save', component: ProfissionalContaEspecialidadeSaveComponent, outlet: 'page' },
     { path: 'profissional-conta-exames', component: ProfissionalContaExamesComponent, outlet: 'page'},
+    { path: 'profissional-conta-exame-save', component: ProfissionalContaExameSaveComponent, outlet: 'page' },
 
     { path: 'profissional-conta-detalhes', component: ProfissionalContaDetalhesComponent, outlet: 'page' },
     { path: 'recepcionista-conta-detalhes', component: RecepcionistaContaDetalhesComponent, outlet: 'page' },

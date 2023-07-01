@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ProfissionalSave } from '../bean/profissional/profissional-save';
 import { Observable } from 'rxjs';
 import { ProfissionalEspecialidadeVinculoSave } from '../bean/profissional/profissional-especialidade-vinculo-save';
+import { ProfissionalExameVinculoSave } from '../bean/profissional/profissional-exame-vinculo-save';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +42,7 @@ export class ContaProfissionalService {
     return this.http.get( '/api/conta/profissional/especialidade/vinculo/lista', { headers: headers, withCredentials: true } );
   }
 
-  loadEspecialidadeSaveTela(): Observable<any> {
+  loadEspecialidadeVinculoSaveTela(): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
@@ -89,6 +90,48 @@ export class ContaProfissionalService {
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
     return this.http.get( '/api/conta/profissional/exame/vinculo/lista', { headers: headers, withCredentials: true } );
+  }
+
+  loadExameVinculoSaveTela(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/exame/vinculo/load/save', { headers: headers, withCredentials: true } );
+  }
+
+  getExameVinculo( exameId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/exame/vinculo/get/'+exameId, { headers: headers, withCredentials: true } );
+  }
+
+  salvaExameVinculo( exameId : any, vinculoSave: ProfissionalExameVinculoSave ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.put( 
+      '/api/conta/profissional/exame/vinculo/salva/'+exameId, vinculoSave,
+      { headers: headers, withCredentials: true } );
+  }
+
+  vinculaExame( exameId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.post( 
+      '/api/conta/profissional/exame/vinculo/vincula/'+exameId, {},
+      { headers: headers, withCredentials: true } );
+  }
+
+  deletaExameVinculo( exameId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.delete( 
+      '/api/conta/profissional/exame/vinculo/deleta/'+exameId,
+      { headers: headers, withCredentials: true } );
   }
 
 }

@@ -34,7 +34,7 @@ public class ContaProfissionalEspecialidadeVinculoController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PutMapping("/salva/{especialidadeId}")
-	public ResponseEntity<Object> salvaContaEspecialidade(
+	public ResponseEntity<Object> salva(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long especialidadeId,
 			@RequestBody ProfissionalEspecialidadeSaveRequest request ) throws SistemaException {
@@ -48,7 +48,7 @@ public class ContaProfissionalEspecialidadeVinculoController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@PostMapping("/vincula/{especialidadeId}")
-	public ResponseEntity<Object> salvaAddContaEspecialidade(
+	public ResponseEntity<Object> vincula(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long especialidadeId ) throws SistemaException {
 		
@@ -73,7 +73,7 @@ public class ContaProfissionalEspecialidadeVinculoController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/load/save")
-	public ResponseEntity<Object> getContaEspecialidadeSaveLoad(
+	public ResponseEntity<Object> loadSave(
 			@RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {
 			
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
@@ -86,7 +86,7 @@ public class ContaProfissionalEspecialidadeVinculoController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/get/{especialidadeId}")
-	public ResponseEntity<Object> getEspecialidadeVinculo(
+	public ResponseEntity<Object> getVinculo(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long especialidadeId ) throws SistemaException {
 			
@@ -99,7 +99,7 @@ public class ContaProfissionalEspecialidadeVinculoController {
 	
 	@PreAuthorize("isAuthenticated()")
 	@DeleteMapping("/deleta/{especialidadeId}")
-	public ResponseEntity<Object> deletaContaEspecialidade(
+	public ResponseEntity<Object> deleta(
 			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long especialidadeId ) throws SistemaException {
 		

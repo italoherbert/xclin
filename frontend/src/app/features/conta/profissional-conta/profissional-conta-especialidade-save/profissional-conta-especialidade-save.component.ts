@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { faAdd, faCircleLeft, faRemove, faSave } from '@fortawesome/free-solid-svg-icons';
 
 import { ProfissionalEspecialidadeVinculoSave } from 'src/app/core/bean/profissional/profissional-especialidade-vinculo-save';
 import { ContaProfissionalService } from 'src/app/core/service/conta-profissional.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
+import { RealInputDirective } from 'src/app/shared/directive/real-input/real-input.directive';
 
 @Component({
   selector: 'app-profissional-conta-especialidade-save',
@@ -11,6 +12,9 @@ import { SistemaService } from 'src/app/core/service/sistema.service';
   styleUrls: ['./profissional-conta-especialidade-save.component.css']
 })
 export class ProfissionalContaEspecialidadeSaveComponent {
+
+  @ViewChild( RealInputDirective ) consultaValorRealInput! : RealInputDirective;
+
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -55,7 +59,7 @@ export class ProfissionalContaEspecialidadeSaveComponent {
     this.especialidadesVinculadasIDs.splice( 0, this.especialidadesVinculadasIDs.length );
     this.especialidadesVinculadasNomes.splice( 0, this.especialidadesVinculadasNomes.length );
 
-    this.contaProfissionalService.loadEspecialidadeSaveTela().subscribe({
+    this.contaProfissionalService.loadEspecialidadeVinculoSaveTela().subscribe({
       next: (resp) => {
         for( let i = 0; i < resp.especialidadesIDs.length; i++ ) {
           if ( resp.especialidadesVinculadas[ i ] === true ) {
@@ -105,7 +109,7 @@ export class ProfissionalContaEspecialidadeSaveComponent {
 
     this.contaProfissionalService.getEspecialidadeVinculo( this.especialidadeId ).subscribe({
       next: (resp) => {
-        this.especialidadeSave.consultaValor = resp.consultaValor;
+        this.consultaValorRealInput.setValor( resp.consultaValor );
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -145,7 +149,6 @@ export class ProfissionalContaEspecialidadeSaveComponent {
 
     this.contaProfissionalService.deletaEspecialidadeVinculo( especialidadeId ).subscribe( {
       next: (resp) => {
-        this.especialidadeSave.consultaValor = 0;
         this.atualiza();
         this.showSpinner = false;
       },

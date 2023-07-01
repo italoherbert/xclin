@@ -1,1 +1,26 @@
-<p>profissional-conta-exames works!</p>
+<h1>Seus exames</h1>
+
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-exame-save' }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Alterar exames</span>
+</a>
+
+<br />
+<br />
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Valor Cobrado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let exame of exames; index as i">
+                <td>{{exame.descricao}}</td>
+                <td>{{exame.exameValor | currency: 'BRL'}}</td>                
+            </tr>
+        </tbody>
+    </table>
+</div>

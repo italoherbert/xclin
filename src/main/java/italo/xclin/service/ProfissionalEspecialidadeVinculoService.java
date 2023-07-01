@@ -16,7 +16,7 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.ProfissionalEspecialidadeVinculo;
 import italo.xclin.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.xclin.model.response.ProfissionalEspecialidadeVinculoResponse;
-import italo.xclin.model.response.load.edit.ProfissionalContaEspecialidadeSaveLoadResponse;
+import italo.xclin.model.response.load.edit.ProfissionalEspecialidadeSaveLoadResponse;
 import italo.xclin.model.response.load.vinculos.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.xclin.repository.EspecialidadeRepository;
 import italo.xclin.repository.ProfissionalEspecialidadeVinculoRepository;
@@ -62,7 +62,7 @@ public class ProfissionalEspecialidadeVinculoService {
 		return profissionalEspecialidadeVinculoLoader.novoEspecialidadeVinculosLoadResponse( profissional, lista );		
 	}
 	
-	public ProfissionalContaEspecialidadeSaveLoadResponse getEspecialidadeSaveLoad( Long logadoUID ) throws ServiceException {
+	public ProfissionalEspecialidadeSaveLoadResponse getEspecialidadeSaveLoad( Long logadoUID ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );

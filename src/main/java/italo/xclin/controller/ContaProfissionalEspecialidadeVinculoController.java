@@ -18,7 +18,7 @@ import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.save.ProfissionalEspecialidadeSaveRequest;
 import italo.xclin.model.response.ProfissionalEspecialidadeVinculoResponse;
-import italo.xclin.model.response.load.edit.ProfissionalContaEspecialidadeSaveLoadResponse;
+import italo.xclin.model.response.load.edit.ProfissionalEspecialidadeSaveLoadResponse;
 import italo.xclin.model.response.load.vinculos.ProfissionalEspecialidadeVinculosLoadResponse;
 import italo.xclin.service.ProfissionalEspecialidadeVinculoService;
 
@@ -80,7 +80,7 @@ public class ContaProfissionalEspecialidadeVinculoController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
-		ProfissionalContaEspecialidadeSaveLoadResponse resp = profissionalEspecialidadeVinculoService.getEspecialidadeSaveLoad( logadoUID );
+		ProfissionalEspecialidadeSaveLoadResponse resp = profissionalEspecialidadeVinculoService.getEspecialidadeSaveLoad( logadoUID );
 		
 		return ResponseEntity.ok( resp );		
 	}

@@ -84,4 +84,11 @@ export class ContaProfissionalService {
       { headers: headers, withCredentials: true } );
   }
 
+  listaExamesVinculos(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/conta/profissional/exame/vinculo/lista', { headers: headers, withCredentials: true } );
+  }
+
 }

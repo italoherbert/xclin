@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
-import italo.xclin.loader.ClinicaExameLoader;
+import italo.xclin.loader.ExameLoader;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Exame;
 import italo.xclin.model.request.filtro.ClinicaExameFiltroRequest;
@@ -31,7 +31,7 @@ public class ExameService {
 	private ClinicaRepository clinicaRepository;
 
 	@Autowired
-	private ClinicaExameLoader clinicaExameLoader;
+	private ExameLoader clinicaExameLoader;
 	
 	public void registra( Long clinicaId, ClinicaExameSaveRequest request ) throws ServiceException {
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );

@@ -13,7 +13,7 @@ import italo.xclin.model.request.save.ProfissionalSaveRequest;
 import italo.xclin.model.response.ProfissionalResponse;
 import italo.xclin.model.response.UsuarioResponse;
 import italo.xclin.model.response.load.detalhes.ProfissionalDetalhesLoadResponse;
-import italo.xclin.model.response.load.edit.ProfissionalContaEspecialidadeSaveLoadResponse;
+import italo.xclin.model.response.load.edit.ProfissionalEspecialidadeSaveLoadResponse;
 import italo.xclin.model.response.load.edit.ProfissionalEditLoadResponse;
 import italo.xclin.model.response.load.reg.ProfissionalRegLoadResponse;
 import italo.xclin.model.response.load.tela.NaoAdminProfissionalTelaLoadResponse;
@@ -85,11 +85,11 @@ public class ProfissionalLoader {
 		return resp;
 	}
 	
-	public ProfissionalContaEspecialidadeSaveLoadResponse novoContaEspecialidadeSaveResponse(
+	public ProfissionalEspecialidadeSaveLoadResponse novoContaEspecialidadeSaveResponse(
 			List<Long> especialidadesIDs,
 			List<String> especialidadesNomes,
 			List<Boolean> especialidadesVinculadas ) {
-		ProfissionalContaEspecialidadeSaveLoadResponse resp = new ProfissionalContaEspecialidadeSaveLoadResponse();
+		ProfissionalEspecialidadeSaveLoadResponse resp = new ProfissionalEspecialidadeSaveLoadResponse();
 		resp.setEspecialidadesIDs( especialidadesIDs );
 		resp.setEspecialidadesNomes( especialidadesNomes );
 		resp.setEspecialidadesVinculadas( especialidadesVinculadas ); 

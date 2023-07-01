@@ -1,0 +1,77 @@
+<h1>Vínculo profissional/exame</h1>
+
+<br />
+
+<div class="d-flex justify-content-center">
+    <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
+</div>
+
+<div class="d-flex justify-content-center">
+    <mat-card style="width: 50em">
+        <mat-card-header>
+            <h1>Formulário</h1>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+                {{infoMsg}}
+            </div>
+            <div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+                {{erroMsg}}
+            </div>
+
+            <div class="py-3">
+                <div class="fs-6 text-secondary">
+                    Suas exames
+                </div>
+                <div class="fs-5 text-dark">
+                    <mat-chip-listbox [selectable]="true" [multiple]="false">
+                        <mat-chip-option *ngFor="let id of examesVinculadosIDs; index as i"
+                                (selectionChange)="suaExameSelecionada( i )">
+                            {{examesVinculadosNomes[ i ]}} 
+                            <button matChipRemove (click)="removeExame( i )">
+                                <fa-icon [icon]="icons.faRemove"></fa-icon>
+                            </button>
+                        </mat-chip-option>
+                    </mat-chip-listbox>
+                </div>
+            </div>
+            <div>
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor da consulta</mat-label>
+                    <input matInput type="text" appRealInput 
+                        [valorInicial]="exameSave.consultaValor" 
+                        (onValorAlterado)="onValorConsultaAlterado($event)" />                        
+                </mat-form-field>
+                <br />
+                <button mat-raised-button color="primary" (click)="salva()">
+                    <fa-icon [icon]="icons.faSave"></fa-icon>
+                    Salvar
+                </button>
+            </div>
+            <div class="py-3">
+                <div class="fs-6 text-secondary">
+                    Outras exames
+                </div>
+                <div class="fs-5 text-dark">
+                    <mat-chip-listbox>
+                        <mat-chip-listbox [selectable]="true" [multiple]="false">
+                            <mat-chip-option *ngFor="let id of examesNaoVinculadosIDs; index as i">
+                                {{examesNaoVinculadosNomes[ i ]}} 
+                                <button matChipRemove (click)="adicionaExame( i )">
+                                    <fa-icon [icon]="icons.faAdd"></fa-icon>
+                                </button>
+                            </mat-chip-option>
+                        </mat-chip-listbox>
+                    </mat-chip-listbox>
+                </div>
+            </div>
+
+            <br />
+            
+            <a mat-stroked-button [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-exames' }}]">
+                <fa-icon [icon]="icons.faCircleLeft"></fa-icon>
+                Lista de exames
+            </a>
+        </mat-card-content>
+    </mat-card>
+</div>

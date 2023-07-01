@@ -1,5 +1,7 @@
 package italo.xclin.loader;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import italo.xclin.model.Exame;
@@ -7,6 +9,7 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.ProfissionalExameVinculo;
 import italo.xclin.model.request.save.ProfissionalClinicaExameSaveRequest;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
+import italo.xclin.model.response.load.edit.ProfissionalExameSaveLoadResponse;
 
 @Component
 public class ProfissionalExameVinculoLoader {
@@ -30,6 +33,18 @@ public class ProfissionalExameVinculoLoader {
 	public ProfissionalExameVinculoResponse novoResponse( Exame e ) {
 		ProfissionalExameVinculoResponse resp = new ProfissionalExameVinculoResponse();
 		resp.setExameDescricao( e.getNome() ); 
+		return resp;
+	}
+	
+	public ProfissionalExameSaveLoadResponse novoSaveLoadResponse( 
+			List<Long> examesIDs,
+			List<String> examesNome,
+			List<Boolean> examesVinculados ) {
+		
+		ProfissionalExameSaveLoadResponse resp = new ProfissionalExameSaveLoadResponse();			
+		resp.setExamesIDs( examesIDs );
+		resp.setExamesNomes( examesNome );
+		resp.setExamesVinculados( examesVinculados ); 
 		return resp;
 	}
 	

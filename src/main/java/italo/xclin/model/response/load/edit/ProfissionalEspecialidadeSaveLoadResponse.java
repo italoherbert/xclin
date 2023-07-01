@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ProfissionalContaEspecialidadeSaveLoadResponse {
+public class ProfissionalEspecialidadeSaveLoadResponse {
 
 	private List<Long> especialidadesIDs;
 	

@@ -12,9 +12,11 @@ import italo.xclin.enums.tipos.AtendimentoStatus;
 import italo.xclin.exception.ConverterException;
 import italo.xclin.exception.LoaderException;
 import italo.xclin.logica.Converter;
-import italo.xclin.model.Clinica;
 import italo.xclin.model.Atendimento;
+import italo.xclin.model.Clinica;
+import italo.xclin.model.Consulta;
 import italo.xclin.model.Especialidade;
+import italo.xclin.model.ExameItem;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
@@ -24,12 +26,16 @@ import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoObservacoesResponse;
 import italo.xclin.model.response.AtendimentoResponse;
+import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
+import italo.xclin.model.response.ExameItemResponse;
+import italo.xclin.model.response.ExameResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
+import italo.xclin.model.response.TipoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
-import italo.xclin.model.response.load.reg.NovoAtendimentoLoadResponse;
+import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoListaFilaTelaLoadResponse;
@@ -47,71 +53,57 @@ public class AtendimentoLoader {
 	@Autowired
 	private AtendimentoStatusEnumManager consultaStatusEnumManager;
 	
-	public void loadBean( Atendimento c, AtendimentoRemarcarSaveRequest request ) throws LoaderException {
-		c.setDataAgendamento( new Date() ); 
-		c.setTurno( turnoEnumManager.getEnum( request.getTurno() ) ); 
+	public void loadBean( Atendimento a, AtendimentoSaveRequest request ) throws LoaderException {
+		a.setDataAgendamento( new Date() );
+		
 		try {
-			c.setDataAtendimento( converter.stringToData( request.getDataAtendimento() ) );
+			a.setDataAtendimento( converter.stringToData( request.getDataAtendimento() ) );
 		} catch (ConverterException e) {
 			e.throwLoaderException();
 		}
+		
+		a.setTurno( turnoEnumManager.getEnum( request.getTurno() ) );
+		a.setObservacoes( request.getObservacoes() );
+		a.setTemConsulta( request.isTemConsulta() ); 
 	}
 	
-	public void loadBean( Atendimento c, AtendimentoSaveRequest request ) throws LoaderException {
-		c.setRetorno( request.isRetorno() );
-		c.setValor( request.getValor() );
-		c.setTurno( turnoEnumManager.getEnum( request.getTurno() ) );
-		c.setDataAgendamento( new Date() ); 
-		
+	public void loadBean( Atendimento a, AtendimentoRemarcarSaveRequest request ) throws LoaderException {
+		a.setDataAgendamento( new Date() ); 
+		a.setTurno( turnoEnumManager.getEnum( request.getTurno() ) ); 
 		try {
-			c.setDataAtendimento( converter.stringToData( request.getDataAtendimento() ) );
+			a.setDataAtendimento( converter.stringToData( request.getDataAtendimento() ) );
 		} catch (ConverterException e) {
 			e.throwLoaderException();
-		} 
-		
-		c.setPaga( false );
-		c.setStatus( AtendimentoStatus.REGISTRADO ); 
-		c.setObservacoes( request.getObservacoes() );
-		c.setDataSaveObservacoes( new Date() ); 
+		}	
 	}
 	
-	public void loadBean( Atendimento c, AtendimentoAlterSaveRequest request ) throws LoaderException {
-		c.setRetorno( request.isRetorno() );
-		c.setValor( request.getValor() );				
-		c.setStatus( consultaStatusEnumManager.getEnum( request.getStatus() ) ); 
-		c.setObservacoes( request.getObservacoes() );
-		c.setDataSaveObservacoes( new Date() ); 
-	}
-	
-	public void loadBean( Atendimento c, AtendimentoObservacoesSaveRequest request ) {
-		c.setObservacoes( request.getObservacoes() );
-		c.setDataSaveObservacoes( new Date() ); 
+	public void loadBean( Atendimento a, AtendimentoAlterSaveRequest request ) {
+		a.setObservacoes( request.getObservacoes() );
+		a.setStatus( consultaStatusEnumManager.getEnum( request.getStatus() ) ); 
 	}
 		
-	public void loadResponse( AtendimentoResponse resp, Atendimento c ) {
-		resp.setId( c.getId() );
-		resp.setRetorno( c.isRetorno() );
-		resp.setPaga( c.isPaga() );
+	public void loadBean( Atendimento a, AtendimentoObservacoesSaveRequest request ) {
+		a.setObservacoes( request.getObservacoes() );
+		a.setDataSaveObservacoes( new Date() ); 
+	}
 		
-		if ( c.getStatus() != null ) {
-			resp.setStatus( c.getStatus().name() );
-			resp.setStatusLabel( c.getStatus().label() );
-		}
+	public void loadResponse( AtendimentoResponse resp, Atendimento a ) {
+		resp.setId( a.getId() );
+				
+		resp.setStatus( a.getStatus().name() );
+		resp.setStatusLabel( a.getStatus().label() );		
 		
-		if ( c.getTurno() != null ) {
-			resp.setTurno( c.getTurno().name() );
-			resp.setTurnoLabel( c.getTurno().label() ); 
-		}
+		resp.setTurno( a.getTurno().name() );
+		resp.setTurnoLabel( a.getTurno().label() ); 		
 		
-		resp.setDataAgendamento( converter.dataHoraToString( c.getDataAgendamento() ) );
-		resp.setDataAtendimento( ( converter.dataHoraToString( c.getDataAtendimento() ) ) );
-		resp.setDataSaveObservacoes( converter.dataHoraToString( c.getDataSaveObservacoes() ) ); 
+		resp.setDataAgendamento( converter.dataHoraToString( a.getDataAgendamento() ) );
+		resp.setDataAtendimento( ( converter.dataHoraToString( a.getDataAtendimento() ) ) );
+		resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
 		
-		if ( c.getDataFinalizacao() != null )
-			resp.setDataFinalizacao( converter.dataHoraToString( c.getDataFinalizacao() ) );
+		if ( a.getDataFinalizacao() != null )
+			resp.setDataFinalizacao( converter.dataHoraToString( a.getDataFinalizacao() ) );
 		
-		resp.setValor( c.getValor() ); 
-		resp.setObservacoes( c.getObservacoes() );
+		resp.setObservacoes( a.getObservacoes() );
 	}
 		
 	public void loadRegResponse( AtendimentoRegLoadResponse resp ) {
@@ -123,18 +115,15 @@ public class AtendimentoLoader {
 	}
 	
 	public void loadAlterResponse( AtendimentoAlterLoadResponse resp ) {
-		resp.setTurnos( turnoEnumManager.tipoResponses() );
-		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );
+		List<TipoResponse> turnos = turnoEnumManager.tipoResponses();
 		
-		int size = resp.getStatuses().size();
+		List<TipoResponse> statuses = consultaStatusEnumManager.tipoResponses()
+				.stream()
+				.filter( ( s ) -> !s.getName().equalsIgnoreCase( AtendimentoStatus.INICIADO.name() ) )
+				.toList();
 		
-		int index = -1;
-		for( int i = 0; index == -1 && i < size; i++ )
-			if ( resp.getStatuses().get( i ).getName().equalsIgnoreCase( AtendimentoStatus.INICIADO.name() ) )
-				index = i;		
-		
-		if ( index != -1 )
-			resp.getStatuses().remove( index );
+		resp.setTurnos( turnos );
+		resp.setStatuses( statuses );		
 	}
 	
 	public void loadTelaResponse( AtendimentoTelaLoadResponse resp ) {
@@ -159,39 +148,44 @@ public class AtendimentoLoader {
 			Profissional profissional,
 			Especialidade especialidade,
 			Paciente paciente, 
-			Clinica clinica ) {
-		Atendimento consulta = new Atendimento();
-		consulta.setProfissional( profissional );
-		consulta.setEspecialidade( especialidade ); 
-		consulta.setPaciente( paciente ); 
-		consulta.setClinica( clinica ); 
-		return consulta;
+			Clinica clinica,
+			Consulta consulta,
+			List<ExameItem> exames ) {
+		Atendimento atendimento = new Atendimento();
+		atendimento.setProfissional( profissional );
+		atendimento.setEspecialidade( especialidade ); 
+		atendimento.setPaciente( paciente ); 
+		atendimento.setClinica( clinica );
+		atendimento.setConsulta( consulta );
+		atendimento.setExames( exames );
+		
+		consulta.setAtendimento( atendimento );
+		exames.forEach( e -> e.setAtendimento( atendimento ) ); 
+		return atendimento;
 	}
 	
-	public AtendimentoResponse novoResponse( Clinica c, Profissional pr, Paciente pa, Especialidade e ) {
+	public AtendimentoResponse novoResponse( 
+			Clinica a, 
+			Profissional pr, 
+			Paciente pa, 
+			Especialidade e,
+			ConsultaResponse consulta, 
+			List<ExameItemResponse> exames ) {
 		AtendimentoResponse resp = new AtendimentoResponse();
 		resp.setPacienteId( pa.getId() );
 		resp.setPacienteNome( pa.getNome() ); 
-		resp.setClinicaId( c.getId() );
-		resp.setClinicaNome( c.getNome() ); 
+		resp.setClinicaId( a.getId() );
+		resp.setClinicaNome( a.getNome() ); 
 		resp.setProfissionalId( pr.getId() );
 		resp.setProfissionalNome( pr.getNome() );
 		resp.setEspecialidadeId( e.getId() );
 		resp.setEspecialidadeNome( e.getNome() ); 
-		resp.setPacienteAnamneseCriada( pa.isAnamneseCriada() ); 
+		resp.setPacienteAnamneseCriada( pa.isAnamneseCriada() );
+		resp.setConsulta( consulta );
+		resp.setExames( exames ); 		
 		return resp;
 	}
-	
-	public NovoAtendimentoLoadResponse novoNovaConsultaLoadResponse( 
-			List<Long> clinicasIDs, 
-			List<String> clinicasNomes ) {
 		
-		NovoAtendimentoLoadResponse resp = new NovoAtendimentoLoadResponse();
-		resp.setClinicasIDs( clinicasIDs );
-		resp.setClinicasNomes( clinicasNomes ); 
-		return resp;
-	}
-	
 	public AtendimentoAgendaLoadResponse novoConsultaAgendaLoadResponse(
 			List<Long> clinicasIDs,
 			List<String> clinicasNomes ) {
@@ -201,9 +195,22 @@ public class AtendimentoLoader {
 		return resp;
 	}
 	
-	public AtendimentoRegLoadResponse novoRegResponse( List<EspecialidadeResponse> especialidades ) {
+	public NovoAtendimentoRegLoadResponse novoAtendimentoRegLoadResponse(
+			List<Long> clinicasIDs,
+			List<String> clinicasNomes ) {
+		NovoAtendimentoRegLoadResponse resp = new NovoAtendimentoRegLoadResponse();
+		resp.setClinicasIDs( clinicasIDs );
+		resp.setClinicasNomes( clinicasNomes ); 
+		return resp;
+	}
+	
+	public AtendimentoRegLoadResponse novoRegResponse( 
+			List<EspecialidadeResponse> especialidades, 
+			List<ExameResponse> profissionalExames ) {
+		
 		AtendimentoRegLoadResponse resp = new AtendimentoRegLoadResponse();
-		resp.setEspecialidades( especialidades );		
+		resp.setEspecialidades( especialidades );
+		resp.setProfissionalExames( profissionalExames );
 		return resp;
 	}
 	
@@ -231,11 +238,11 @@ public class AtendimentoLoader {
 		return resp;
 	}
 	
-	public AtendimentoRemarcarLoadResponse novoRemarcarResponse( Atendimento c ) {
+	public AtendimentoRemarcarLoadResponse novoRemarcarResponse( Atendimento a ) {
 		AtendimentoRemarcarLoadResponse resp = new AtendimentoRemarcarLoadResponse();
-		resp.setDataAtendimento( converter.dataToString( c.getDataAtendimento() ) );
-		resp.setTurno( c.getTurno().name() );
-		resp.setTurnoLabel( c.getTurno().label() ); 
+		resp.setDataAtendimento( converter.dataToString( a.getDataAtendimento() ) );
+		resp.setTurno( a.getTurno().name() );
+		resp.setTurnoLabel( a.getTurno().label() ); 
 		return resp;
 	}
 	
@@ -269,10 +276,10 @@ public class AtendimentoLoader {
 		return resp;
 	}
 	
-	public AtendimentoObservacoesResponse novoObservacoesResponse( Atendimento c ) {
+	public AtendimentoObservacoesResponse novoObservacoesResponse( Atendimento a ) {
 		AtendimentoObservacoesResponse resp = new AtendimentoObservacoesResponse();
-		resp.setObservacoes( c.getObservacoes() );
-		resp.setDataSaveObservacoes( converter.dataHoraToString( c.getDataSaveObservacoes() ) ); 
+		resp.setObservacoes( a.getObservacoes() );
+		resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
 		return resp;
 	}		
 	

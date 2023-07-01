@@ -1,9 +1,11 @@
+import { ConsultaSave } from "./consulta-save";
+import { ExameItemSave } from "./exame-item-save";
 
 export interface AtendimentoRegistro {
     dataAtendimento: string;
-    valor : number;
-    retorno : boolean;
-    paga : boolean;
     turno : string;    
     observacoes: string;
+    temConsulta : boolean;
+    consulta : ConsultaSave;
+    exames : ExameItemSave[];
 }

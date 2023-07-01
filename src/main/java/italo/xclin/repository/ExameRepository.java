@@ -13,7 +13,7 @@ public interface ExameRepository extends JpaRepository<Exame, Long> {
 			+ "from Exame e "
 			+ "where e.clinica.id=?1 and lower_unaccent(e.nome)=lower_unaccent(?2)")
 	public boolean existePorClinicaPorNome( Long clinicaId, String nome );
-	
+		
 	public List<Exame> findByClinicaId( Long clinicaId );
 	
 }

@@ -4,6 +4,7 @@ import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 import { AtendimentoRegistroComponent } from './atendimento-registro/atendimento-registro.component';
 import { MatStepper } from '@angular/material/stepper';
+import { ProfissionalService } from 'src/app/core/service/profissional.service';
 
 @Component({
   selector: 'app-atendimento-novo',
@@ -34,11 +35,58 @@ export class AtendimentoNovoComponent {
   profissionalId : number = 0;
 
   quantidadesAgrupadasPorDia : any[][] = [];
+
+  clinicasIDs : number[] = [];
+  clinicasNomes : string[] = [];
+
+  profissionaisIDs : number[] = [];
+  profissionaisNomes : string[] = [];
   
   constructor( 
     private atendimentoService : AtendimentoService,
+    private profissionalService : ProfissionalService,
     private sistemaService : SistemaService ) {}
-  
+
+  ngOnInit() {    
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    this.atendimentoService.loadNovoAtendimentoTela().subscribe({
+      next: (resp) => {
+        this.clinicasIDs = resp.clinicasIDs;
+        this.clinicasNomes = resp.clinicasNomes;
+
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  clinicaSelecionada( event : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    this.profissionalService.listaPorClinica( this.clinicaId ).subscribe( {
+      next: (resp) => {
+        this.profissionaisIDs = resp.ids;
+        this.profissionaisNomes = resp.nomes;
+
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    } ); 
+  }
+    
   profissionalSelectOnNext( stepper : MatStepper ) {
     this.erroMsg = null;
     this.erroMsg = null;
@@ -58,18 +106,10 @@ export class AtendimentoNovoComponent {
       this.erroMsg = "Selecione o turno de um dia do calendário.";
     } else {
       stepper.next();
+      this.atendimentoRegistro.recarrega();
     }
   }
   
-  onProfissionalSelecionado( event : any ) {
-    this.profissionalId = event.profissionalId;    
-    this.atendimentoRegistro.recarrega( event.profissionalId );
-  }
-
-  onClinicaSelecionada( event : any ) {
-    this.clinicaId = event.clinicaId;
-  }
-
   onCalendarioAlterado( event : any ) {
     this.mes = event.mes;
     this.ano = event.ano;    

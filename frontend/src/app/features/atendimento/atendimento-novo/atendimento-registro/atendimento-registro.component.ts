@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { faCircleLeft, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faCircleLeft, faPlus, faRemove, faSave, faX } from '@fortawesome/free-solid-svg-icons';
 import { AtendimentoRegistro } from 'src/app/core/bean/atendimento/atendimento-registro';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -30,17 +30,37 @@ export class AtendimentoRegistroComponent {
 
   icons : any = {
     faSave : faSave,
-    faCircleLeft : faCircleLeft
+    faCircleLeft : faCircleLeft,
+    faPlus : faPlus,
+    faRemove : faRemove
   }
 
   atendimentoSave : AtendimentoRegistro = {
     dataAtendimento : '',
-    turno : '',
-    valor : 0,
-    retorno : false,
-    paga : false,
+    turno : '',   
     observacoes : '',
+    temConsulta : false,
+    consulta : {
+      paga : false,
+      retorno : false,
+      valor : 0
+    },
+    exames : []
   }
+
+  exameIncluidoSelecionadoI : number = -1;
+  exameNaoIncluidoSelecionadoI : number = -1;
+
+  exameValorAtual : number = 0;
+  
+  examesIncluidosIDs : number[] = [];
+  examesIncluidosNomes : string[] = [];
+  examesIncluidosValores : number[] = [];
+
+  examesNaoIncluidosIDs : number[] = [];
+  examesNaoIncluidosNomes : string[] = [];
+
+  valorTotal : number = 0;
 
   pacienteId : number = 0;
   especialidadeId : number = 0;
@@ -51,10 +71,6 @@ export class AtendimentoRegistroComponent {
   pacientesIDs : number[] = [];
   pacientesNomes : string[] = [];
 
-  pacienteNome : string = '';
-  buscandoPacientes : boolean = false;
-  buscarPacientes : boolean = false;
-
   turnos : any[] = [];
   especialidades : Especialidade[] = [];
 
@@ -62,20 +78,29 @@ export class AtendimentoRegistroComponent {
 
   constructor(
     private atendimentoService: AtendimentoService,
-    private pacienteService: PacienteService, 
     private profissionalService: ProfissionalService,
     private sistemaService: SistemaService) {}
-
-  recarrega( profissionalId : any ) {    
+  
+  recarrega() {    
     this.infoMsg = null;
     this.erroMsg = null;
 
     this.showSpinner = true;
     
-    this.atendimentoService.getAtendimentoReg( profissionalId ).subscribe({
+    this.atendimentoService.getAtendimentoReg( this.profissionalId ).subscribe({
       next: (resp) => {
         this.turnos = resp.turnos;
         this.especialidades = resp.especialidades;
+
+        this.examesNaoIncluidosIDs.splice( 0, this.examesIncluidosIDs.length );
+        this.examesNaoIncluidosNomes.splice( 0, this.examesIncluidosNomes.length );
+
+        let exames = resp.profissionalExames;
+        for( let i = 0; i < exames.length; i++ ) {
+          this.examesNaoIncluidosIDs.push( exames[ i ].id );
+          this.examesNaoIncluidosNomes.push( exames[ i ].nome );
+        }
+
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -95,6 +120,15 @@ export class AtendimentoRegistroComponent {
 
     if( this.turno > 0 )
       this.atendimentoSave.turno = this.turnos[ this.turno-1 ].name;
+
+    this.atendimentoSave.exames.splice( 0, this.atendimentoSave.exames.length );
+
+    for( let i = 0; i < this.examesIncluidosIDs.length; i++ ) {
+      this.atendimentoSave.exames.push( {
+        exameId : this.examesIncluidosIDs[ i ],
+        valor : this.examesIncluidosValores[ i ]
+      } );
+    }
     
     this.showSpinner = true;
 
@@ -110,7 +144,7 @@ export class AtendimentoRegistroComponent {
       }
     });    
   }
-  
+
   onEspecialidadeSelected( event : any ) {
     this.erroMsg = null;
     this.infoMsg = null;
@@ -120,7 +154,9 @@ export class AtendimentoRegistroComponent {
     this.profissionalService.getProfissionalEspecialidadeVinculo( 
           this.profissionalId, this.especialidadeId ).subscribe( {
       next: (resp) => {
-        this.atendimentoSave.valor = resp.consultaValor;
+        this.atendimentoSave.consulta.valor = resp.consultaValor;
+        this.atualizaValorTotal();
+        
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -130,8 +166,55 @@ export class AtendimentoRegistroComponent {
     } );
   }
 
-  onValorAtendimentoAlterado( e : any ) {
-    this.atendimentoSave.valor = e.valorReal;
+  adicionaExame() { 
+    let i = this.exameNaoIncluidoSelecionadoI;      
+    this.examesIncluidosIDs.push( this.examesNaoIncluidosIDs[ i ] );
+    this.examesIncluidosNomes.push( this.examesNaoIncluidosNomes[ i ] );
+    this.examesIncluidosValores.push( 0 );
+
+    this.examesNaoIncluidosIDs.splice( i, 1 );
+    this.examesNaoIncluidosNomes.splice( i, 1 );    
+
+    this.exameNaoIncluidoSelecionadoI = -1;
+  }
+
+  removeExame() {
+    let i = this.exameIncluidoSelecionadoI;
+
+    this.examesNaoIncluidosIDs.push( this.examesIncluidosIDs[ i ] );
+    this.examesNaoIncluidosNomes.push( this.examesIncluidosNomes[ i ] );
+
+    this.examesIncluidosIDs.splice( i, 1 );
+    this.examesIncluidosNomes.splice( i, 1 );
+    this.examesIncluidosValores.splice( i, 1 );
+
+    this.exameIncluidoSelecionadoI = -1;
+  }
+
+  novoExameValor() {
+    let i = this.exameIncluidoSelecionadoI;
+    if ( i < this.examesIncluidosValores.length )
+      this.examesIncluidosValores[ i ] = this.exameValorAtual;  
+
+    this.atualizaValorTotal();
+  }
+   
+  atualizaValorTotal() {
+    this.valorTotal = 0;
+    if ( this.atendimentoSave.temConsulta === true )
+      this.valorTotal += this.atendimentoSave.consulta.valor;
+
+    for( let i = 0; i < this.examesIncluidosValores.length; i++ )
+      this.valorTotal += this.examesIncluidosValores[ i ];
+  }
+
+  onValorConsultaAlterado( e : any ) {
+    this.atendimentoSave.consulta.valor = e.valorReal;
+    this.atualizaValorTotal();
+  }
+
+  onValorExameAlterado( e : any ) {
+    this.exameValorAtual = e.valorReal;    
   }
 
   pacienteOnSelect( pacienteId : number ) {

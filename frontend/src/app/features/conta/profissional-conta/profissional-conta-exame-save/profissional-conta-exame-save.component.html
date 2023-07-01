@@ -53,15 +53,13 @@
                     Outros exames
                 </div>
                 <div class="fs-5 text-dark">
-                    <mat-chip-listbox>
-                        <mat-chip-listbox [selectable]="true" [multiple]="false">
-                            <mat-chip-option *ngFor="let id of examesNaoVinculadosIDs; index as i">
-                                {{examesNaoVinculadosNomes[ i ]}} 
-                                <button matChipRemove (click)="adicionaExame( i )">
-                                    <fa-icon [icon]="icons.faAdd"></fa-icon>
-                                </button>
-                            </mat-chip-option>
-                        </mat-chip-listbox>
+                    <mat-chip-listbox [selectable]="true" [multiple]="false">
+                        <mat-chip-option *ngFor="let id of examesNaoVinculadosIDs; index as i">
+                            {{examesNaoVinculadosNomes[ i ]}} 
+                            <button matChipRemove (click)="adicionaExame( i )">
+                                <fa-icon [icon]="icons.faAdd"></fa-icon>
+                            </button>
+                        </mat-chip-option>
                     </mat-chip-listbox>
                 </div>
             </div>

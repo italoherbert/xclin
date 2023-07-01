@@ -7,11 +7,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ExameSaveRequest {
+public class ExameItemSaveRequest {
 
-	private String nome;
-	
-	private String descricao;
+	private Long exameId;
 	
 	private double valor;
 	

@@ -12,8 +12,8 @@ import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.ExameLoader;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Exame;
-import italo.xclin.model.request.filtro.ClinicaExameFiltroRequest;
-import italo.xclin.model.request.save.ClinicaExameSaveRequest;
+import italo.xclin.model.request.filtro.ExameFiltroRequest;
+import italo.xclin.model.request.save.ExameSaveRequest;
 import italo.xclin.model.response.ExameResponse;
 import italo.xclin.model.response.load.edit.ExameEditLoadResponse;
 import italo.xclin.model.response.load.reg.ExameRegLoadResponse;
@@ -33,7 +33,7 @@ public class ExameService {
 	@Autowired
 	private ExameLoader clinicaExameLoader;
 	
-	public void registra( Long clinicaId, ClinicaExameSaveRequest request ) throws ServiceException {
+	public void registra( Long clinicaId, ExameSaveRequest request ) throws ServiceException {
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
 		if ( !clinicaOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
@@ -46,7 +46,7 @@ public class ExameService {
 		clinicaExameRepository.save( exame );
 	}
 	
-	public void altera( Long clinicaExameId, ClinicaExameSaveRequest request ) throws ServiceException {
+	public void altera( Long clinicaExameId, ExameSaveRequest request ) throws ServiceException {
 		Optional<Exame> exameOp = clinicaExameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
@@ -62,7 +62,7 @@ public class ExameService {
 		clinicaExameRepository.save( exame );
 	}
 	
-	public List<ExameResponse> filtra( Long clinicaId, ClinicaExameFiltroRequest request ) throws ServiceException {
+	public List<ExameResponse> filtra( Long clinicaId, ExameFiltroRequest request ) throws ServiceException {
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
 		if ( !clinicaOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );

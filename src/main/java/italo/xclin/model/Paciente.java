@@ -80,10 +80,7 @@ public class Paciente {
 	
 	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
 	private List<PacienteAnexo> anexos;
-	
-	@OneToMany(mappedBy="paciente", cascade=CascadeType.ALL)
-	private List<ExameVinculo> exames;
-	
+		
 	@OneToOne(mappedBy="paciente", cascade = CascadeType.ALL)
 	private Anamnese anamnese;
 	

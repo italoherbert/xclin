@@ -1,9 +1,11 @@
 package italo.xclin.model;
 
 import java.util.Date;
+import java.util.List;
 
 import italo.xclin.enums.tipos.AtendimentoStatus;
 import italo.xclin.enums.tipos.Turno;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -12,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -47,14 +51,10 @@ public class Atendimento {
 	
 	@Enumerated(EnumType.STRING)
 	private Turno turno;
-	
-	private boolean retorno;
-	
-	private boolean paga;
 		
-	private double valor;
-	
-	private String observacoes;
+	private boolean temConsulta;		
+			
+	private String observacoes;		
 	
 	@ManyToOne
 	@JoinColumn(name="profissional_id")
@@ -71,5 +71,11 @@ public class Atendimento {
 	@ManyToOne
 	@JoinColumn(name="especialidade_id")
 	private Especialidade especialidade;
+	
+	@OneToOne(mappedBy="atendimento", cascade=CascadeType.ALL, optional = true)
+	private Consulta consulta;
+	
+	@OneToMany(mappedBy="atendimento", cascade=CascadeType.ALL)
+	private List<ExameItem> exames;
 		
 }

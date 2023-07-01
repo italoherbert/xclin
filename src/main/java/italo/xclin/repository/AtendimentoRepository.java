@@ -31,20 +31,17 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 	@Query("select a "
 			+ "from Atendimento a "
 			+ "where a.clinica.id=?1 and "
-				+ "a.dataAtendimento between ?12 and ?13 and "
+				+ "a.dataAtendimento between ?10 and ?11 and "
 				+ "(?6=false or (lower(a.paciente.nome) like lower(?2))) and "
 				+ "(?7=false or (lower(a.profissional.nome) like lower(?3))) and "
 				+ "(?8=true or a.turno=?4) and "
-				+ "(?9=true or a.status=?5) and "
-				+ "(?10=true or a.paga=false) and "
-				+ "(?11=true or a.retorno=false)")
+				+ "(?9=true or a.status=?5)")
 	public List<Atendimento> filtra( 
 			Long clinicaId, 
 			String pacienteNomeIni, String profissionalNomeIni, 
 			Turno turno, AtendimentoStatus status, 
 			boolean incluirPaciente, boolean incluirProfissional, 
 			boolean incluirTodosTurnos, boolean incluirTodosStatus, 
-			boolean incluirPagas, boolean incluirRetornos, 
 			Date dataInicio, Date dataFim );
 	
 	@Query("select a "

@@ -7,12 +7,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ExameSaveRequest {
-
-	private String nome;
+public class ConsultaSaveRequest {
 	
-	private String descricao;
+	private boolean retorno;
 	
+	private boolean paga;
+		
 	private double valor;
 	
 }

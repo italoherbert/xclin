@@ -7,8 +7,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClinicaExameFiltroRequest {
+public class ExameItemFiltroRequest {
 
 	private String filtroNome;
 	
 }
+

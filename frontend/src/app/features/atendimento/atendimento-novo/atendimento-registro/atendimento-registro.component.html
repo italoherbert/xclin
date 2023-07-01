@@ -4,7 +4,7 @@
     <div *ngIf="showSpinner === true" class="m-2 text-center spinner-border text-primary"></div>
 </div>
 
-<div style="width: 50em">
+<div style="width: 50em">    
     <div class="row">                            
         <div class="col-sm-8">            
             <app-paciente-autocomplete-input
@@ -13,29 +13,122 @@
                     (onErroCreate)="pacienteOnErroCreate($event)">
             </app-paciente-autocomplete-input>                    
         </div>      
-        <div class="col-sm-8">
-            <mat-form-field appearance="fill" class="w-100">
-                <mat-select placeholder="Selecione a especialidade" [(ngModel)]="especialidadeId" 
-                        (selectionChange)="onEspecialidadeSelected( $event )">
-                    <mat-option *ngFor="let e of especialidades" [value]="e.id">
-                        {{e.nome}}
-                    </mat-option>
-                </mat-select>                
-            </mat-form-field>            
-        </div>                                  
-        <div class="col-sm-6">
-            <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Valor da atendimento</mat-label>
-                <input matInput appRealInput type="text" placeholder="Valor da atendimento" 
-                        [valorInicial]="atendimentoSave.valor"
-                        (onValorAlterado)="onValorAtendimentoAlterado($event)">
-            </mat-form-field>
-        </div> 
-        <div class="col-sm-6">
-            <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.retorno">
-                Retorno
+        <div class="col-sm-12">
+            <mat-checkbox color="primary" [(ngModel)]="atendimentoSave.temConsulta">
+                Registrar consulta
             </mat-checkbox>
-        </div>    
+        </div>
+        <div class="p-3" *ngIf="atendimentoSave.temConsulta === true">
+            <div class="col-sm-12">
+                <h2><b>Consulta</b></h2>
+            </div>
+            <div class="col-sm-8">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Especialidade</mat-label>
+                    <mat-select placeholder="Selecione a especialidade" [(ngModel)]="especialidadeId" 
+                            (selectionChange)="onEspecialidadeSelected( $event )">
+                        <mat-option *ngFor="let e of especialidades" [value]="e.id">
+                            {{e.nome}}
+                        </mat-option>
+                    </mat-select>                
+                </mat-form-field>            
+            </div>                                  
+            <div class="col-sm-6">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Valor da consulta</mat-label>
+                    <input matInput appRealInput type="text" placeholder="Valor da consulta" 
+                            [valorInicial]="atendimentoSave.consulta.valor"
+                            (onValorAlterado)="onValorConsultaAlterado($event)">
+                </mat-form-field>
+            </div> 
+            <div class="col-sm-6">
+                <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.consulta.retorno">
+                    Consulta retorno
+                </mat-checkbox>
+                <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.consulta.paga">
+                    Consulta paga
+                </mat-checkbox>
+            </div>    
+        </div>
+        <div class="col-sm-12">
+            <h2><b>Exames</b></h2>
+        </div>
+        <div class="col-sm-12">
+            <mat-form-field appearance="fill">
+                <mat-label>Exames incluídos</mat-label>
+                <mat-select placeholder="Selecione o exame" [(ngModel)]="exameIncluidoSelecionadoI">
+                    <mat-option *ngFor="let exameId of examesIncluidosIDs; index as i" [value]="i">
+                        {{examesIncluidosNomes[i]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <span class="p-2"></span>
+            <button mat-icon-button color="primary" (click)="removeExame()">
+                <fa-icon [icon]="icons.faRemove"></fa-icon>
+            </button>
+            <span class="p-2"></span>
+            <mat-form-field appearance="fill">
+                <mat-label>Valor do exame</mat-label>
+                <input matInput appRealInput type="text" placeholder="Valor da consulta" 
+                        [valorInicial]="0"
+                        (onValorAlterado)="onValorExameAlterado($event)">
+            </mat-form-field>
+            <span class="p-2"></span>
+            <button mat-raised-button color="primary" (click)="novoExameValor()">
+                Novo valor
+            </button>
+
+            <br />
+
+            <mat-form-field appearance="fill">
+                <mat-label>Exames para incluír</mat-label>
+                <mat-select placeholder="Selecione o exame" [(ngModel)]="exameNaoIncluidoSelecionadoI">
+                    <mat-option *ngFor="let exameId of examesNaoIncluidosIDs; index as i" [value]="i">
+                        {{examesNaoIncluidosNomes[i]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>                 
+
+            <span class="p-2"></span>
+            <button mat-icon-button color="primary" (click)="adicionaExame()">
+                <fa-icon [icon]="icons.faPlus"></fa-icon>               
+            </button>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let exameId of examesIncluidosIDs; index as i">
+                            <td>{{exameId}}</td>
+                            <td>{{examesIncluidosNomes[i]}}</td>
+                            <td>{{examesIncluidosValores[i] | currency: 'BRL'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="col-sm-12">
+            <h2><b>Valor total</b></h2>
+            <div class="fs-6 px-3">
+                <span class="fw-bold">Total: </span>
+                <span class="px-2 text-danger">{{valorTotal | currency: 'BRL'}}</span>
+            </div>
+              
+            <br />
+            <br />
+        </div>
+
+        <div class="col-sm-12">              
+            <h2><b>Observações</b></h2>
+        </div>
+
         <div class="col-sm-12">
             <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Observações</mat-label>

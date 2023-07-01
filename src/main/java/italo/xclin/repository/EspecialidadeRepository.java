@@ -18,11 +18,5 @@ public interface EspecialidadeRepository extends JpaRepository<Especialidade, Lo
 	
 	@Query("select e from Especialidade e where lower(e.nome) like lower(?1)")
 	public List<Especialidade> filtra( String nomeIni );
-	
-	@Query("select e "
-			+ "from Especialidade e "
-				+ "join ProfissionalEspecialidadeVinculo v "
-			+ "where v.profissional.id=?1")
-	public List<Especialidade> listaPorProfissional( Long profissionalId );
-	
+		
 }

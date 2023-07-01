@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class NovoAtendimentoLoadResponse {
+public class NovoAtendimentoRegLoadResponse {
 
 	private List<Long> clinicasIDs;
 	

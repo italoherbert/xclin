@@ -31,7 +31,7 @@ import italo.xclin.model.response.AtendimentoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
-import italo.xclin.model.response.load.reg.NovoAtendimentoLoadResponse;
+import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoListaFilaTelaLoadResponse;
@@ -100,6 +100,7 @@ public class AtendimentoController {
 		return ResponseEntity.ok().build();		
 	}	
 	
+	/*
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/seta/pagamento/{atendimentoId}/{paga}")
 	public ResponseEntity<Object> registraPagamento(
@@ -115,6 +116,7 @@ public class AtendimentoController {
 		atendimentoService.setaPagamento( logadoUID, atendimentoId, paga );
 		return ResponseEntity.ok().build();		
 	}
+	*/
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/finaliza/{atendimentoId}")
@@ -322,7 +324,7 @@ public class AtendimentoController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 				
-		NovoAtendimentoLoadResponse resp = atendimentoService.getNovoAtendimentoLoad( clinicasIDs );
+		NovoAtendimentoRegLoadResponse resp = atendimentoService.getNovoAtendimentoRegLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 

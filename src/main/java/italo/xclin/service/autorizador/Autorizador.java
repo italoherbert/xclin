@@ -15,7 +15,7 @@ import italo.xclin.model.AnamneseModeloPergunta;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Exame;
 import italo.xclin.model.Atendimento;
-import italo.xclin.model.ExameVinculo;
+import italo.xclin.model.ExameItem;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.PacienteAnexo;
@@ -25,7 +25,7 @@ import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.repository.AnamneseModeloPerguntaRepository;
 import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.AtendimentoRepository;
-import italo.xclin.repository.ExameVinculoRepository;
+import italo.xclin.repository.ExameItemRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteAnexoRepository;
 import italo.xclin.repository.PacienteRepository;
@@ -59,15 +59,15 @@ public class Autorizador {
 	private ExameRepository clinicaExameRepository;
 	
 	@Autowired
-	private ExameVinculoRepository exameRepository;
+	private ExameItemRepository exameRepository;
 	
 	public void autorizaSeExameDeClinica( String authorizationHeader, Long exameId ) throws AutorizacaoException {
-		Optional<ExameVinculo> exameOp = exameRepository.findById( exameId );
+		Optional<ExameItem> exameOp = exameRepository.findById( exameId );
 		if ( !exameOp.isPresent() )
 			throw new AutorizacaoException( Erro.EXAME_NAO_ENCONTRADO );
 		
-		ExameVinculo exame = exameOp.get();
-		Long clinicaId = exame.getPaciente().getClinica().getId();
+		ExameItem exame = exameOp.get();
+		Long clinicaId = exame.getAtendimento().getClinica().getId();
 		
 		this.autorizaPorClinica( authorizationHeader, clinicaId ); 
 	}

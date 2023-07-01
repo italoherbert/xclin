@@ -8,11 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AtendimentoAlterSaveRequest {
-	
-	private double valor;
-
-	private boolean retorno;
-		
+			
 	private String status;
 		
 	private String observacoes;

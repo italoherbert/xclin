@@ -37,9 +37,7 @@ export class AtendimentoTelaComponent {
     turno: '',
     status: '',
     incluirTodosTurnos: false,
-    incluirTodosStatuses: false,
-    incluirPagas : true,
-    incluirRetornos : true
+    incluirTodosStatuses: false
   }
 
   atendimentos : any;

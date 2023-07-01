@@ -7,16 +7,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ExameVinculoResponse {
+public class ConsultaResponse {
 
 	private Long id;
 	
-	private String nome;
+	private boolean paga;
 	
-	private String descricao;
+	private boolean retorno;
 	
 	private double valor;
-	
-	private String dataExame;
 	
 }

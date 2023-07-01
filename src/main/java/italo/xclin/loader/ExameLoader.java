@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Exame;
-import italo.xclin.model.request.save.ClinicaExameSaveRequest;
+import italo.xclin.model.request.save.ExameSaveRequest;
 import italo.xclin.model.response.ExameResponse;
 import italo.xclin.model.response.load.edit.ExameEditLoadResponse;
 import italo.xclin.model.response.load.reg.ExameRegLoadResponse;
@@ -15,7 +15,7 @@ import italo.xclin.model.response.load.tela.ExameTelaLoadResponse;
 @Component
 public class ExameLoader {
 
-	public void loadBean( Exame exame, ClinicaExameSaveRequest request ) {
+	public void loadBean( Exame exame, ExameSaveRequest request ) {
 		exame.setNome( request.getNome() );
 		exame.setDescricao( request.getDescricao() );
 		exame.setValor( request.getValor() );

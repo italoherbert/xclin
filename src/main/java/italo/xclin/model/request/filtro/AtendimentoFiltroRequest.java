@@ -29,8 +29,4 @@ public class AtendimentoFiltroRequest {
 	
 	private boolean incluirTodosStatuses;
 	
-	private boolean incluirRetornos;
-	
-	private boolean incluirPagas;
-
 }

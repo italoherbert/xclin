@@ -1,4 +1,4 @@
-package italo.xclin.model.request.save;
+package italo.xclin.model.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,8 +7,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ClinicaExameSaveRequest {
+public class ExameItemResponse {
 
+	private Long id;
+	
 	private String nome;
 	
 	private String descricao;

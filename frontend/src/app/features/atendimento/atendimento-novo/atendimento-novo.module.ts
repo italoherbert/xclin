@@ -11,7 +11,6 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { CalendarioModule } from 'src/app/shared/calendario/calendario.module';
 import { AtendimentoNovoComponent } from './atendimento-novo.component';
-import { AtendimentoProfissionalSelectComponent } from './atendimento-profissional-select/atendimento-profissional-select.component';
 import { AtendimentoRegistroComponent } from './atendimento-registro/atendimento-registro.component';
 import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -21,8 +20,7 @@ import { PacienteAutocompleteInputModule } from 'src/app/shared/paciente-autocom
 
 @NgModule({
   declarations: [
-    AtendimentoNovoComponent,
-    AtendimentoProfissionalSelectComponent,
+    AtendimentoNovoComponent,    
     AtendimentoRegistroComponent
   ],
   imports: [

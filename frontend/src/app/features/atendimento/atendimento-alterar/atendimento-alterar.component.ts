@@ -24,8 +24,6 @@ export class AtendimentoAlterarComponent {
 
   atendimentoAlter : AtendimentoAlter = {
     status : '',
-    valor : 0,
-    retorno : false,
     observacoes : '',
   }
 

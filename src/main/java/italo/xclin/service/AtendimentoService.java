@@ -10,26 +10,30 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import italo.xclin.Erro;
-import italo.xclin.Info;
 import italo.xclin.enums.AtendimentoStatusEnumManager;
 import italo.xclin.enums.TurnoEnumManager;
 import italo.xclin.enums.tipos.AtendimentoStatus;
-import italo.xclin.enums.tipos.LancamentoTipo;
 import italo.xclin.enums.tipos.Turno;
+import italo.xclin.exception.LoaderException;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.AtendimentoLoader;
+import italo.xclin.loader.ConsultaLoader;
 import italo.xclin.loader.EspecialidadeLoader;
-import italo.xclin.loader.LancamentoLoader;
+import italo.xclin.loader.ExameItemLoader;
+import italo.xclin.loader.ExameLoader;
 import italo.xclin.loader.PacienteAnexoLoader;
 import italo.xclin.logica.Converter;
-import italo.xclin.model.Clinica;
 import italo.xclin.model.Atendimento;
+import italo.xclin.model.Clinica;
+import italo.xclin.model.Consulta;
 import italo.xclin.model.Especialidade;
-import italo.xclin.model.Lancamento;
+import italo.xclin.model.Exame;
+import italo.xclin.model.ExameItem;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.PacienteAnexo;
 import italo.xclin.model.Profissional;
-import italo.xclin.model.Usuario;
+import italo.xclin.model.ProfissionalEspecialidadeVinculo;
+import italo.xclin.model.ProfissionalExameVinculo;
 import italo.xclin.model.request.filtro.AtendimentoFiltroRequest;
 import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroRequest;
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
@@ -37,27 +41,30 @@ import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
+import italo.xclin.model.request.save.ExameItemSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoObservacoesResponse;
 import italo.xclin.model.response.AtendimentoResponse;
+import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
+import italo.xclin.model.response.ExameItemResponse;
+import italo.xclin.model.response.ExameResponse;
 import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
-import italo.xclin.model.response.load.reg.NovoAtendimentoLoadResponse;
+import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoIniciadaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoListaFilaTelaLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoTelaLoadResponse;
-import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.AtendimentoRepository;
+import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
-import italo.xclin.repository.LancamentoRepository;
+import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.PacienteRepository;
 import italo.xclin.repository.ProfissionalRepository;
-import italo.xclin.repository.UsuarioRepository;
 import italo.xclin.service.shared.ClinicaSharedService;
 import jakarta.transaction.Transactional;
 
@@ -83,10 +90,15 @@ public class AtendimentoService {
 	private PacienteRepository pacienteRepository;
 	
 	@Autowired
+	private ExameRepository exameRepository;
+	
+	/*
+	@Autowired
 	private LancamentoRepository lancamentoRepository;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
+	*/
 	
 	@Autowired
 	private AtendimentoLoader atendimentoLoader;
@@ -94,11 +106,22 @@ public class AtendimentoService {
 	@Autowired
 	private EspecialidadeLoader especialidadeLoader;
 	
+	/*
 	@Autowired
 	private LancamentoLoader lancamentoLoader;
+	*/
 	
 	@Autowired
 	private PacienteAnexoLoader pacienteAnexoLoader;
+	
+	@Autowired
+	private ConsultaLoader consultaLoader;
+	
+	@Autowired
+	private ExameLoader exameLoader;
+	
+	@Autowired
+	private ExameItemLoader exameItemLoader;
 	
 	@Autowired
 	private Converter converter;
@@ -137,7 +160,38 @@ public class AtendimentoService {
 		Paciente paciente = pacienteOp.get();
 		Especialidade especialidade = especialidadeOp.get();
 		
-		Atendimento atendimento = atendimentoLoader.novoBean( profissional, especialidade, paciente, clinica );
+		Consulta consulta = null;
+		if ( request.isTemConsulta() ) {
+			consulta = consultaLoader.novoBean();
+			consultaLoader.loadBean( consulta, request.getConsulta() ); 
+		}
+		
+		List<ExameItem> exames = new ArrayList<>();
+		for( ExameItemSaveRequest reqExame : request.getExames() ) {
+			Long exameId = reqExame.getExameId();
+			
+			Optional<Exame> exameOp = exameRepository.findById( exameId );
+			if ( !exameOp.isPresent() )
+				throw new ServiceException( Erro.EXAME_NAO_ENCONTRADO );
+			
+			Exame exame = exameOp.get();
+			ExameItem exameItem = exameItemLoader.novoBean( exame );
+			try {
+				exameItemLoader.loadBean( exameItem, reqExame );
+			} catch (LoaderException ex) {
+				ex.throwServiceException();
+			}
+			
+			exames.add( exameItem );
+		}
+		
+		Atendimento atendimento = atendimentoLoader.novoBean( 
+				profissional, 
+				especialidade, 
+				paciente, 
+				clinica, 
+				consulta, 
+				exames );
 		atendimentoLoader.loadBean( atendimento, request );
 		
 		atendimentoRepository.save( atendimento );
@@ -169,6 +223,7 @@ public class AtendimentoService {
 		atendimentoRepository.save( atendimento );
 	}
 	
+	/*
 	@Transactional
 	public void setaPagamento( Long logadoUID, Long atendimentoId, boolean paga ) throws ServiceException {				
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
@@ -200,6 +255,7 @@ public class AtendimentoService {
 		
 		lancamentoRepository.save( lanc );
 	}
+	*/
 		
 	public void cancelaConsulta( Long atendimentoId ) throws ServiceException {
 		this.alteraStatus( atendimentoId, AtendimentoStatus.CANCELADO ); 
@@ -254,7 +310,7 @@ public class AtendimentoService {
 		
 		atendimentoRepository.save( atendimento );
 	}
-	
+		
 	public AtendimentoIniciadoResponse getIniciada( 
 			Long logadoUID, Long clinicaId, String turnoStr, int histObsPageSize ) throws ServiceException {
 		
@@ -273,20 +329,41 @@ public class AtendimentoService {
 
 		if ( atendimentoOp.isPresent() ) {						
 			Atendimento atendimento = atendimentoOp.get();
-			Clinica c = atendimento.getClinica();
-			Profissional pr = atendimento.getProfissional();
-			Paciente pa = atendimento.getPaciente();
-			Especialidade e = atendimento.getEspecialidade();
+			Clinica clinica = atendimento.getClinica();
+			Profissional profissional2 = atendimento.getProfissional();
+			Paciente paciente = atendimento.getPaciente();
+			Especialidade especialidade = atendimento.getEspecialidade();
+			
+			Consulta consulta = atendimento.getConsulta();
+			List<ExameItem> exames = atendimento.getExames();
+			
+			ConsultaResponse consultaResp = consultaLoader.novoResponse();
+			consultaLoader.loadResponse( consultaResp, consulta );
+			
+			List<ExameItemResponse> examesListaResp = new ArrayList<>();
+			for( ExameItem ei : exames ) {
+				ExameItemResponse eiResp = exameItemLoader.novoResponse();
+				exameItemLoader.loadResponse( eiResp, ei );
+				
+				examesListaResp.add( eiResp );
+			}
 						
-			AtendimentoResponse cresp = atendimentoLoader.novoResponse( c, pr, pa, e );
+			AtendimentoResponse cresp = atendimentoLoader.novoResponse( 
+					clinica,
+					profissional2, 
+					paciente, 
+					especialidade,
+					consultaResp, 
+					examesListaResp );
+			
 			atendimentoLoader.loadResponse( cresp, atendimento );
 			
-			Long pacienteId = pa.getId();
+			Long pacienteId = paciente.getId();
 			
 			List<AtendimentoObservacoesResponse> historicoObservacoes = this.getUltimasObservacoes( 
 					clinicaId, profissionalId, pacienteId, histObsPageSize );			
 			
-			List<PacienteAnexo> anexos = pa.getAnexos();
+			List<PacienteAnexo> anexos = paciente.getAnexos();
 			
 			List<PacienteAnexoResponse> respAnexos = new ArrayList<>();
 			for( PacienteAnexo a : anexos ) {
@@ -330,19 +407,34 @@ public class AtendimentoService {
 				request.isIncluirPaciente(), 
 				request.isIncluirProfissional(), 
 				request.isIncluirTodosTurnos(), 
-				request.isIncluirTodosStatuses(), 
-				request.isIncluirPagas(), 
-				request.isIncluirRetornos(),
+				request.isIncluirTodosStatuses(), 				
 				dataIni, dataFim );
 		
 		List<AtendimentoResponse> lista = new ArrayList<>();
 		for( Atendimento atendimento : atendimentos ) {
-			Clinica c = atendimento.getClinica();
-			Profissional pr = atendimento.getProfissional();
-			Paciente pa = atendimento.getPaciente();
-			Especialidade e = atendimento.getEspecialidade();
+			Clinica clinica = atendimento.getClinica();
+			Profissional profissional = atendimento.getProfissional();
+			Paciente paciente = atendimento.getPaciente();
+			Especialidade especialidade = atendimento.getEspecialidade();
+			
+			Consulta consulta = atendimento.getConsulta();
+			List<ExameItem> exames = atendimento.getExames();
+			
+			ConsultaResponse consultaResp = consultaLoader.novoResponse();
+			consultaLoader.loadResponse( consultaResp, consulta );
+			
+			List<ExameItemResponse> examesListaResp = new ArrayList<>();
+			for( ExameItem ei : exames ) {
+				ExameItemResponse eiResp = exameItemLoader.novoResponse();
+				exameItemLoader.loadResponse( eiResp, ei );
+				
+				examesListaResp.add( eiResp );
+			}
 						
-			AtendimentoResponse resp = atendimentoLoader.novoResponse( c, pr, pa, e );
+			AtendimentoResponse resp = atendimentoLoader.novoResponse( 
+					clinica, profissional, paciente, especialidade,
+					consultaResp, examesListaResp );
+			
 			atendimentoLoader.loadResponse( resp, atendimento );
 			
 			lista.add( resp );
@@ -366,12 +458,28 @@ public class AtendimentoService {
 		
 		List<AtendimentoResponse> lista = new ArrayList<>();
 		for( Atendimento atendimento : fila ) {
-			Clinica c = atendimento.getClinica();
-			Profissional pr = atendimento.getProfissional();
-			Paciente pa = atendimento.getPaciente();
-			Especialidade e = atendimento.getEspecialidade();
+			Clinica clinica = atendimento.getClinica();
+			Profissional profissional = atendimento.getProfissional();
+			Paciente paciente = atendimento.getPaciente();
+			Especialidade especialidade = atendimento.getEspecialidade();
+			
+			Consulta consulta = atendimento.getConsulta();
+			List<ExameItem> exames = atendimento.getExames();
+			
+			ConsultaResponse consultaResp = consultaLoader.novoResponse();
+			consultaLoader.loadResponse( consultaResp, consulta );
+			
+			List<ExameItemResponse> examesListaResp = new ArrayList<>();
+			for( ExameItem ei : exames ) {
+				ExameItemResponse eiResp = exameItemLoader.novoResponse();
+				exameItemLoader.loadResponse( eiResp, ei );
+				
+				examesListaResp.add( eiResp );
+			}
 						
-			AtendimentoResponse resp = atendimentoLoader.novoResponse( c, pr, pa, e );
+			AtendimentoResponse resp = atendimentoLoader.novoResponse( 
+					clinica, profissional, paciente, especialidade,
+					consultaResp, examesListaResp );
 			atendimentoLoader.loadResponse( resp, atendimento );
 			
 			lista.add( resp );
@@ -396,12 +504,28 @@ public class AtendimentoService {
 		
 		List<AtendimentoResponse> lista = new ArrayList<>();
 		for( Atendimento atendimento : fila ) {
-			Clinica c = atendimento.getClinica();
-			Profissional pr = atendimento.getProfissional();
-			Paciente pa = atendimento.getPaciente();
-			Especialidade e = atendimento.getEspecialidade();
+			Clinica clinica = atendimento.getClinica();
+			Profissional profissional = atendimento.getProfissional();
+			Paciente paciente = atendimento.getPaciente();
+			Especialidade especialidade = atendimento.getEspecialidade();
+			
+			Consulta consulta = atendimento.getConsulta();
+			List<ExameItem> exames = atendimento.getExames();
+			
+			ConsultaResponse consultaResp = consultaLoader.novoResponse();
+			consultaLoader.loadResponse( consultaResp, consulta );
+			
+			List<ExameItemResponse> examesListaResp = new ArrayList<>();
+			for( ExameItem ei : exames ) {
+				ExameItemResponse eiResp = exameItemLoader.novoResponse();
+				exameItemLoader.loadResponse( eiResp, ei );
+				
+				examesListaResp.add( eiResp );
+			}
 						
-			AtendimentoResponse resp = atendimentoLoader.novoResponse( c, pr, pa, e );
+			AtendimentoResponse resp = atendimentoLoader.novoResponse( 
+					clinica, profissional, paciente, especialidade,
+					consultaResp, examesListaResp );
 			atendimentoLoader.loadResponse( resp, atendimento );
 			
 			lista.add( resp );
@@ -415,29 +539,64 @@ public class AtendimentoService {
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 		
 		Atendimento atendimento = atendimentoOp.get();
-		Clinica c = atendimento.getClinica();
-		Profissional pr = atendimento.getProfissional();
-		Paciente pa = atendimento.getPaciente();
-		Especialidade e = atendimento.getEspecialidade();
+		
+		Clinica clinica = atendimento.getClinica();
+		Profissional profissional = atendimento.getProfissional();
+		Paciente paciente = atendimento.getPaciente();
+		Especialidade especialidade = atendimento.getEspecialidade();
+		
+		Consulta consulta = atendimento.getConsulta();
+		List<ExameItem> exames = atendimento.getExames();
+		
+		ConsultaResponse consultaResp = consultaLoader.novoResponse();
+		consultaLoader.loadResponse( consultaResp, consulta );
+		
+		List<ExameItemResponse> examesListaResp = new ArrayList<>();
+		for( ExameItem ei : exames ) {
+			ExameItemResponse eiResp = exameItemLoader.novoResponse();
+			exameItemLoader.loadResponse( eiResp, ei );
+			
+			examesListaResp.add( eiResp );
+		}
 					
-		AtendimentoResponse resp = atendimentoLoader.novoResponse( c, pr, pa, e );
+		AtendimentoResponse resp = atendimentoLoader.novoResponse( 
+				clinica, profissional, paciente, especialidade,
+				consultaResp, examesListaResp );
 		atendimentoLoader.loadResponse( resp, atendimento );
 		
 		return resp;
 	}
 	
-	public AtendimentoRegLoadResponse getRegLoad( Long profissionalId ) {
-		List<Especialidade> especialidades = especialidadeRepository.listaPorProfissional( profissionalId );
+	public AtendimentoRegLoadResponse getRegLoad( Long profissionalId ) throws ServiceException {
+		Optional<Profissional> profissionalOp = profissionalRepository.findById( profissionalId );
+		if ( !profissionalOp.isPresent() )
+			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
 		
-		List<EspecialidadeResponse> lista = new ArrayList<>();
-		for( Especialidade e : especialidades ) {
-			EspecialidadeResponse resp = especialidadeLoader.novoResponse();
-			especialidadeLoader.loadResponse( resp, e );
+		Profissional profissional = profissionalOp.get();				
+		List<ProfissionalEspecialidadeVinculo> especialidadesVinculos = profissional.getProfissionalEspecialidadeVinculos();
+		List<ProfissionalExameVinculo> examesVinculos = profissional.getProfissionalExameVinculos();
+		
+		List<EspecialidadeResponse> especialidadeLista = new ArrayList<>();
+		for( ProfissionalEspecialidadeVinculo v : especialidadesVinculos ) {
+			Especialidade esp = v.getEspecialidade();
 			
-			lista.add( resp );
+			EspecialidadeResponse resp = especialidadeLoader.novoResponse();
+			especialidadeLoader.loadResponse( resp, esp );
+			
+			especialidadeLista.add( resp );
 		}
 		
-		AtendimentoRegLoadResponse resp = atendimentoLoader.novoRegResponse( lista );
+		List<ExameResponse> exameLista = new ArrayList<>();
+		for( ProfissionalExameVinculo v : examesVinculos ) {
+			Exame exame = v.getExame();
+			
+			ExameResponse resp = exameLoader.novoResponse();
+			exameLoader.loadResponse( resp, exame );
+			
+			exameLista.add( resp );
+		}
+		
+		AtendimentoRegLoadResponse resp = atendimentoLoader.novoRegResponse( especialidadeLista, exameLista );
 		atendimentoLoader.loadRegResponse( resp );
 		return resp;
 	}
@@ -465,10 +624,27 @@ public class AtendimentoService {
 		Paciente paciente = atendimento.getPaciente();
 		Especialidade especialidade = atendimento.getEspecialidade();
 		
-		AtendimentoResponse cresp = atendimentoLoader.novoResponse( clinica, profissional, paciente, especialidade );
-		atendimentoLoader.loadResponse( cresp, atendimento );
+		Consulta consulta = atendimento.getConsulta();
+		List<ExameItem> exames = atendimento.getExames();
 		
-		AtendimentoAlterLoadResponse resp = atendimentoLoader.novoAlterResponse( cresp );
+		ConsultaResponse consultaResp = consultaLoader.novoResponse();
+		consultaLoader.loadResponse( consultaResp, consulta );
+		
+		List<ExameItemResponse> examesListaResp = new ArrayList<>();
+		for( ExameItem ei : exames ) {
+			ExameItemResponse eiResp = exameItemLoader.novoResponse();
+			exameItemLoader.loadResponse( eiResp, ei );
+			
+			examesListaResp.add( eiResp );
+		}
+					
+		AtendimentoResponse aresp = atendimentoLoader.novoResponse( 
+				clinica, profissional, paciente, especialidade,
+				consultaResp, examesListaResp );
+		
+		atendimentoLoader.loadResponse( aresp, atendimento );
+		
+		AtendimentoAlterLoadResponse resp = atendimentoLoader.novoAlterResponse( aresp );
 		atendimentoLoader.loadAlterResponse( resp );
 		return resp;
 	}
@@ -486,6 +662,19 @@ public class AtendimentoService {
 		AtendimentoTelaLoadResponse resp = atendimentoLoader.novoTelaResponse( clinicasIDs2, clinicasNomes2 );
 		atendimentoLoader.loadTelaResponse( resp );
 		return resp;
+	}
+	
+	public NovoAtendimentoRegLoadResponse getNovoAtendimentoRegLoad( Long[] clinicasIDs ) throws ServiceException {
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		
+		for( Clinica c : clinicas ) {
+			clinicasIDs2.add( c.getId() );
+			clinicasNomes2.add( c.getNome() );
+		}
+		
+		return atendimentoLoader.novoAtendimentoRegLoadResponse( clinicasIDs2, clinicasNomes2 );
 	}
 	
 	public AtendimentoListaFilaTelaLoadResponse getFiltroResumidoTelaLoad( Long[] clinicasIDs ) {
@@ -517,13 +706,7 @@ public class AtendimentoService {
 		atendimentoLoader.loadIniciadaTelaResponse( resp );
 		return resp;
 	}
-	
-	public NovoAtendimentoLoadResponse getNovoAtendimentoLoad( Long[] clinicasIDs ) {
-		ListaResponse resp = clinicaSharedService.listaPorIDs( clinicasIDs );
 		
-		return atendimentoLoader.novoNovaConsultaLoadResponse( resp.getIds(), resp.getNomes() ); 
-	}
-	
 	public AtendimentoAgendaLoadResponse getAtendimentoAgendaLoad( Long[] clinicasIDs ) {
 		ListaResponse lresp = clinicaSharedService.listaPorIDs( clinicasIDs );
 		

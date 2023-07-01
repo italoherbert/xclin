@@ -18,8 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import italo.xclin.exception.SistemaException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
-import italo.xclin.model.request.filtro.ClinicaExameFiltroRequest;
-import italo.xclin.model.request.save.ClinicaExameSaveRequest;
+import italo.xclin.model.request.filtro.ExameFiltroRequest;
+import italo.xclin.model.request.save.ExameSaveRequest;
 import italo.xclin.model.response.ExameResponse;
 import italo.xclin.model.response.load.edit.ExameEditLoadResponse;
 import italo.xclin.model.response.load.reg.ExameRegLoadResponse;
@@ -49,7 +49,7 @@ public class ExameController {
 	public ResponseEntity<Object> registra(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
-			@RequestBody ClinicaExameSaveRequest request ) throws SistemaException {
+			@RequestBody ExameSaveRequest request ) throws SistemaException {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
@@ -63,7 +63,7 @@ public class ExameController {
 	public ResponseEntity<Object> altera(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long exameId,
-			@RequestBody ClinicaExameSaveRequest request ) throws SistemaException {
+			@RequestBody ExameSaveRequest request ) throws SistemaException {
 		
 		autorizador.autorizaSeClinicaExameDeClinica( authorizationHeader, exameId );
 		
@@ -77,7 +77,7 @@ public class ExameController {
 	public ResponseEntity<Object> filtra(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
-			@RequestBody ClinicaExameFiltroRequest request ) throws SistemaException {
+			@RequestBody ExameFiltroRequest request ) throws SistemaException {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId ); 
 		

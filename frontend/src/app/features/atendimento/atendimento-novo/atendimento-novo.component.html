@@ -13,10 +13,26 @@
         
         <br />
         
-        <app-atendimento-profissional-select 
-            (onClinicaSelecionada)="onClinicaSelecionada( $event )"
-            (onProfissionalSelecionado)="onProfissionalSelecionado( $event )">
-        </app-atendimento-profissional-select>
+        <mat-form-field>
+            <mat-label>Clinica</mat-label>
+            <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId"       
+                    (selectionChange)="clinicaSelecionada( $event )">
+                <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                    {{clinicasNomes[i]}} 
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        <span class="p-2"></span>
+        
+        <mat-form-field>
+            <mat-label>Profissionais</mat-label>
+            <mat-select placeholder="Selecione o profissional" [(ngModel)]="profissionalId">
+                <mat-option *ngFor="let pid of profissionaisIDs; index as i" [value]="pid">
+                    {{profissionaisNomes[i]}} 
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
         
         <br />
 

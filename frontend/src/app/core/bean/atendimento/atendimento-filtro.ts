@@ -10,6 +10,4 @@ export interface AtendimentoFiltro {
     status : string;
     incluirTodosTurnos : boolean;
     incluirTodosStatuses : boolean;
-    incluirPagas : boolean;
-    incluirRetornos : boolean;
 }

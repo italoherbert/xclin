@@ -173,13 +173,13 @@ export class AtendimentoService {
 
     return this.http.get( '/api/atendimento/get/iniciado/tela', { headers: headers, withCredentials: true } );
   }
-
-  getNovaAtendimentoTela() : Observable<any> {
+  
+  loadNovoAtendimentoTela() : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
     return this.http.get( '/api/atendimento/get/novoatendimento/tela', { headers: headers, withCredentials: true } );
-  }
+  }  
 
   getAtendimentoAgendaTela() : Observable<any> {
     let headers = new HttpHeaders({

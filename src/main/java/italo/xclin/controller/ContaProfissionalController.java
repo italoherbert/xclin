@@ -45,7 +45,6 @@ public class ContaProfissionalController {
 		profissionalService.alteraPorLogadoUID( logadoUID, request );
 		return ResponseEntity.ok().build(); 	
 	}
-		
 	
 	@PreAuthorize("isAuthenticated()")
 	@GetMapping("/load/edit")

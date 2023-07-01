@@ -32,7 +32,7 @@ public class ProfissionalExameVinculoLoader {
 	
 	public ProfissionalExameVinculoResponse novoResponse( Exame e ) {
 		ProfissionalExameVinculoResponse resp = new ProfissionalExameVinculoResponse();
-		resp.setExameDescricao( e.getNome() ); 
+		resp.setExameNome( e.getNome() ); 
 		return resp;
 	}
 	

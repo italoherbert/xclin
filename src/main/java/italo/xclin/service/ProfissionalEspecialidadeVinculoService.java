@@ -82,7 +82,7 @@ public class ProfissionalEspecialidadeVinculoService {
 			boolean jaVinculada = false;
 			for( int i = 0; !jaVinculada && i < size; i++ ) {
 				Especialidade e2 = vinculos.get( i ).getEspecialidade();
-				if ( e.getNome().equalsIgnoreCase( e2.getNome() ) )
+				if ( e.getId() == e2.getId() )
 					jaVinculada = true;
 			}			
 			especialidadesIDs.add( e.getId() );

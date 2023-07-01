@@ -67,8 +67,7 @@ public class ContaProfissionalEspecialidadeVinculoController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 		
-		ProfissionalEspecialidadeVinculosLoadResponse resp = profissionalEspecialidadeVinculoService.getVinculosLoad( logadoUID );
-		
+		ProfissionalEspecialidadeVinculosLoadResponse resp = profissionalEspecialidadeVinculoService.getVinculosLoad( logadoUID );	
 		return ResponseEntity.ok( resp );
 	}
 	

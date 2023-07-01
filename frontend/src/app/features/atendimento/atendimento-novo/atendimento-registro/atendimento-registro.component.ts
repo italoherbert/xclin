@@ -39,9 +39,11 @@ export class AtendimentoRegistroComponent {
     dataAtendimento : '',
     turno : '',   
     observacoes : '',
+    pago : false,
+    valorPago : 0,
     temConsulta : false,
     consulta : {
-      paga : false,
+      especialidadeId : 0,
       retorno : false,
       valor : 0
     },
@@ -63,7 +65,6 @@ export class AtendimentoRegistroComponent {
   valorTotal : number = 0;
 
   pacienteId : number = 0;
-  especialidadeId : number = 0;
 
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
@@ -133,7 +134,7 @@ export class AtendimentoRegistroComponent {
     this.showSpinner = true;
 
     this.atendimentoService.registraAtendimento( 
-        this.clinicaId, this.profissionalId, this.especialidadeId, this.pacienteId, this.atendimentoSave ).subscribe({
+        this.clinicaId, this.profissionalId, this.pacienteId, this.atendimentoSave ).subscribe({
       next: ( resp ) => {
         this.infoMsg = "Atendimento registrada com sucesso.";
         this.showSpinner = false;
@@ -152,11 +153,11 @@ export class AtendimentoRegistroComponent {
     this.showSpinner = true;
 
     this.profissionalService.getProfissionalEspecialidadeVinculo( 
-          this.profissionalId, this.especialidadeId ).subscribe( {
+          this.profissionalId, this.atendimentoSave.consulta.especialidadeId ).subscribe( {
       next: (resp) => {
         this.atendimentoSave.consulta.valor = resp.consultaValor;
         this.atualizaValorTotal();
-        
+
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -199,7 +200,7 @@ export class AtendimentoRegistroComponent {
     this.atualizaValorTotal();
   }
    
-  atualizaValorTotal() {
+  atualizaValorTotal(): void {
     this.valorTotal = 0;
     if ( this.atendimentoSave.temConsulta === true )
       this.valorTotal += this.atendimentoSave.consulta.valor;
@@ -215,6 +216,10 @@ export class AtendimentoRegistroComponent {
 
   onValorExameAlterado( e : any ) {
     this.exameValorAtual = e.valorReal;    
+  }
+
+  onValorPagoAlterado( e : any ) {
+    this.atendimentoSave.valorPago = e.valorReal;
   }
 
   pacienteOnSelect( pacienteId : number ) {

@@ -10,9 +10,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import italo.xclin.Erro;
+import italo.xclin.Info;
 import italo.xclin.enums.AtendimentoStatusEnumManager;
 import italo.xclin.enums.TurnoEnumManager;
 import italo.xclin.enums.tipos.AtendimentoStatus;
+import italo.xclin.enums.tipos.LancamentoTipo;
 import italo.xclin.enums.tipos.Turno;
 import italo.xclin.exception.LoaderException;
 import italo.xclin.exception.ServiceException;
@@ -21,6 +23,7 @@ import italo.xclin.loader.ConsultaLoader;
 import italo.xclin.loader.EspecialidadeLoader;
 import italo.xclin.loader.ExameItemLoader;
 import italo.xclin.loader.ExameLoader;
+import italo.xclin.loader.LancamentoLoader;
 import italo.xclin.loader.PacienteAnexoLoader;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Atendimento;
@@ -29,11 +32,13 @@ import italo.xclin.model.Consulta;
 import italo.xclin.model.Especialidade;
 import italo.xclin.model.Exame;
 import italo.xclin.model.ExameItem;
+import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.PacienteAnexo;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.ProfissionalEspecialidadeVinculo;
 import italo.xclin.model.ProfissionalExameVinculo;
+import italo.xclin.model.Usuario;
 import italo.xclin.model.request.filtro.AtendimentoFiltroRequest;
 import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroRequest;
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
@@ -41,6 +46,7 @@ import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
+import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.request.save.ExameItemSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoObservacoesResponse;
@@ -63,8 +69,10 @@ import italo.xclin.repository.AtendimentoRepository;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
 import italo.xclin.repository.ExameRepository;
+import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteRepository;
 import italo.xclin.repository.ProfissionalRepository;
+import italo.xclin.repository.UsuarioRepository;
 import italo.xclin.service.shared.ClinicaSharedService;
 import jakarta.transaction.Transactional;
 
@@ -92,24 +100,21 @@ public class AtendimentoService {
 	@Autowired
 	private ExameRepository exameRepository;
 	
-	/*
 	@Autowired
 	private LancamentoRepository lancamentoRepository;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	*/
+	
 	
 	@Autowired
 	private AtendimentoLoader atendimentoLoader;
 	
 	@Autowired
 	private EspecialidadeLoader especialidadeLoader;
-	
-	/*
+		
 	@Autowired
 	private LancamentoLoader lancamentoLoader;
-	*/
 	
 	@Autowired
 	private PacienteAnexoLoader pacienteAnexoLoader;
@@ -132,10 +137,11 @@ public class AtendimentoService {
 	@Autowired
 	private TurnoEnumManager turnoEnumManager;
 	
+	@Transactional
 	public void registra( 
+			Long logadoUID,
 			Long clinicaId, 
 			Long profissionalId,
-			Long especialidadeId, 
 			Long pacienteId, 
 			AtendimentoSaveRequest request ) throws ServiceException {
 		
@@ -146,24 +152,34 @@ public class AtendimentoService {
 		Optional<Profissional> profissionalOp = profissionalRepository.findById( profissionalId );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROFISSIONAL_NAO_ENCONTRADO );
-		
-		Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
-		if ( !especialidadeOp.isPresent() )
-			throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
-		
+				
 		Optional<Paciente> pacienteOp = pacienteRepository.findById( pacienteId );
 		if ( !pacienteOp.isPresent() )
 			throw new ServiceException( Erro.PACIENTE_NAO_ENCONTRADO );
 		
+		Optional<Usuario> usuarioLogadoOp = usuarioRepository.findById( logadoUID );
+		if ( !usuarioLogadoOp.isPresent() )
+			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
+		
+		Usuario usuarioLogado = usuarioLogadoOp.get();
+		
 		Clinica clinica = clinicaOp.get();
 		Profissional profissional = profissionalOp.get();
 		Paciente paciente = pacienteOp.get();
-		Especialidade especialidade = especialidadeOp.get();
 		
 		Consulta consulta = null;
 		if ( request.isTemConsulta() ) {
-			consulta = consultaLoader.novoBean();
-			consultaLoader.loadBean( consulta, request.getConsulta() ); 
+			ConsultaSaveRequest consultaRequest = request.getConsulta();
+			Long especialidadeId = consultaRequest.getEspecialidadeId();
+			
+			Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
+			if ( !especialidadeOp.isPresent() )
+				throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
+
+			Especialidade especialidade = especialidadeOp.get();
+			
+			consulta = consultaLoader.novoBean( especialidade );
+			consultaLoader.loadBean( consulta, consultaRequest ); 
 		}
 		
 		List<ExameItem> exames = new ArrayList<>();
@@ -184,10 +200,9 @@ public class AtendimentoService {
 			
 			exames.add( exameItem );
 		}
-		
+						
 		Atendimento atendimento = atendimentoLoader.novoBean( 
 				profissional, 
-				especialidade, 
 				paciente, 
 				clinica, 
 				consulta, 
@@ -195,6 +210,17 @@ public class AtendimentoService {
 		atendimentoLoader.loadBean( atendimento, request );
 		
 		atendimentoRepository.save( atendimento );
+		
+		if ( request.isPago() ) {					
+			Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );		
+			lanc.setDataLancamento( new Date() );
+			lanc.setTipo( LancamentoTipo.CREDITO );
+			lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );
+			
+			lanc.setValor( request.getValorPago() );
+			
+			lancamentoRepository.save( lanc );
+		}
 	}
 	
 	public void altera( Long atendimentoId, AtendimentoAlterSaveRequest request ) throws ServiceException {
@@ -332,13 +358,16 @@ public class AtendimentoService {
 			Clinica clinica = atendimento.getClinica();
 			Profissional profissional2 = atendimento.getProfissional();
 			Paciente paciente = atendimento.getPaciente();
-			Especialidade especialidade = atendimento.getEspecialidade();
 			
 			Consulta consulta = atendimento.getConsulta();
 			List<ExameItem> exames = atendimento.getExames();
 			
-			ConsultaResponse consultaResp = consultaLoader.novoResponse();
-			consultaLoader.loadResponse( consultaResp, consulta );
+			ConsultaResponse consultaResp = null;
+			if ( atendimento.isTemConsulta() ) {
+				Especialidade esp = consulta.getEspecialidade();
+				consultaResp = consultaLoader.novoResponse( esp );
+				consultaLoader.loadResponse( consultaResp, consulta );
+			}
 			
 			List<ExameItemResponse> examesListaResp = new ArrayList<>();
 			for( ExameItem ei : exames ) {
@@ -352,7 +381,6 @@ public class AtendimentoService {
 					clinica,
 					profissional2, 
 					paciente, 
-					especialidade,
 					consultaResp, 
 					examesListaResp );
 			
@@ -415,13 +443,16 @@ public class AtendimentoService {
 			Clinica clinica = atendimento.getClinica();
 			Profissional profissional = atendimento.getProfissional();
 			Paciente paciente = atendimento.getPaciente();
-			Especialidade especialidade = atendimento.getEspecialidade();
 			
 			Consulta consulta = atendimento.getConsulta();
 			List<ExameItem> exames = atendimento.getExames();
 			
-			ConsultaResponse consultaResp = consultaLoader.novoResponse();
-			consultaLoader.loadResponse( consultaResp, consulta );
+			ConsultaResponse consultaResp = null;
+			if ( atendimento.isTemConsulta() ) {
+				Especialidade esp = consulta.getEspecialidade();
+				consultaResp = consultaLoader.novoResponse( esp );
+				consultaLoader.loadResponse( consultaResp, consulta );
+			}
 			
 			List<ExameItemResponse> examesListaResp = new ArrayList<>();
 			for( ExameItem ei : exames ) {
@@ -432,7 +463,7 @@ public class AtendimentoService {
 			}
 						
 			AtendimentoResponse resp = atendimentoLoader.novoResponse( 
-					clinica, profissional, paciente, especialidade,
+					clinica, profissional, paciente,
 					consultaResp, examesListaResp );
 			
 			atendimentoLoader.loadResponse( resp, atendimento );
@@ -461,13 +492,16 @@ public class AtendimentoService {
 			Clinica clinica = atendimento.getClinica();
 			Profissional profissional = atendimento.getProfissional();
 			Paciente paciente = atendimento.getPaciente();
-			Especialidade especialidade = atendimento.getEspecialidade();
 			
 			Consulta consulta = atendimento.getConsulta();
 			List<ExameItem> exames = atendimento.getExames();
 			
-			ConsultaResponse consultaResp = consultaLoader.novoResponse();
-			consultaLoader.loadResponse( consultaResp, consulta );
+			ConsultaResponse consultaResp = null;
+			if ( atendimento.isTemConsulta() ) {
+				Especialidade esp = consulta.getEspecialidade();
+				consultaResp = consultaLoader.novoResponse( esp );
+				consultaLoader.loadResponse( consultaResp, consulta );
+			}
 			
 			List<ExameItemResponse> examesListaResp = new ArrayList<>();
 			for( ExameItem ei : exames ) {
@@ -478,7 +512,7 @@ public class AtendimentoService {
 			}
 						
 			AtendimentoResponse resp = atendimentoLoader.novoResponse( 
-					clinica, profissional, paciente, especialidade,
+					clinica, profissional, paciente,
 					consultaResp, examesListaResp );
 			atendimentoLoader.loadResponse( resp, atendimento );
 			
@@ -507,13 +541,16 @@ public class AtendimentoService {
 			Clinica clinica = atendimento.getClinica();
 			Profissional profissional = atendimento.getProfissional();
 			Paciente paciente = atendimento.getPaciente();
-			Especialidade especialidade = atendimento.getEspecialidade();
 			
 			Consulta consulta = atendimento.getConsulta();
 			List<ExameItem> exames = atendimento.getExames();
 			
-			ConsultaResponse consultaResp = consultaLoader.novoResponse();
-			consultaLoader.loadResponse( consultaResp, consulta );
+			ConsultaResponse consultaResp = null;
+			if ( atendimento.isTemConsulta() ) {
+				Especialidade esp = consulta.getEspecialidade();
+				consultaResp = consultaLoader.novoResponse( esp );
+				consultaLoader.loadResponse( consultaResp, consulta );
+			}
 			
 			List<ExameItemResponse> examesListaResp = new ArrayList<>();
 			for( ExameItem ei : exames ) {
@@ -524,7 +561,7 @@ public class AtendimentoService {
 			}
 						
 			AtendimentoResponse resp = atendimentoLoader.novoResponse( 
-					clinica, profissional, paciente, especialidade,
+					clinica, profissional, paciente,
 					consultaResp, examesListaResp );
 			atendimentoLoader.loadResponse( resp, atendimento );
 			
@@ -543,13 +580,16 @@ public class AtendimentoService {
 		Clinica clinica = atendimento.getClinica();
 		Profissional profissional = atendimento.getProfissional();
 		Paciente paciente = atendimento.getPaciente();
-		Especialidade especialidade = atendimento.getEspecialidade();
 		
 		Consulta consulta = atendimento.getConsulta();
 		List<ExameItem> exames = atendimento.getExames();
 		
-		ConsultaResponse consultaResp = consultaLoader.novoResponse();
-		consultaLoader.loadResponse( consultaResp, consulta );
+		ConsultaResponse consultaResp = null;
+		if ( atendimento.isTemConsulta() ) {
+			Especialidade esp = consulta.getEspecialidade();
+			consultaResp = consultaLoader.novoResponse( esp );
+			consultaLoader.loadResponse( consultaResp, consulta );
+		}
 		
 		List<ExameItemResponse> examesListaResp = new ArrayList<>();
 		for( ExameItem ei : exames ) {
@@ -560,7 +600,7 @@ public class AtendimentoService {
 		}
 					
 		AtendimentoResponse resp = atendimentoLoader.novoResponse( 
-				clinica, profissional, paciente, especialidade,
+				clinica, profissional, paciente,
 				consultaResp, examesListaResp );
 		atendimentoLoader.loadResponse( resp, atendimento );
 		
@@ -622,13 +662,16 @@ public class AtendimentoService {
 		Clinica clinica = atendimento.getClinica();
 		Profissional profissional = atendimento.getProfissional();
 		Paciente paciente = atendimento.getPaciente();
-		Especialidade especialidade = atendimento.getEspecialidade();
 		
 		Consulta consulta = atendimento.getConsulta();
 		List<ExameItem> exames = atendimento.getExames();
 		
-		ConsultaResponse consultaResp = consultaLoader.novoResponse();
-		consultaLoader.loadResponse( consultaResp, consulta );
+		ConsultaResponse consultaResp = null;
+		if ( atendimento.isTemConsulta() ) {
+			Especialidade esp = consulta.getEspecialidade();
+			consultaResp = consultaLoader.novoResponse( esp );
+			consultaLoader.loadResponse( consultaResp, consulta );
+		}
 		
 		List<ExameItemResponse> examesListaResp = new ArrayList<>();
 		for( ExameItem ei : exames ) {
@@ -639,7 +682,7 @@ public class AtendimentoService {
 		}
 					
 		AtendimentoResponse aresp = atendimentoLoader.novoResponse( 
-				clinica, profissional, paciente, especialidade,
+				clinica, profissional, paciente,
 				consultaResp, examesListaResp );
 		
 		atendimentoLoader.loadResponse( aresp, atendimento );

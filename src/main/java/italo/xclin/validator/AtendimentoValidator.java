@@ -37,6 +37,9 @@ public class AtendimentoValidator {
 		} catch (ConverterException e) {
 			throw new ValidationException( Erro.DATA_ATENDIMENTO_INVALIDA );
 		}
+				
+		if ( request.isPago() && request.getValorPago() == 0 )
+			throw new ValidationException( Erro.ATENDIMENTO_PAGO_COM_ZERO );
 	}
 	
 	public void validaAlterSave( AtendimentoAlterSaveRequest request ) throws ValidationException {

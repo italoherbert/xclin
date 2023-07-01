@@ -48,12 +48,12 @@
                         {{atendimento.clinicaNome}}
                     </div>
                 </div>
-                <div class="col-sm-6 my-3">
+                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
                     <div class="fs-6 fw-bold">
                         Especialidade:
                     </div>
                     <div class="fs-5">
-                        {{atendimento.especialidadeNome}}
+                        {{atendimento.consulta.especialidadeNome}}
                     </div>
                 </div>
                 <div class="col-sm-6 my-3">

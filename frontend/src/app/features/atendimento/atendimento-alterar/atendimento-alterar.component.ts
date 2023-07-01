@@ -51,7 +51,9 @@ export class AtendimentoAlterarComponent {
     
     this.atendimentoService.getAtendimentoAlter( id ).subscribe({
       next: (resp) => {
-        this.atendimentoAlter = resp.atendimento;
+        this.atendimentoAlter.status = resp.atendimento.status;
+        this.atendimentoAlter.observacoes = resp.atendimento.observacoes;
+        
         this.turnos = resp.turnos;
         this.statuses = resp.statuses;
 

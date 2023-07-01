@@ -25,7 +25,7 @@
             <div class="col-sm-8">
                 <mat-form-field appearance="fill" class="w-100">
                     <mat-label>Especialidade</mat-label>
-                    <mat-select placeholder="Selecione a especialidade" [(ngModel)]="especialidadeId" 
+                    <mat-select placeholder="Selecione a especialidade" [(ngModel)]="atendimentoSave.consulta.especialidadeId" 
                             (selectionChange)="onEspecialidadeSelected( $event )">
                         <mat-option *ngFor="let e of especialidades" [value]="e.id">
                             {{e.nome}}
@@ -44,16 +44,29 @@
             <div class="col-sm-6">
                 <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.consulta.retorno">
                     Consulta retorno
-                </mat-checkbox>
-                <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.consulta.paga">
-                    Consulta paga
-                </mat-checkbox>
+                </mat-checkbox>                
             </div>    
         </div>
         <div class="col-sm-12">
             <h2><b>Exames</b></h2>
         </div>
         <div class="col-sm-12">
+            <mat-form-field appearance="fill">
+                <mat-label>Exames para incluír</mat-label>
+                <mat-select placeholder="Selecione o exame" [(ngModel)]="exameNaoIncluidoSelecionadoI">
+                    <mat-option *ngFor="let exameId of examesNaoIncluidosIDs; index as i" [value]="i">
+                        {{examesNaoIncluidosNomes[i]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>                 
+
+            <span class="p-2"></span>
+            <button mat-icon-button color="primary" (click)="adicionaExame()">
+                <fa-icon [icon]="icons.faPlus"></fa-icon>               
+            </button>
+
+            <br />
+
             <mat-form-field appearance="fill">
                 <mat-label>Exames incluídos</mat-label>
                 <mat-select placeholder="Selecione o exame" [(ngModel)]="exameIncluidoSelecionadoI">
@@ -79,21 +92,7 @@
             </button>
 
             <br />
-
-            <mat-form-field appearance="fill">
-                <mat-label>Exames para incluír</mat-label>
-                <mat-select placeholder="Selecione o exame" [(ngModel)]="exameNaoIncluidoSelecionadoI">
-                    <mat-option *ngFor="let exameId of examesNaoIncluidosIDs; index as i" [value]="i">
-                        {{examesNaoIncluidosNomes[i]}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>                 
-
-            <span class="p-2"></span>
-            <button mat-icon-button color="primary" (click)="adicionaExame()">
-                <fa-icon [icon]="icons.faPlus"></fa-icon>               
-            </button>
-
+            
             <div class="table-responsive">
                 <table class="table">
                     <thead>
@@ -120,15 +119,29 @@
                 <span class="fw-bold">Total: </span>
                 <span class="px-2 text-danger">{{valorTotal | currency: 'BRL'}}</span>
             </div>
-              
+            
+            <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.pago">
+                Pagar
+            </mat-checkbox>
+
             <br />
-            <br />
+
+            <div *ngIf="atendimentoSave.pago">
+                <br />
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor pago: </mat-label>
+                    <input matInput type="text" appRealInput 
+                            [valorInicial]="0"
+                            (onValorAlterado)="onValorPagoAlterado( $event )" />
+                </mat-form-field>                
+                <br />
+            </div>
         </div>
 
         <div class="col-sm-12">              
             <h2><b>Observações</b></h2>
         </div>
-
+        
         <div class="col-sm-12">
             <mat-form-field appearance="fill" class="w-100">
                 <mat-label>Observações</mat-label>

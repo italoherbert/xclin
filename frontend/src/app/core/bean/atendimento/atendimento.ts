@@ -1,3 +1,5 @@
+import { Consulta } from "./consulta";
+import { ExameItem } from "./exame-item";
 
 export interface Atendimento {
     id : number;
@@ -13,10 +15,11 @@ export interface Atendimento {
     profissionalId : number;
     profissionalNome : string;
     clinicaId : number;
-    clinicaNome : string; 
-    especialidadeId : number;
-    especialidadeNome : string;
+    clinicaNome : string;     
     pacienteAnamneseCriada : boolean;
+    temConsulta : boolean;
     statusLabel : string;
     turnoLabel : string;
+    consulta : Consulta,
+    exames : ExameItem[];
 }

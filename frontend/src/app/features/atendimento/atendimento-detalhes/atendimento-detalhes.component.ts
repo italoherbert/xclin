@@ -46,10 +46,18 @@ export class AtendimentoDetalhesComponent {
     profissionalNome: '',
     clinicaId: 0,
     clinicaNome: '',
-    especialidadeId: 0,
-    especialidadeNome: '',
     statusLabel: '',
-    turnoLabel: ''
+    turnoLabel: '',
+    temConsulta: false,
+    consulta: {
+      id: 0,
+      especialidadeId: 0,
+      especialidadeNome: '',
+      valor: 0,
+      paga: false,
+      retorno: false
+    },
+    exames: []
   }
 
   constructor( 

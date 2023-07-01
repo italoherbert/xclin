@@ -6,6 +6,8 @@ export interface AtendimentoRegistro {
     turno : string;    
     observacoes: string;
     temConsulta : boolean;
+    pago : boolean;
+    valorPago : number;
     consulta : ConsultaSave;
     exames : ExameItemSave[];
 }

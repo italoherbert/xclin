@@ -17,9 +17,8 @@ export class AtendimentoService {
   constructor( private http: HttpClient) { }
 
   registraAtendimento( 
-      clinicaId : any, profissionalId : any, 
-      especialidadeId : any, pacienteId : any, 
-      atendimentoSave: AtendimentoRegistro): Observable<any> {
+      clinicaId : any, profissionalId : any, pacienteId : any, 
+      atendimentoSave: AtendimentoRegistro ): Observable<any> {
 
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
@@ -27,7 +26,7 @@ export class AtendimentoService {
     });
 
     return this.http.post( 
-      '/api/atendimento/registra/'+clinicaId+'/'+profissionalId+'/'+especialidadeId+'/'+pacienteId, atendimentoSave, 
+      '/api/atendimento/registra/'+clinicaId+'/'+profissionalId+'/'+pacienteId, atendimentoSave, 
       { headers: headers, withCredentials: true } 
     );
   }

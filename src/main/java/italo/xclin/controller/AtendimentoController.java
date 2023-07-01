@@ -57,19 +57,21 @@ public class AtendimentoController {
 	private Autorizador autorizador;
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
-	@PostMapping("/registra/{clinicaId}/{profissionalId}/{especialidadeId}/{pacienteId}")
+	@PostMapping("/registra/{clinicaId}/{profissionalId}/{pacienteId}")
 	public ResponseEntity<Object> registra( 
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable Long profissionalId, 
-			@PathVariable Long especialidadeId,
 			@PathVariable Long pacienteId, 
 			@RequestBody AtendimentoSaveRequest request ) throws SistemaException {
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
 		atendimentoValidator.validaSave( request );
-		atendimentoService.registra( clinicaId, profissionalId, especialidadeId, pacienteId, request );
+		atendimentoService.registra( logadoUID, clinicaId, profissionalId, pacienteId, request );
 		return ResponseEntity.ok().build();
 	}
 	

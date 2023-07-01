@@ -43,11 +43,9 @@ public class AtendimentoResponse {
 	
 	private String profissionalNome;
 	
-	private Long especialidadeId;
-	
-	private String especialidadeNome;
-	
 	private boolean pacienteAnamneseCriada;
+	
+	private boolean temConsulta;
 	
 	private ConsultaResponse consulta;
 	

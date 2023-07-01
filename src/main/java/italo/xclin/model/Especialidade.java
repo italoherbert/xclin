@@ -29,4 +29,6 @@ public class Especialidade {
 	@OneToMany(mappedBy="especialidade", cascade=CascadeType.ALL)
 	private List<ProfissionalEspecialidadeVinculo> profissionalEspecialidadeVinculos;
 	
+	@OneToMany(mappedBy="especialidade", cascade=CascadeType.ALL)
+	private List<Consulta> consultas;
 }

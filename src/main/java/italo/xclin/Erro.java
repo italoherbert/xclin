@@ -111,7 +111,8 @@ public interface Erro {
 	public final static String PACIENTE_CLINICA_NAO_CORRESPONDEM = "O paciente não corresponde a clínica informada.";
 	public final static String PERGUNTA_TIPOS_NAO_CORRESPONDEM = "O tipo da pergunta não corresponse ao registrado no banco de dados.";
 	public final static String ANAMNESE_MODELO_DE_OUTRO_PROFISSIONAL = "O modelo de anamnese que está tentando alterar pertence a outro profissional."; 
-	public final static String ANAMNESE_MODELO_PERGUNTA_DE_OUTRO_PROFISSIONAL = "A pergunta do modelo de anamnese que está tentando alterar pertence a outro profissional."; 
+	public final static String ANAMNESE_MODELO_PERGUNTA_DE_OUTRO_PROFISSIONAL = "A pergunta do modelo de anamnese que está tentando alterar pertence a outro profissional.";
+	public final static String ATENDIMENTO_PAGO_COM_ZERO = "O atendimento está marcado como pago com valor pago igual a zero.";
 	
 	public final static String ANEXO_LIMITE_EXCEDIDO = "Limite de tamanho excedido. O tamanho máximo permitido é de $1.";
 	

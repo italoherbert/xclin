@@ -4,4 +4,6 @@ export interface Consulta {
     retorno : boolean;
     paga : boolean;
     valor : number;
+    especialidadeId : number;
+    especialidadeNome : string;
 }

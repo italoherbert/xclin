@@ -15,7 +15,6 @@ import italo.xclin.logica.Converter;
 import italo.xclin.model.Atendimento;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
-import italo.xclin.model.Especialidade;
 import italo.xclin.model.ExameItem;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
@@ -65,6 +64,8 @@ public class AtendimentoLoader {
 		a.setTurno( turnoEnumManager.getEnum( request.getTurno() ) );
 		a.setObservacoes( request.getObservacoes() );
 		a.setTemConsulta( request.isTemConsulta() ); 
+		a.setPago( request.isPago() ); 
+		a.setValorPago( request.getValorPago() ); 
 	}
 	
 	public void loadBean( Atendimento a, AtendimentoRemarcarSaveRequest request ) throws LoaderException {
@@ -104,6 +105,7 @@ public class AtendimentoLoader {
 			resp.setDataFinalizacao( converter.dataHoraToString( a.getDataFinalizacao() ) );
 		
 		resp.setObservacoes( a.getObservacoes() );
+		resp.setTemConsulta( a.isTemConsulta() ); 
 	}
 		
 	public void loadRegResponse( AtendimentoRegLoadResponse resp ) {
@@ -146,20 +148,19 @@ public class AtendimentoLoader {
 	
 	public Atendimento novoBean( 
 			Profissional profissional,
-			Especialidade especialidade,
 			Paciente paciente, 
 			Clinica clinica,
 			Consulta consulta,
 			List<ExameItem> exames ) {
 		Atendimento atendimento = new Atendimento();
 		atendimento.setProfissional( profissional );
-		atendimento.setEspecialidade( especialidade ); 
 		atendimento.setPaciente( paciente ); 
 		atendimento.setClinica( clinica );
 		atendimento.setConsulta( consulta );
 		atendimento.setExames( exames );
 		
-		consulta.setAtendimento( atendimento );
+		if ( consulta != null )
+			consulta.setAtendimento( atendimento );
 		exames.forEach( e -> e.setAtendimento( atendimento ) ); 
 		return atendimento;
 	}
@@ -168,7 +169,6 @@ public class AtendimentoLoader {
 			Clinica a, 
 			Profissional pr, 
 			Paciente pa, 
-			Especialidade e,
 			ConsultaResponse consulta, 
 			List<ExameItemResponse> exames ) {
 		AtendimentoResponse resp = new AtendimentoResponse();
@@ -178,8 +178,6 @@ public class AtendimentoLoader {
 		resp.setClinicaNome( a.getNome() ); 
 		resp.setProfissionalId( pr.getId() );
 		resp.setProfissionalNome( pr.getNome() );
-		resp.setEspecialidadeId( e.getId() );
-		resp.setEspecialidadeNome( e.getNome() ); 
 		resp.setPacienteAnamneseCriada( pa.isAnamneseCriada() );
 		resp.setConsulta( consulta );
 		resp.setExames( exames ); 		

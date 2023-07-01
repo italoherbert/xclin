@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 public class ConsultaSaveRequest {
 	
+	private Long especialidadeId;
+	
 	private boolean retorno;
 	
 	private boolean paga;

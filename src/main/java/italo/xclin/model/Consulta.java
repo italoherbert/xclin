@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -23,10 +24,12 @@ public class Consulta {
 	private Long id;
 	
 	private boolean retorno;
-	
-	private boolean paga;
-		
+			
 	private double valor;
+	
+	@ManyToOne
+	@JoinColumn(name="especialidade_id")
+	private Especialidade especialidade;
 	
 	@OneToOne
 	@JoinColumn(name="atendimento_id")

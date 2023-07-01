@@ -17,6 +17,10 @@ public class AtendimentoSaveRequest {
 	
 	private String observacoes;
 	
+	private boolean pago;
+	
+	private double valorPago;
+	
 	private boolean temConsulta;
 	
 	private ConsultaSaveRequest consulta;

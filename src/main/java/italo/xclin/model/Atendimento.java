@@ -51,6 +51,10 @@ public class Atendimento {
 	
 	@Enumerated(EnumType.STRING)
 	private Turno turno;
+	
+	private boolean pago;
+	
+	private double valorPago;
 		
 	private boolean temConsulta;		
 			
@@ -67,11 +71,7 @@ public class Atendimento {
 	@ManyToOne
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
-	
-	@ManyToOne
-	@JoinColumn(name="especialidade_id")
-	private Especialidade especialidade;
-	
+		
 	@OneToOne(mappedBy="atendimento", cascade=CascadeType.ALL, optional = true)
 	private Consulta consulta;
 	

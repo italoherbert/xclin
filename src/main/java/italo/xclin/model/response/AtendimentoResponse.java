@@ -20,6 +20,12 @@ public class AtendimentoResponse {
 	private String statusLabel;
 	
 	private String turnoLabel;
+	
+	private boolean pago;
+	
+	private double valorTotal;
+	
+	private double valorPago;
 
 	private String observacoes;
 

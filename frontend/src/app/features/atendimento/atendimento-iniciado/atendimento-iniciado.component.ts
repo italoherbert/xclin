@@ -36,9 +36,9 @@ export class AtendimentoIniciadoComponent {
     observacoes: '',
     turno: '',
     dataAtendimento: '',
-    paga: false,
-    retorno: false,
-    valor: 0,
+    pago: false,
+    valorTotal: 0,
+    valorPago: 0,
     status: '',
     pacienteId: 0,
     pacienteNome: '',
@@ -55,7 +55,6 @@ export class AtendimentoIniciadoComponent {
       especialidadeId: 0,
       especialidadeNome: '',
       valor: 0,
-      paga: false,
       retorno: false
     },
     exames: []

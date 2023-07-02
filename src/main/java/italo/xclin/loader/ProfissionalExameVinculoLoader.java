@@ -19,7 +19,7 @@ public class ProfissionalExameVinculoLoader {
 	}
 	
 	public void loadResponse( ProfissionalExameVinculoResponse resp, ProfissionalExameVinculo vinculo ) {
-		resp.setId( vinculo.getId() ); 
+		resp.setId( vinculo.getId() );
 		resp.setExameValor( vinculo.getExameValor() ); 
 	}
 	

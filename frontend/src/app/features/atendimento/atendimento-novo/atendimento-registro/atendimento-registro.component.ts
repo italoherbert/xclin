@@ -61,6 +61,7 @@ export class AtendimentoRegistroComponent {
 
   examesNaoIncluidosIDs : number[] = [];
   examesNaoIncluidosNomes : string[] = [];
+  examesNaoIncluidosValores : number[] = [];
 
   valorTotal : number = 0;
 
@@ -95,11 +96,13 @@ export class AtendimentoRegistroComponent {
 
         this.examesNaoIncluidosIDs.splice( 0, this.examesIncluidosIDs.length );
         this.examesNaoIncluidosNomes.splice( 0, this.examesIncluidosNomes.length );
+        this.examesNaoIncluidosValores.splice( 0, this.examesNaoIncluidosValores.length );
 
         let exames = resp.profissionalExames;
         for( let i = 0; i < exames.length; i++ ) {
           this.examesNaoIncluidosIDs.push( exames[ i ].id );
-          this.examesNaoIncluidosNomes.push( exames[ i ].nome );
+          this.examesNaoIncluidosNomes.push( exames[ i ].exameNome );
+          this.examesNaoIncluidosValores.push( exames[ i ].exameValor );
         }
 
         this.showSpinner = false;
@@ -171,10 +174,13 @@ export class AtendimentoRegistroComponent {
     let i = this.exameNaoIncluidoSelecionadoI;      
     this.examesIncluidosIDs.push( this.examesNaoIncluidosIDs[ i ] );
     this.examesIncluidosNomes.push( this.examesNaoIncluidosNomes[ i ] );
-    this.examesIncluidosValores.push( 0 );
+    this.examesIncluidosValores.push( this.examesNaoIncluidosValores[ i ] );
 
     this.examesNaoIncluidosIDs.splice( i, 1 );
     this.examesNaoIncluidosNomes.splice( i, 1 );    
+    this.examesNaoIncluidosValores.splice( i, 1 );
+
+    this.atualizaValorTotal();
 
     this.exameNaoIncluidoSelecionadoI = -1;
   }
@@ -184,6 +190,7 @@ export class AtendimentoRegistroComponent {
 
     this.examesNaoIncluidosIDs.push( this.examesIncluidosIDs[ i ] );
     this.examesNaoIncluidosNomes.push( this.examesIncluidosNomes[ i ] );
+    this.examesNaoIncluidosValores.push( this.examesIncluidosValores[ i ] );
 
     this.examesIncluidosIDs.splice( i, 1 );
     this.examesIncluidosNomes.splice( i, 1 );

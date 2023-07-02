@@ -12,6 +12,13 @@
     <span class="mx-3">Alterar</span>
 </a>
 
+<span class="p-2"></span>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'atendimento-pagamento/'+atendimento.id }}]">
+    <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+    <span class="mx-3">Pagamento</span>
+</a>
+
 <br />
 
 <div class="d-flex justify-content-center">
@@ -47,15 +54,7 @@
                     <div class="fs-5">
                         {{atendimento.clinicaNome}}
                     </div>
-                </div>
-                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
-                    <div class="fs-6 fw-bold">
-                        Especialidade:
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.consulta.especialidadeNome}}
-                    </div>
-                </div>
+                </div>                
                 <div class="col-sm-6 my-3">
                     <div class="fs-6 fw-bold">
                         Data de atendimento:
@@ -71,15 +70,7 @@
                     <div class="fs-5">
                         {{atendimento.turnoLabel}}
                     </div>
-                </div>
-                <div class="col-sm-6 my-3">
-                    <div class="fs-6 fw-bold">
-                        Retorno:
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.retorno == true ? 'Sim' : 'Não' }}
-                    </div>
-                </div> 
+                </div>                
                 <div class="col-sm-8 my-3">
                     <div class="fs-6 fw-bold">
                         Status:
@@ -88,33 +79,103 @@
                         {{atendimento.statusLabel}}                        
                     </div>
                 </div>  
+                
+                <h1 class="col-sm-12" *ngIf="atendimento.temConsulta">
+                    Consulta
+                </h1>
+
+                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
+                    <div class="fs-6 fw-bold">
+                        Especialidade:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.consulta.especialidadeNome}}
+                    </div>
+                </div>
+                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
+                    <div class="fs-6 fw-bold">
+                        Retorno:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
+                    </div>
+                </div> 
+                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
+                    <div class="fs-6 fw-bold">
+                        Valor:
+                    </div>
+                    <div class="fs-5">
+                        {{atendimento.consulta.valor | currency: 'BRL'}}
+                    </div>
+                </div>
+
+                <div *ngIf="atendimento.exames.length > 0">
+                    <div class="col-sm-12">
+                        <h1>Exames</h1>
+                    </div>
+
+                    <div class="table-responsive mx-3">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let exame of atendimento.exames">
+                                    <td>{{exame.nome}}</td>
+                                    <td>{{exame.valor | currency: 'BRL'}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <h1 class="col-sm-12">
+                    Valores
+                </h1>
+
+                <div class="col-sm-6 mb-3">
+                    <div class="fs-6 fw-bold">
+                        Valor total
+                    </div>
+                    <div class="fs-5 text-danger">
+                        {{atendimento.valorTotal | currency: 'BRL' }}
+                    </div>
+                </div> 
+                <div class="col-sm-6 mb-3">
+                    <div class="fs-6 fw-bold">
+                        Valor pago
+                    </div>
+                    <div class="fs-5 text-primary">
+                        {{atendimento.valorPago | currency: 'BRL' }}
+                    </div>
+                </div>            
                 <div class="col-sm-6 my-3">
                     <div class="fs-6 fw-bold">
                         Paga:
                     </div>
-                    <div class="fs-5" [ngClass]="atendimento.paga == true ? 'text-success' : 'text-danger'">
-                        {{atendimento.paga == true ? 'Sim' : 'Não' }}
-                        <button *ngIf="atendimento.paga == true" mat-raised-button color="primary" class="my-1" (click)="desfazerPagamento()">
+                    <div class="fs-5" [ngClass]="atendimento.pago === true ? 'text-success' : 'text-danger'">
+                        {{atendimento.pago === true ? 'Sim' : 'Não' }}
+                        <button *ngIf="atendimento.pago == true" mat-raised-button color="primary" class="my-1" (click)="desfazerPagamento()">
                             <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
                             <span class="mx-3">Desfazer pagamento</span>
                         </button>
-                        <button *ngIf="atendimento.paga == false" mat-raised-button color="primary" class="my-1" (click)="realizarPagamento()">
+                        <button *ngIf="atendimento.pago == false" mat-raised-button color="primary" class="my-1" (click)="realizarPagamento()">
                             <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
                             <span class="mx-3">Realizar pagamento</span>
                         </button>
                     </div>
-                </div> 
-                <div class="col-sm-6 my-3">
+                </div>
+
+                <h1 class="col-sm-12">
+                    Observações
+                </h1>                
+
+                <div class="col-sm-12">    
                     <div class="fs-6 fw-bold">
-                        Valor
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.valor | currency: 'BRL' }}
-                    </div>
-                </div>                   
-                <div class="col-sm-12 my-3">
-                    <div class="fs-6 fw-bold">
-                        Observações:
+                        Observações
                     </div>
                     <div class="fs-5">
                         {{atendimento.observacoes}}

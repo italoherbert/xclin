@@ -5,9 +5,9 @@ export interface Atendimento {
     id : number;
     observacoes : string;
     dataAtendimento : string;
-    valor : number;
-    paga : boolean;
-    retorno : boolean;
+    valorTotal : number;
+    valorPago : number;
+    pago : boolean;
     status : string;
     turno : string;
     pacienteId : number;

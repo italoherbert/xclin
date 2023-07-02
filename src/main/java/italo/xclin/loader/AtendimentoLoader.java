@@ -28,8 +28,8 @@ import italo.xclin.model.response.AtendimentoResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ExameItemResponse;
-import italo.xclin.model.response.ExameResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
+import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.TipoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
@@ -99,13 +99,18 @@ public class AtendimentoLoader {
 		
 		resp.setDataAgendamento( converter.dataHoraToString( a.getDataAgendamento() ) );
 		resp.setDataAtendimento( ( converter.dataHoraToString( a.getDataAtendimento() ) ) );
-		resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
+		
+		if ( a.getDataSaveObservacoes() != null )
+			resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
 		
 		if ( a.getDataFinalizacao() != null )
 			resp.setDataFinalizacao( converter.dataHoraToString( a.getDataFinalizacao() ) );
 		
 		resp.setObservacoes( a.getObservacoes() );
-		resp.setTemConsulta( a.isTemConsulta() ); 
+		resp.setTemConsulta( a.isTemConsulta() );
+		
+		resp.setValorPago( a.getValorPago() ); 
+		resp.setPago( a.isPago() );
 	}
 		
 	public void loadRegResponse( AtendimentoRegLoadResponse resp ) {
@@ -181,6 +186,17 @@ public class AtendimentoLoader {
 		resp.setPacienteAnamneseCriada( pa.isAnamneseCriada() );
 		resp.setConsulta( consulta );
 		resp.setExames( exames ); 		
+		
+		double valorTotal = 0;
+		
+		if ( consulta != null )
+			valorTotal += consulta.getValor();
+		
+		for( ExameItemResponse exame : exames )
+			valorTotal += exame.getValor();
+		
+		resp.setValorTotal( valorTotal ); 
+		
 		return resp;
 	}
 		
@@ -204,7 +220,7 @@ public class AtendimentoLoader {
 	
 	public AtendimentoRegLoadResponse novoRegResponse( 
 			List<EspecialidadeResponse> especialidades, 
-			List<ExameResponse> profissionalExames ) {
+			List<ProfissionalExameVinculoResponse> profissionalExames ) {
 		
 		AtendimentoRegLoadResponse resp = new AtendimentoRegLoadResponse();
 		resp.setEspecialidades( especialidades );

@@ -18,7 +18,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let exame of exames; index as i">
-                <td>{{exame.descricao}}</td>
+                <td>{{exame.exameNome}}</td>
                 <td>{{exame.exameValor | currency: 'BRL'}}</td>                
             </tr>
         </tbody>

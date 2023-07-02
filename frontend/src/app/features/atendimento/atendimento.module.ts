@@ -9,6 +9,7 @@ import { AtendimentoRemarcarModule } from './atendimento-remarcar/atendimento-re
 import { AtendimentoTelaModule } from './atendimento-tela/atendimento-tela.module';
 import { AtendimentoAgendaModule } from './atendimento-agenda/atendimento-agenda.module';
 import { AtendimentoFilaCompletaModule } from './atendimento-fila-completa/atendimento-fila-completa.module';
+import { AtendimentoPagamentoModule } from './atendimento-pagamento/atendimento-pagamento.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AtendimentoFilaCompletaModule } from './atendimento-fila-completa/atend
     AtendimentoRemarcarModule,
     AtendimentoTelaModule,
     AtendimentoAgendaModule,
-    AtendimentoFilaCompletaModule
+    AtendimentoFilaCompletaModule,
+    AtendimentoPagamentoModule
   ]
 })
 export class AtendimentoModule { }

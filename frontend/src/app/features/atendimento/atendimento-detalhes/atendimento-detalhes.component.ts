@@ -35,9 +35,9 @@ export class AtendimentoDetalhesComponent {
     observacoes: '',
     turno: '',
     dataAtendimento: '',
-    paga: false,
-    retorno: false,
-    valor: 0,
+    pago: false,
+    valorTotal: 0,
+    valorPago: 0,
     status: '',
     pacienteId: 0,
     pacienteNome: '',
@@ -54,7 +54,6 @@ export class AtendimentoDetalhesComponent {
       especialidadeId: 0,
       especialidadeNome: '',
       valor: 0,
-      paga: false,
       retorno: false
     },
     exames: []
@@ -98,7 +97,7 @@ export class AtendimentoDetalhesComponent {
     this.setaPagamento( false );
   }
 
-  setaPagamento( paga : boolean ) {
+  setaPagamento( pago : boolean ) {
     this.infoMsg = null;
     this.erroMsg = null;
 
@@ -106,7 +105,7 @@ export class AtendimentoDetalhesComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'atendimentoId' );
 
-    this.atendimentoService.setaPagamentoAtendimento( id, paga ).subscribe({
+    this.atendimentoService.setaPagamentoAtendimento( id, pago ).subscribe({
       next: (resp) => {
         this.showSpinner = false;
         this.carrega();

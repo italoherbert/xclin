@@ -22,9 +22,9 @@ import italo.xclin.loader.AtendimentoLoader;
 import italo.xclin.loader.ConsultaLoader;
 import italo.xclin.loader.EspecialidadeLoader;
 import italo.xclin.loader.ExameItemLoader;
-import italo.xclin.loader.ExameLoader;
 import italo.xclin.loader.LancamentoLoader;
 import italo.xclin.loader.PacienteAnexoLoader;
+import italo.xclin.loader.ProfissionalExameVinculoLoader;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Atendimento;
 import italo.xclin.model.Clinica;
@@ -54,9 +54,9 @@ import italo.xclin.model.response.AtendimentoResponse;
 import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ExameItemResponse;
-import italo.xclin.model.response.ExameResponse;
 import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
+import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
@@ -123,7 +123,7 @@ public class AtendimentoService {
 	private ConsultaLoader consultaLoader;
 	
 	@Autowired
-	private ExameLoader exameLoader;
+	private ProfissionalExameVinculoLoader profissionalExameVinculoLoader;
 	
 	@Autowired
 	private ExameItemLoader exameItemLoader;
@@ -208,6 +208,7 @@ public class AtendimentoService {
 				consulta, 
 				exames );
 		atendimentoLoader.loadBean( atendimento, request );
+		atendimento.setStatus( AtendimentoStatus.REGISTRADO ); 
 		
 		atendimentoRepository.save( atendimento );
 		
@@ -626,12 +627,12 @@ public class AtendimentoService {
 			especialidadeLista.add( resp );
 		}
 		
-		List<ExameResponse> exameLista = new ArrayList<>();
+		List<ProfissionalExameVinculoResponse> exameLista = new ArrayList<>();
 		for( ProfissionalExameVinculo v : examesVinculos ) {
 			Exame exame = v.getExame();
 			
-			ExameResponse resp = exameLoader.novoResponse();
-			exameLoader.loadResponse( resp, exame );
+			ProfissionalExameVinculoResponse resp = profissionalExameVinculoLoader.novoResponse( exame );
+			profissionalExameVinculoLoader.loadResponse( resp, v );
 			
 			exameLista.add( resp );
 		}
@@ -776,10 +777,31 @@ public class AtendimentoService {
 		return atendimentoRepository.agrupaPorDiaDeMes( clinicaId, profissionalId, mes, ano );		
 	}
 			
-	public void deleta( Long atendimentoId ) throws ServiceException {
-		boolean existe = atendimentoRepository.existsById( atendimentoId );
-		if ( !existe )
+	@Transactional
+	public void deleta( Long logadoUID, Long atendimentoId ) throws ServiceException {
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
+		if ( !atendimentoOp.isPresent())
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
+						
+		Atendimento atendimento = atendimentoOp.get();
+		
+		if ( atendimento.isPago() ) {
+			Clinica clinica = atendimento.getClinica();
+
+			Optional<Usuario> usuarioOp = usuarioRepository.findById( logadoUID );
+			if ( !usuarioOp.isPresent() )
+				throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
+			
+			Usuario usuarioLogado = usuarioOp.get();
+			
+			Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );
+			lanc.setDataLancamento( new Date() );
+			lanc.setTipo( LancamentoTipo.DEBITO );
+			lanc.setValor( atendimento.getValorPago() );
+			lanc.setObservacoes( Info.PAGAMENTO_DEBITADO ); 
+			
+			lancamentoRepository.save( lanc );
+		}
 		
 		atendimentoRepository.deleteById( atendimentoId ); 
 	}

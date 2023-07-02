@@ -72,6 +72,7 @@ import { ExameSaveComponent } from './features/exame/exame-save/exame-save.compo
 import { ExameDetalhesComponent } from './features/exame/exame-detalhes/exame-detalhes.component';
 import { ProfissionalContaExamesComponent } from './features/conta/profissional-conta/profissional-conta-exames/profissional-conta-exames.component';
 import { ProfissionalContaExameSaveComponent } from './features/conta/profissional-conta/profissional-conta-exame-save/profissional-conta-exame-save.component';
+import { AtendimentoPagamentoComponent } from './features/atendimento/atendimento-pagamento/atendimento-pagamento.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -150,6 +151,7 @@ const routes: Routes = [
     { path: 'atendimento-alterar/:atendimentoId', component: AtendimentoAlterarComponent, outlet: 'page' },
     { path: 'atendimento-detalhes/:atendimentoId', component: AtendimentoDetalhesComponent, outlet: 'page' },
     { path: 'atendimento-agenda', component: AtendimentoAgendaComponent, outlet: 'page' },
+    { path: 'atendimento-pagamento/:atendimentoId', component: AtendimentoPagamentoComponent, outlet: 'page' },
 
     { path: 'lancamento-tela', component: LancamentoTelaComponent, outlet: 'page' },
     { path: 'lancamento-novo', component: LancamentoNovoComponent, outlet: 'page' },

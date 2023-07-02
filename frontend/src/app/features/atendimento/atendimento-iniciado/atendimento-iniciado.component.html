@@ -68,12 +68,12 @@
                         {{atendimento.consulta.especialidadeNome}}
                     </div>
                 </div>                                                 
-                <div class="col-sm-6 my-2">
+                <div class="col-sm-6 my-2" *ngIf="atendimento.temConsulta">
                     <div class="fs-6 fw-bold">
                         Retorno:
                     </div>
                     <div class="fs-5">
-                        {{atendimento.retorno == true ? 'Sim' : 'Não' }}
+                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
                     </div>
                 </div>               
                 <div class="col-sm-6 my-2">

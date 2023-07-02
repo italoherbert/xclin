@@ -378,9 +378,12 @@ public class AtendimentoController {
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId ) throws SistemaException {
 		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+		
 		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
 		
-		atendimentoService.deleta( atendimentoId );
+		atendimentoService.deleta( logadoUID, atendimentoId );
 		return ResponseEntity.ok().build();
 	}
 }

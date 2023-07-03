@@ -8,6 +8,7 @@ import { AtendimentoFilaFiltro } from '../bean/atendimento/atendimento-fila-filt
 import { AtendimentoAlter } from '../bean/atendimento/atendimento-alter';
 import { AtendimentoObservacoesAlter } from '../bean/atendimento/atendimento-observacoes-alter';
 import { AtendimentoFilaCompletaFiltro } from '../bean/atendimento/atendimento-fila-completa-filtro';
+import { AtendimentoPagamentoSave } from '../bean/atendimento/atendimento-pagamento-save';
 
 @Injectable({
   providedIn: 'root'
@@ -50,12 +51,20 @@ export class AtendimentoService {
     );
   }
 
-  setaPagamentoAtendimento( atendimentoId : any, paga : boolean ): Observable<any> {
+  efetuaPagamento( atendimentoId : any, pagamentoSave : AtendimentoPagamentoSave ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
-    return this.http.patch( '/api/atendimento/seta/pagamento/'+atendimentoId+'/'+paga, {}, { headers: headers, withCredentials: true } );
+    return this.http.patch( '/api/atendimento/efetua/pagamento/'+atendimentoId, pagamentoSave, { headers: headers, withCredentials: true } );  
+  }
+
+  desfazPagamento( atendimentoId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.patch( '/api/atendimento/desfaz/pagamento/'+atendimentoId, {}, { headers: headers, withCredentials: true } );
   }
 
   alteraObservacoes( atendimentoId : any, observacoesSave : AtendimentoObservacoesAlter ): Observable<any> {
@@ -179,6 +188,13 @@ export class AtendimentoService {
     });
     return this.http.get( '/api/atendimento/get/novoatendimento/tela', { headers: headers, withCredentials: true } );
   }  
+
+  loadPagamentoTela( atendimentoId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.get( '/api/atendimento/load/pagamento/'+atendimentoId, { headers: headers, withCredentials: true } );
+  }
 
   getAtendimentoAgendaTela() : Observable<any> {
     let headers = new HttpHeaders({

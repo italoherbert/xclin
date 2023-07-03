@@ -74,43 +74,15 @@ export class AtendimentoDetalhesComponent {
 
     this.showSpinner = true;
 
-    let id = this.actRoute.snapshot.paramMap.get( 'atendimentoId' );
+    let atendimentoId = this.actRoute.snapshot.paramMap.get( 'atendimentoId' );
 
-    this.atendimentoService.getAtendimento( id ).subscribe({
+    this.atendimentoService.getAtendimento( atendimentoId ).subscribe({
       next: ( resp ) => {
         this.atendimento = resp;
         this.atendimento.dataAtendimento = moment( resp.dataAtendimento, 'YYYY-MM-DD' ).format( 'DD/MM/YYYY' );
         this.showSpinner = false;
       },
       error: ( erro ) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
-        this.showSpinner = false;
-      }
-    });
-  }
-
-  realizarPagamento() {
-    this.setaPagamento( true );
-  }
-
-  desfazerPagamento() {
-    this.setaPagamento( false );
-  }
-
-  setaPagamento( pago : boolean ) {
-    this.infoMsg = null;
-    this.erroMsg = null;
-
-    this.showSpinner = true;
-
-    let id = this.actRoute.snapshot.paramMap.get( 'atendimentoId' );
-
-    this.atendimentoService.setaPagamentoAtendimento( id, pago ).subscribe({
-      next: (resp) => {
-        this.showSpinner = false;
-        this.carrega();
-      },
-      error: (erro) => {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }

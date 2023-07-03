@@ -157,15 +157,7 @@
                         Paga:
                     </div>
                     <div class="fs-5" [ngClass]="atendimento.pago === true ? 'text-success' : 'text-danger'">
-                        {{atendimento.pago === true ? 'Sim' : 'Não' }}
-                        <button *ngIf="atendimento.pago == true" mat-raised-button color="primary" class="my-1" (click)="desfazerPagamento()">
-                            <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
-                            <span class="mx-3">Desfazer pagamento</span>
-                        </button>
-                        <button *ngIf="atendimento.pago == false" mat-raised-button color="primary" class="my-1" (click)="realizarPagamento()">
-                            <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
-                            <span class="mx-3">Realizar pagamento</span>
-                        </button>
+                        {{atendimento.pago === true ? 'Sim' : 'Não' }}                        
                     </div>
                 </div>
 

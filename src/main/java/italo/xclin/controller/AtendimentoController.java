@@ -24,11 +24,13 @@ import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroReques
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
+import italo.xclin.model.request.save.AtendimentoPagamentoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
@@ -101,24 +103,37 @@ public class AtendimentoController {
 		atendimentoService.remarca( atendimentoId, request );
 		return ResponseEntity.ok().build();		
 	}	
-	
-	/*
+		
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
-	@PatchMapping("/seta/pagamento/{atendimentoId}/{paga}")
+	@PatchMapping("/efetua/pagamento/{atendimentoId}")
 	public ResponseEntity<Object> registraPagamento(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId,
-			@PathVariable boolean paga ) throws SistemaException {
+			@RequestBody AtendimentoPagamentoSaveRequest request ) throws SistemaException {
 		
 		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
 				
-		atendimentoService.setaPagamento( logadoUID, atendimentoId, paga );
+		atendimentoService.efetuaPagamento( logadoUID, atendimentoId, request );
+		return ResponseEntity.ok().build();		
+	}	
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/desfaz/pagamento/{atendimentoId}")
+	public ResponseEntity<Object> registraPagamento(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long atendimentoId ) throws SistemaException {
+		
+		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
+		
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+		Long logadoUID = tokenInfo.getUsuarioId();
+				
+		atendimentoService.desfazPagamento( logadoUID, atendimentoId );
 		return ResponseEntity.ok().build();		
 	}
-	*/
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/finaliza/{atendimentoId}")
@@ -196,6 +211,18 @@ public class AtendimentoController {
 		return ResponseEntity.ok( resp );	
 	}
 		
+	@PreAuthorize("hasAuthority('atendimentoREAD')")
+	@GetMapping("/load/pagamento/{atendimentoId}")
+	public ResponseEntity<Object> loadPagamento(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long atendimentoId ) throws SistemaException {
+		
+		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
+		
+		AtendimentoPagamentoLoadResponse resp = atendimentoService.getPagamentoLoad( atendimentoId );
+		return ResponseEntity.ok( resp );
+	}
+	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
 	@GetMapping("/get/reg/{profissionalId}")
 	public ResponseEntity<Object> getRegLoad( 

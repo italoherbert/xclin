@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 public class AtendimentoPagamentoSaveRequest {
 	
-	
-
 	private double valorPago;
 	
 }

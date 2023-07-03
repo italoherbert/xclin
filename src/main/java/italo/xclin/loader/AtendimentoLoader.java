@@ -20,6 +20,7 @@ import italo.xclin.model.Paciente;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
+import italo.xclin.model.request.save.AtendimentoPagamentoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
@@ -32,6 +33,7 @@ import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.TipoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
@@ -66,6 +68,11 @@ public class AtendimentoLoader {
 		a.setTemConsulta( request.isTemConsulta() ); 
 		a.setPago( request.isPago() ); 
 		a.setValorPago( request.getValorPago() ); 
+	}
+	
+	public void loadBean( Atendimento a, AtendimentoPagamentoSaveRequest request ) {
+		a.setValorPago( request.getValorPago() ); 
+		a.setPago( true ); 
 	}
 	
 	public void loadBean( Atendimento a, AtendimentoRemarcarSaveRequest request ) throws LoaderException {
@@ -186,16 +193,8 @@ public class AtendimentoLoader {
 		resp.setPacienteAnamneseCriada( pa.isAnamneseCriada() );
 		resp.setConsulta( consulta );
 		resp.setExames( exames ); 		
-		
-		double valorTotal = 0;
-		
-		if ( consulta != null )
-			valorTotal += consulta.getValor();
-		
-		for( ExameItemResponse exame : exames )
-			valorTotal += exame.getValor();
-		
-		resp.setValorTotal( valorTotal ); 
+					
+		resp.setValorTotal( this.valorTotal( consulta, exames ) ); 
 		
 		return resp;
 	}
@@ -296,5 +295,41 @@ public class AtendimentoLoader {
 		resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
 		return resp;
 	}		
+	
+	public AtendimentoPagamentoLoadResponse novoPagamentoResponse( 
+			Atendimento a, 
+			Consulta c, 
+			List<ExameItem> exames ) {
+		
+		AtendimentoPagamentoLoadResponse resp = new AtendimentoPagamentoLoadResponse();
+		resp.setPago( a.isPago() );
+		resp.setValorPago( a.getValorPago() );
+		resp.setValorTotal( this.valorTotal( c, exames ) ); 
+		return resp;
+	}
+	
+	private double valorTotal( ConsultaResponse consulta, List<ExameItemResponse> exames ) {
+		double valorTotal = 0;
+		
+		if ( consulta != null )
+			valorTotal += consulta.getValor();
+		
+		for( ExameItemResponse exame : exames )
+			valorTotal += exame.getValor();
+		
+		return valorTotal;
+	}
+	
+	private double valorTotal( Consulta consulta, List<ExameItem> exames ) {
+		double valorTotal = 0;
+		
+		if ( consulta != null )
+			valorTotal += consulta.getValor();
+		
+		for( ExameItem exame : exames )
+			valorTotal += exame.getValor();
+		
+		return valorTotal;
+	}
 	
 }

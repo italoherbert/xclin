@@ -44,6 +44,7 @@ import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroReques
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
+import italo.xclin.model.request.save.AtendimentoPagamentoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
@@ -58,6 +59,7 @@ import italo.xclin.model.response.ListaResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
@@ -250,39 +252,67 @@ public class AtendimentoService {
 		atendimentoRepository.save( atendimento );
 	}
 	
-	/*
 	@Transactional
-	public void setaPagamento( Long logadoUID, Long atendimentoId, boolean paga ) throws ServiceException {				
+	public void efetuaPagamento( Long logadoUID, Long atendimentoId, AtendimentoPagamentoSaveRequest request ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
-				
-		Atendimento atendimento = atendimentoOp.get();
-		atendimento.setPaga( paga );			
-		
+						
 		Optional<Usuario> usuarioLogadoOp = usuarioRepository.findById( logadoUID );
 		if ( !usuarioLogadoOp.isPresent() )
 			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
 		
 		Usuario usuarioLogado = usuarioLogadoOp.get();
 		
+		Atendimento atendimento = atendimentoOp.get();
+		atendimentoLoader.loadBean( atendimento, request ); 
+		
 		atendimentoRepository.save( atendimento );
-					
+		
 		Clinica c = atendimento.getClinica();
+		
 		Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, c );
 		lanc.setDataLancamento( new Date() );
-		if ( paga ) {			
-			lanc.setTipo( LancamentoTipo.CREDITO );
-			lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );
-		} else {
-			lanc.setTipo( LancamentoTipo.DEBITO ); 
-			lanc.setObservacoes( Info.PAGAMENTO_DEBITADO ); 
-		}
-		lanc.setValor( atendimento.getValor() ); 
+		lanc.setTipo( LancamentoTipo.CREDITO );
+		lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );		
+		lanc.setValor( atendimento.getValorPago() ); 
+		
+		lancamentoRepository.save( lanc );
+	}	
+	
+	@Transactional
+	public void desfazPagamento( Long logadoUID, Long atendimentoId ) throws ServiceException {
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
+		if ( !atendimentoOp.isPresent() )
+			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
+						
+		Optional<Usuario> usuarioLogadoOp = usuarioRepository.findById( logadoUID );
+		if ( !usuarioLogadoOp.isPresent() )
+			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
+		
+		Usuario usuarioLogado = usuarioLogadoOp.get();
+		
+		Atendimento atendimento = atendimentoOp.get();
+		
+		double valorPago = atendimento.getValorPago();
+				
+		atendimento.setPago( false );
+		atendimento.setValorPago( 0 );
+		
+		atendimentoRepository.save( atendimento );
+		
+		Clinica clinica = atendimento.getClinica();
+		
+		Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );
+		lanc.setClinica( clinica );
+		lanc.setUsuario( usuarioLogado ); 
+		lanc.setDataLancamento( new Date() );
+		lanc.setTipo( LancamentoTipo.DEBITO );
+		lanc.setValor( valorPago );
+		lanc.setObservacoes( Info.PAGAMENTO_DEBITADO );
 		
 		lancamentoRepository.save( lanc );
 	}
-	*/
 		
 	public void cancelaConsulta( Long atendimentoId ) throws ServiceException {
 		this.alteraStatus( atendimentoId, AtendimentoStatus.CANCELADO ); 
@@ -652,6 +682,18 @@ public class AtendimentoService {
 		AtendimentoRemarcarLoadResponse resp = atendimentoLoader.novoRemarcarResponse( atendimento );
 		atendimentoLoader.loadRemarcarResponse( resp );
 		return resp;
+	}
+	
+	public AtendimentoPagamentoLoadResponse getPagamentoLoad( Long atendimentoId ) throws ServiceException {
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
+		if ( !atendimentoOp.isPresent() )
+			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
+		
+		Atendimento atendimento = atendimentoOp.get();
+		Consulta consulta = atendimento.getConsulta();
+		List<ExameItem> exames = atendimento.getExames();
+		
+		return atendimentoLoader.novoPagamentoResponse( atendimento, consulta, exames );
 	}
 	
 	public AtendimentoAlterLoadResponse getAlterLoad( Long atendimentoId ) throws ServiceException {

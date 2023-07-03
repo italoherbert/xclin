@@ -125,7 +125,7 @@ export class AtendimentoService {
     return this.http.get( '/api/atendimento/get/'+atendimentoId, { headers: headers, withCredentials: true } );
   }
 
-  getAtendimentoIniciada( clinicaId : any, turno : any, histObsPagaSize : any ): Observable<any> {
+  getAtendimentoIniciado( clinicaId : any, turno : any, histObsPagaSize : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });

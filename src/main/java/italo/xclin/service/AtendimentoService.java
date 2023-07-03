@@ -368,7 +368,7 @@ public class AtendimentoService {
 		atendimentoRepository.save( atendimento );
 	}
 		
-	public AtendimentoIniciadoResponse getIniciada( 
+	public AtendimentoIniciadoResponse getIniciado( 
 			Long logadoUID, Long clinicaId, String turnoStr, int histObsPageSize ) throws ServiceException {
 		
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
@@ -380,7 +380,7 @@ public class AtendimentoService {
 		
 		Turno turno = turnoEnumManager.getEnum( turnoStr );		
 		
-		Optional<Atendimento> atendimentoOp = atendimentoRepository.getIniciada( clinicaId, profissionalId, turno );
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.getIniciado( clinicaId, profissionalId, turno );
 				
 		int quantPacientesNaFila = atendimentoRepository.contaFila( clinicaId, profissionalId, turno );
 

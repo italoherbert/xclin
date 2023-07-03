@@ -124,7 +124,7 @@ export class AtendimentoIniciadoComponent {
       return;
     }
 
-    this.atendimentoService.getAtendimentoIniciada( 
+    this.atendimentoService.getAtendimentoIniciado( 
           this.clinicaId, 
           this.turno, 
           this.historicoObservacoesPageSize ).subscribe({
@@ -134,7 +134,7 @@ export class AtendimentoIniciadoComponent {
 
         this.erroMsg = null;
 
-        if ( resp.atendimentoIniciada == true ) {
+        if ( resp.atendimentoIniciado == true ) {
           this.historicoObservacoes = resp.historicoObservacoes;
 
           if ( resp.atendimento.id !== this.atendimento.id ) {
@@ -145,7 +145,7 @@ export class AtendimentoIniciadoComponent {
 
           this.infoMsg = null;
         } else {
-          this.infoMsg = "Nenhuma atendimento iniciada por enquanto."
+          this.infoMsg = "Nenhuma atendimento iniciado por enquanto."
         }
                 
         setTimeout( () => {

@@ -274,25 +274,27 @@ public class AtendimentoLoader {
 			int filaQuant ) {
 		
 		AtendimentoIniciadoResponse resp = new AtendimentoIniciadoResponse();
-		resp.setConsulta( aresp );
+		
+		resp.setAtendimento( aresp );
 		resp.setHistoricoObservacoes( historicoObservacoes );
 		resp.setPacienteAnexos( anexos ); 
 		resp.setQuantPacientesNaFila( filaQuant );
-		resp.setConsultaIniciada( true );
+		resp.setAtendimentoIniciado( true );
 		return resp;
 	}
 	
 	public AtendimentoIniciadoResponse novoNenhumaIniciadaResponse( int filaQuant ) {
 		AtendimentoIniciadoResponse resp = new AtendimentoIniciadoResponse();
 		resp.setQuantPacientesNaFila( filaQuant ); 
-		resp.setConsultaIniciada( false ); 
+		resp.setAtendimentoIniciado( false ); 
 		return resp;
 	}
 	
 	public AtendimentoObservacoesResponse novoObservacoesResponse( Atendimento a ) {
 		AtendimentoObservacoesResponse resp = new AtendimentoObservacoesResponse();
 		resp.setObservacoes( a.getObservacoes() );
-		resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
+		if ( a.getDataSaveObservacoes() != null )
+			resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
 		return resp;
 	}		
 	

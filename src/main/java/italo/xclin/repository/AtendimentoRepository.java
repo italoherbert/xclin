@@ -89,7 +89,7 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 				+ "a.profissional.id=?2 and "
 				+ "date(a.dataAtendimento)=current_date and "
 				+ "a.turno=?3")
-	public Optional<Atendimento> getIniciada(
+	public Optional<Atendimento> getIniciado(
 			Long clinicaId, Long profissionalId, 
 			Turno turno);
 		

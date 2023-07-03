@@ -207,7 +207,7 @@ public class AtendimentoController {
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
 		AtendimentoIniciadoResponse resp = 
-				atendimentoService.getIniciada( logadoUID, clinicaId, turno, histObsPageSize );
+				atendimentoService.getIniciado( logadoUID, clinicaId, turno, histObsPageSize );
 		return ResponseEntity.ok( resp );	
 	}
 		

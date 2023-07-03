@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class AtendimentoIniciadoResponse {
 	
-	private AtendimentoResponse consulta;
+	private AtendimentoResponse atendimento;
 	
 	private int quantPacientesNaFila;
 	
@@ -19,6 +19,6 @@ public class AtendimentoIniciadoResponse {
 	
 	private List<AtendimentoObservacoesResponse> historicoObservacoes;
 		
-	private boolean consultaIniciada;
+	private boolean atendimentoIniciado;
 	
 }

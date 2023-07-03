@@ -172,7 +172,7 @@ export class AtendimentoFilaComponent {
     this.atendimentoService.finalizaAtendimento( atendimentoId ).subscribe({
       next: (resp) => {
         this.showSpinner = false;
-        this.atendimentoFilaFiltro.status = 'REGISTRADA';
+        this.atendimentoFilaFiltro.status = 'REGISTRADO';
         this.filtra();
       },
       error: (erro) => {
@@ -191,7 +191,7 @@ export class AtendimentoFilaComponent {
     this.atendimentoService.iniciaAtendimento( this.clinicaId, this.profissionalId, atendimentoId, turno ).subscribe({
       next: (resp) => {
         this.showSpinner = false;        
-        this.atendimentoFilaFiltro.status = 'INICIADA';
+        this.atendimentoFilaFiltro.status = 'INICIADO';
         this.filtra();
       },
       error: (erro) => {

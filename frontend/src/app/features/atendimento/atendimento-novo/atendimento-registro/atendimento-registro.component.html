@@ -37,12 +37,14 @@
                 <mat-form-field appearance="fill" class="w-100">
                     <mat-label>Valor da consulta</mat-label>
                     <input matInput appRealInput type="text" placeholder="Valor da consulta" 
-                            [valorInicial]="atendimentoSave.consulta.valor"
+                            [valorInicial]="atendimentoSave.consulta.valor" #consultaValor
                             (onValorAlterado)="onValorConsultaAlterado($event)">
                 </mat-form-field>
             </div> 
             <div class="col-sm-6">
-                <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.consulta.retorno">
+                <mat-checkbox class="mt-2" color="primary" 
+                        [(ngModel)]="atendimentoSave.consulta.retorno"
+                        (change)="onConsultaRetornoChange( $event )">
                     Consulta retorno
                 </mat-checkbox>                
             </div>    

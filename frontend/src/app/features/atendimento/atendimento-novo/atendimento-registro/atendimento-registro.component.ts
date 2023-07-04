@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { faCircleLeft, faPlus, faRemove, faSave, faX } from '@fortawesome/free-solid-svg-icons';
 import { AtendimentoRegistro } from 'src/app/core/bean/atendimento/atendimento-registro';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
@@ -8,6 +8,7 @@ import * as moment from 'moment';
 import { Especialidade } from 'src/app/core/bean/especialidade/especialidade';
 import { ProfissionalService } from 'src/app/core/service/profissional.service';
 import { PacienteService } from 'src/app/core/service/paciente.service';
+import { RealInputDirective } from 'src/app/shared/directive/real-input/real-input.directive';
 
 @Component({
   selector: 'app-atendimento-registro',
@@ -22,6 +23,8 @@ export class AtendimentoRegistroComponent {
   @Input() mes : number = 0;
   @Input() ano : number = 0;
   @Input() turno : number = 0;
+
+  @ViewChild( 'consultaValor', {read : RealInputDirective} ) consultaValorDirective! : RealInputDirective;
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -147,6 +150,13 @@ export class AtendimentoRegistroComponent {
         this.showSpinner = false;
       }
     });    
+  }
+
+  onConsultaRetornoChange( event : any ) {
+    if ( this.atendimentoSave.consulta.retorno === true ) {
+      this.atendimentoSave.consulta.valor = 0;
+      this.consultaValorDirective.setValor( 0 );
+    }
   }
 
   onEspecialidadeSelected( event : any ) {

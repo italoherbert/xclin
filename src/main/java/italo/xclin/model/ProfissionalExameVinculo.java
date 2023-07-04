@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="profissional_clinica_exame_vinculo")
+@Table(name="profissional_exame_vinculo")
 public class ProfissionalExameVinculo {
 
 	@Id

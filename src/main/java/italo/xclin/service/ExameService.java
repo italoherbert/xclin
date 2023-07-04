@@ -25,13 +25,13 @@ import italo.xclin.repository.ClinicaRepository;
 public class ExameService {
 	
 	@Autowired
-	private ExameRepository clinicaExameRepository;
+	private ExameRepository exameRepository;
 	
 	@Autowired
 	private ClinicaRepository clinicaRepository;
 
 	@Autowired
-	private ExameLoader clinicaExameLoader;
+	private ExameLoader exameLoader;
 	
 	public void registra( Long clinicaId, ExameSaveRequest request ) throws ServiceException {
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
@@ -40,14 +40,20 @@ public class ExameService {
 		
 		Clinica clinica = clinicaOp.get();
 		
-		Exame exame = clinicaExameLoader.novoBean( clinica );
-		clinicaExameLoader.loadBean( exame, request ); 
+		String nome = request.getNome();
 		
-		clinicaExameRepository.save( exame );
+		boolean existe = exameRepository.existePorClinicaPorNome( clinicaId, nome );
+		if ( existe )
+			throw new ServiceException( Erro.CLINICA_EXAME_JA_EXISTE );
+		
+		Exame exame = exameLoader.novoBean( clinica );
+		exameLoader.loadBean( exame, request ); 
+		
+		exameRepository.save( exame );
 	}
 	
 	public void altera( Long clinicaExameId, ExameSaveRequest request ) throws ServiceException {
-		Optional<Exame> exameOp = clinicaExameRepository.findById( clinicaExameId );
+		Optional<Exame> exameOp = exameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
 		
@@ -55,11 +61,11 @@ public class ExameService {
 		
 		String nome = request.getNome();		
 		if ( !nome.equalsIgnoreCase( exame.getNome() ) )
-			if ( clinicaExameRepository.existePorClinicaPorNome( clinicaExameId, nome ) )
+			if ( exameRepository.existePorClinicaPorNome( clinicaExameId, nome ) )
 				throw new ServiceException( Erro.CLINICA_EXAME_JA_EXISTE );		
 		
-		clinicaExameLoader.loadBean( exame, request );
-		clinicaExameRepository.save( exame );
+		exameLoader.loadBean( exame, request );
+		exameRepository.save( exame );
 	}
 	
 	public List<ExameResponse> filtra( Long clinicaId, ExameFiltroRequest request ) throws ServiceException {
@@ -83,8 +89,8 @@ public class ExameService {
 		
 		List<ExameResponse> lista = new ArrayList<>();
 		for( Exame e : exames ) {
-			ExameResponse eresp = clinicaExameLoader.novoResponse();
-			clinicaExameLoader.loadResponse( eresp, e );
+			ExameResponse eresp = exameLoader.novoResponse();
+			exameLoader.loadResponse( eresp, e );
 			
 			lista.add( eresp );
 		}
@@ -92,14 +98,14 @@ public class ExameService {
 	}
 	
 	public ExameResponse get( Long clinicaExameId ) throws ServiceException {
-		Optional<Exame> exameOp = clinicaExameRepository.findById( clinicaExameId );
+		Optional<Exame> exameOp = exameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
 		
 		Exame exame = exameOp.get();
 		
-		ExameResponse resp = clinicaExameLoader.novoResponse();
-		clinicaExameLoader.loadResponse( resp, exame );
+		ExameResponse resp = exameLoader.novoResponse();
+		exameLoader.loadResponse( resp, exame );
 		
 		return resp;
 	}
@@ -114,7 +120,7 @@ public class ExameService {
 			clinicasNomes2.add( clinica.getNome() );
 		}
 		
-		return clinicaExameLoader.novoTelaResponse( clinicasIDs2, clinicasNomes2 );
+		return exameLoader.novoTelaResponse( clinicasIDs2, clinicasNomes2 );
 	}
 	
 	public ExameRegLoadResponse regLoad( Long[] clinicasIDs ) {
@@ -127,29 +133,29 @@ public class ExameService {
 			clinicasNomes2.add( clinica.getNome() );
 		}
 		
-		return clinicaExameLoader.novoRegResponse( clinicasIDs2, clinicasNomes2 );
+		return exameLoader.novoRegResponse( clinicasIDs2, clinicasNomes2 );
 	}
 	
 	public ExameEditLoadResponse editLoad( Long[] clinicasIDs, Long clinicaExameId ) throws ServiceException {				
-		Optional<Exame> exameOp = clinicaExameRepository.findById( clinicaExameId );
+		Optional<Exame> exameOp = exameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
 		
 		Exame exame = exameOp.get();
 		Clinica clinica = exame.getClinica();
 		
-		ExameResponse eresp = clinicaExameLoader.novoResponse();
-		clinicaExameLoader.loadResponse( eresp, exame );
+		ExameResponse eresp = exameLoader.novoResponse();
+		exameLoader.loadResponse( eresp, exame );
 		
-		return clinicaExameLoader.novoEditResponse( eresp, clinica );
+		return exameLoader.novoEditResponse( eresp, clinica );
 	}
 		
 	public void deleta( Long clinicaExameId ) throws ServiceException {
-		boolean existe = clinicaExameRepository.existsById( clinicaExameId );
+		boolean existe = exameRepository.existsById( clinicaExameId );
 		if ( !existe )
 			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
 		
-		clinicaExameRepository.deleteById( clinicaExameId ); 
+		exameRepository.deleteById( clinicaExameId ); 
 	}
 	
 }

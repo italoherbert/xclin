@@ -142,17 +142,7 @@
                         <div class="mx-2">Fila por agenda</div>
                     </div>                       
                 </a>
-            </div>
-
-            
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'exame-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isProfissional()">
-                <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faSteam"></fa-icon>
-                    <div class="mx-2">Exames</div>
-                </div>
-            </mat-list-item> 
-                
+            </div>              
 
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'lancamento-tela' } } ]" (click)="sidenav.toggle()">
                 <div class="d-flex flex-row">
@@ -259,14 +249,14 @@
                 </div>
             </mat-list-item> 
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'especialidade-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == true">               
+                    *ngIf="sistemaService.isAdminEscopo() === true">               
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUmbrella"></fa-icon>
                     <div class="mx-2">Especialidades</div>
                 </div>
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'exame-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == true">               
+                    *ngIf="sistemaService.isAdminEscopo() === true">               
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUmbrella"></fa-icon>
                     <div class="mx-2">Exames</div>

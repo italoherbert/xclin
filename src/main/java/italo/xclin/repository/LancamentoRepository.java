@@ -12,10 +12,12 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 
 	@Query("select l "
 			+ "from Lancamento l "
-			+ "where (date(l.dataLancamento) between ?1 and ?2) and "
-			+ 	"(?3=false or (?3=true and l.usuario.username like ?4) ) "
+			+ "where l.clinica.id=?1"
+			  + "(date(l.dataLancamento) between ?2 and ?3) and "
+			+ 	"(?4=false or (?4=true and l.usuario.username like ?5) ) "
 			+ "order by l.dataLancamento asc")
 	public List<Lancamento> filtra( 
+			Long clinicaId,
 			Date dataIni, Date dataFim, 
 			boolean incluirUsername, 
 			String filtroUsername );

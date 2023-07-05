@@ -75,14 +75,14 @@ public class LancamentoService {
 		return resp;
 	}
 	
-	public List<LancamentoResponse> filtra( LancamentoFiltroRequest request ) throws ServiceException {
+	public List<LancamentoResponse> filtra( Long clinicaId, LancamentoFiltroRequest request ) throws ServiceException {
 		Date dataIni = converter.stringToDataNEx( request.getDataInicio() );
 		Date dataFim = converter.stringToDataNEx( request.getDataFim() );
 		boolean incluirUsername = request.isIncluirUsername();
 		String filtroUsername = "%"+request.getFiltroUsername()+"%"; 
 		
 		List<Lancamento> lancamentos = 
-				lancamentoRepository.filtra( dataIni, dataFim, incluirUsername, filtroUsername );
+				lancamentoRepository.filtra( clinicaId, dataIni, dataFim, incluirUsername, filtroUsername );
 		
 		List<LancamentoResponse> lista = new ArrayList<>();
 		for( Lancamento l : lancamentos ) {

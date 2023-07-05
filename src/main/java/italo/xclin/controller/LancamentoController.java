@@ -69,7 +69,7 @@ public class LancamentoController {
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
 		lancamentoValidator.validaFiltro( request ); 
-		List<LancamentoResponse> lista = lancamentoService.filtra( request );
+		List<LancamentoResponse> lista = lancamentoService.filtra( clinicaId, request );
 		return ResponseEntity.ok( lista );
 	}		
 	

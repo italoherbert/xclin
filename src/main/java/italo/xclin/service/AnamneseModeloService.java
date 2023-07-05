@@ -37,20 +37,22 @@ public class AnamneseModeloService {
 	@Autowired
 	private AnamneseModeloPerguntaLoader anamneseModeloPerguntaLoader;
 	
-	public void registra( Long logadoUID, AnamneseModeloSaveRequest request ) throws ServiceException {
-		boolean existe = anamneseModeloRepository.existePorNome( request.getNome() );
-		if ( existe )
-			throw new ServiceException( Erro.ANAMNESE_MODELO_NOME_JA_EXISTE );
-		
+	public void registra( Long logadoUID, AnamneseModeloSaveRequest request ) throws ServiceException {		
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
-		Profissional p = profissionalOp.get();
+		Profissional profissional = profissionalOp.get();
+		Long profissionalId = profissional.getId();
 		
-		AnamneseModelo a = anamneseModeloLoader.novoBean( p );
-		anamneseModeloLoader.loadBean( a, request );		
-		anamneseModeloRepository.save( a );
+		String nome = request.getNome();		
+		boolean existe = anamneseModeloRepository.existePorNome( profissionalId, nome );
+		if ( existe )
+			throw new ServiceException( Erro.ANAMNESE_MODELO_NOME_JA_EXISTE );
+		
+		AnamneseModelo modelo = anamneseModeloLoader.novoBean( profissional );
+		anamneseModeloLoader.loadBean( modelo, request );		
+		anamneseModeloRepository.save( modelo );
 	}
 	
 	public void altera( Long id, AnamneseModeloSaveRequest request ) throws ServiceException {
@@ -58,19 +60,22 @@ public class AnamneseModeloService {
 		if ( !aop.isPresent() )
 			throw new ServiceException( Erro.ANAMNESE_MODELO_NAO_ENCONTRADO );
 		
-		AnamneseModelo a = aop.get();
-		String anome = a.getNome();
+		AnamneseModelo modelo = aop.get();
+		Profissional prof = modelo.getProfissional();
+		
+		String anome = modelo.getNome();
+		Long profissionalId = prof.getId();
 		
 		String nome = request.getNome();
 		if ( !anome.equalsIgnoreCase( nome ) ) {
-			boolean existe = anamneseModeloRepository.existePorNome( nome );
+			boolean existe = anamneseModeloRepository.existePorNome( profissionalId, nome );
 			if ( existe )
 				throw new ServiceException( Erro.ANAMNESE_MODELO_NOME_JA_EXISTE );
 		}
 		
-		anamneseModeloLoader.loadBean( a, request );
+		anamneseModeloLoader.loadBean( modelo, request );
 		
-		anamneseModeloRepository.save( a );
+		anamneseModeloRepository.save( modelo );
 	}
 	
 	public AnamneseModeloResponse get( Long anamneseModeloId ) throws ServiceException {

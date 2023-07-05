@@ -67,6 +67,10 @@ export class PacienteTelaComponent {
     this.pacienteService.filtraPacientes( this.clinicaId, this.pacienteFiltro ).subscribe({
       next: ( resp ) => {
         this.pacientes = resp;        
+
+        if ( this.pacientes.length === 0 )
+          this.infoMsg = "Nenhum paciente registrado.";
+
         this.showSpinner = false;
       },
       error: ( erro ) => {

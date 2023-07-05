@@ -119,23 +119,23 @@ public class ProfissionalService {
 		String nomeIni = request.getNomeIni();
 		String clinicaNomeIni = request.getClinicaNomeIni();
 		
-		List<Profissional> profissionales;
+		List<Profissional> profissionais;
 		if ( nomeIni.equals( "*" ) ) {
 			if ( !request.getClinicaNomeIni().isBlank() ) {
-				profissionales = profissionalRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
+				profissionais = profissionalRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
 			} else {
-				profissionales = profissionalRepository.findAll();
+				profissionais = profissionalRepository.findAll();
 			}
 		} else {
 			if ( !request.getClinicaNomeIni().isBlank() ) {
-				profissionales = profissionalRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
+				profissionais = profissionalRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
 			} else {
-				profissionales = profissionalRepository.filtraPorNome( nomeIni+"%" );
+				profissionais = profissionalRepository.filtraPorNome( nomeIni+"%" );
 			}
 		}
 		
 		List<ProfissionalResponse> lista = new ArrayList<>();
-		for( Profissional p : profissionales ) {
+		for( Profissional p : profissionais ) {
 			UsuarioResponse uresp = usuarioLoader.novoResponse();
 			usuarioLoader.loadResponse( uresp, p.getUsuario() ); 
 			

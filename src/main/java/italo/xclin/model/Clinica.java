@@ -37,7 +37,7 @@ public class Clinica {
 	@JoinColumn(name="endereco_id")
 	private Endereco endereco;
 	
-	@OneToOne(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="usuario_id")
 	private Usuario criador;
 			

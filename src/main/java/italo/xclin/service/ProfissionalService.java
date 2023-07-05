@@ -72,9 +72,10 @@ public class ProfissionalService {
 		
 		Profissional p = profissionalLoader.novoBean( u );
 		profissionalLoader.loadBean( p, request );
+				
+		profissionalRepository.save( p );
 		
-		profissionalRepository.save( p );	
-		usuarioSharedService.vinculaGrupo( usuarioLogado, UsuarioPerfil.PROFISSIONAL ); 
+		usuarioSharedService.vinculaGrupo( u, UsuarioPerfil.PROFISSIONAL ); 
 	}
 				
 	public void alteraPorLogadoUID( Long logadoUID, ProfissionalSaveRequest request ) throws ServiceException {

@@ -1,5 +1,13 @@
-<div class="d-flex justify-content-center">
-    <div class="row shadow pt-3">
+<div class="alert alert-warning">
+    <b>Atenção:</b> Cada dia no calendário abaixo tem três números no centro, correspondentes 
+    aos turnos do dia. Isto é, o primeiro número corresponde a quantidade de pessoas na fila 
+    da manhã, o segundo, ao número da fila da tarde e o terceiro, ao da noite.
+</div>
+
+<br />
+
+<div class="d-flex justify-content-center pt-3">
+    <div class="row">
         <div class="col-sm-12">
             <button mat-icon-button class="text-black mx-2 my-1" (click)="anterior()">
                 <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
@@ -30,7 +38,7 @@
 
 <div class="d-flex justify-content-center">
     <div class="table-responsive">
-        <table class="table-bordered table-striped" style="table-layout: fixed">
+        <table class="table-bordered table-striped calendario-table">
             <thead class="calendario-header">
                 <tr>
                     <th class="calendario-dia-header">Domingo</th>

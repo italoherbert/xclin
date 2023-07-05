@@ -82,47 +82,54 @@
                             </a>                        
                         </mat-list-item>
                     </mat-list>
-                </div> 
-
-                <div class="col-sm-4 my-2" *ngIf="atendimento.temConsulta === true">
-                    <div class="fs-6 fw-bold">
-                        Consulta:
-                    </div>
-                    <div class="fs-5">
-                        <span class="text-success">Sim</span>
-                    </div>
-                </div>
-                                                
-                <div class="col-sm-4 my-2" *ngIf="atendimento.temConsulta === true">
-                    <div class="fs-6 fw-bold">
-                        Especialidade:
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.consulta.especialidadeNome}}
-                    </div>
-                </div>                                                 
-                <div class="col-sm-4 my-2" *ngIf="atendimento.temConsulta === true">
-                    <div class="fs-6 fw-bold">
-                        Retorno:
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
-                    </div>
-                </div>                  
-
-                <div class="col-sm-12 my-2" *ngIf="atendimento.exames.length > 0">
-                    <div class="fs-6 fw-bold">
-                        Exames:
-                    </div>
-                    <mat-list class="fs-5">
-                        <mat-list-item *ngFor="let exame of atendimento.exames">
-                            {{exame.nome}}
-                        </mat-list-item>
-                    </mat-list>
-                </div>
-
-                
-
+                </div>                 
+                      
+                <div class="col-sm-12 p-3">
+                    <mat-card>
+                        <mat-card-header>
+                            <h1>Consulta</h1>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div *ngIf="atendimento.temConsulta === false">
+                                <span class="text-primary">Consulta não incluída</span>
+                            </div>
+                            <div class="row" *ngIf="atendimento.temConsulta === true">                           
+                                <div class="col-sm-4">
+                                    <div class="fs-6 fw-bold">
+                                        Especialidade:
+                                    </div>
+                                    <div class="fs-5">
+                                        {{atendimento.consulta.especialidadeNome}}
+                                    </div>
+                                </div>                                                 
+                                <div class="col-sm-4">
+                                    <div class="fs-6 fw-bold">
+                                        Retorno:
+                                    </div>
+                                    <div class="fs-5">
+                                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
+                                    </div>
+                                </div> 
+                            </div>
+                        </mat-card-content>
+                    </mat-card>                                
+    
+                    <mat-card class="mt-4">
+                        <mat-card-header>
+                            <h1>Exames</h1>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div *ngIf="atendimento.exames.length === 0">
+                                <span class="text-primary">Nenhum exame incluído</span>
+                            </div>
+                            <div *ngIf="atendimento.exames.length > 0">
+                                <mat-list-item *ngFor="let exame of atendimento.exames">
+                                    {{exame.nome}}
+                                </mat-list-item>
+                            </div>                        
+                        </mat-card-content>
+                    </mat-card> 
+                </div>                                                   
 
                 <div class="col-sm-12 my-2">
                     <div *ngIf="obsInfoMsg !== null" class="alert alert-success mb-2">

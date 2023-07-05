@@ -71,7 +71,7 @@ public class DiretorService {
 		diretorLoader.loadBean( d, request );
 		
 		diretorRepository.save( d );
-		usuarioSharedService.vinculaGrupo( usuarioLogado, UsuarioPerfil.DIRETOR );
+		usuarioSharedService.vinculaGrupo( u, UsuarioPerfil.DIRETOR );
 	}
 		
 	public void alteraPorLogadoUID( Long logadoUID, DiretorSaveRequest request ) throws ServiceException {

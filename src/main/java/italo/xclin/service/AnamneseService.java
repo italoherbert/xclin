@@ -68,7 +68,16 @@ public class AnamneseService {
 		Paciente paciente = pacienteOp.get();
 		AnamneseModelo modelo = anamneseModeloOp.get();
 		
-		Anamnese anamnese = anamneseLoader.novoBean( paciente );
+		Anamnese anamnese;
+		if ( paciente.isAnamneseCriada() ) {
+			anamnese = paciente.getAnamnese();
+			
+			Long anamneseId = anamnese.getId();
+			anamnesePerguntaRepository.deleteByAnamneseId( anamneseId );
+ 		} else {
+ 			anamnese = anamneseLoader.novoBean( paciente );
+ 		}
+		
 		anamneseLoader.loadBean( anamnese, modelo );
 		
 		List<AnamnesePergunta> anamnesePerguntas = new ArrayList<>();

@@ -75,97 +75,117 @@
                     <div class="fs-6 fw-bold">
                         Status:
                     </div>
-                    <div class="fs-5" [ngClass]="atendimento.status == 'FINALIZADA' ? 'text-success' : 'text-primary'">
+                    <div class="fs-5" [ngClass]="atendimento.status == 'FINALIZADO' ? 'text-success' : 'text-primary'">
                         {{atendimento.statusLabel}}                        
                     </div>
                 </div>  
                 
-                <h1 class="col-sm-12" *ngIf="atendimento.temConsulta">
-                    Consulta
-                </h1>
+                <div class="col-sm-12 p-3">
+                    <mat-card>
+                        <mat-card-header>
+                            <h1>Consulta</h1>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div *ngIf="atendimento.temConsulta === false">
+                                <span class="text-primary">
+                                    Consulta não incluída
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4" *ngIf="atendimento.temConsulta === true">
+                                    <div class="fs-6 fw-bold">
+                                        Especialidade:
+                                    </div>
+                                    <div class="fs-5">
+                                        {{atendimento.consulta.especialidadeNome}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-4" *ngIf="atendimento.temConsulta === true">
+                                    <div class="fs-6 fw-bold">
+                                        Retorno:
+                                    </div>
+                                    <div class="fs-5">
+                                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
+                                    </div>
+                                </div> 
+                                <div class="col-sm-4" *ngIf="atendimento.temConsulta === true">
+                                    <div class="fs-6 fw-bold">
+                                        Valor:
+                                    </div>
+                                    <div class="fs-5 text-primary">
+                                        {{atendimento.consulta.valor | currency: 'BRL'}}
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+    
+                    <mat-card class="mt-4">
+                        <mat-card-header>
+                            <h1>Exames</h1>
+                        </mat-card-header>
+    
+                        <mat-card-content>
+                            <div *ngIf="atendimento.exames.length === 0">
+                                <span class="text-primary">
+                                    Nenhum exame incluído
+                                </span>
+                            </div>
+                            <div class="table-responsive mx-3" *ngIf="atendimento.exames.length > 0">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let exame of atendimento.exames">
+                                            <td>{{exame.nome}}</td>
+                                            <td class="text-primary">{{exame.valor | currency: 'BRL'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                    
+                    <mat-card class="mt-4">
+                        <mat-card-header>
+                            <h1>Valores</h1>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="fs-6 fw-bold">
+                                        Valor total
+                                    </div>
+                                    <div class="fs-5 text-danger">
+                                        {{atendimento.valorTotal | currency: 'BRL' }}
+                                    </div>
+                                </div> 
+                                <div class="col-sm-4">
+                                    <div class="fs-6 fw-bold">
+                                        Valor pago
+                                    </div>
+                                    <div class="fs-5 text-primary">
+                                        {{atendimento.valorPago | currency: 'BRL' }}
+                                    </div>
+                                </div>            
+                                <div class="col-sm-4">
+                                    <div class="fs-6 fw-bold">
+                                        Paga:
+                                    </div>
+                                    <div class="fs-5" [ngClass]="atendimento.pago === true ? 'text-success' : 'text-danger'">
+                                        {{atendimento.pago === true ? 'Sim' : 'Não' }}                        
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>                                                            
 
-                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
-                    <div class="fs-6 fw-bold">
-                        Especialidade:
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.consulta.especialidadeNome}}
-                    </div>
-                </div>
-                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
-                    <div class="fs-6 fw-bold">
-                        Retorno:
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
-                    </div>
-                </div> 
-                <div class="col-sm-6 my-3" *ngIf="atendimento.temConsulta">
-                    <div class="fs-6 fw-bold">
-                        Valor:
-                    </div>
-                    <div class="fs-5">
-                        {{atendimento.consulta.valor | currency: 'BRL'}}
-                    </div>
-                </div>
-
-                <div *ngIf="atendimento.exames.length > 0">
-                    <div class="col-sm-12">
-                        <h1>Exames</h1>
-                    </div>
-
-                    <div class="table-responsive mx-3">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Valor</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let exame of atendimento.exames">
-                                    <td>{{exame.nome}}</td>
-                                    <td>{{exame.valor | currency: 'BRL'}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <h1 class="col-sm-12">
-                    Valores
-                </h1>
-
-                <div class="col-sm-6 mb-3">
-                    <div class="fs-6 fw-bold">
-                        Valor total
-                    </div>
-                    <div class="fs-5 text-danger">
-                        {{atendimento.valorTotal | currency: 'BRL' }}
-                    </div>
-                </div> 
-                <div class="col-sm-6 mb-3">
-                    <div class="fs-6 fw-bold">
-                        Valor pago
-                    </div>
-                    <div class="fs-5 text-primary">
-                        {{atendimento.valorPago | currency: 'BRL' }}
-                    </div>
-                </div>            
-                <div class="col-sm-6 my-3">
-                    <div class="fs-6 fw-bold">
-                        Paga:
-                    </div>
-                    <div class="fs-5" [ngClass]="atendimento.pago === true ? 'text-success' : 'text-danger'">
-                        {{atendimento.pago === true ? 'Sim' : 'Não' }}                        
-                    </div>
-                </div>
-
-                <h1 class="col-sm-12">
-                    Observações
-                </h1>                
-
-                <div class="col-sm-12">    
+                <div class="col-sm-12 my-2">    
                     <div class="fs-6 fw-bold">
                         Observações
                     </div>

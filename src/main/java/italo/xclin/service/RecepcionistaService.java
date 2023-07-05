@@ -69,9 +69,9 @@ public class RecepcionistaService {
 		if ( !logadoUsuarioOp.isPresent() )
 			throw new ServiceException( Erro.USUARIO_LOGADO_NAO_ENCONTRADO );
 		
-		Usuario logado = logadoUsuarioOp.get();
+		Usuario usuarioLogado = logadoUsuarioOp.get();
 
-		Usuario usuario = usuarioLoader.novoBean( logado );
+		Usuario usuario = usuarioLoader.novoBean( usuarioLogado );
 		usuarioLoader.loadBean( usuario, request.getUsuario() );	
 		usuario.setPerfil( UsuarioPerfil.RECEPCIONISTA );
 		

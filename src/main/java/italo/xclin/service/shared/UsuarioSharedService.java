@@ -13,6 +13,7 @@ import italo.xclin.model.UsuarioGrupo;
 import italo.xclin.model.UsuarioGrupoVinculo;
 import italo.xclin.repository.UsuarioGrupoRepository;
 import italo.xclin.repository.UsuarioGrupoVinculoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioSharedService {
@@ -23,6 +24,7 @@ public class UsuarioSharedService {
 	@Autowired
 	private UsuarioGrupoVinculoRepository usuarioGrupoVinculoRepository;
 	
+	@Transactional
 	public void vinculaGrupo( Usuario usuario, UsuarioPerfil perfil ) throws ServiceException {				
 		Optional<UsuarioGrupo> grupoOp = usuarioGrupoRepository.buscaPorNome( perfil.name() );
 		if ( !grupoOp.isPresent() )

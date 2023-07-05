@@ -47,7 +47,7 @@ export class ProfissionalContaAlterarComponent {
 
     this.contaProfissionalService.loadEditTela().subscribe({
       next: (resp) => {
-        this.profissionalSave = resp.contaProfissional;
+        this.profissionalSave = resp.profissional;
         this.profissionalSave.usuario.ignorarSenha = true;
 
         this.funcoes = resp.funcoes;

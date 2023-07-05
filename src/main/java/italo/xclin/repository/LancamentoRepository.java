@@ -12,7 +12,7 @@ public interface LancamentoRepository extends JpaRepository<Lancamento, Long> {
 
 	@Query("select l "
 			+ "from Lancamento l "
-			+ "where l.clinica.id=?1"
+			+ "where l.clinica.id=?1 and "
 			  + "(date(l.dataLancamento) between ?2 and ?3) and "
 			+ 	"(?4=false or (?4=true and l.usuario.username like ?5) ) "
 			+ "order by l.dataLancamento asc")

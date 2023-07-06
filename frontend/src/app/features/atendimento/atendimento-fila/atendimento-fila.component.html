@@ -91,7 +91,7 @@
                     <mat-menu #statusMenu="matMenu">
                         <button mat-menu-item (click)="iniciaAtendimento( c.id, c.turno)">Iniciar</button>
                         <button mat-menu-item (click)="finalizaAtendimento( c.id )">Finalizar</button>
-                        <button mat-menu-item>Cancelar</button>
+                        <button mat-menu-item (click)="cancelaAtendimento( c.id )">Cancelar</button>
                     </mat-menu>
                 </td>                
                 <td class="align-middle">{{c.dataAtendimento | date: 'dd/MM/yyyy'}}</td>

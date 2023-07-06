@@ -7,7 +7,7 @@
     {{erroMsg}}
 </div>
 
-<mat-stepper [linear]="true" #novaConsultaStepper>
+<mat-stepper [linear]="true" #novoAtendimentoStepper>
     <mat-step>
         <ng-template matStepLabel>O profissional</ng-template>
         
@@ -36,7 +36,7 @@
         
         <br />
 
-        <button mat-raised-button color="primary" (click)="profissionalSelectOnNext( novaConsultaStepper )">
+        <button mat-raised-button color="primary" (click)="profissionalSelectOnNext( novoAtendimentoStepper )">
             <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
             Próximo
         </button>
@@ -48,7 +48,7 @@
             <fa-icon [icon]="icons.faAnglesLeft"></fa-icon>
             Anterior
         </button>
-        <button mat-raised-button color="primary" class="mx-2" (click)="turnoSelectOnNext( novaConsultaStepper )">
+        <button mat-raised-button color="primary" class="mx-2" (click)="turnoSelectOnNext( novoAtendimentoStepper )">
             <fa-icon [icon]="icons.faAnglesRight"></fa-icon>
             Próximo
         </button>
@@ -79,6 +79,7 @@
             [dia]="dia"
             [mes]="mes"
             [ano]="ano"
-            [turno]="turno"></app-atendimento-registro>
+            [turno]="turno"
+            (onRegistrado)="onAtendimentoRegistrado()"></app-atendimento-registro>
     </mat-step>
 </mat-stepper>

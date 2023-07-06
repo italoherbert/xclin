@@ -80,6 +80,9 @@ export class PacienteSaveComponent {
           this.clinicasIDs = resp.clinicasIDs;
           this.clinicasNomes = resp.clinicasNomes;
 
+          if ( this.clinicasIDs.length > 0 ) 
+            this.clinicaId = this.clinicasIDs[ 0 ];
+
           this.estadosCivis = resp.estadosCivis;
           this.nacionalidades = resp.nacionalidades;
           this.sexos = resp.sexos;
@@ -130,6 +133,7 @@ export class PacienteSaveComponent {
     if ( id === '-1' ) { 
       this.pacienteService.registraPaciente( this.clinicaId, this.pacienteSave ).subscribe({
         next: ( resp ) => {
+          this.limpaForm();
           this.infoMsg = "Paciente registrado com sucesso.";
           this.showSpinner = false;
         },
@@ -164,6 +168,31 @@ export class PacienteSaveComponent {
         this.showSpinner = false;
       }
     } );
+  }
+
+  limpaForm() {
+    this.pacienteSave = {
+      nome: '',
+      telefone: '',
+      email: '',
+      cpf: '',
+      rg: '',
+      sexo: '',
+      estadoCivil: '',
+      nacionalidade: '',
+      ocupacao: '',
+      observacao: '',
+      dataNascimento: '',
+      clinicaId: 0,
+      clinicaNome: '',
+      endereco: {
+        logradouro: '',
+        numero: '',
+        bairro: '',
+        codigoMunicipio: 0,
+        codigoUf: 0
+      }    
+    }
   }
 
 }

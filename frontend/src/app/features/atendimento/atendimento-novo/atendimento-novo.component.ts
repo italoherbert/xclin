@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { faAnglesLeft, faAnglesRight, faBarsProgress } from '@fortawesome/free-solid-svg-icons';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -25,6 +25,8 @@ export class AtendimentoNovoComponent {
   }
 
   @ViewChild( "atendimentoRegistro" ) atendimentoRegistro! : AtendimentoRegistroComponent;
+
+  @ViewChild( "novoAtendimentoStepper", { read: MatStepper }  ) stepper! : MatStepper;
 
   mes : number = 0;
   ano : number = 0;
@@ -108,6 +110,18 @@ export class AtendimentoNovoComponent {
       stepper.next();
       this.atendimentoRegistro.recarrega();
     }
+  }
+
+  onAtendimentoRegistrado() {
+    this.atendimentoRegistro.limpaForm();
+    this.dia = 0;
+    this.turno = 0;
+
+    this.clinicaId = 0;
+    this.profissionalId = 0;
+
+    this.stepper.reset();
+    this.infoMsg = "Atendimento registrada com sucesso.";
   }
   
   onCalendarioAlterado( event : any ) {

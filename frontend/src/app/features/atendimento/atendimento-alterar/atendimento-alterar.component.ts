@@ -23,17 +23,11 @@ export class AtendimentoAlterarComponent {
   }
 
   atendimentoAlter : AtendimentoAlter = {
-    status : '',
     observacoes : '',
   }
 
-  turnos : any[] = [];
-  statuses : any[] = [];
-
   pacienteNome : string = '';
   clinicaNome : string = '';
-
-  senhaRepetida : any = '';
 
   constructor(
     private router: Router,
@@ -51,12 +45,8 @@ export class AtendimentoAlterarComponent {
     
     this.atendimentoService.getAtendimentoAlter( id ).subscribe({
       next: (resp) => {
-        this.atendimentoAlter.status = resp.atendimento.status;
         this.atendimentoAlter.observacoes = resp.atendimento.observacoes;
         
-        this.turnos = resp.turnos;
-        this.statuses = resp.statuses;
-
         this.pacienteNome = resp.atendimento.pacienteNome;
         this.clinicaNome = resp.atendimento.clinicaNome;
 

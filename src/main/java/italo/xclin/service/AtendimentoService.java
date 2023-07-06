@@ -230,11 +230,7 @@ public class AtendimentoService {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
-		
-		AtendimentoStatus status = atendimentoStatusEnumManager.getEnum( request.getStatus() );		
-		if ( status == AtendimentoStatus.INICIADO )
-			throw new ServiceException( Erro.NAO_PODE_INICIAR_ATENDIMENTO );
-		
+				
 		Atendimento atendimento = atendimentoOp.get();		
 		atendimentoLoader.loadBean( atendimento, request );
 		
@@ -314,21 +310,27 @@ public class AtendimentoService {
 		lancamentoRepository.save( lanc );
 	}
 		
+	@Transactional
 	public void cancelaConsulta( Long atendimentoId ) throws ServiceException {
-		this.alteraStatus( atendimentoId, AtendimentoStatus.CANCELADO ); 
-	}
-	
-	public void finalizaConsulta( Long atendimentoId ) throws ServiceException {
-		this.alteraStatus( atendimentoId, AtendimentoStatus.FINALIZADO );
-	}
-	
-	public void alteraStatus( Long atendimentoId, AtendimentoStatus status ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 		
 		Atendimento atendimento = atendimentoOp.get();
-		atendimento.setStatus( status );
+		if ( atendimento.isPago() )
+			throw new ServiceException( Erro.ATENDIMENTO_NAO_CANCELADO );
+		
+		atendimento.setStatus( AtendimentoStatus.CANCELADO );		
+		atendimentoRepository.save( atendimento );
+	}
+	
+	public void finalizaConsulta( Long atendimentoId ) throws ServiceException {
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
+		if ( !atendimentoOp.isPresent() )
+			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
+		
+		Atendimento atendimento = atendimentoOp.get();
+		atendimento.setStatus( AtendimentoStatus.FINALIZADO );
 		
 		atendimentoRepository.save( atendimento );
 	}
@@ -730,9 +732,7 @@ public class AtendimentoService {
 		
 		atendimentoLoader.loadResponse( aresp, atendimento );
 		
-		AtendimentoAlterLoadResponse resp = atendimentoLoader.novoAlterResponse( aresp );
-		atendimentoLoader.loadAlterResponse( resp );
-		return resp;
+		return atendimentoLoader.novoAlterResponse( aresp );
 	}
 	
 	public AtendimentoTelaLoadResponse getTelaLoad( Long[] clinicasIDs ) {

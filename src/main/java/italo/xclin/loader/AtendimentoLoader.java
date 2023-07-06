@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 
 import italo.xclin.enums.AtendimentoStatusEnumManager;
 import italo.xclin.enums.TurnoEnumManager;
-import italo.xclin.enums.tipos.AtendimentoStatus;
 import italo.xclin.exception.ConverterException;
 import italo.xclin.exception.LoaderException;
 import italo.xclin.logica.Converter;
@@ -31,7 +30,6 @@ import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ExameItemResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
-import italo.xclin.model.response.TipoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
@@ -87,7 +85,6 @@ public class AtendimentoLoader {
 	
 	public void loadBean( Atendimento a, AtendimentoAlterSaveRequest request ) {
 		a.setObservacoes( request.getObservacoes() );
-		a.setStatus( consultaStatusEnumManager.getEnum( request.getStatus() ) ); 
 	}
 		
 	public void loadBean( Atendimento a, AtendimentoObservacoesSaveRequest request ) {
@@ -127,19 +124,7 @@ public class AtendimentoLoader {
 	public void loadRemarcarResponse( AtendimentoRemarcarLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() );
 	}
-	
-	public void loadAlterResponse( AtendimentoAlterLoadResponse resp ) {
-		List<TipoResponse> turnos = turnoEnumManager.tipoResponses();
 		
-		List<TipoResponse> statuses = consultaStatusEnumManager.tipoResponses()
-				.stream()
-				.filter( ( s ) -> !s.getName().equalsIgnoreCase( AtendimentoStatus.INICIADO.name() ) )
-				.toList();
-		
-		resp.setTurnos( turnos );
-		resp.setStatuses( statuses );		
-	}
-	
 	public void loadTelaResponse( AtendimentoTelaLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() );
 		resp.setStatuses( consultaStatusEnumManager.tipoResponses() );

@@ -8,9 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AtendimentoAlterSaveRequest {
-				
-	private String status;
-		
+						
 	private String observacoes;
 	
 }

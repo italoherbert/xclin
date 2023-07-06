@@ -43,8 +43,8 @@ public class AtendimentoValidator {
 	}
 	
 	public void validaAlterSave( AtendimentoAlterSaveRequest request ) throws ValidationException {
-		if ( !consultaStatusEnumManager.enumValida( request.getStatus() ) )
-			throw new ValidationException( Erro.STATUS_OBRIGATORIO );
+		if ( request.getObservacoes() == null )
+			throw new ValidationException( Erro.OBSERVACOES_NULO );	
 	}
 		
 	public void validaAlterObservacoes( AtendimentoObservacoesSaveRequest request ) throws ValidationException {

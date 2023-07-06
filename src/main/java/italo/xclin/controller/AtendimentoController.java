@@ -148,6 +148,18 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/cancela/{atendimentoId}")
+	public ResponseEntity<Object> cancelaConsulta(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long atendimentoId ) throws SistemaException {
+				
+		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
+		
+		atendimentoService.cancelaConsulta( atendimentoId );
+		return ResponseEntity.ok().build();		
+	}
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/altera/observacoes/{atendimentoId}")
 	public ResponseEntity<Object> salvaObservacoes(
 			@RequestHeader("Authorization") String authorizationHeader,

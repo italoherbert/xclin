@@ -11,6 +11,8 @@ public class ProfissionalExameVinculoResponse {
 
 	private Long id;
 	
+	private Long exameId;
+	
 	private String exameNome;
 	
 	private double exameValor;

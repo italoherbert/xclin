@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { faCircleLeft, faPlus, faRemove, faSave, faX } from '@fortawesome/free-solid-svg-icons';
 import { AtendimentoRegistro } from 'src/app/core/bean/atendimento/atendimento-registro';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
@@ -7,8 +7,8 @@ import { SistemaService } from 'src/app/core/service/sistema.service';
 import * as moment from 'moment';
 import { Especialidade } from 'src/app/core/bean/especialidade/especialidade';
 import { ProfissionalService } from 'src/app/core/service/profissional.service';
-import { PacienteService } from 'src/app/core/service/paciente.service';
 import { RealInputDirective } from 'src/app/shared/directive/real-input/real-input.directive';
+import { PacienteAutocompleteInputComponent } from 'src/app/shared/paciente-autocomplete-input/paciente-autocomplete-input.component';
 
 @Component({
   selector: 'app-atendimento-registro',
@@ -24,7 +24,10 @@ export class AtendimentoRegistroComponent {
   @Input() ano : number = 0;
   @Input() turno : number = 0;
 
+  @Output() onRegistrado : EventEmitter<any> = new EventEmitter<any>();
+
   @ViewChild( 'consultaValor', {read : RealInputDirective} ) consultaValorDirective! : RealInputDirective;
+  @ViewChild( 'pacienteAutocompleteInput', {read: PacienteAutocompleteInputComponent}) pacienteAutocompleteInput! : PacienteAutocompleteInputComponent;
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -79,8 +82,6 @@ export class AtendimentoRegistroComponent {
   turnos : any[] = [];
   especialidades : Especialidade[] = [];
 
-  senhaRepetida : any = '';
-
   constructor(
     private atendimentoService: AtendimentoService,
     private profissionalService: ProfissionalService,
@@ -97,13 +98,17 @@ export class AtendimentoRegistroComponent {
         this.turnos = resp.turnos;
         this.especialidades = resp.especialidades;
 
-        this.examesNaoIncluidosIDs.splice( 0, this.examesIncluidosIDs.length );
-        this.examesNaoIncluidosNomes.splice( 0, this.examesIncluidosNomes.length );
+        this.examesNaoIncluidosIDs.splice( 0, this.examesNaoIncluidosIDs.length );
+        this.examesNaoIncluidosNomes.splice( 0, this.examesNaoIncluidosNomes.length );
         this.examesNaoIncluidosValores.splice( 0, this.examesNaoIncluidosValores.length );
+
+        this.examesIncluidosIDs.splice( 0, this.examesIncluidosIDs.length );
+        this.examesIncluidosNomes.splice( 0, this.examesIncluidosNomes.length );
+        this.examesIncluidosValores.splice( 0, this.examesIncluidosValores.length );
 
         let exames = resp.profissionalExames;
         for( let i = 0; i < exames.length; i++ ) {
-          this.examesNaoIncluidosIDs.push( exames[ i ].id );
+          this.examesNaoIncluidosIDs.push( exames[ i ].exameId );
           this.examesNaoIncluidosNomes.push( exames[ i ].exameNome );
           this.examesNaoIncluidosValores.push( exames[ i ].exameValor );
         }
@@ -142,8 +147,9 @@ export class AtendimentoRegistroComponent {
     this.atendimentoService.registraAtendimento( 
         this.clinicaId, this.profissionalId, this.pacienteId, this.atendimentoSave ).subscribe({
       next: ( resp ) => {
-        this.infoMsg = "Atendimento registrada com sucesso.";
         this.showSpinner = false;
+
+        this.onRegistrado.emit();
       },
       error: ( erro ) => {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
@@ -245,6 +251,33 @@ export class AtendimentoRegistroComponent {
 
   pacienteOnErroCreate( erro : any ) {
     this.erroMsg = this.sistemaService.mensagemErro( erro );
+  }
+
+  limpaForm() {
+    this.atendimentoSave = {
+      dataAtendimento : '',
+      turno : '',   
+      observacoes : '',
+      pago : false,
+      valorPago : 0,
+      temConsulta : false,
+      consulta : {
+        especialidadeId : 0,
+        retorno : false,
+        valor : 0
+      },
+      exames : []
+    }  
+
+    this.pacienteId = 0;
+    this.exameValorAtual = 0;
+    this.valorTotal = 0;
+    
+    this.examesIncluidosIDs.splice( 0, this.examesIncluidosIDs.length );
+    this.examesIncluidosNomes.splice( 0, this.examesIncluidosNomes.length );
+    this.examesIncluidosValores.splice( 0, this.examesIncluidosValores.length );
+
+    this.pacienteAutocompleteInput.limpa();
   }
 
 }

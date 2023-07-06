@@ -56,7 +56,7 @@ public interface Erro {
 	public final static String ANAMNESE_MODELO_PERGUNTA_NAO_ENCONTRADA = "A pergunta de modelo de anamnese não foi encontrada.";
 	public final static String PACIENTE_ANEXO_NAO_ENCONTRADO = "O anexo do paciente não foi encontrado.";
 	public final static String CLINICA_EXAME_NAO_ENCONTRADO = "O exame de clínica não foi encontrado.";
-	public final static String EXAME_NAO_ENCONTRADO = "O exame agendado não foi encontrado.";
+	public final static String EXAME_NAO_ENCONTRADO = "O exame não encontrado.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";
@@ -113,6 +113,7 @@ public interface Erro {
 	public final static String ANAMNESE_MODELO_DE_OUTRO_PROFISSIONAL = "O modelo de anamnese que está tentando alterar pertence a outro profissional."; 
 	public final static String ANAMNESE_MODELO_PERGUNTA_DE_OUTRO_PROFISSIONAL = "A pergunta do modelo de anamnese que está tentando alterar pertence a outro profissional.";
 	public final static String ATENDIMENTO_PAGO_COM_ZERO = "O atendimento está marcado como pago com valor pago igual a zero.";
+	public final static String ATENDIMENTO_NAO_CANCELADO = "Não foi possível cancelar o atendimento porque o mesmo já está pago. Você pode remarcar o atendimento.";
 	
 	public final static String ANEXO_LIMITE_EXCEDIDO = "Limite de tamanho excedido. O tamanho máximo permitido é de $1.";
 	

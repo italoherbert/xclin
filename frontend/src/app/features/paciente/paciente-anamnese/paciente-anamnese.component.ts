@@ -18,6 +18,9 @@ export class PacienteAnamneseComponent {
   erroMsg : any = null;
   infoMsg : any = null;
 
+  vinculoErroMsg : any = null;
+  vinculoInfoMsg : any = null;
+
   showSpinner : boolean = false;
 
   icons : any = {
@@ -66,6 +69,10 @@ export class PacienteAnamneseComponent {
         next: ( resp ) => {
           this.anamneseModelosIDs = resp.anamneseModelos.ids;
           this.anamneseModelosNomes = resp.anamneseModelos.nomes;
+
+          if ( this.anamneseModelosIDs.length > 0 )
+            this.anamneseModeloId = this.anamneseModelosIDs[ 0 ];
+
           this.pacienteNome = resp.pacienteNome;
          
           this.showSpinner = false;
@@ -80,7 +87,8 @@ export class PacienteAnamneseComponent {
         next: ( resp ) => {
           this.anamnese = resp.anamnese;
           this.anamneseModelosIDs = resp.anamneseModelos.ids;
-          this.anamneseModelosNomes = resp.anamneseModelos.nomes;
+          this.anamneseModelosNomes = resp.anamneseModelos.nomes;          
+
           this.pacienteNome = resp.pacienteNome;
 
           this.carregaAnamnesePerguntas();
@@ -127,6 +135,10 @@ export class PacienteAnamneseComponent {
     this.anamneseService.get( pacienteId ).subscribe({
       next: (resp) => {
         this.anamnese = resp;
+
+        if ( this.anamnese.perguntas.length === 0 )
+          this.infoMsg = "Nenhuma pergunta associada ao modelo de anamnese.";
+
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -136,7 +148,7 @@ export class PacienteAnamneseComponent {
     });
   }
 
-  vinculaModelo() {
+  vinculaModelo() {    
     let anamneseCriada = this.actRoute.snapshot.paramMap.get( 'anamneseCriada' );
 
     if ( anamneseCriada == 'true' ) {
@@ -150,6 +162,8 @@ export class PacienteAnamneseComponent {
   vinculaModeloSeConfirmado() {
     this.infoMsg = null;
     this.erroMsg = null;
+    this.vinculoErroMsg = null;
+    this.vinculoInfoMsg = null;
 
     this.showSpinner = true;
 
@@ -161,7 +175,7 @@ export class PacienteAnamneseComponent {
         this.showSpinner = false;
       },
       error: (erro) => {
-        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.vinculoErroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }
     });

@@ -64,5 +64,13 @@ export class PacienteAutocompleteInputComponent {
     this.pacienteId = this.pacientesIDs[ event.option.id ];
     this.onSelect.emit( this.pacienteId );
   }
+
+  limpa() {
+    this.pacienteId = 0;
+    this.pacienteNome = '';
+    
+    this.pacientesIDs.splice( 0, this.pacientesIDs.length );
+    this.pacientesNomes.splice( 0, this.pacientesNomes.length );
+  }
   
 }

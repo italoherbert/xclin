@@ -160,6 +160,18 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/registrado/{atendimentoId}")
+	public ResponseEntity<Object> setaParaRegistrado(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long atendimentoId ) throws SistemaException {
+				
+		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
+		
+		atendimentoService.setaParaRegistrado( atendimentoId );
+		return ResponseEntity.ok().build();		
+	}
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/esperando/{atendimentoId}")
 	public ResponseEntity<Object> setaParaEsperando(
 			@RequestHeader("Authorization") String authorizationHeader,

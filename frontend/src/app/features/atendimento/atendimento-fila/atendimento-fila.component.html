@@ -46,7 +46,8 @@
 
     <mat-form-field appearance="fill">
         <mat-label>Status</mat-label>
-        <mat-select placeholder="Selecione o status" [(ngModel)]="atendimentoFilaFiltro.status">
+        <mat-select placeholder="Selecione o status" [(ngModel)]="atendimentoFilaFiltro.status" 
+                (selectionChange)="onStatusSelecionado()">
             <mat-option *ngFor="let s of statuses" [value]="s.name">
                 {{s.label}} 
             </mat-option>
@@ -88,8 +89,15 @@
                     <button mat-button [matMenuTriggerFor]="statusMenu">
                         <fa-icon [icon]="icons.faChevronDown"></fa-icon>
                     </button>
-                    <mat-menu #statusMenu="matMenu">
-                        <button mat-menu-item (click)="setaParaEsperando( c.id )">Esperando</button>
+                    <mat-menu #statusMenu="matMenu">                                                
+                        <button mat-menu-item (click)="setaParaRegistrado( c.id )" 
+                                *ngIf="atendimentoFilaFiltro.status !== 'REGISTRADO'">
+                            Registrado
+                        </button>
+                        <button mat-menu-item (click)="setaParaEsperando( c.id )" 
+                                *ngIf="atendimentoFilaFiltro.status !== 'ESPERANDO'">
+                            Esperando
+                        </button>
                         <button mat-menu-item (click)="iniciaAtendimento( c.id, c.turno)">Iniciar</button>
                         <button mat-menu-item (click)="finalizaAtendimento( c.id )">Finalizar</button>
                         <button mat-menu-item (click)="cancelaAtendimento( c.id )">Cancelar</button>

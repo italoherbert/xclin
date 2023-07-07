@@ -132,6 +132,10 @@ export class AtendimentoFilaComponent {
     } );
   }
 
+  onStatusSelecionado() {
+    this.filtra();
+  }
+
   filtra() {
     this.infoMsg = null;
     this.erroMsg = null;
@@ -207,6 +211,24 @@ export class AtendimentoFilaComponent {
     this.showSpinner = true;
 
     this.atendimentoService.setaParaEsperando( atendimentoId ).subscribe({
+      next: (resp) => {        
+        this.showSpinner = false;
+        this.filtra();
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  setaParaRegistrado( atendimentoId : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    this.atendimentoService.setaParaRegistrado( atendimentoId ).subscribe({
       next: (resp) => {        
         this.showSpinner = false;
         this.filtra();

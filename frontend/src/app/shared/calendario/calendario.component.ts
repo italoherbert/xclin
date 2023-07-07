@@ -65,6 +65,14 @@ export class CalendarioComponent {
     this.geraCalendario();
   }
 
+  limpaCalendario() {
+    this.diaTurnoClicadoI = 0;
+    this.diaTurnoClicadoJ = 0;
+    this.diaTurnoClicadoTurno = 0;
+
+    this.geraCalendario();
+  }
+
   geraCalendario() {
     let data = moment( (this.mesI+1)+'-'+this.ano, 'MM-YYYY' );
     this.quantDiasNoMes = data.daysInMonth();

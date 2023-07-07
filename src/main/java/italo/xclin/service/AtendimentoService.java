@@ -335,6 +335,17 @@ public class AtendimentoService {
 		atendimentoRepository.save( atendimento );
 	}
 	
+	public void setaParaRegistrado( Long atendimentoId ) throws ServiceException {
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
+		if ( !atendimentoOp.isPresent() )
+			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
+		
+		Atendimento atendimento = atendimentoOp.get();		
+		atendimento.setStatus( AtendimentoStatus.REGISTRADO );
+		
+		atendimentoRepository.save( atendimento );
+	}
+	
 	public void setaParaEsperando( Long atendimentoId ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )

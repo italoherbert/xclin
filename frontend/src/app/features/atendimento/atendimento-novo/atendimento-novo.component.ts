@@ -5,6 +5,7 @@ import { SistemaService } from 'src/app/core/service/sistema.service';
 import { AtendimentoRegistroComponent } from './atendimento-registro/atendimento-registro.component';
 import { MatStepper } from '@angular/material/stepper';
 import { ProfissionalService } from 'src/app/core/service/profissional.service';
+import { CalendarioComponent } from 'src/app/shared/calendario/calendario.component';
 
 @Component({
   selector: 'app-atendimento-novo',
@@ -25,6 +26,7 @@ export class AtendimentoNovoComponent {
   }
 
   @ViewChild( "atendimentoRegistro" ) atendimentoRegistro! : AtendimentoRegistroComponent;
+  @ViewChild( "calendario" ) calendario! : CalendarioComponent;
 
   @ViewChild( "novoAtendimentoStepper", { read: MatStepper }  ) stepper! : MatStepper;
 
@@ -114,6 +116,8 @@ export class AtendimentoNovoComponent {
 
   onAtendimentoRegistrado() {
     this.atendimentoRegistro.limpaForm();
+    this.calendario.limpaCalendario();
+
     this.dia = 0;
     this.turno = 0;
 
@@ -121,6 +125,7 @@ export class AtendimentoNovoComponent {
     this.profissionalId = 0;
 
     this.stepper.reset();
+    
     this.infoMsg = "Atendimento registrada com sucesso.";
   }
   

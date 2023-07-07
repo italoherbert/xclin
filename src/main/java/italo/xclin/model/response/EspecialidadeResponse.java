@@ -12,7 +12,5 @@ public class EspecialidadeResponse {
 	private Long id;
 	
 	private String nome;
-	
-	private double consultaValor;
-	
+		
 }

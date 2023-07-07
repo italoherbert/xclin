@@ -52,7 +52,7 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 				+ "a.dataAtendimento=?3 and "
 				+ "a.turno=?4 and "
 				+ "a.status=?5 "
-			+ "order by a.dataAgendamento asc")
+			+ "order by a.dataEspera asc")
 	public List<Atendimento> listaFilaPorStatus( 
 			Long clinicaId, Long profissionalId, 
 			Date data, 

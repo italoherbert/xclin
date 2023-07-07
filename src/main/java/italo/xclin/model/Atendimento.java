@@ -45,6 +45,9 @@ public class Atendimento {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataSaveObservacoes;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataEspera;
 		
 	@Enumerated(EnumType.STRING)
 	private AtendimentoStatus status;

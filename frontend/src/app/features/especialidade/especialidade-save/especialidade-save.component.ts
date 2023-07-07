@@ -27,6 +27,10 @@ export class EspecialidadeSaveComponent {
     nome: ''
   }
 
+  clinicaId : number = 0;
+  clinicasIDs : number[] = [];
+  clinicasNomes : string[] = [];
+
   constructor( 
     private actRoute : ActivatedRoute, 
     private especialidadeService: EspecialidadeService, 
@@ -35,15 +39,43 @@ export class EspecialidadeSaveComponent {
   ngOnInit() {    
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    if ( id !== '-1' ) {
+    if ( id === '-1' ) {
       this.infoMsg = null;
       this.erroMsg = null;
 
       this.showSpinner = true;
 
-      this.especialidadeService.getEspecialidade( id ).subscribe( {
+      this.especialidadeService.loadRegTela().subscribe( {
         next: ( resp ) => {
-          this.especialidadeSave.nome = resp.nome;
+          this.clinicasIDs = resp.clinicasIDs;
+          this.clinicasNomes = resp.clinicasNomes;
+
+          if ( this.clinicasIDs.length > 0 )
+            this.clinicaId = this.clinicasIDs[ 0 ];
+
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      } );
+    } else {
+      this.infoMsg = null;
+      this.erroMsg = null;
+
+      this.showSpinner = true;
+
+      let id = this.actRoute.snapshot.paramMap.get( 'id' );      
+
+      this.especialidadeService.loadEditTela( id ).subscribe( {
+        next: ( resp ) => {
+          this.clinicasIDs = resp.clinicasIDs;
+          this.clinicasNomes = resp.clinicasNomes;
+
+          this.especialidadeSave.nome = resp.especialidade.nome;
+          this.clinicaId = resp.clinicaId;
+
           this.showSpinner = false;
         },
         error: ( erro ) => {
@@ -63,8 +95,9 @@ export class EspecialidadeSaveComponent {
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
     
     if ( id === '-1' ) { 
-      this.especialidadeService.registraEspecialidade( this.especialidadeSave ).subscribe({
+      this.especialidadeService.registraEspecialidade( this.clinicaId, this.especialidadeSave ).subscribe({
         next: ( resp ) => {
+          this.limpaForm();
           this.infoMsg = "Especialidade registrada com sucesso.";
           this.showSpinner = false;
         },
@@ -84,6 +117,12 @@ export class EspecialidadeSaveComponent {
           this.showSpinner = false;
         }
       });
+    }
+  }
+
+  limpaForm() {
+    this.especialidadeSave = {
+      nome : ''
     }
   }
 

@@ -12,9 +12,10 @@ import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.AnamneseModelo;
 import italo.xclin.model.AnamneseModeloPergunta;
-import italo.xclin.model.Clinica;
-import italo.xclin.model.Exame;
 import italo.xclin.model.Atendimento;
+import italo.xclin.model.Clinica;
+import italo.xclin.model.Especialidade;
+import italo.xclin.model.Exame;
 import italo.xclin.model.ExameItem;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
@@ -23,9 +24,10 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.repository.AnamneseModeloPerguntaRepository;
-import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.AtendimentoRepository;
+import italo.xclin.repository.EspecialidadeRepository;
 import italo.xclin.repository.ExameItemRepository;
+import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteAnexoRepository;
 import italo.xclin.repository.PacienteRepository;
@@ -60,6 +62,20 @@ public class Autorizador {
 	
 	@Autowired
 	private ExameItemRepository exameRepository;
+	
+	@Autowired
+	private EspecialidadeRepository especialidadeRepository;
+	
+	public void autorizaSeEspecialidadeDeClinica( String authorizationHeader, Long especialidadeId ) throws AutorizacaoException {
+		Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
+		if ( !especialidadeOp.isPresent() )
+			throw new AutorizacaoException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
+		
+		Especialidade e = especialidadeOp.get();
+		Long clinicaId = e.getClinica().getId();
+		
+		this.autorizaPorClinica( authorizationHeader, clinicaId ); 
+	}
 	
 	public void autorizaSeExameDeClinica( String authorizationHeader, Long exameId ) throws AutorizacaoException {
 		Optional<ExameItem> exameOp = exameRepository.findById( exameId );

@@ -90,6 +90,14 @@ export class AtendimentoService {
     return this.http.patch( '/api/atendimento/finaliza/'+atendimentoId, {}, { headers: headers, withCredentials: true } );  
   }
 
+  setaParaEsperando( atendimentoId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+    return this.http.patch( '/api/atendimento/esperando/'+atendimentoId, {}, { headers: headers, withCredentials: true } );  
+  
+  }
+
   cancelaAtendimento( atendimentoId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )

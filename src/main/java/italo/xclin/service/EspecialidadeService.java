@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.EspecialidadeLoader;
+import italo.xclin.model.Clinica;
 import italo.xclin.model.Especialidade;
 import italo.xclin.model.request.filtro.EspecialidadeFiltroRequest;
 import italo.xclin.model.request.save.EspecialidadeSaveRequest;
 import italo.xclin.model.response.EspecialidadeResponse;
+import italo.xclin.model.response.load.edit.EspecialidadeEditLoadResponse;
+import italo.xclin.model.response.load.reg.EspecialidadeRegLoadResponse;
+import italo.xclin.model.response.load.tela.EspecialidadeTelaLoadResponse;
+import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
 
 @Service
@@ -23,16 +28,25 @@ public class EspecialidadeService {
 	private EspecialidadeRepository especialidadeRepository;
 	
 	@Autowired
+	private ClinicaRepository clinicaRepository;
+	
+	@Autowired
 	private EspecialidadeLoader especialidadeLoader;
 	
-	public void registra( EspecialidadeSaveRequest request ) throws ServiceException {
+	public void registra( Long clinicaId, EspecialidadeSaveRequest request ) throws ServiceException {
 		String nome = request.getNome();
 		
-		boolean existe = especialidadeRepository.existePorNome( nome );
+		boolean existe = especialidadeRepository.existePorNome( clinicaId, nome );
 		if ( existe )
 			throw new ServiceException( Erro.ESPECIALIDADE_JA_EXISTE );
 		
-		Especialidade e = especialidadeLoader.novoBean();
+		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
+		if ( !clinicaOp.isPresent() )
+			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
+		
+		Clinica clinica = clinicaOp.get();
+		
+		Especialidade e = especialidadeLoader.novoBean( clinica );
 		especialidadeLoader.loadBean( e, request );
 		especialidadeRepository.save( e );
 	}
@@ -46,8 +60,11 @@ public class EspecialidadeService {
 		
 		Especialidade e = rop.get();
 		
+		Clinica c = e.getClinica();
+		Long clinicaId = c.getId();
+		
 		if ( !nome.equalsIgnoreCase( e.getNome() ) ) {
-			boolean existe = especialidadeRepository.existePorNome( nome );
+			boolean existe = especialidadeRepository.existePorNome( clinicaId, nome );
 			if ( existe )
 				throw new ServiceException( Erro.ESPECIALIDADE_JA_EXISTE );
 		}
@@ -56,14 +73,14 @@ public class EspecialidadeService {
 		especialidadeRepository.save( e );
 	}
 	
-	public List<EspecialidadeResponse> filtra( EspecialidadeFiltroRequest request ) throws ServiceException {
+	public List<EspecialidadeResponse> filtra( Long clinicaId, EspecialidadeFiltroRequest request ) throws ServiceException {
 		String nomeIni = request.getNomeIni();
 		
 		List<Especialidade> especialidades;
 		if ( nomeIni.equals( "*" ) ) {
 			especialidades = especialidadeRepository.findAll();		
 		} else {
-			especialidades = especialidadeRepository.filtra( nomeIni+"%" );
+			especialidades = especialidadeRepository.filtra( clinicaId, nomeIni+"%" );
 		}
 		
 		List<EspecialidadeResponse> lista = new ArrayList<>();
@@ -98,6 +115,58 @@ public class EspecialidadeService {
 		EspecialidadeResponse resp = especialidadeLoader.novoResponse();
 		especialidadeLoader.loadResponse( resp, e );
 		return resp;
+	}
+	
+	public EspecialidadeTelaLoadResponse loadTela( Long[] clinicasIDs ) throws ServiceException {
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		
+		for( Clinica clinica : clinicas ) {
+			clinicasIDs2.add( clinica.getId() );
+			clinicasNomes2.add( clinica.getNome() );
+		}
+			
+		return especialidadeLoader.novoTelaLoadResponse( clinicasIDs2, clinicasNomes2 );
+	}
+	
+	public EspecialidadeRegLoadResponse loadRegTela( Long[] clinicasIDs ) throws ServiceException {
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		
+		for( Clinica clinica : clinicas ) {
+			clinicasIDs2.add( clinica.getId() );
+			clinicasNomes2.add( clinica.getNome() );
+		}
+			
+		return especialidadeLoader.novoRegLoadResponse( clinicasIDs2, clinicasNomes2 );
+	}
+	
+	public EspecialidadeEditLoadResponse loadEditTela( Long[] clinicasIDs, Long especialidadeId ) throws ServiceException {
+		Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
+		if ( !especialidadeOp.isPresent() )
+			throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
+		
+		Especialidade esp = especialidadeOp.get();
+		Clinica clinica = esp.getClinica();
+											
+		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		
+		List<Long> clinicasIDs2 = new ArrayList<>();
+		List<String> clinicasNomes2 = new ArrayList<>();
+		
+		for( Clinica c : clinicas ) {
+			clinicasIDs2.add( c.getId() );
+			clinicasNomes2.add( c.getNome() );
+		}
+		
+		EspecialidadeResponse eresp = especialidadeLoader.novoResponse();
+		especialidadeLoader.loadResponse( eresp, esp );
+			
+		return especialidadeLoader.novoEditLoadResponse( clinica, eresp, clinicasIDs2, clinicasNomes2 );
 	}
 	
 	public void deleta( Long id ) throws ServiceException {

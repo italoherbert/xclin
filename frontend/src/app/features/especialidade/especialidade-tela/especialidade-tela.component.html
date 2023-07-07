@@ -9,10 +9,23 @@
 
 <div class="mt-3"> 
     <mat-form-field appearance="fill">
+        <mat-label>Clinica</mat-label>
+        <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId">
+            <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                {{clinicasNomes[ i ]}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <span class="p-2"></span>
+
+    <mat-form-field appearance="fill">
         <mat-label>Nome do especialidade</mat-label>
         <input matInput type="text" placeholder="Nome do especialidade" [(ngModel)]="especialidadeFiltro.nomeIni" />
     </mat-form-field>
+
     <br />
+    
     <div class="d-flex flex-row align-items-center">
         <button mat-raised-button color="primary" (click)="filtra()">
             <fa-icon [icon]="icons.faFilter"></fa-icon>

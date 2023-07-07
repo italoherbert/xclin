@@ -27,6 +27,10 @@ export class EspecialidadeTelaComponent {
   especialidadeFiltro : EspecialidadeFiltro = {
     nomeIni : '*'
   }
+  
+  clinicaId : number = 0;  
+  clinicasIDs : number[] = [];
+  clinicasNomes : string[] = [];
 
   especialidades : any;
 
@@ -35,13 +39,36 @@ export class EspecialidadeTelaComponent {
     private especialidadeService: EspecialidadeService, 
     private sistemaService: SistemaService) {}
 
+  ngOnInit() {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    this.especialidadeService.loadTela().subscribe({
+      next: (resp) => {
+        this.clinicasIDs = resp.clinicasIDs;
+        this.clinicasNomes = resp.clinicasNomes;
+
+        if ( this.clinicasIDs.length > 0 )
+          this.clinicaId = this.clinicasIDs[ 0 ];        
+
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
   filtra() {
     this.infoMsg = null;
     this.erroMsg = null;
 
     this.showSpinner = true;
 
-    this.especialidadeService.filtraEspecialidades( this.especialidadeFiltro ).subscribe({
+    this.especialidadeService.filtraEspecialidades( this.clinicaId, this.especialidadeFiltro ).subscribe({
       next: ( resp ) => {
         this.especialidades = resp;
         if ( this.especialidades.length == 0 )

@@ -137,25 +137,37 @@ public class AtendimentoController {
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/finaliza/{atendimentoId}")
-	public ResponseEntity<Object> finalizaConsulta(
+	public ResponseEntity<Object> finalizaAtendimento(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId ) throws SistemaException {
 				
 		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
 		
-		atendimentoService.finalizaConsulta( atendimentoId );
+		atendimentoService.finalizaAtendimento( atendimentoId );
 		return ResponseEntity.ok().build();		
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/cancela/{atendimentoId}")
-	public ResponseEntity<Object> cancelaConsulta(
+	public ResponseEntity<Object> cancelaAtendimento(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId ) throws SistemaException {
 				
 		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
 		
-		atendimentoService.cancelaConsulta( atendimentoId );
+		atendimentoService.cancelaAtendimento( atendimentoId );
+		return ResponseEntity.ok().build();		
+	}
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/esperando/{atendimentoId}")
+	public ResponseEntity<Object> setaParaEsperando(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long atendimentoId ) throws SistemaException {
+				
+		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
+		
+		atendimentoService.setaParaEsperando( atendimentoId );
 		return ResponseEntity.ok().build();		
 	}
 	
@@ -175,7 +187,7 @@ public class AtendimentoController {
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/inicia/{clinicaId}/{profissionalId}/{atendimentoId}/{turno}")
-	public ResponseEntity<Object> iniciaConsulta(
+	public ResponseEntity<Object> iniciaAtendimento(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
 			@PathVariable Long profissionalId,

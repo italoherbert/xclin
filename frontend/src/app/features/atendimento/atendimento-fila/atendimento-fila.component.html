@@ -89,6 +89,7 @@
                         <fa-icon [icon]="icons.faChevronDown"></fa-icon>
                     </button>
                     <mat-menu #statusMenu="matMenu">
+                        <button mat-menu-item (click)="setaParaEsperando( c.id )">Esperando</button>
                         <button mat-menu-item (click)="iniciaAtendimento( c.id, c.turno)">Iniciar</button>
                         <button mat-menu-item (click)="finalizaAtendimento( c.id )">Finalizar</button>
                         <button mat-menu-item (click)="cancelaAtendimento( c.id )">Cancelar</button>

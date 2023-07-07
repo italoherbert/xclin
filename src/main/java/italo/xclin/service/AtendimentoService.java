@@ -311,7 +311,7 @@ public class AtendimentoService {
 	}
 		
 	@Transactional
-	public void cancelaConsulta( Long atendimentoId ) throws ServiceException {
+	public void cancelaAtendimento( Long atendimentoId ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
@@ -324,13 +324,25 @@ public class AtendimentoService {
 		atendimentoRepository.save( atendimento );
 	}
 	
-	public void finalizaConsulta( Long atendimentoId ) throws ServiceException {
+	public void finalizaAtendimento( Long atendimentoId ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 		
 		Atendimento atendimento = atendimentoOp.get();
 		atendimento.setStatus( AtendimentoStatus.FINALIZADO );
+		
+		atendimentoRepository.save( atendimento );
+	}
+	
+	public void setaParaEsperando( Long atendimentoId ) throws ServiceException {
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
+		if ( !atendimentoOp.isPresent() )
+			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
+		
+		Atendimento atendimento = atendimentoOp.get();		
+		atendimento.setStatus( AtendimentoStatus.ESPERANDO );
+		atendimento.setDataEspera( new Date() ); 
 		
 		atendimentoRepository.save( atendimento );
 	}

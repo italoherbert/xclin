@@ -78,7 +78,7 @@ public class EspecialidadeService {
 		
 		List<Especialidade> especialidades;
 		if ( nomeIni.equals( "*" ) ) {
-			especialidades = especialidadeRepository.findAll();		
+			especialidades = especialidadeRepository.listaPorClinica( clinicaId ); 		
 		} else {
 			especialidades = especialidadeRepository.filtra( clinicaId, nomeIni+"%" );
 		}
@@ -93,8 +93,8 @@ public class EspecialidadeService {
 		return lista;
 	}
 	
-	public List<EspecialidadeResponse> listaTodas() throws ServiceException {
-		List<Especialidade> especialidades = especialidadeRepository.findAll();
+	public List<EspecialidadeResponse> listaTodas( Long clinicaId ) throws ServiceException {
+		List<Especialidade> especialidades = especialidadeRepository.listaPorClinica( clinicaId );
 		List<EspecialidadeResponse> lista = new ArrayList<>();
 		for( Especialidade e : especialidades ) {
 			EspecialidadeResponse resp = especialidadeLoader.novoResponse();

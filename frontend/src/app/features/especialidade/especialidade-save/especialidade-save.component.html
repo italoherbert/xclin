@@ -15,8 +15,18 @@
             <div class="row">
                 <div class="col-sm-8">
                     <mat-form-field appearance="fill" class="w-100">
+                        <mat-label>Clinica</mat-label>
+                        <mat-select placeholder="Selecione a clínica" [(ngModel)]="clinicaId">
+                            <mat-option *ngFor="let cid of clinicasIDs; index as i" [value]="cid">
+                                {{clinicasNomes[ i ]}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-sm-8">
+                    <mat-form-field appearance="fill" class="w-100">
                         <mat-label>Nome do especialidade</mat-label>
-                        <input matInput type="text" placeholder="Nome de grupo" [(ngModel)]="especialidadeSave.nome"/>
+                        <input matInput type="text" placeholder="Nome" [(ngModel)]="especialidadeSave.nome"/>
                     </mat-form-field>                        
                 </div>                                      
             </div>

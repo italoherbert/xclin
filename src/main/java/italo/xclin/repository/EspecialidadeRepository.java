@@ -24,5 +24,10 @@ public interface EspecialidadeRepository extends JpaRepository<Especialidade, Lo
 			+ "from Especialidade e "
 			+ "where e.clinica.id=?1 and lower(e.nome) like lower(?2)")
 	public List<Especialidade> filtra( Long clinicaId, String nomeIni );
+	
+	@Query("select e "
+			+ "from Especialidade e "
+			+ "where e.clinica.id=?1")
+	public List<Especialidade> listaPorClinica( Long clinicaId );
 		
 }

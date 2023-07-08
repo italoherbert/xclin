@@ -10,12 +10,11 @@ import italo.xclin.model.Recepcionista;
 
 public interface RecepcionistaRepository extends JpaRepository<Recepcionista, Long> {
 
-	@Query("select count(*)=1 from Recepcionista r where lower(r.nome)=lower(?1)")
-	public boolean existePorNome( String nome );
-	
-	@Query("select r from Recepcionista r where lower(r.nome)=lower(?1)")
-	public Optional<Recepcionista> buscaPorNome( String nome );
-	
+	@Query("select count(*)=1 "
+			+ "from Recepcionista r "
+			+ "where r.clinica.id=?1 and lower_unaccent(r.nome)=lower_unaccent(?2)")
+	public boolean existeNaClinicaPorNome( Long clinicaId, String nome );
+		
 	@Query("select r from Recepcionista r where lower(r.nome) like lower(?1)")
 	public List<Recepcionista> filtra( String nomeIni );
 	

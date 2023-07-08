@@ -114,6 +114,7 @@ public interface Erro {
 	public final static String ANAMNESE_MODELO_PERGUNTA_DE_OUTRO_PROFISSIONAL = "A pergunta do modelo de anamnese que está tentando alterar pertence a outro profissional.";
 	public final static String ATENDIMENTO_PAGO_COM_ZERO = "O atendimento está marcado como pago com valor pago igual a zero.";
 	public final static String ATENDIMENTO_NAO_CANCELADO = "Não foi possível cancelar o atendimento porque o mesmo já está pago. Você pode remarcar o atendimento.";
+	public final static String LANCAMENTO_COM_VALOR_ZERO = "Lançamento com valor igual a zero";
 	
 	public final static String ANEXO_LIMITE_EXCEDIDO = "Limite de tamanho excedido. O tamanho máximo permitido é de $1.";
 	

@@ -57,7 +57,7 @@ public class RecepcionistaService {
 		String nome = request.getNome();
 		String username = request.getUsuario().getUsername();
 		
-		boolean existe = recepcionistaRepository.existePorNome( nome );
+		boolean existe = recepcionistaRepository.existeNaClinicaPorNome( clinicaId, nome );
 		if ( existe )
 			throw new ServiceException( Erro.RECEPCIONISTA_JA_EXISTE );
 		
@@ -120,7 +120,7 @@ public class RecepcionistaService {
 		String username = request.getUsuario().getUsername();
 		
 		if ( !nome.equalsIgnoreCase( r.getNome() ) ) {
-			boolean existe = recepcionistaRepository.existePorNome( nome );
+			boolean existe = recepcionistaRepository.existeNaClinicaPorNome( clinicaId, nome );
 			if ( existe )
 				throw new ServiceException( Erro.RECEPCIONISTA_JA_EXISTE );
 		}

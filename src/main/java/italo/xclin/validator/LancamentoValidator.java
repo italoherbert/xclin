@@ -23,6 +23,9 @@ public class LancamentoValidator {
 	public void validaSave( LancamentoSaveRequest request ) throws ValidationException {		
 		if ( !lancamentoTipoEnumManager.enumValida( request.getTipo() ) )
 			throw new ValidationException( Erro.LANCAMENTO_TIPO_INVALIDO );
+		
+		if ( request.getValor() == 0 )
+			throw new ValidationException( Erro.LANCAMENTO_COM_VALOR_ZERO );
 	}
 	
 	public void validaFiltro( LancamentoFiltroRequest request ) throws ValidationException {

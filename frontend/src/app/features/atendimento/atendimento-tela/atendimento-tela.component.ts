@@ -67,6 +67,9 @@ export class AtendimentoTelaComponent {
         this.turnos = resp.turnos;
         this.statuses = resp.statuses;
 
+        this.turnos.unshift( { name : 'TODOS', label : 'Todos' } );
+        this.statuses.unshift( { name : 'TODOS', label : 'Todos' } );
+
         if ( this.clinicasIDs.length > 0 )
           this.clinicaId = this.clinicasIDs[ 0 ];
         if ( this.turnos.length > 0 )
@@ -91,6 +94,12 @@ export class AtendimentoTelaComponent {
     this.erroMsg = null;
 
     this.showSpinner = true;
+
+    this.atendimentoFiltro.incluirTodosStatuses = ( this.atendimentoFiltro.status == 'TODOS' );
+    this.atendimentoFiltro.incluirTodosTurnos = ( this.atendimentoFiltro.turno == 'TODOS' );
+
+    this.atendimentoFiltro.incluirPaciente = ( this.atendimentoFiltro.pacienteNomeIni.length > 0 );
+    this.atendimentoFiltro.incluirProfissional = ( this.atendimentoFiltro.profissionalNomeIni.length > 0 );
 
     this.atendimentoService.filtraAtendimentos( this.clinicaId, this.atendimentoFiltro ).subscribe({
       next: ( resp ) => {

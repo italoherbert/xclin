@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 
-import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+//import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 import { AppComponent } from './app.component';
 import { AppLayoutModule } from './features/app-layout/app-layout.module';
@@ -25,6 +25,21 @@ import { RelatorioModule } from './features/relatorio/relatorio.module';
 import { AnamneseModeloModule } from './features/anamnese-modelo/anamnese-modelo.module';
 import { ExameModule } from './features/exame/exame.module';
 
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+
+export const MY_DATE_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @NgModule({
   declarations: [
     AppComponent,    
@@ -32,8 +47,6 @@ import { ExameModule } from './features/exame/exame.module';
   imports: [
     BrowserModule,
     AppRoutingModule,    
-
-    MatNativeDateModule,
 
     AppLayoutModule,
     LoginLayoutModule,
@@ -62,7 +75,13 @@ import { ExameModule } from './features/exame/exame.module';
     RelatorioModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue:"pt-br"}
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS},
   ],
   bootstrap: [AppComponent]
 })

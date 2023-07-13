@@ -28,12 +28,12 @@
     <br />
 
     <mat-form-field appearance="fill" class="mx-2">
-        <mat-label>Nome do paciente</mat-label>
+        <mat-label>Nome (ini) do paciente</mat-label>
         <input matInput type="text" placeholder="Nome do paciente" [(ngModel)]="atendimentoFiltro.pacienteNomeIni" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="mx-2">
-        <mat-label>Nome do profissional</mat-label>
+        <mat-label>Nome (ini) do profissional</mat-label>
         <input matInput type="text" placeholder="Nome do profissional" [(ngModel)]="atendimentoFiltro.profissionalNomeIni" />
     </mat-form-field>
 
@@ -56,13 +56,6 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-
-    <div class="mx-2">
-        <mat-checkbox color="primary" [(ngModel)]="atendimentoFiltro.incluirPaciente">Incluír paciente</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="atendimentoFiltro.incluirProfissional">Incluír profissional</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="atendimentoFiltro.incluirTodosTurnos">Incluír todos os turnos</mat-checkbox>
-        <mat-checkbox color="primary" [(ngModel)]="atendimentoFiltro.incluirTodosStatuses">Incluír todos os statuses</mat-checkbox>        
-    </div>
     
     <br />
 

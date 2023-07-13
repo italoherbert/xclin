@@ -42,7 +42,6 @@ export class AppLayoutComponent {
   usuarioMenuShow : boolean = false;
   atendimentoMenuShow : boolean = false;
   exameMenuShow : boolean = false;
-  pessoaMenuShow : boolean = false;
   relatorioMenuShow : boolean = false;
 
   constructor( private router : Router, public sistemaService: SistemaService ) {}

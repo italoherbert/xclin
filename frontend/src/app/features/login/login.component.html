@@ -1,9 +1,6 @@
 <div class="d-flex justify-content-center">
-    <mat-card style="width: 28em">
-        <mat-card-header>
-            <h1>Login</h1>        
-        </mat-card-header>
-        <mat-card-content>            
+    <div style="width: 28em">
+        <div>     
             <div class="text-center w-100">
                 <img src="../../../assets/xclin-login.png" />
             </div>         
@@ -25,18 +22,21 @@
                 <mat-icon matSuffix>password</mat-icon>
             </mat-form-field>            
             <div class="d-flex align-items-center">
-                <button mat-raised-button color="primary" (click)="logar()">
-                    <mat-icon matSuffix>login</mat-icon>
-                    Entrar
+                <button mat-raised-button color="primary" class="w-100" (click)="logar()">
+                    <span class="fs-6">Entrar</span>
                 </button>
-                <div *ngIf="showSpinner === true" class="mx-2 spinner-border text-primary"></div>
             </div>
+
+            <div class="d-flex justify-content-center">
+                <div *ngIf="showSpinner === true" class="mt-2 mx-2 spinner-border text-primary"></div>
+            </div>
+
             <div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
                 {{infoMsg}}
             </div>
             <div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
                 {{erroMsg}}
             </div>            
-        </mat-card-content>
-    </mat-card>
+        </div>
+    </div>
 </div>

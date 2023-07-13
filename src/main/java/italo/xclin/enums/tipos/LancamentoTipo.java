@@ -5,8 +5,8 @@ public enum LancamentoTipo {
 	
 	public String label() {
 		switch( this ) {
-			case CREDITO: return "Receita";
-			case DEBITO: return "Despesa";
+			case CREDITO: return "Entrada";
+			case DEBITO: return "Saída";
 		}
 		return null;
 	}

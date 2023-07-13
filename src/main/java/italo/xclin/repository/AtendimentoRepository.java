@@ -22,7 +22,8 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 			+ "from Atendimento a "							
 			+ "where "
 				+ "a.clinica.id=?1 and a.profissional.id=?2 and "
-				+ "month(a.dataAtendimento)=?3 and year(a.dataAtendimento)=?4 "
+				+ "month(a.dataAtendimento)=?3 and year(a.dataAtendimento)=?4 and "
+				+ "( a.status<>'FINALIZADO' and a.status<>'CANCELADO' ) "
 			+ "group by (day(a.dataAtendimento)) "
 			+ "order by day(a.dataAtendimento)")
 	public List<Object[]> agrupaPorDiaDeMes( 
@@ -79,7 +80,7 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 				+ "a.profissional.id=?2 and "
 				+ "date(a.dataAtendimento)=current_date and "
 				+ "a.turno=?3 and "
-				+ "(a.status='REGISTRADO' or a.status='INICIADO')")
+				+ "a.status='ESPERANDO'")
 	public int contaFila( Long clinicaId, Long profissionalId, Turno turno );
 	
 	@Query( "select a "

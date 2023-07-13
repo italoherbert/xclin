@@ -54,12 +54,12 @@ public class LancamentosDoDiaJRDataSource implements JRDataSource {
 			return usuario.getUsername();
 		} else if ( field.equals( "tipo" ) ) {
 			return lancamento.getTipo().label();
-		} else if ( field.equals( "entrada" ) ) {
+		} else if ( field.equals( "credito" ) ) {
 			double valor = 0;
 			if ( lancamento.getTipo() == LancamentoTipo.CREDITO )
 				valor = lancamento.getValor();			
 			return converter.formataReal( valor );
-		} else if ( field.equals( "saida" ) ) {
+		} else if ( field.equals( "debito" ) ) {
 			double valor = 0;
 			if ( lancamento.getTipo() == LancamentoTipo.DEBITO )
 				valor = lancamento.getValor() ;

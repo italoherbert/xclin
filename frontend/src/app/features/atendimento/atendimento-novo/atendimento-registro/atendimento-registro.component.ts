@@ -187,32 +187,36 @@ export class AtendimentoRegistroComponent {
   }
 
   adicionaExame() { 
-    let i = this.exameNaoIncluidoSelecionadoI;      
-    this.examesIncluidosIDs.push( this.examesNaoIncluidosIDs[ i ] );
-    this.examesIncluidosNomes.push( this.examesNaoIncluidosNomes[ i ] );
-    this.examesIncluidosValores.push( this.examesNaoIncluidosValores[ i ] );
+    let i = this.exameNaoIncluidoSelecionadoI;  
+    
+    if ( i !== -1 ) {
+      this.examesIncluidosIDs.push( this.examesNaoIncluidosIDs[ i ] );
+      this.examesIncluidosNomes.push( this.examesNaoIncluidosNomes[ i ] );
+      this.examesIncluidosValores.push( this.examesNaoIncluidosValores[ i ] );
 
-    this.examesNaoIncluidosIDs.splice( i, 1 );
-    this.examesNaoIncluidosNomes.splice( i, 1 );    
-    this.examesNaoIncluidosValores.splice( i, 1 );
+      this.examesNaoIncluidosIDs.splice( i, 1 );
+      this.examesNaoIncluidosNomes.splice( i, 1 );    
+      this.examesNaoIncluidosValores.splice( i, 1 );
 
-    this.atualizaValorTotal();
+      this.atualizaValorTotal();
 
-    this.exameNaoIncluidoSelecionadoI = -1;
+      this.exameNaoIncluidoSelecionadoI = -1;
+    }
   }
 
   removeExame() {
     let i = this.exameIncluidoSelecionadoI;
+    if ( i !== -1 ) {
+      this.examesNaoIncluidosIDs.push( this.examesIncluidosIDs[ i ] );
+      this.examesNaoIncluidosNomes.push( this.examesIncluidosNomes[ i ] );
+      this.examesNaoIncluidosValores.push( this.examesIncluidosValores[ i ] );
 
-    this.examesNaoIncluidosIDs.push( this.examesIncluidosIDs[ i ] );
-    this.examesNaoIncluidosNomes.push( this.examesIncluidosNomes[ i ] );
-    this.examesNaoIncluidosValores.push( this.examesIncluidosValores[ i ] );
+      this.examesIncluidosIDs.splice( i, 1 );
+      this.examesIncluidosNomes.splice( i, 1 );
+      this.examesIncluidosValores.splice( i, 1 );
 
-    this.examesIncluidosIDs.splice( i, 1 );
-    this.examesIncluidosNomes.splice( i, 1 );
-    this.examesIncluidosValores.splice( i, 1 );
-
-    this.exameIncluidoSelecionadoI = -1;
+      this.exameIncluidoSelecionadoI = -1;
+    }
   }
 
   novoExameValor() {

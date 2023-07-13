@@ -1,4 +1,4 @@
-<h1>Filtro de atendimentos</h1>
+<h1>Fila de atendimentos</h1>
 
 <div class="mt-3">
     <mat-form-field appearance="fill">
@@ -89,18 +89,27 @@
                     <button mat-button [matMenuTriggerFor]="statusMenu">
                         <fa-icon [icon]="icons.faChevronDown"></fa-icon>
                     </button>
-                    <mat-menu #statusMenu="matMenu">                                                
+                    <mat-menu #statusMenu="matMenu">                                                                        
+                        <button mat-menu-item (click)="setaParaEsperando( c.id )" 
+                                *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO'">
+                            Esperando
+                        </button>
+                        <button mat-menu-item (click)="iniciaAtendimento( c.id, c.turno)" 
+                                *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO' || atendimentoFilaFiltro.status==='ESPERANDO'">
+                            Iniciar
+                        </button>
+                        <button mat-menu-item (click)="finalizaAtendimento( c.id )"
+                                *ngIf="atendimentoFilaFiltro.status === 'INICIADO'">
+                            Finalizar
+                        </button>
+                        <button mat-menu-item (click)="cancelaAtendimento( c.id )"
+                                *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO'">
+                            Cancelar
+                        </button>
                         <button mat-menu-item (click)="setaParaRegistrado( c.id )" 
                                 *ngIf="atendimentoFilaFiltro.status !== 'REGISTRADO'">
                             Registrado
                         </button>
-                        <button mat-menu-item (click)="setaParaEsperando( c.id )" 
-                                *ngIf="atendimentoFilaFiltro.status !== 'ESPERANDO'">
-                            Esperando
-                        </button>
-                        <button mat-menu-item (click)="iniciaAtendimento( c.id, c.turno)">Iniciar</button>
-                        <button mat-menu-item (click)="finalizaAtendimento( c.id )">Finalizar</button>
-                        <button mat-menu-item (click)="cancelaAtendimento( c.id )">Cancelar</button>
                     </mat-menu>
                 </td>                
                 <td class="align-middle">{{c.dataAtendimento | date: 'dd/MM/yyyy'}}</td>

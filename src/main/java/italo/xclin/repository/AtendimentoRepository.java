@@ -22,8 +22,8 @@ public interface AtendimentoRepository extends JpaRepository<Atendimento, Long> 
 			+ "from Atendimento a "							
 			+ "where "
 				+ "a.clinica.id=?1 and a.profissional.id=?2 and "
-				+ "month(a.dataAtendimento)=?3 and year(a.dataAtendimento)=?4 and "
-				+ "( a.status<>'FINALIZADO' and a.status<>'CANCELADO' ) "
+				+ "month(a.dataAtendimento)=?3 and year(a.dataAtendimento)=?4 "
+				//+ "a.status<>'FINALIZADO' and a.status<>'CANCELADO' "
 			+ "group by (day(a.dataAtendimento)) "
 			+ "order by day(a.dataAtendimento)")
 	public List<Object[]> agrupaPorDiaDeMes( 

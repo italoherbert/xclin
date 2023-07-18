@@ -73,6 +73,11 @@ import { ExameDetalhesComponent } from './features/exame/exame-detalhes/exame-de
 import { ProfissionalContaExamesComponent } from './features/conta/profissional-conta/profissional-conta-exames/profissional-conta-exames.component';
 import { ProfissionalContaExameSaveComponent } from './features/conta/profissional-conta/profissional-conta-exame-save/profissional-conta-exame-save.component';
 import { AtendimentoPagamentoComponent } from './features/atendimento/atendimento-pagamento/atendimento-pagamento.component';
+import { ProcedimentoTelaComponent } from './features/procedimento/procedimento-tela/procedimento-tela.component';
+import { ProcedimentoDetalhesComponent } from './features/procedimento/procedimento-detalhes/procedimento-detalhes.component';
+import { ProcedimentoSaveComponent } from './features/procedimento/procedimento-save/procedimento-save.component';
+import { ProfissionalContaProcedimentosComponent } from './features/conta/profissional-conta/profissional-conta-procedimentos/profissional-conta-procedimentos.component';
+import { ProfissionalContaProcedimentoSaveComponent } from './features/conta/profissional-conta/profissional-conta-procedimento-save/profissional-conta-procedimento-save.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -88,6 +93,8 @@ const routes: Routes = [
     { path: 'profissional-conta-especialidade-save', component: ProfissionalContaEspecialidadeSaveComponent, outlet: 'page' },
     { path: 'profissional-conta-exames', component: ProfissionalContaExamesComponent, outlet: 'page'},
     { path: 'profissional-conta-exame-save', component: ProfissionalContaExameSaveComponent, outlet: 'page' },
+    { path: 'profissional-conta-procedimentos', component: ProfissionalContaProcedimentosComponent, outlet: 'page'},
+    { path: 'profissional-conta-procedimento-save', component: ProfissionalContaProcedimentoSaveComponent, outlet: 'page' },
 
     { path: 'profissional-conta-detalhes', component: ProfissionalContaDetalhesComponent, outlet: 'page' },
     { path: 'recepcionista-conta-detalhes', component: RecepcionistaContaDetalhesComponent, outlet: 'page' },
@@ -165,6 +172,10 @@ const routes: Routes = [
     { path: 'exame-tela', component: ExameTelaComponent, outlet: 'page' },
     { path: 'exame-detalhes/:exameId', component: ExameDetalhesComponent, outlet: 'page' },
     { path: 'exame-save/:exameId', component: ExameSaveComponent, outlet: 'page' },
+
+    { path: 'procedimento-tela', component: ProcedimentoTelaComponent, outlet: 'page' },
+    { path: 'procedimento-detalhes/:procedimentoId', component: ProcedimentoDetalhesComponent, outlet: 'page' },
+    { path: 'procedimento-save/:procedimentoId', component: ProcedimentoSaveComponent, outlet: 'page' },
 
     { path: 'relatorio-balanco-dia', component: RelatorioBalancoDiaComponent, outlet: 'page' },
     { path: 'relatorio-prontuario', component: RelatorioProntuarioComponent, outlet: 'page' }

@@ -7,12 +7,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ExameResponse {
+public class ProfissionalProcedimentoVinculoResponse {
 
 	private Long id;
 	
-	private String nome;
+	private Long procedimentoId;
 	
-	private String descricao;
-		
+	private String procedimentoNome;
+	
+	private double procedimentoValor;
+	
 }

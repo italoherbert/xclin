@@ -18,14 +18,12 @@ public class ProcedimentoLoader {
 	public void loadBean( Procedimento p, ProcedimentoSaveRequest request ) {
 		p.setNome( request.getNome() ); 
 		p.setDescricao( request.getDescricao() );
-		p.setValor( request.getValor() ); 
 	}
 	
 	public void loadResponse( ProcedimentoResponse resp, Procedimento p ) {
 		resp.setId( p.getId() );
 		resp.setNome( p.getNome() );
 		resp.setDescricao( p.getDescricao() );
-		resp.setValor( p.getValor() ); 
 	}
 	
 	public Procedimento novoBean( Clinica clinica ) {
@@ -60,13 +58,12 @@ public class ProcedimentoLoader {
 	
 	public ProcedimentoEditLoadResponse novoEditResponse(
 			ProcedimentoResponse presp,
-			List<Long> clinicasIDs, 
-			List<String> clinicasNomes ) {
+			Clinica clinica ) {
 		
 		ProcedimentoEditLoadResponse resp = new ProcedimentoEditLoadResponse();
 		resp.setProcedimento( presp ); 
-		resp.setClinicasIDs( clinicasIDs );
-		resp.setClinicasNomes( clinicasNomes ); 
+		resp.setClinicaId( clinica.getId() );
+		resp.setClinicaNome( clinica.getNome() ); 
 		return resp;	
 	}
 	

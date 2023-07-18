@@ -18,14 +18,12 @@ public class ExameLoader {
 	public void loadBean( Exame exame, ExameSaveRequest request ) {
 		exame.setNome( request.getNome() );
 		exame.setDescricao( request.getDescricao() );
-		exame.setValor( request.getValor() );
 	}
 	
 	public void loadResponse( ExameResponse resp, Exame exame ) {
 		resp.setId( exame.getId() );
 		resp.setNome( exame.getNome() );
 		resp.setDescricao( exame.getDescricao() );
-		resp.setValor( exame.getValor() ); 
 	}
 	
 	public Exame novoBean( Clinica clinica ) {

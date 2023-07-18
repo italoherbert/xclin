@@ -1,6 +1,5 @@
 
-export interface Exame {
-    id : number;
+export interface ProcedimentoSave {
     nome : string;
     descricao : string;
 }

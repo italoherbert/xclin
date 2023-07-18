@@ -1,0 +1,26 @@
+<h1>Seus procedimentos</h1>
+
+<a mat-raised-button color="primary" [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-procedimento-save' }}]">
+    <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+    <span class="mx-3">Alterar procedimentos</span>
+</a>
+
+<br />
+<br />
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Valor Cobrado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let procedimento of procedimentos; index as i">
+                <td>{{procedimento.procedimentoNome}}</td>
+                <td>{{procedimento.procedimentoValor | currency: 'BRL'}}</td>                
+            </tr>
+        </tbody>
+    </table>
+</div>

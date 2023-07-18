@@ -25,8 +25,7 @@ export class ExameSaveComponent {
 
   exameSave : ExameSave = {
     nome: '',
-    descricao: '',
-    valor: 0
+    descricao: ''
   }
 
   clinicaId : number = 0;
@@ -95,6 +94,7 @@ export class ExameSaveComponent {
     if ( exameId === '-1' ) { 
       this.exameService.registra( this.clinicaId, this.exameSave ).subscribe({
         next: ( resp ) => {
+          this.limpaForm();
           this.infoMsg = "Exame registrado com sucesso.";
           this.showSpinner = false;
         },
@@ -114,6 +114,13 @@ export class ExameSaveComponent {
           this.showSpinner = false;
         }
       });
+    }
+  }
+
+  limpaForm() {
+    this.exameSave = {
+      nome: '',
+      descricao: ''
     }
   }
 

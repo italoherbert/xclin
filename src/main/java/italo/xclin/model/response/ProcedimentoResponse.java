@@ -14,7 +14,5 @@ public class ProcedimentoResponse {
 	private String nome;
 	
 	private String descricao;
-	
-	private double valor;
-	
+		
 }

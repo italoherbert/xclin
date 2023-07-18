@@ -25,8 +25,7 @@ export class ExameDetalhesComponent {
   exame : Exame = {
     id : 0,
     nome: '', 
-    descricao: '',
-    valor : 0
+    descricao: ''
   }
 
   constructor( 

@@ -35,6 +35,11 @@
                Seus exames
             </a>
 
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-procedimentos' } }]" 
+                    *ngIf="sistemaService.isProfissional() === true">
+               Seus procedimentos
+            </a>
+
             <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'anamnese-modelo-tela' } } ]"
                     *ngIf="sistemaService.isProfissional() === true">
                 Seus modelos de anamnese
@@ -241,15 +246,22 @@
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'especialidade-tela' } } ]" (click)="sidenav.toggle()"
                     *ngIf="sistemaService.isAdminEscopo() === true">               
                 <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUmbrella"></fa-icon>
+                    <fa-icon [icon]="icons.faStethoscope"></fa-icon>
                     <div class="mx-2">Especialidades</div>
                 </div>
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'exame-tela' } } ]" (click)="sidenav.toggle()"
                     *ngIf="sistemaService.isAdminEscopo() === true">               
                 <div class="d-flex flex-row">
-                    <fa-icon [icon]="icons.faUmbrella"></fa-icon>
+                    <fa-icon [icon]="icons.faDisease"></fa-icon>
                     <div class="mx-2">Exames</div>
+                </div>
+            </mat-list-item>
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'procedimento-tela' } } ]" (click)="sidenav.toggle()"
+                    *ngIf="sistemaService.isAdminEscopo() === true">               
+                <div class="d-flex flex-row">
+                    <fa-icon [icon]="icons.faBedPulse"></fa-icon>
+                    <div class="mx-2">Procedimentos</div>
                 </div>
             </mat-list-item>
         </mat-nav-list>        

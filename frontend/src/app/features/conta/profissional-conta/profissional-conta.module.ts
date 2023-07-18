@@ -6,6 +6,8 @@ import { ProfissionalContaEspecialidadeSaveModule } from './profissional-conta-e
 import { ProfissionalContaEspecialidadesModule } from './profissional-conta-especialidades/profissional-conta-especialidades.module';
 import { ProfissionalContaExamesModule } from './profissional-conta-exames/profissional-conta-exames.module';
 import { ProfissionalContaExameSaveModule } from './profissional-conta-exame-save/profissional-conta-exame-save.module';
+import { ProfissionalContaProcedimentosModule } from './profissional-conta-procedimentos/profissional-conta-procedimentos.module';
+import { ProfissionalContaProcedimentoSaveModule } from './profissional-conta-procedimento-save/profissional-conta-procedimento-save.module';
 
 
 
@@ -21,7 +23,10 @@ import { ProfissionalContaExameSaveModule } from './profissional-conta-exame-sav
     ProfissionalContaEspecialidadesModule,
 
     ProfissionalContaExamesModule,
-    ProfissionalContaExameSaveModule
+    ProfissionalContaExameSaveModule,
+
+    ProfissionalContaProcedimentosModule,
+    ProfissionalContaProcedimentoSaveModule
   ]
 })
 export class ProfissionalContaModule { }

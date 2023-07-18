@@ -151,16 +151,9 @@ public class ProcedimentoService {
 		ProcedimentoResponse presp = procedimentoLoader.novoResponse();
 		procedimentoLoader.loadResponse( presp, procedimento );
 				
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		Clinica clinica = procedimento.getClinica();
 		
-		List<Long> clinicasIDs2 = new ArrayList<>();
-		List<String> clinicasNomes2 = new ArrayList<>();		
-		for( Clinica clinica : clinicas ) {
-			clinicasIDs2.add( clinica.getId() );
-			clinicasNomes2.add( clinica.getNome() );
-		}
-		
-		return procedimentoLoader.novoEditResponse( presp, clinicasIDs2, clinicasNomes2 );
+		return procedimentoLoader.novoEditResponse( presp, clinica );
 	}
 	
 	public void deleta( Long procedimentoId ) throws ServiceException {

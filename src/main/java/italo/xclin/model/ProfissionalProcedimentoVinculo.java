@@ -22,7 +22,7 @@ public class ProfissionalProcedimentoVinculo {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private double valor;
+	private double procedimentoValor;
 	
 	@ManyToOne
 	@JoinColumn(name="profissional_id")

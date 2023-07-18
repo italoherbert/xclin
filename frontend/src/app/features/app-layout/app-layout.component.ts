@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { faAdd, faArrowLeft, faBox, faCalendarCheck, faCalendarDays, faChevronDown, faChevronUp, faCircleUser, faCubes, faDisplay, faFilePdf, faFilter, faHospital, faHospitalUser, faListOl, faMoneyBillTrendUp, faPeopleGroup, faUmbrella, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faAdd, faArrowLeft, faBedPulse, faBox, faCalendarCheck, faCalendarDays, faChevronDown, faChevronUp, faCircleUser, faCubes, faDisease, faDisplay, faFilePdf, faFilter, faHospital, faHospitalUser, faListOl, faMoneyBillTrendUp, faPeopleGroup, faStethoscope, faUmbrella, faUser, faUserDoctor, faUserGroup, faUserNurse, faUserTie, faWrench } from '@fortawesome/free-solid-svg-icons';
 import { SistemaService } from '../../core/service/sistema.service';
 import { faSteam } from '@fortawesome/free-brands-svg-icons';
 
@@ -31,12 +31,14 @@ export class AppLayoutComponent {
     faDisplay : faDisplay,
     faFilter : faFilter,
     faListOl : faListOl,
-    faUmbrella : faUmbrella,
     faCubes : faCubes,
     faMoneyBillTrendUp : faMoneyBillTrendUp,
     faPeopleGroup : faPeopleGroup,
     faFilePdf : faFilePdf,
-    faSteam : faSteam
+    faSteam : faSteam,
+    faBedPulse : faBedPulse,
+    faDisease : faDisease,
+    faStethoscope : faStethoscope
   }
 
   usuarioMenuShow : boolean = false;

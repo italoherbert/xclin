@@ -29,9 +29,7 @@ public class Exame {
 	private String nome;
 	
 	private String descricao;
-	
-	private double valor;
-	
+		
 	@ManyToOne
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;

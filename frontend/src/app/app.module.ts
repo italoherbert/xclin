@@ -27,6 +27,7 @@ import { ExameModule } from './features/exame/exame.module';
 
 import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { ProcedimentoModule } from './features/procedimento/procedimento.module';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -42,7 +43,7 @@ export const MY_DATE_FORMATS = {
 
 @NgModule({
   declarations: [
-    AppComponent,    
+    AppComponent,      
   ],
   imports: [
     BrowserModule,
@@ -70,7 +71,9 @@ export const MY_DATE_FORMATS = {
 
     AnamneseModeloModule,
     ExameModule, 
-    LancamentoModule,
+    ProcedimentoModule,
+
+    LancamentoModule,    
 
     RelatorioModule
   ],

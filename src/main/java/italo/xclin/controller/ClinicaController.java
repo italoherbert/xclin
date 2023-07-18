@@ -41,7 +41,7 @@ public class ClinicaController {
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
 	
-	@PreAuthorize("hasAuthority('clinicaWRITE')")
+	@PreAuthorize("hasAuthority('clinicaRegWRITE')")
 	@PostMapping("/registra")
 	public ResponseEntity<Object> registra( 
 			@RequestHeader( "Authorization" ) String authHeader,

@@ -80,5 +80,8 @@ public class Atendimento {
 	
 	@OneToMany(mappedBy="atendimento", cascade=CascadeType.ALL)
 	private List<ExameItem> exames;
+	
+	@OneToMany(mappedBy="atendimento", cascade=CascadeType.ALL)
+	private List<ProcedimentoItem> procedimentos;
 		
 }

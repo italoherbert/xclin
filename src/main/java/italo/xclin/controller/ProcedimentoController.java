@@ -18,87 +18,87 @@ import org.springframework.web.bind.annotation.RestController;
 import italo.xclin.exception.SistemaException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
-import italo.xclin.model.request.filtro.ExameFiltroRequest;
-import italo.xclin.model.request.save.ExameSaveRequest;
-import italo.xclin.model.response.ExameResponse;
-import italo.xclin.model.response.load.edit.ExameEditLoadResponse;
-import italo.xclin.model.response.load.reg.ExameRegLoadResponse;
-import italo.xclin.model.response.load.tela.ExameTelaLoadResponse;
-import italo.xclin.service.ExameService;
+import italo.xclin.model.request.filtro.ProcedimentoFiltroRequest;
+import italo.xclin.model.request.save.ProcedimentoSaveRequest;
+import italo.xclin.model.response.ProcedimentoResponse;
+import italo.xclin.model.response.load.edit.ProcedimentoEditLoadResponse;
+import italo.xclin.model.response.load.reg.ProcedimentoRegLoadResponse;
+import italo.xclin.model.response.load.tela.ProcedimentoTelaLoadResponse;
+import italo.xclin.service.ProcedimentoService;
 import italo.xclin.service.autorizador.Autorizador;
-import italo.xclin.validator.ExameValidator;
+import italo.xclin.validator.ProcedimentoValidator;
 
 @RestController
-@RequestMapping("/api/exame")
-public class ExameController {
-
-	@Autowired
-	private ExameService exameService;
+@RequestMapping("/api/procedimento")
+public class ProcedimentoController {
 	
 	@Autowired
-	private ExameValidator exameValidator;
+	private ProcedimentoService procedimentoService;
 	
 	@Autowired
-	private Autorizador autorizador;
+	private ProcedimentoValidator procedimentoValidator;
 	
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
 	
-	@PreAuthorize("hasAuthority('exameWRITE')")
+	@Autowired
+	private Autorizador autorizador;
+
+	@PreAuthorize("hasAuthority('procedimentoWRITE')")
 	@PostMapping("/registra/{clinicaId}")
 	public ResponseEntity<Object> registra(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
-			@RequestBody ExameSaveRequest request ) throws SistemaException {
+			@RequestBody ProcedimentoSaveRequest request ) throws SistemaException {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		
-		exameValidator.validaSave( request );
-		exameService.registra( clinicaId, request );
+		procedimentoValidator.validaSave( request );
+		procedimentoService.registra( clinicaId, request );
 		return ResponseEntity.ok().build();
 	}
 	
-	@PreAuthorize("hasAuthority('exameWRITE')")
-	@PutMapping("/altera/{exameId}")
+	@PreAuthorize("hasAuthority('procedimentoWRITE')")
+	@PutMapping("/altera/{procedimentoId}")
 	public ResponseEntity<Object> altera(
 			@RequestHeader("Authorization") String authorizationHeader,
-			@PathVariable Long exameId,
-			@RequestBody ExameSaveRequest request ) throws SistemaException {
+			@PathVariable Long procedimentoId,
+			@RequestBody ProcedimentoSaveRequest request ) throws SistemaException {
 		
-		autorizador.autorizaSeExameDeClinica( authorizationHeader, exameId );
+		autorizador.autorizaSeProcedimentoDeClinica( authorizationHeader, procedimentoId );
 		
-		exameValidator.validaSave( request );
-		exameService.altera( exameId, request );
+		procedimentoValidator.validaSave( request );
+		procedimentoService.altera( procedimentoId, request );
 		return ResponseEntity.ok().build();
 	}
 	
-	@PreAuthorize("hasAuthority('exameREAD')")
+	@PreAuthorize("hasAuthority('procedimentoREAD')")
 	@PostMapping("/filtra/{clinicaId}")
 	public ResponseEntity<Object> filtra(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long clinicaId,
-			@RequestBody ExameFiltroRequest request ) throws SistemaException {
+			@RequestBody ProcedimentoFiltroRequest request ) throws SistemaException {
 		
 		autorizador.autorizaPorClinica( authorizationHeader, clinicaId ); 
 		
-		exameValidator.validaFiltro( request );
-		List<ExameResponse> lista = exameService.filtra( clinicaId, request );
+		procedimentoValidator.validaFiltro( request );
+		List<ProcedimentoResponse> lista = procedimentoService.filtra( clinicaId, request );
 		return ResponseEntity.ok( lista );
 	}
 	
-	@PreAuthorize("hasAuthority('exameREAD')")
-	@GetMapping("/get/{exameId}")
+	@PreAuthorize("hasAuthority('procedimentoREAD')")
+	@GetMapping("/get/{procedimentoId}")
 	public ResponseEntity<Object> filtra(
 			@RequestHeader("Authorization") String authorizationHeader,
-			@PathVariable Long exameId ) throws SistemaException {
+			@PathVariable Long procedimentoId ) throws SistemaException {
 		
-		autorizador.autorizaSeExameDeClinica( authorizationHeader, exameId ); 
+		autorizador.autorizaSeProcedimentoDeClinica( authorizationHeader, procedimentoId ); 
 		
-		ExameResponse resp = exameService.get( exameId );
+		ProcedimentoResponse resp = procedimentoService.get( procedimentoId );
 		return ResponseEntity.ok( resp );
 	}
 	
-	@PreAuthorize("hasAuthority('exameREAD')")
+	@PreAuthorize("hasAuthority('procedimentoREAD')")
 	@GetMapping("/load/tela")
 	public ResponseEntity<Object> telaLoad(
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
@@ -106,11 +106,11 @@ public class ExameController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ExameTelaLoadResponse resp = exameService.telaLoad( clinicasIDs );
+		ProcedimentoTelaLoadResponse resp = procedimentoService.telaLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	
-	@PreAuthorize("hasAuthority('exameREAD')")
+	@PreAuthorize("hasAuthority('procedimentoREAD')")
 	@GetMapping("/load/reg")
 	public ResponseEntity<Object> regLoad(
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
@@ -118,32 +118,32 @@ public class ExameController {
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ExameRegLoadResponse resp = exameService.regLoad( clinicasIDs );
+		ProcedimentoRegLoadResponse resp = procedimentoService.regLoad( clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	
-	@PreAuthorize("hasAuthority('exameREAD')")
-	@GetMapping("/load/edit/{exameId}")
+	@PreAuthorize("hasAuthority('procedimentoREAD')")
+	@GetMapping("/load/edit/{procedimentoId}")
 	public ResponseEntity<Object> editLoad(
 			@RequestHeader("Authorization") String authorizationHeader,
-			@PathVariable Long exameId ) throws SistemaException {
+			@PathVariable Long procedimentoId ) throws SistemaException {
 			
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ExameEditLoadResponse resp = exameService.editLoad( clinicasIDs, exameId );
+		ProcedimentoEditLoadResponse resp = procedimentoService.editLoad( clinicasIDs, procedimentoId );
 		return ResponseEntity.ok( resp );
 	}
 	
-	@PreAuthorize("hasAuthority('exameDELETE')")
-	@DeleteMapping("/deleta/{exameId}")
+	@PreAuthorize("hasAuthority('procedimentoDELETE')")
+	@DeleteMapping("/deleta/{procedimentoId}")
 	public ResponseEntity<Object> deleta(
 			@RequestHeader("Authorization") String authorizationHeader,
-			@PathVariable Long exameId ) throws SistemaException {
+			@PathVariable Long procedimentoId ) throws SistemaException {
 		
-		autorizador.autorizaSeExameDeClinica( authorizationHeader, exameId ); 
+		autorizador.autorizaSeProcedimentoDeClinica( authorizationHeader, procedimentoId ); 
 		
-		exameService.deleta( exameId );
+		procedimentoService.deleta( procedimentoId );
 		return ResponseEntity.ok().build();
 	}
 	

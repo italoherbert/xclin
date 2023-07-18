@@ -44,7 +44,7 @@ public class ExameService {
 		
 		boolean existe = exameRepository.existePorClinicaPorNome( clinicaId, nome );
 		if ( existe )
-			throw new ServiceException( Erro.CLINICA_EXAME_JA_EXISTE );
+			throw new ServiceException( Erro.EXAME_JA_EXISTE );
 		
 		Exame exame = exameLoader.novoBean( clinica );
 		exameLoader.loadBean( exame, request ); 
@@ -55,14 +55,14 @@ public class ExameService {
 	public void altera( Long clinicaExameId, ExameSaveRequest request ) throws ServiceException {
 		Optional<Exame> exameOp = exameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
-			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.EXAME_NAO_ENCONTRADO );
 		
 		Exame exame = exameOp.get();
 		
 		String nome = request.getNome();		
 		if ( !nome.equalsIgnoreCase( exame.getNome() ) )
 			if ( exameRepository.existePorClinicaPorNome( clinicaExameId, nome ) )
-				throw new ServiceException( Erro.CLINICA_EXAME_JA_EXISTE );		
+				throw new ServiceException( Erro.EXAME_JA_EXISTE );		
 		
 		exameLoader.loadBean( exame, request );
 		exameRepository.save( exame );
@@ -100,7 +100,7 @@ public class ExameService {
 	public ExameResponse get( Long clinicaExameId ) throws ServiceException {
 		Optional<Exame> exameOp = exameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
-			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.EXAME_NAO_ENCONTRADO );
 		
 		Exame exame = exameOp.get();
 		
@@ -139,7 +139,7 @@ public class ExameService {
 	public ExameEditLoadResponse editLoad( Long[] clinicasIDs, Long clinicaExameId ) throws ServiceException {				
 		Optional<Exame> exameOp = exameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
-			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.EXAME_NAO_ENCONTRADO );
 		
 		Exame exame = exameOp.get();
 		Clinica clinica = exame.getClinica();
@@ -153,7 +153,7 @@ public class ExameService {
 	public void deleta( Long clinicaExameId ) throws ServiceException {
 		boolean existe = exameRepository.existsById( clinicaExameId );
 		if ( !existe )
-			throw new ServiceException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
+			throw new ServiceException( Erro.EXAME_NAO_ENCONTRADO );
 		
 		exameRepository.deleteById( clinicaExameId ); 
 	}

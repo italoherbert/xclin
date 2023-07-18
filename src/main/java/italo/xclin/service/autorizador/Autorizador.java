@@ -16,21 +16,21 @@ import italo.xclin.model.Atendimento;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Especialidade;
 import italo.xclin.model.Exame;
-import italo.xclin.model.ExameItem;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.PacienteAnexo;
+import italo.xclin.model.Procedimento;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.repository.AnamneseModeloPerguntaRepository;
 import italo.xclin.repository.AtendimentoRepository;
 import italo.xclin.repository.EspecialidadeRepository;
-import italo.xclin.repository.ExameItemRepository;
 import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteAnexoRepository;
 import italo.xclin.repository.PacienteRepository;
+import italo.xclin.repository.ProcedimentoRepository;
 import italo.xclin.repository.ProfissionalRepository;
 
 @Component
@@ -56,12 +56,12 @@ public class Autorizador {
 	
 	@Autowired
 	private PacienteAnexoRepository pacienteAnexoRepository;
+		
+	@Autowired
+	private ExameRepository exameRepository;
 	
 	@Autowired
-	private ExameRepository clinicaExameRepository;
-	
-	@Autowired
-	private ExameItemRepository exameRepository;
+	private ProcedimentoRepository procedimentoRepository;
 	
 	@Autowired
 	private EspecialidadeRepository especialidadeRepository;
@@ -78,27 +78,27 @@ public class Autorizador {
 	}
 	
 	public void autorizaSeExameDeClinica( String authorizationHeader, Long exameId ) throws AutorizacaoException {
-		Optional<ExameItem> exameOp = exameRepository.findById( exameId );
+		Optional<Exame> exameOp = exameRepository.findById( exameId );
 		if ( !exameOp.isPresent() )
 			throw new AutorizacaoException( Erro.EXAME_NAO_ENCONTRADO );
 		
-		ExameItem exame = exameOp.get();
-		Long clinicaId = exame.getAtendimento().getClinica().getId();
+		Exame exame = exameOp.get();
+		Long clinicaId = exame.getClinica().getId();
 		
 		this.autorizaPorClinica( authorizationHeader, clinicaId ); 
 	}
 	
-	public void autorizaSeClinicaExameDeClinica( String authorizationHeader, Long clinicaExameId ) throws AutorizacaoException {
-		Optional<Exame> clinicaExameOp = clinicaExameRepository.findById( clinicaExameId );
-		if ( !clinicaExameOp.isPresent() )
-			throw new AutorizacaoException( Erro.CLINICA_EXAME_NAO_ENCONTRADO );
+	public void autorizaSeProcedimentoDeClinica( String authorizationHeader, Long procedimentoId ) throws AutorizacaoException {
+		Optional<Procedimento> procedimentoOp = procedimentoRepository.findById( procedimentoId );
+		if ( !procedimentoOp.isPresent() )
+			throw new AutorizacaoException( Erro.PROCEDIMENTO_NAO_ENCONTRADO );
 		
-		Exame exame = clinicaExameOp.get();
-		Long clinicaId = exame.getClinica().getId();
+		Procedimento procedimento = procedimentoOp.get();
+		Long clinicaId = procedimento.getClinica().getId();
 		
-		this.autorizaPorClinica( authorizationHeader, clinicaId );
+		this.autorizaPorClinica( authorizationHeader, clinicaId ); 
 	}
-	
+		
 	public void autorizaSeAnexoDeClinica( String authorizationHeader, Long pacienteAnexoId ) throws AutorizacaoException {
 		Optional<PacienteAnexo> pacienteAnexoOp = pacienteAnexoRepository.findById( pacienteAnexoId );
 		if ( !pacienteAnexoOp.isPresent() )

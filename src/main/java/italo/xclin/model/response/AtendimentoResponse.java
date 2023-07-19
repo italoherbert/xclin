@@ -1,7 +1,5 @@
 package italo.xclin.model.response;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,14 +19,6 @@ public class AtendimentoResponse {
 	
 	private String turnoLabel;
 	
-	private boolean pago;
-	
-	private double valorTotalBruto;
-	
-	private double valorTotal;
-	
-	private double valorPago;
-
 	private String observacoes;
 
 	private String dataAgendamento;
@@ -52,13 +42,7 @@ public class AtendimentoResponse {
 	private String profissionalNome;
 	
 	private boolean pacienteAnamneseCriada;
-	
-	private boolean temConsulta;
-	
-	private ConsultaResponse consulta;
-	
-	private List<ExameItemResponse> exames;
-	
-	private List<ProcedimentoItemResponse> procedimentos;
+		
+	private OrcamentoResponse orcamento;
 		
 }

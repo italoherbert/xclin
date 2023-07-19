@@ -1,5 +1,5 @@
 
-export interface AtendimentoPagamento {
+export interface OrcamentoPagamento {
     pago : boolean;
     valorTotalBruto : number;
     valorTotal : number;

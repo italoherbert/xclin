@@ -22,6 +22,7 @@ import italo.xclin.loader.ConsultaLoader;
 import italo.xclin.loader.EspecialidadeLoader;
 import italo.xclin.loader.ExameItemLoader;
 import italo.xclin.loader.LancamentoLoader;
+import italo.xclin.loader.OrcamentoLoader;
 import italo.xclin.loader.PacienteAnexoLoader;
 import italo.xclin.loader.ProcedimentoItemLoader;
 import italo.xclin.loader.ProfissionalExameVinculoLoader;
@@ -34,6 +35,7 @@ import italo.xclin.model.Especialidade;
 import italo.xclin.model.Exame;
 import italo.xclin.model.ExameItem;
 import italo.xclin.model.Lancamento;
+import italo.xclin.model.Orcamento;
 import italo.xclin.model.Paciente;
 import italo.xclin.model.PacienteAnexo;
 import italo.xclin.model.Procedimento;
@@ -48,11 +50,12 @@ import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroReques
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
-import italo.xclin.model.request.save.AtendimentoPagamentoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.request.save.ExameItemSaveRequest;
+import italo.xclin.model.request.save.OrcamentoPagamentoSaveRequest;
+import italo.xclin.model.request.save.OrcamentoSaveRequest;
 import italo.xclin.model.request.save.ProcedimentoItemSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoObservacoesResponse;
@@ -61,13 +64,14 @@ import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ExameItemResponse;
 import italo.xclin.model.response.ListaResponse;
+import italo.xclin.model.response.OrcamentoResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
 import italo.xclin.model.response.ProcedimentoItemResponse;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.ProfissionalProcedimentoVinculoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
-import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
+import italo.xclin.model.response.load.edit.OrcamentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
@@ -79,6 +83,7 @@ import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
 import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.LancamentoRepository;
+import italo.xclin.repository.OrcamentoRepository;
 import italo.xclin.repository.PacienteRepository;
 import italo.xclin.repository.ProcedimentoRepository;
 import italo.xclin.repository.ProfissionalRepository;
@@ -91,6 +96,9 @@ public class AtendimentoService {
 	
 	@Autowired
 	private AtendimentoRepository atendimentoRepository;
+	
+	@Autowired
+	private OrcamentoRepository orcamentoRepository;
 	
 	@Autowired
 	private ClinicaRepository clinicaRepository;
@@ -122,6 +130,9 @@ public class AtendimentoService {
 	
 	@Autowired
 	private AtendimentoLoader atendimentoLoader;
+	
+	@Autowired
+	private OrcamentoLoader orcamentoLoader;
 	
 	@Autowired
 	private EspecialidadeLoader especialidadeLoader;
@@ -186,9 +197,11 @@ public class AtendimentoService {
 		Profissional profissional = profissionalOp.get();
 		Paciente paciente = pacienteOp.get();
 		
+		OrcamentoSaveRequest orcamentoReq = request.getOrcamento();
+		
 		Consulta consulta = null;
-		if ( request.isTemConsulta() ) {
-			ConsultaSaveRequest consultaRequest = request.getConsulta();
+		if ( orcamentoReq.isTemConsulta() ) {
+			ConsultaSaveRequest consultaRequest = orcamentoReq.getConsulta();
 			Long especialidadeId = consultaRequest.getEspecialidadeId();
 			
 			Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
@@ -202,7 +215,7 @@ public class AtendimentoService {
 		}
 		
 		List<ExameItem> exames = new ArrayList<>();
-		for( ExameItemSaveRequest reqExame : request.getExames() ) {
+		for( ExameItemSaveRequest reqExame : orcamentoReq.getExames() ) {
 			Long exameId = reqExame.getExameId();
 			
 			Optional<Exame> exameOp = exameRepository.findById( exameId );
@@ -217,7 +230,7 @@ public class AtendimentoService {
 		}
 		
 		List<ProcedimentoItem> procedimentos = new ArrayList<>();
-		for( ProcedimentoItemSaveRequest reqProc : request.getProcedimentos() ) {
+		for( ProcedimentoItemSaveRequest reqProc : orcamentoReq.getProcedimentos() ) {
 			Long procedimentoId = reqProc.getProcedimentoId();
 			
 			Optional<Procedimento> procedimentoOp = procedimentoRepository.findById( procedimentoId );
@@ -231,29 +244,48 @@ public class AtendimentoService {
 			procedimentos.add( procItem );
 		}
 						
+		Orcamento orcamento = orcamentoLoader.novoBean( consulta, exames, procedimentos );
+		orcamentoLoader.loadBean( orcamento, orcamentoReq ); 
+		
 		Atendimento atendimento = atendimentoLoader.novoBean( 
 				profissional, 
 				paciente, 
 				clinica, 
-				consulta, 
-				exames,
-				procedimentos );
+				orcamento );
 		
 		atendimentoLoader.loadBean( atendimento, request );
 		atendimento.setStatus( AtendimentoStatus.REGISTRADO ); 
 		
 		atendimentoRepository.save( atendimento );
 		
-		if ( request.isPago() ) {					
+		if ( request.getOrcamento().isPago() ) {					
 			Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );		
 			lanc.setDataLancamento( new Date() );
 			lanc.setTipo( LancamentoTipo.CREDITO );
 			lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );
 			
-			lanc.setValor( request.getValorPago() );
+			lanc.setValor( request.getOrcamento().getValorPago() );
 			
 			lancamentoRepository.save( lanc );
 		}
+	}
+	
+	public void registraRetorno( Long atendimentoId ) throws ServiceException {
+		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
+		if ( !atendimentoOp.isPresent() )
+			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
+		
+		Atendimento atendimento = atendimentoOp.get();
+		Clinica clinica = atendimento.getClinica();
+		Profissional profissional = atendimento.getProfissional();
+		Paciente paciente = atendimento.getPaciente();
+		
+		Orcamento orcamento = atendimento.getOrcamento();
+		
+		Atendimento novoAtendimento = atendimentoLoader.novoBean( profissional, paciente, clinica, orcamento );
+		atendimentoLoader.loadBean( novoAtendimento );
+		
+		atendimentoRepository.save( novoAtendimento );
 	}
 	
 	public void altera( Long atendimentoId, AtendimentoAlterSaveRequest request ) throws ServiceException {
@@ -279,7 +311,7 @@ public class AtendimentoService {
 	}
 	
 	@Transactional
-	public void efetuaPagamento( Long logadoUID, Long atendimentoId, AtendimentoPagamentoSaveRequest request ) throws ServiceException {
+	public void efetuaPagamento( Long logadoUID, Long atendimentoId, OrcamentoPagamentoSaveRequest request ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
@@ -291,9 +323,11 @@ public class AtendimentoService {
 		Usuario usuarioLogado = usuarioLogadoOp.get();
 		
 		Atendimento atendimento = atendimentoOp.get();
-		atendimentoLoader.loadBean( atendimento, request ); 
+		Orcamento orcamento = atendimento.getOrcamento();
 		
-		atendimentoRepository.save( atendimento );
+		orcamentoLoader.loadBean( orcamento, request ); 
+		
+		orcamentoRepository.save( orcamento );
 		
 		Clinica c = atendimento.getClinica();
 		
@@ -301,7 +335,7 @@ public class AtendimentoService {
 		lanc.setDataLancamento( new Date() );
 		lanc.setTipo( LancamentoTipo.CREDITO );
 		lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );		
-		lanc.setValor( atendimento.getValorPago() ); 
+		lanc.setValor( orcamento.getValorPago() ); 
 		
 		lancamentoRepository.save( lanc );
 	}	
@@ -319,11 +353,12 @@ public class AtendimentoService {
 		Usuario usuarioLogado = usuarioLogadoOp.get();
 		
 		Atendimento atendimento = atendimentoOp.get();
+		Orcamento orcamento = atendimento.getOrcamento();
 		
-		double valorPago = atendimento.getValorPago();
+		double valorPago = orcamento.getValorPago();
 				
-		atendimento.setPago( false );
-		atendimento.setValorPago( 0 );
+		orcamento.setPago( false );
+		orcamento.setValorPago( 0 );
 		
 		atendimentoRepository.save( atendimento );
 		
@@ -347,7 +382,8 @@ public class AtendimentoService {
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 		
 		Atendimento atendimento = atendimentoOp.get();
-		if ( atendimento.isPago() )
+		Orcamento orcamento = atendimento.getOrcamento();
+		if ( orcamento.isPago() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_CANCELADO );
 		
 		atendimento.setStatus( AtendimentoStatus.CANCELADO );		
@@ -618,17 +654,19 @@ public class AtendimentoService {
 		return resp;
 	}
 	
-	public AtendimentoPagamentoLoadResponse getPagamentoLoad( Long atendimentoId ) throws ServiceException {
+	public OrcamentoPagamentoLoadResponse getPagamentoLoad( Long atendimentoId ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 		
 		Atendimento atendimento = atendimentoOp.get();
-		Consulta consulta = atendimento.getConsulta();
-		List<ExameItem> exames = atendimento.getExames();
-		List<ProcedimentoItem> procedimentos = atendimento.getProcedimentos();
+		Orcamento orcamento = atendimento.getOrcamento();
+
+		Consulta consulta = orcamento.getConsulta();
+		List<ExameItem> exames = orcamento.getExames();
+		List<ProcedimentoItem> procedimentos = orcamento.getProcedimentos();
 		
-		return atendimentoLoader.novoPagamentoResponse( atendimento, consulta, exames, procedimentos );
+		return orcamentoLoader.novoPagamentoResponse( orcamento, consulta, exames, procedimentos );
 	}
 	
 	public AtendimentoAlterLoadResponse getAlterLoad( Long atendimentoId ) throws ServiceException {
@@ -733,8 +771,9 @@ public class AtendimentoService {
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
 						
 		Atendimento atendimento = atendimentoOp.get();
+		Orcamento orcamento = atendimento.getOrcamento();
 		
-		if ( atendimento.isPago() ) {
+		if ( orcamento.isPago() ) {
 			Clinica clinica = atendimento.getClinica();
 
 			Optional<Usuario> usuarioOp = usuarioRepository.findById( logadoUID );
@@ -746,11 +785,16 @@ public class AtendimentoService {
 			Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );
 			lanc.setDataLancamento( new Date() );
 			lanc.setTipo( LancamentoTipo.DEBITO );
-			lanc.setValor( atendimento.getValorPago() );
+			lanc.setValor( orcamento.getValorPago() );
 			lanc.setObservacoes( Info.PAGAMENTO_DEBITADO ); 
 			
 			lancamentoRepository.save( lanc );
 		}
+		
+		Long orcamentoId = orcamento.getId();
+		boolean orcamentoVinculado = orcamentoRepository.vinculadoComAtendimento( orcamentoId );
+		if ( !orcamentoVinculado )
+			orcamentoRepository.deleteById( orcamentoId );
 		
 		atendimentoRepository.deleteById( atendimentoId ); 
 	}
@@ -760,12 +804,14 @@ public class AtendimentoService {
 		Profissional profissional2 = atendimento.getProfissional();
 		Paciente paciente = atendimento.getPaciente();
 		
-		Consulta consulta = atendimento.getConsulta();
-		List<ExameItem> exames = atendimento.getExames();
-		List<ProcedimentoItem> procedimentos = atendimento.getProcedimentos();
+		Orcamento orcamento = atendimento.getOrcamento();
+		
+		Consulta consulta = orcamento.getConsulta();
+		List<ExameItem> exames = orcamento.getExames();
+		List<ProcedimentoItem> procedimentos = orcamento.getProcedimentos();
 		
 		ConsultaResponse consultaResp = null;
-		if ( atendimento.isTemConsulta() ) {
+		if ( orcamento.isTemConsulta() ) {
 			Especialidade esp = consulta.getEspecialidade();
 			consultaResp = consultaLoader.novoResponse( esp );
 			consultaLoader.loadResponse( consultaResp, consulta );
@@ -787,13 +833,14 @@ public class AtendimentoService {
 			procedimentosListaResp.add( piResp );
 		}
 					
+		OrcamentoResponse orcamentoResp = orcamentoLoader.novoResponse( consultaResp, examesListaResp, procedimentosListaResp );
+		orcamentoLoader.loadResponse( orcamentoResp, orcamento );
+		
 		AtendimentoResponse resp = atendimentoLoader.novoResponse( 
 				clinica,
 				profissional2, 
 				paciente, 
-				consultaResp, 
-				examesListaResp, 
-				procedimentosListaResp );
+				orcamentoResp );
 		
 		atendimentoLoader.loadResponse( resp, atendimento );
 		

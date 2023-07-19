@@ -24,13 +24,13 @@ import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroReques
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
-import italo.xclin.model.request.save.AtendimentoPagamentoSaveRequest;
+import italo.xclin.model.request.save.OrcamentoPagamentoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
-import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
+import italo.xclin.model.response.load.edit.OrcamentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
@@ -109,7 +109,7 @@ public class AtendimentoController {
 	public ResponseEntity<Object> registraPagamento(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId,
-			@RequestBody AtendimentoPagamentoSaveRequest request ) throws SistemaException {
+			@RequestBody OrcamentoPagamentoSaveRequest request ) throws SistemaException {
 		
 		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
 		
@@ -255,7 +255,7 @@ public class AtendimentoController {
 		
 		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
 		
-		AtendimentoPagamentoLoadResponse resp = atendimentoService.getPagamentoLoad( atendimentoId );
+		OrcamentoPagamentoLoadResponse resp = atendimentoService.getPagamentoLoad( atendimentoId );
 		return ResponseEntity.ok( resp );
 	}
 	

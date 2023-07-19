@@ -35,9 +35,6 @@ export class AtendimentoDetalhesComponent {
     observacoes: '',
     turno: '',
     dataAtendimento: '',
-    pago: false,
-    valorTotal: 0,
-    valorPago: 0,
     status: '',
     pacienteId: 0,
     pacienteNome: '',
@@ -48,15 +45,20 @@ export class AtendimentoDetalhesComponent {
     clinicaNome: '',
     statusLabel: '',
     turnoLabel: '',
-    temConsulta: false,
-    consulta: {
-      id: 0,
-      especialidadeId: 0,
-      especialidadeNome: '',
-      valor: 0
-    },
-    exames: [],
-    procedimentos: []
+    orcamento: {
+      pago: false,
+      valorTotal: 0,
+      valorPago: 0,
+      temConsulta: false,
+      consulta: {
+        id: 0,
+        especialidadeId: 0,
+        especialidadeNome: '',
+        valor: 0
+      },
+      exames: [],
+      procedimentos: []
+    } 
   }
 
   constructor( 

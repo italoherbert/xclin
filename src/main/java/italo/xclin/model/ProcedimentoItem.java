@@ -29,8 +29,8 @@ public class ProcedimentoItem {
 	private double valor;
 	
 	@ManyToOne
-	@JoinColumn(name="atendimento_id")
-	private Atendimento atendimento;
+	@JoinColumn(name="orcamento_id")
+	private Orcamento orcamento;
 			
 }
 

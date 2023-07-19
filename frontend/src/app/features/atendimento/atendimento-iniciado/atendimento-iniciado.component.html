@@ -90,16 +90,16 @@
                             <h1>Consulta</h1>
                         </mat-card-header>
                         <mat-card-content>
-                            <div *ngIf="atendimento.temConsulta === false">
+                            <div *ngIf="atendimento.orcamento.temConsulta === false">
                                 <span class="text-primary">Consulta não incluída</span>
                             </div>
-                            <div class="row" *ngIf="atendimento.temConsulta === true">                           
+                            <div class="row" *ngIf="atendimento.orcamento.temConsulta === true">                           
                                 <div class="col-sm-4">
                                     <div class="fs-6 fw-bold">
                                         Especialidade:
                                     </div>
                                     <div class="fs-5">
-                                        {{atendimento.consulta.especialidadeNome}}
+                                        {{atendimento.orcamento.consulta.especialidadeNome}}
                                     </div>
                                 </div>                                                                                  
                             </div>
@@ -111,11 +111,11 @@
                             <h1>Exames</h1>
                         </mat-card-header>
                         <mat-card-content>
-                            <div *ngIf="atendimento.exames.length === 0">
+                            <div *ngIf="atendimento.orcamento.exames.length === 0">
                                 <span class="text-primary">Nenhum exame incluído</span>
                             </div>
-                            <div *ngIf="atendimento.exames.length > 0">
-                                <mat-list-item *ngFor="let exame of atendimento.exames">
+                            <div *ngIf="atendimento.orcamento.exames.length > 0">
+                                <mat-list-item *ngFor="let exame of atendimento.orcamento.exames">
                                     {{exame.nome}}
                                 </mat-list-item>
                             </div>                        
@@ -127,11 +127,11 @@
                             <h1>Procedimentos</h1>
                         </mat-card-header>
                         <mat-card-content>
-                            <div *ngIf="atendimento.procedimentos.length === 0">
+                            <div *ngIf="atendimento.orcamento.procedimentos.length === 0">
                                 <span class="text-primary">Nenhum procedimento incluído</span>
                             </div>
-                            <div *ngIf="atendimento.procedimentos.length > 0">
-                                <mat-list-item *ngFor="let procedimento of atendimento.procedimentos">
+                            <div *ngIf="atendimento.orcamento.procedimentos.length > 0">
+                                <mat-list-item *ngFor="let procedimento of atendimento.orcamento.procedimentos">
                                     {{procedimento.nome}}
                                 </mat-list-item>
                             </div>                        

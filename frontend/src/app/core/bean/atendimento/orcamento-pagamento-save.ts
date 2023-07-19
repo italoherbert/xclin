@@ -1,5 +1,5 @@
 
-export interface AtendimentoPagamentoSave {
+export interface OrcamentoPagamentoSave {
     valorPago : number;
     pago : boolean;
 }

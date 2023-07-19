@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -23,6 +24,7 @@ import { RealInputModule } from 'src/app/shared/directive/real-input/real-input.
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
+    MatCheckboxModule,
     MatButtonModule
   ]
 })

@@ -30,7 +30,7 @@ public class Consulta {
 	private Especialidade especialidade;
 	
 	@OneToOne
-	@JoinColumn(name="atendimento_id")
-	private Atendimento atendimento;
+	@JoinColumn(name="orcamento_id")
+	private Orcamento orcamento;
 	
 }

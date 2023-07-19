@@ -44,17 +44,19 @@ export class AtendimentoRegistroComponent {
   atendimentoSave : AtendimentoRegistro = {
     dataAtendimento : '',
     turno : '',   
-    observacoes : '',
-    pago : false,
-    valorTotal: 0,
-    valorPago : 0,
-    temConsulta : false,
-    consulta : {
-      especialidadeId : 0,
-      valor : 0
-    },
-    exames : [],
-    procedimentos : []
+    observacoes : '',    
+    orcamento: {
+      pago: false,
+      valorTotal: 0,
+      valorPago: 0,
+      temConsulta: false,
+      consulta: {
+        especialidadeId: 0,
+        valor: 0
+      },
+      exames: [],
+      procedimentos: []
+    } 
   }
 
   exameIncluidoSelecionadoI : number = -1;
@@ -141,7 +143,7 @@ export class AtendimentoRegistroComponent {
           this.procedimentosNaoIncluidosNomes.push( procedimentos[ i ].procedimentoNome );
           this.procedimentosNaoIncluidosValores.push( procedimentos[ i ].procedimentoValor );
         }
-
+        
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -162,18 +164,18 @@ export class AtendimentoRegistroComponent {
     if( this.turno > 0 )
       this.atendimentoSave.turno = this.turnos[ this.turno-1 ].name;
 
-    this.atendimentoSave.exames.splice( 0, this.atendimentoSave.exames.length );
-    this.atendimentoSave.procedimentos.splice( 0, this.atendimentoSave.procedimentos.length );
+    this.atendimentoSave.orcamento.exames.splice( 0, this.atendimentoSave.orcamento.exames.length );
+    this.atendimentoSave.orcamento.procedimentos.splice( 0, this.atendimentoSave.orcamento.procedimentos.length );
 
     for( let i = 0; i < this.examesIncluidosIDs.length; i++ ) {
-      this.atendimentoSave.exames.push( {
+      this.atendimentoSave.orcamento.exames.push( {
         exameId : this.examesIncluidosIDs[ i ],
         valor : this.examesIncluidosValores[ i ]
       } );
     }
 
     for( let i = 0; i < this.procedimentosIncluidosIDs.length; i++ ) {
-      this.atendimentoSave.procedimentos.push( {
+      this.atendimentoSave.orcamento.procedimentos.push( {
         procedimentoId : this.procedimentosIncluidosIDs[ i ],
         valor : this.procedimentosIncluidosValores[ i ]
       } );
@@ -202,9 +204,9 @@ export class AtendimentoRegistroComponent {
     this.showSpinner = true;
 
     this.profissionalService.getProfissionalEspecialidadeVinculo( 
-          this.profissionalId, this.atendimentoSave.consulta.especialidadeId ).subscribe( {
+          this.profissionalId, this.atendimentoSave.orcamento.consulta.especialidadeId ).subscribe( {
       next: (resp) => {
-        this.atendimentoSave.consulta.valor = resp.consultaValor;
+        this.atendimentoSave.orcamento.consulta.valor = resp.consultaValor;
         this.atualizaValorTotal();
 
         this.showSpinner = false;
@@ -230,6 +232,7 @@ export class AtendimentoRegistroComponent {
 
       this.atualizaValorTotal();
 
+      this.exameIncluidoSelecionadoI = this.examesIncluidosIDs.length-1;
       this.exameNaoIncluidoSelecionadoI = -1;
     }
   }
@@ -245,6 +248,7 @@ export class AtendimentoRegistroComponent {
       this.examesIncluidosNomes.splice( i, 1 );
       this.examesIncluidosValores.splice( i, 1 );
 
+      this.exameNaoIncluidoSelecionadoI = this.examesNaoIncluidosIDs.length-1;
       this.exameIncluidoSelecionadoI = -1;
     }
   }
@@ -271,6 +275,7 @@ export class AtendimentoRegistroComponent {
 
       this.atualizaValorTotal();
 
+      this.procedimentoIncluidoSelecionadoI = this.procedimentosIncluidosIDs.length-1;
       this.procedimentoNaoIncluidoSelecionadoI = -1;
     }
   }
@@ -286,6 +291,7 @@ export class AtendimentoRegistroComponent {
       this.procedimentosIncluidosNomes.splice( i, 1 );
       this.procedimentosIncluidosValores.splice( i, 1 );
 
+      this.procedimentoNaoIncluidoSelecionadoI = this.procedimentosNaoIncluidosIDs.length-1;
       this.procedimentoIncluidoSelecionadoI = -1;
     }
   }
@@ -300,8 +306,8 @@ export class AtendimentoRegistroComponent {
 
   atualizaValorTotal(): void {
     this.valorTotal = 0;
-    if ( this.atendimentoSave.temConsulta === true )
-      this.valorTotal += this.atendimentoSave.consulta.valor;
+    if ( this.atendimentoSave.orcamento.temConsulta === true )
+      this.valorTotal += this.atendimentoSave.orcamento.consulta.valor;
 
     for( let i = 0; i < this.examesIncluidosValores.length; i++ )
       this.valorTotal += this.examesIncluidosValores[ i ];
@@ -311,7 +317,7 @@ export class AtendimentoRegistroComponent {
   }
 
   onValorConsultaAlterado( e : any ) {
-    this.atendimentoSave.consulta.valor = e.valorReal;
+    this.atendimentoSave.orcamento.consulta.valor = e.valorReal;
     this.atualizaValorTotal();
   }
 
@@ -324,11 +330,11 @@ export class AtendimentoRegistroComponent {
   }
 
   onValorTotalAlterado( e : any ) {
-    this.atendimentoSave.valorTotal = e.valorReal;
+    this.atendimentoSave.orcamento.valorTotal = e.valorReal;
   }
 
   onValorPagoAlterado( e : any ) {
-    this.atendimentoSave.valorPago = e.valorReal;
+    this.atendimentoSave.orcamento.valorPago = e.valorReal;
   }
 
   pacienteOnSelect( pacienteId : number ) {
@@ -343,18 +349,20 @@ export class AtendimentoRegistroComponent {
     this.atendimentoSave = {
       dataAtendimento : '',
       turno : '',   
-      observacoes : '',
-      pago : false,
-      valorTotal: 0,
-      valorPago : 0,
-      temConsulta : false,
-      consulta : {
-        especialidadeId : 0,
-        valor : 0
-      },
-      exames : [],
-      procedimentos: []
-    }  
+      observacoes : '',    
+      orcamento: {
+        pago: false,
+        valorTotal: 0,
+        valorPago: 0,
+        temConsulta: false,
+        consulta: {
+          especialidadeId: 0,
+          valor: 0
+        },
+        exames: [],
+        procedimentos: []
+      }
+    } 
 
     this.pacienteId = 0;
     this.exameValorAtual = 0;

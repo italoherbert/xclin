@@ -8,7 +8,7 @@ import { AtendimentoFilaFiltro } from '../bean/atendimento/atendimento-fila-filt
 import { AtendimentoAlter } from '../bean/atendimento/atendimento-alter';
 import { AtendimentoObservacoesAlter } from '../bean/atendimento/atendimento-observacoes-alter';
 import { AtendimentoFilaCompletaFiltro } from '../bean/atendimento/atendimento-fila-completa-filtro';
-import { AtendimentoPagamentoSave } from '../bean/atendimento/atendimento-pagamento-save';
+import { OrcamentoPagamentoSave } from '../bean/atendimento/orcamento-pagamento-save';
 
 @Injectable({
   providedIn: 'root'
@@ -51,7 +51,7 @@ export class AtendimentoService {
     );
   }
 
-  efetuaPagamento( atendimentoId : any, pagamentoSave : AtendimentoPagamentoSave ): Observable<any> {
+  efetuaPagamento( atendimentoId : any, pagamentoSave : OrcamentoPagamentoSave ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )

@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AtendimentoPagamentoLoadResponse {
+public class OrcamentoPagamentoLoadResponse {
 
 	private boolean pago;
 	

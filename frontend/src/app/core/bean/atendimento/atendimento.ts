@@ -1,14 +1,9 @@
-import { Consulta } from "./consulta";
-import { ExameItem } from "./exame-item";
-import { ProcedimentoItem } from "./procedimento-item";
+import { Orcamento } from "./orcamento";
 
 export interface Atendimento {
     id : number;
     observacoes : string;
-    dataAtendimento : string;
-    valorTotal : number;
-    valorPago : number;
-    pago : boolean;
+    dataAtendimento : string;    
     status : string;
     turno : string;
     pacienteId : number;
@@ -18,10 +13,7 @@ export interface Atendimento {
     clinicaId : number;
     clinicaNome : string;     
     pacienteAnamneseCriada : boolean;
-    temConsulta : boolean;
     statusLabel : string;
     turnoLabel : string;
-    consulta : Consulta,
-    exames : ExameItem[],
-    procedimentos : ProcedimentoItem[]
+    orcamento : Orcamento;
 }

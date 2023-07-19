@@ -13,28 +13,22 @@ import italo.xclin.exception.LoaderException;
 import italo.xclin.logica.Converter;
 import italo.xclin.model.Atendimento;
 import italo.xclin.model.Clinica;
-import italo.xclin.model.Consulta;
-import italo.xclin.model.ExameItem;
+import italo.xclin.model.Orcamento;
 import italo.xclin.model.Paciente;
-import italo.xclin.model.ProcedimentoItem;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
-import italo.xclin.model.request.save.AtendimentoPagamentoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoObservacoesResponse;
 import italo.xclin.model.response.AtendimentoResponse;
-import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
-import italo.xclin.model.response.ExameItemResponse;
+import italo.xclin.model.response.OrcamentoResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
-import italo.xclin.model.response.ProcedimentoItemResponse;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.ProfissionalProcedimentoVinculoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
-import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
@@ -54,7 +48,7 @@ public class AtendimentoLoader {
 	
 	@Autowired
 	private AtendimentoStatusEnumManager consultaStatusEnumManager;
-	
+		
 	public void loadBean( Atendimento a, AtendimentoSaveRequest request ) throws LoaderException {
 		a.setDataAgendamento( new Date() );
 		
@@ -65,18 +59,9 @@ public class AtendimentoLoader {
 		}
 		
 		a.setTurno( turnoEnumManager.getEnum( request.getTurno() ) );
-		a.setObservacoes( request.getObservacoes() );
-		a.setTemConsulta( request.isTemConsulta() ); 
-		a.setValorTotal( request.getValorTotal() );
-		a.setValorPago( request.getValorPago() ); 
-		a.setPago( request.isPago() ); 
+		a.setObservacoes( request.getObservacoes() );		
 	}
-	
-	public void loadBean( Atendimento a, AtendimentoPagamentoSaveRequest request ) {
-		a.setValorPago( a.getValorPago() + request.getValorPago() );
-		a.setPago( request.isPago() );
-	}
-	
+			
 	public void loadBean( Atendimento a, AtendimentoRemarcarSaveRequest request ) throws LoaderException {
 		a.setDataAgendamento( new Date() ); 
 		a.setTurno( turnoEnumManager.getEnum( request.getTurno() ) ); 
@@ -94,6 +79,10 @@ public class AtendimentoLoader {
 	public void loadBean( Atendimento a, AtendimentoObservacoesSaveRequest request ) {
 		a.setObservacoes( request.getObservacoes() );
 		a.setDataSaveObservacoes( new Date() ); 
+	}
+	
+	public void loadBean( Atendimento a ) {
+		a.setDataAgendamento( new Date() );	
 	}
 		
 	public void loadResponse( AtendimentoResponse resp, Atendimento a ) {
@@ -114,12 +103,7 @@ public class AtendimentoLoader {
 		if ( a.getDataFinalizacao() != null )
 			resp.setDataFinalizacao( converter.dataHoraToString( a.getDataFinalizacao() ) );
 		
-		resp.setObservacoes( a.getObservacoes() );
-		resp.setTemConsulta( a.isTemConsulta() );
-				
-		resp.setValorTotal( a.getValorTotal() );
-		resp.setValorPago( a.getValorPago() ); 
-		resp.setPago( a.isPago() );
+		resp.setObservacoes( a.getObservacoes() );		
 	}
 		
 	public void loadRegResponse( AtendimentoRegLoadResponse resp ) {
@@ -152,22 +136,12 @@ public class AtendimentoLoader {
 			Profissional profissional,
 			Paciente paciente, 
 			Clinica clinica,
-			Consulta consulta,
-			List<ExameItem> exames, 
-			List<ProcedimentoItem> procedimentos ) {
+			Orcamento orcamento ) {
 		Atendimento atendimento = new Atendimento();
 		atendimento.setProfissional( profissional );
 		atendimento.setPaciente( paciente ); 
 		atendimento.setClinica( clinica );
-		atendimento.setConsulta( consulta );
-		atendimento.setExames( exames );
-		atendimento.setProcedimentos( procedimentos );
-		
-		if ( consulta != null )
-			consulta.setAtendimento( atendimento );
-		exames.forEach( e -> e.setAtendimento( atendimento ) );
-		procedimentos.forEach( p -> p.setAtendimento( atendimento ) );
-		
+		atendimento.setOrcamento( orcamento ); 		
 		return atendimento;
 	}
 	
@@ -175,9 +149,7 @@ public class AtendimentoLoader {
 			Clinica a, 
 			Profissional pr, 
 			Paciente pa, 
-			ConsultaResponse consulta, 
-			List<ExameItemResponse> exames,
-			List<ProcedimentoItemResponse> procedimentos ) {
+			OrcamentoResponse orcamento ) {
 		AtendimentoResponse resp = new AtendimentoResponse();
 		resp.setPacienteId( pa.getId() );
 		resp.setPacienteNome( pa.getNome() ); 
@@ -186,12 +158,7 @@ public class AtendimentoLoader {
 		resp.setProfissionalId( pr.getId() );
 		resp.setProfissionalNome( pr.getNome() );
 		resp.setPacienteAnamneseCriada( pa.isAnamneseCriada() );
-		resp.setConsulta( consulta );
-		resp.setExames( exames ); 		
-		resp.setProcedimentos( procedimentos ); 
-					
-		resp.setValorTotalBruto( this.valorTotalBruto( consulta, exames, procedimentos ) ); 
-		
+		resp.setOrcamento( orcamento ); 						
 		return resp;
 	}
 		
@@ -295,57 +262,5 @@ public class AtendimentoLoader {
 			resp.setDataSaveObservacoes( converter.dataHoraToString( a.getDataSaveObservacoes() ) ); 
 		return resp;
 	}		
-	
-	public AtendimentoPagamentoLoadResponse novoPagamentoResponse( 
-			Atendimento a, 
-			Consulta c, 
-			List<ExameItem> exames,
-			List<ProcedimentoItem> procedimentos ) {
-		
-		AtendimentoPagamentoLoadResponse resp = new AtendimentoPagamentoLoadResponse();
-		resp.setPago( a.isPago() );
-		resp.setValorPago( a.getValorPago() );
-		resp.setValorTotal( a.getValorTotal() ); 
-		resp.setValorTotalBruto( this.valorTotalBruto( c, exames, procedimentos ) ); 
-		return resp;
-	}
-	
-	private double valorTotalBruto( 
-			ConsultaResponse consulta, 
-			List<ExameItemResponse> exames,
-			List<ProcedimentoItemResponse> procedimentos ) {
-		
-		double valorTotal = 0;
-		
-		if ( consulta != null )
-			valorTotal += consulta.getValor();
-		
-		for( ExameItemResponse exame : exames )
-			valorTotal += exame.getValor();
-		
-		for( ProcedimentoItemResponse proc : procedimentos )
-			valorTotal += proc.getValor();
-		
-		return valorTotal;
-	}
-	
-	private double valorTotalBruto( 
-			Consulta consulta, 
-			List<ExameItem> exames, 
-			List<ProcedimentoItem> procedimentos ) {
-		
-		double valorTotal = 0;
-		
-		if ( consulta != null )
-			valorTotal += consulta.getValor();
-		
-		for( ExameItem exame : exames )
-			valorTotal += exame.getValor();
-		
-		for( ProcedimentoItem proc : procedimentos )
-			valorTotal += proc.getValor();
-		
-		return valorTotal;
-	}
-	
+				
 }

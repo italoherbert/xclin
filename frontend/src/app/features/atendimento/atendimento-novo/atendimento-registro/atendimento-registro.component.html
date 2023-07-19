@@ -14,18 +14,18 @@
             </app-paciente-autocomplete-input>                    
         </div>      
         <div class="col-sm-12">
-            <mat-checkbox color="primary" [(ngModel)]="atendimentoSave.temConsulta">
+            <mat-checkbox color="primary" [(ngModel)]="atendimentoSave.orcamento.temConsulta">
                 Registrar consulta
             </mat-checkbox>
         </div>
-        <div class="p-3" *ngIf="atendimentoSave.temConsulta === true">
+        <div class="p-3" *ngIf="atendimentoSave.orcamento.temConsulta === true">
             <div class="col-sm-12">
                 <h2><b>Consulta</b></h2>
             </div>
             <div class="col-sm-8">
                 <mat-form-field appearance="fill" class="w-100">
                     <mat-label>Especialidade</mat-label>
-                    <mat-select placeholder="Selecione a especialidade" [(ngModel)]="atendimentoSave.consulta.especialidadeId" 
+                    <mat-select placeholder="Selecione a especialidade" [(ngModel)]="atendimentoSave.orcamento.consulta.especialidadeId" 
                             (selectionChange)="onEspecialidadeSelected( $event )">
                         <mat-option *ngFor="let e of especialidades" [value]="e.id">
                             {{e.nome}}
@@ -37,7 +37,7 @@
                 <mat-form-field appearance="fill" class="w-100">
                     <mat-label>Valor da consulta</mat-label>
                     <input matInput appRealInput type="text" placeholder="Valor da consulta" 
-                            [valorInicial]="atendimentoSave.consulta.valor" #consultaValor
+                            [valorInicial]="atendimentoSave.orcamento.consulta.valor" #consultaValor
                             (onValorAlterado)="onValorConsultaAlterado($event)">
                 </mat-form-field>
             </div>             
@@ -203,7 +203,7 @@
                         (onValorAlterado)="onValorPagoAlterado( $event )" />
             </mat-form-field>                                
 
-            <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.pago">
+            <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.orcamento.pago">
                 Pago
             </mat-checkbox>
         </div>

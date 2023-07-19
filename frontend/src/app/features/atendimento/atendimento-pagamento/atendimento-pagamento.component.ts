@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faMoneyBill1 } from '@fortawesome/free-solid-svg-icons';
-import { AtendimentoPagamento } from 'src/app/core/bean/atendimento/atendimento-pagamento';
-import { AtendimentoPagamentoSave } from 'src/app/core/bean/atendimento/atendimento-pagamento-save';
+import { OrcamentoPagamento } from 'src/app/core/bean/atendimento/orcamento-pagamento';
+import { OrcamentoPagamentoSave } from 'src/app/core/bean/atendimento/orcamento-pagamento-save';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
@@ -22,14 +22,14 @@ export class AtendimentoPagamentoComponent {
     faMoneyBill1 : faMoneyBill1
   }
 
-  pagamento : AtendimentoPagamento = {
+  pagamento : OrcamentoPagamento = {
     pago : false,
     valorTotalBruto: 0,
     valorTotal : 0,
     valorPago : 0
   }
 
-  pagamentoSave : AtendimentoPagamentoSave = {
+  pagamentoSave : OrcamentoPagamentoSave = {
     valorPago: 0,
     pago : false
   }

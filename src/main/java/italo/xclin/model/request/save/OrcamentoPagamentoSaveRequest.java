@@ -7,7 +7,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AtendimentoPagamentoSaveRequest {
+public class OrcamentoPagamentoSaveRequest {
 	
 	private double valorPago;
 	

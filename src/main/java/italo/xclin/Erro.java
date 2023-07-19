@@ -46,7 +46,8 @@ public interface Erro {
 	public final static String RECEPCIONISTA_NAO_ENCONTRADO = "Recepcionista não encontrado(a).";
 	public final static String PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado.";
 	public final static String CLINICA_PACIENTE_NAO_ENCONTRADO = "Paciente não encontrado na clínica informada.";
-	public final static String ATENDIMENTO_NAO_ENCONTRADO = "Consulta não encontrada.";
+	public final static String ATENDIMENTO_NAO_ENCONTRADO = "Atendimento não encontrado.";
+	public final static String ORCAMENTO_NAO_ENCONTRADO = "Orcamento não encontrada.";
 	public final static String ESPECIALIDADE_NAO_ENCONTRADA = "Especialidade não encontrada.";
 	public final static String VINCULO_PROFISSIONAL_ESPECIALIDADE_NAO_ENCONTRADO = "Não foi encontrada a especialidade para vinculá-lo ao profissional.";
 	public final static String VINCULO_PROFISSIONAL_EXAME_NAO_ENCONTRADO = "Não foi encontrado o exame para vinculá-lo ao profissional.";

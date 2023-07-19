@@ -86,26 +86,26 @@
                             <h1>Consulta</h1>
                         </mat-card-header>
                         <mat-card-content>
-                            <div *ngIf="atendimento.temConsulta === false">
+                            <div *ngIf="atendimento.orcamento.temConsulta === false">
                                 <span class="text-primary">
                                     Consulta não incluída
                                 </span>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6" *ngIf="atendimento.temConsulta === true">
+                                <div class="col-sm-6" *ngIf="atendimento.orcamento.temConsulta === true">
                                     <div class="fs-6 fw-bold">
                                         Especialidade:
                                     </div>
                                     <div class="fs-5">
-                                        {{atendimento.consulta.especialidadeNome}}
+                                        {{atendimento.orcamento.consulta.especialidadeNome}}
                                     </div>
                                 </div>                                
-                                <div class="col-sm-6" *ngIf="atendimento.temConsulta === true">
+                                <div class="col-sm-6" *ngIf="atendimento.orcamento.temConsulta === true">
                                     <div class="fs-6 fw-bold">
                                         Valor:
                                     </div>
                                     <div class="fs-5 text-primary">
-                                        {{atendimento.consulta.valor | currency: 'BRL'}}
+                                        {{atendimento.orcamento.consulta.valor | currency: 'BRL'}}
                                     </div>
                                 </div>
                             </div>
@@ -118,12 +118,12 @@
                         </mat-card-header>
     
                         <mat-card-content>
-                            <div *ngIf="atendimento.exames.length === 0">
+                            <div *ngIf="atendimento.orcamento.exames.length === 0">
                                 <span class="text-primary">
                                     Nenhum exame incluído
                                 </span>
                             </div>
-                            <div class="table-responsive mx-3" *ngIf="atendimento.exames.length > 0">
+                            <div class="table-responsive mx-3" *ngIf="atendimento.orcamento.exames.length > 0">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -132,7 +132,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let exame of atendimento.exames">
+                                        <tr *ngFor="let exame of atendimento.orcamento.exames">
                                             <td>{{exame.nome}}</td>
                                             <td class="text-primary">{{exame.valor | currency: 'BRL'}}</td>
                                         </tr>
@@ -148,12 +148,12 @@
                         </mat-card-header>
     
                         <mat-card-content>
-                            <div *ngIf="atendimento.procedimentos.length === 0">
+                            <div *ngIf="atendimento.orcamento.procedimentos.length === 0">
                                 <span class="text-primary">
                                     Nenhum procedimento incluído
                                 </span>
                             </div>
-                            <div class="table-responsive mx-3" *ngIf="atendimento.procedimentos.length > 0">
+                            <div class="table-responsive mx-3" *ngIf="atendimento.orcamento.procedimentos.length > 0">
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -162,7 +162,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr *ngFor="let procedimento of atendimento.procedimentos">
+                                        <tr *ngFor="let procedimento of atendimento.orcamento.procedimentos">
                                             <td>{{procedimento.nome}}</td>
                                             <td class="text-primary">{{procedimento.valor | currency: 'BRL'}}</td>
                                         </tr>
@@ -183,7 +183,7 @@
                                         Valor total
                                     </div>
                                     <div class="fs-5 text-danger">
-                                        {{atendimento.valorTotal | currency: 'BRL' }}
+                                        {{atendimento.orcamento.valorTotal | currency: 'BRL' }}
                                     </div>
                                 </div> 
                                 <div class="col-sm-4">
@@ -191,15 +191,15 @@
                                         Valor pago
                                     </div>
                                     <div class="fs-5 text-primary">
-                                        {{atendimento.valorPago | currency: 'BRL' }}
+                                        {{atendimento.orcamento.valorPago | currency: 'BRL' }}
                                     </div>
                                 </div>            
                                 <div class="col-sm-4">
                                     <div class="fs-6 fw-bold">
                                         Paga:
                                     </div>
-                                    <div class="fs-5" [ngClass]="atendimento.pago === true ? 'text-success' : 'text-danger'">
-                                        {{atendimento.pago === true ? 'Sim' : 'Não' }}                        
+                                    <div class="fs-5" [ngClass]="atendimento.orcamento.pago === true ? 'text-success' : 'text-danger'">
+                                        {{atendimento.orcamento.pago === true ? 'Sim' : 'Não' }}                        
                                     </div>
                                 </div>
                             </div>

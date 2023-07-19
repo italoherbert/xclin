@@ -12,6 +12,14 @@
             <h1>Pagamento</h1>
         </mat-card-header>
         <mat-card-content>
+            <button mat-raised-button color="primary" class="my-1" (click)="desfazPagamento()">
+                <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+                <span class="mx-3">Desfazer pagamento</span>
+            </button>
+            
+            <br />
+            <br />
+
             <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
                 {{infoMsg}}
             </div>
@@ -22,7 +30,15 @@
             <div class="row">
                 <div class="col-sm-4 my-2">
                     <div class="fs-6 fw-bold">
-                        Valor Total:
+                        Valor Total (bruto):
+                    </div>
+                    <div class="fs-5 text-danger">
+                        {{pagamento.valorTotalBruto | currency: 'BRL'}}
+                    </div>
+                </div>
+                <div class="col-sm-4 my-2">
+                    <div class="fs-6 fw-bold">
+                        Valor Total (liquido):
                     </div>
                     <div class="fs-5 text-danger">
                         {{pagamento.valorTotal | currency: 'BRL'}}
@@ -38,7 +54,7 @@
                 </div>
                 <div class="col-sm-4 my-2">
                     <div class="fs-6 fw-bold">
-                        Pagamento efetuado:
+                        Pagamento concluído:
                     </div>
                     <div class="fs-5 text-primary">
                         <div *ngIf="pagamento.pago === true">
@@ -51,31 +67,28 @@
                 </div>
             </div>
 
-            <div class="mt-2">
-                <div *ngIf="pagamento.pago == true">             
-                    <button mat-raised-button color="primary" class="my-1" (click)="desfazPagamento()">
-                        <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
-                        <span class="mx-3">Desfazer pagamento</span>
-                    </button>
-                </div>
+            <div class="mt-4">
+                <h3>Efetue o pagamento</h3>
+                
+                <mat-form-field appearance="fill">
+                    <mat-label>Valor pago</mat-label>
+                    <input matInput type="text" placeholder="Valor de pagamento"
+                            appRealInput 
+                            [valorInicial]="pagamentoSave.valorPago"
+                            (onValorAlterado)="onPagamentoValorAlterado( $event )" />
+                </mat-form-field>
+                
+                <mat-checkbox color="primary" [(ngModel)]="pagamentoSave.pago">
+                    Pago
+                </mat-checkbox>
 
-                <div *ngIf="pagamento.pago == false">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Valor</mat-label>
-                        <input matInput type="text" placeholder="Valor de pagamento"
-                                appRealInput 
-                                [valorInicial]="pagamentoSave.valorPago"
-                                (onValorAlterado)="onPagamentoValorAlterado( $event )" />
-                    </mat-form-field>
-                    
-                    <br />
+                <br />
 
-                    <button mat-raised-button color="primary" class="my-1" (click)="efetuaPagamento()">
-                        <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
-                        <span class="mx-3">Efetuar pagamento</span>
-                    </button>
-                </div>
-            </div>
+                <button mat-raised-button color="primary" class="my-1" (click)="efetuaPagamento()">
+                    <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+                    <span class="mx-3">Efetuar pagamento</span>
+                </button>
+            </div>            
         </mat-card-content>
     </mat-card>
 </div>

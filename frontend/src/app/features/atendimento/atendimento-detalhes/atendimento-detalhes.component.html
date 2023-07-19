@@ -92,23 +92,15 @@
                                 </span>
                             </div>
                             <div class="row">
-                                <div class="col-sm-4" *ngIf="atendimento.temConsulta === true">
+                                <div class="col-sm-6" *ngIf="atendimento.temConsulta === true">
                                     <div class="fs-6 fw-bold">
                                         Especialidade:
                                     </div>
                                     <div class="fs-5">
                                         {{atendimento.consulta.especialidadeNome}}
                                     </div>
-                                </div>
-                                <div class="col-sm-4" *ngIf="atendimento.temConsulta === true">
-                                    <div class="fs-6 fw-bold">
-                                        Retorno:
-                                    </div>
-                                    <div class="fs-5">
-                                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
-                                    </div>
-                                </div> 
-                                <div class="col-sm-4" *ngIf="atendimento.temConsulta === true">
+                                </div>                                
+                                <div class="col-sm-6" *ngIf="atendimento.temConsulta === true">
                                     <div class="fs-6 fw-bold">
                                         Valor:
                                     </div>
@@ -143,6 +135,36 @@
                                         <tr *ngFor="let exame of atendimento.exames">
                                             <td>{{exame.nome}}</td>
                                             <td class="text-primary">{{exame.valor | currency: 'BRL'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+
+                    <mat-card class="mt-4">
+                        <mat-card-header>
+                            <h1>Procedimentos</h1>
+                        </mat-card-header>
+    
+                        <mat-card-content>
+                            <div *ngIf="atendimento.procedimentos.length === 0">
+                                <span class="text-primary">
+                                    Nenhum procedimento incluído
+                                </span>
+                            </div>
+                            <div class="table-responsive mx-3" *ngIf="atendimento.procedimentos.length > 0">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Nome</th>
+                                            <th>Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let procedimento of atendimento.procedimentos">
+                                            <td>{{procedimento.nome}}</td>
+                                            <td class="text-primary">{{procedimento.valor | currency: 'BRL'}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

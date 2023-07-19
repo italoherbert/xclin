@@ -1,5 +1,6 @@
 import { Consulta } from "./consulta";
 import { ExameItem } from "./exame-item";
+import { ProcedimentoItem } from "./procedimento-item";
 
 export interface Atendimento {
     id : number;
@@ -21,5 +22,6 @@ export interface Atendimento {
     statusLabel : string;
     turnoLabel : string;
     consulta : Consulta,
-    exames : ExameItem[];
+    exames : ExameItem[],
+    procedimentos : ProcedimentoItem[]
 }

@@ -7,10 +7,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AtendimentoPagamentoSaveRequest {
+public class ProcedimentoItemSaveRequest {
+
+	private Long procedimentoId;
 	
-	private double valorPago;
-	
-	private boolean pago;
+	private double valor;
 	
 }

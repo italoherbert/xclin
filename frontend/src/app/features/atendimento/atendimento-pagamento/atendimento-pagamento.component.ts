@@ -24,12 +24,14 @@ export class AtendimentoPagamentoComponent {
 
   pagamento : AtendimentoPagamento = {
     pago : false,
+    valorTotalBruto: 0,
     valorTotal : 0,
     valorPago : 0
   }
 
   pagamentoSave : AtendimentoPagamentoSave = {
-    valorPago: 0
+    valorPago: 0,
+    pago : false
   }
 
   constructor(
@@ -72,6 +74,7 @@ export class AtendimentoPagamentoComponent {
 
     this.atendimentoService.efetuaPagamento( atendimentoId, this.pagamentoSave ).subscribe({
       next: (resp) => {
+        this.infoMsg = "Pagamento salvo.";
         this.showSpinner = false;
         this.carrega();
       },
@@ -92,6 +95,7 @@ export class AtendimentoPagamentoComponent {
 
     this.atendimentoService.desfazPagamento( atendimentoId ).subscribe({
       next: (resp) => {
+        this.infoMsg = "Pagamento desfeito.";
         this.showSpinner = false;
         this.carrega();
       },

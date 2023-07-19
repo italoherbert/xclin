@@ -11,6 +11,8 @@ public class AtendimentoPagamentoLoadResponse {
 
 	private boolean pago;
 	
+	private double valorTotalBruto;
+	
 	private double valorTotal;
 	
 	private double valorPago;

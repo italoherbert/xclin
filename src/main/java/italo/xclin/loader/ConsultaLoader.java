@@ -11,13 +11,11 @@ import italo.xclin.model.response.ConsultaResponse;
 public class ConsultaLoader {
 
 	public void loadBean( Consulta c, ConsultaSaveRequest request ) {
-		c.setRetorno( request.isRetorno() );
 		c.setValor( request.getValor() );			
 	}
 	
 	public void loadResponse( ConsultaResponse resp, Consulta c ) {
 		resp.setId( c.getId() );
-		resp.setRetorno( c.isRetorno() );
 		resp.setValor( c.getValor() );
 	}
 		

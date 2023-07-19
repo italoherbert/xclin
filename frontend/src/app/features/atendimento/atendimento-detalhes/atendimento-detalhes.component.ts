@@ -53,10 +53,10 @@ export class AtendimentoDetalhesComponent {
       id: 0,
       especialidadeId: 0,
       especialidadeNome: '',
-      valor: 0,
-      retorno: false
+      valor: 0
     },
-    exames: []
+    exames: [],
+    procedimentos: []
   }
 
   constructor( 

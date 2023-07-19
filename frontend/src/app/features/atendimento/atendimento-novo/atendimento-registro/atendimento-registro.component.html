@@ -40,15 +40,9 @@
                             [valorInicial]="atendimentoSave.consulta.valor" #consultaValor
                             (onValorAlterado)="onValorConsultaAlterado($event)">
                 </mat-form-field>
-            </div> 
-            <div class="col-sm-6">
-                <mat-checkbox class="mt-2" color="primary" 
-                        [(ngModel)]="atendimentoSave.consulta.retorno"
-                        (change)="onConsultaRetornoChange( $event )">
-                    Consulta retorno
-                </mat-checkbox>                
-            </div>    
+            </div>             
         </div>
+
         <div class="col-sm-12">
             <h2><b>Exames</b></h2>
         </div>
@@ -113,6 +107,75 @@
                     </tbody>
                 </table>
             </div>
+
+        </div>
+
+        <br />
+
+        <div class="col-sm-12">
+            <h2><b>Procedimentos</b></h2>
+        </div>
+        <div class="col-sm-12">
+            <mat-form-field appearance="fill">
+                <mat-label>Procedimentos para incluír</mat-label>
+                <mat-select placeholder="Selecione o exame" [(ngModel)]="procedimentoNaoIncluidoSelecionadoI">
+                    <mat-option *ngFor="let procedimentoId of procedimentosNaoIncluidosIDs; index as i" [value]="i">
+                        {{procedimentosNaoIncluidosNomes[i]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>                 
+
+            <span class="p-2"></span>
+            <button mat-icon-button color="primary" (click)="adicionaProcedimento()">
+                <fa-icon [icon]="icons.faPlus"></fa-icon>               
+            </button>
+
+            <br />
+
+            <mat-form-field appearance="fill">
+                <mat-label>Procedimentos incluídos</mat-label>
+                <mat-select placeholder="Selecione o exame" [(ngModel)]="procedimentoIncluidoSelecionadoI">
+                    <mat-option *ngFor="let procedimentoId of procedimentosIncluidosIDs; index as i" [value]="i">
+                        {{procedimentosIncluidosNomes[i]}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <span class="p-2"></span>
+            <button mat-icon-button color="primary" (click)="removeProcedimento()">
+                <fa-icon [icon]="icons.faRemove"></fa-icon>
+            </button>
+            <span class="p-2"></span>
+            <mat-form-field appearance="fill">
+                <mat-label>Valor do procedimento</mat-label>
+                <input matInput appRealInput type="text" placeholder="Valor do procedimento" 
+                        [valorInicial]="0"
+                        (onValorAlterado)="onValorProcedimentoAlterado($event)">
+            </mat-form-field>
+            <span class="p-2"></span>
+            <button mat-raised-button color="primary" (click)="novoProcedimentoValor()">
+                Novo valor
+            </button>
+
+            <br />
+            
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let procedimentoId of procedimentosIncluidosIDs; index as i">
+                            <td>{{procedimentoId}}</td>
+                            <td>{{procedimentosIncluidosNomes[i]}}</td>
+                            <td>{{procedimentosIncluidosValores[i] | currency: 'BRL'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
         
         <div class="col-sm-12">
@@ -121,23 +184,28 @@
                 <span class="fw-bold">Total: </span>
                 <span class="px-2 text-danger">{{valorTotal | currency: 'BRL'}}</span>
             </div>
-            
-            <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.pago">
-                Pagar
-            </mat-checkbox>
-
+                        
             <br />
 
-            <div *ngIf="atendimentoSave.pago">
-                <br />
-                <mat-form-field appearance="fill">
-                    <mat-label>Valor pago: </mat-label>
-                    <input matInput type="text" appRealInput 
-                            [valorInicial]="0"
-                            (onValorAlterado)="onValorPagoAlterado( $event )" />
-                </mat-form-field>                                
-                <br />
-            </div>
+            <mat-form-field appearance="fill">
+                <mat-label>Valor total líquido: </mat-label>
+                <input matInput type="text" appRealInput 
+                        [valorInicial]="0"
+                        (onValorAlterado)="onValorTotalAlterado( $event )" />
+            </mat-form-field>
+
+            <br />
+           
+            <mat-form-field appearance="fill">
+                <mat-label>Valor pago: </mat-label>
+                <input matInput type="text" appRealInput 
+                        [valorInicial]="0"
+                        (onValorAlterado)="onValorPagoAlterado( $event )" />
+            </mat-form-field>                                
+
+            <mat-checkbox class="mt-2" color="primary" [(ngModel)]="atendimentoSave.pago">
+                Pago
+            </mat-checkbox>
         </div>
 
         <div class="col-sm-12">              

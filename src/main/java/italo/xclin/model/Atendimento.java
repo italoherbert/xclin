@@ -54,11 +54,13 @@ public class Atendimento {
 	
 	@Enumerated(EnumType.STRING)
 	private Turno turno;
-	
-	private boolean pago;
+		
+	private double valorTotal;
 	
 	private double valorPago;
 		
+	private boolean pago;
+
 	private boolean temConsulta;		
 			
 	private String observacoes;		

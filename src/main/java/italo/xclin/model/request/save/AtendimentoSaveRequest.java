@@ -19,6 +19,8 @@ public class AtendimentoSaveRequest {
 	
 	private boolean pago;
 	
+	private double valorTotal;
+	
 	private double valorPago;
 	
 	private boolean temConsulta;
@@ -26,5 +28,7 @@ public class AtendimentoSaveRequest {
 	private ConsultaSaveRequest consulta;
 	
 	private List<ExameItemSaveRequest> exames;
+	
+	private List<ProcedimentoItemSaveRequest> procedimentos;
 
 }

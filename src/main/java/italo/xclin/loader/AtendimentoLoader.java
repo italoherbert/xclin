@@ -16,6 +16,7 @@ import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
 import italo.xclin.model.ExameItem;
 import italo.xclin.model.Paciente;
+import italo.xclin.model.ProcedimentoItem;
 import italo.xclin.model.Profissional;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
@@ -29,7 +30,9 @@ import italo.xclin.model.response.ConsultaResponse;
 import italo.xclin.model.response.EspecialidadeResponse;
 import italo.xclin.model.response.ExameItemResponse;
 import italo.xclin.model.response.PacienteAnexoResponse;
+import italo.xclin.model.response.ProcedimentoItemResponse;
 import italo.xclin.model.response.ProfissionalExameVinculoResponse;
+import italo.xclin.model.response.ProfissionalProcedimentoVinculoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
@@ -64,13 +67,14 @@ public class AtendimentoLoader {
 		a.setTurno( turnoEnumManager.getEnum( request.getTurno() ) );
 		a.setObservacoes( request.getObservacoes() );
 		a.setTemConsulta( request.isTemConsulta() ); 
-		a.setPago( request.isPago() ); 
+		a.setValorTotal( request.getValorTotal() );
 		a.setValorPago( request.getValorPago() ); 
+		a.setPago( request.isPago() ); 
 	}
 	
 	public void loadBean( Atendimento a, AtendimentoPagamentoSaveRequest request ) {
-		a.setValorPago( request.getValorPago() ); 
-		a.setPago( true ); 
+		a.setValorPago( a.getValorPago() + request.getValorPago() );
+		a.setPago( request.isPago() );
 	}
 	
 	public void loadBean( Atendimento a, AtendimentoRemarcarSaveRequest request ) throws LoaderException {
@@ -112,7 +116,8 @@ public class AtendimentoLoader {
 		
 		resp.setObservacoes( a.getObservacoes() );
 		resp.setTemConsulta( a.isTemConsulta() );
-		
+				
+		resp.setValorTotal( a.getValorTotal() );
 		resp.setValorPago( a.getValorPago() ); 
 		resp.setPago( a.isPago() );
 	}
@@ -148,17 +153,21 @@ public class AtendimentoLoader {
 			Paciente paciente, 
 			Clinica clinica,
 			Consulta consulta,
-			List<ExameItem> exames ) {
+			List<ExameItem> exames, 
+			List<ProcedimentoItem> procedimentos ) {
 		Atendimento atendimento = new Atendimento();
 		atendimento.setProfissional( profissional );
 		atendimento.setPaciente( paciente ); 
 		atendimento.setClinica( clinica );
 		atendimento.setConsulta( consulta );
 		atendimento.setExames( exames );
+		atendimento.setProcedimentos( procedimentos );
 		
 		if ( consulta != null )
 			consulta.setAtendimento( atendimento );
-		exames.forEach( e -> e.setAtendimento( atendimento ) ); 
+		exames.forEach( e -> e.setAtendimento( atendimento ) );
+		procedimentos.forEach( p -> p.setAtendimento( atendimento ) );
+		
 		return atendimento;
 	}
 	
@@ -167,7 +176,8 @@ public class AtendimentoLoader {
 			Profissional pr, 
 			Paciente pa, 
 			ConsultaResponse consulta, 
-			List<ExameItemResponse> exames ) {
+			List<ExameItemResponse> exames,
+			List<ProcedimentoItemResponse> procedimentos ) {
 		AtendimentoResponse resp = new AtendimentoResponse();
 		resp.setPacienteId( pa.getId() );
 		resp.setPacienteNome( pa.getNome() ); 
@@ -178,8 +188,9 @@ public class AtendimentoLoader {
 		resp.setPacienteAnamneseCriada( pa.isAnamneseCriada() );
 		resp.setConsulta( consulta );
 		resp.setExames( exames ); 		
+		resp.setProcedimentos( procedimentos ); 
 					
-		resp.setValorTotal( this.valorTotal( consulta, exames ) ); 
+		resp.setValorTotalBruto( this.valorTotalBruto( consulta, exames, procedimentos ) ); 
 		
 		return resp;
 	}
@@ -204,11 +215,13 @@ public class AtendimentoLoader {
 	
 	public AtendimentoRegLoadResponse novoRegResponse( 
 			List<EspecialidadeResponse> especialidades, 
-			List<ProfissionalExameVinculoResponse> profissionalExames ) {
+			List<ProfissionalExameVinculoResponse> profissionalExames,
+			List<ProfissionalProcedimentoVinculoResponse> profissionalProcedimentos ) {
 		
 		AtendimentoRegLoadResponse resp = new AtendimentoRegLoadResponse();
 		resp.setEspecialidades( especialidades );
 		resp.setProfissionalExames( profissionalExames );
+		resp.setProfissionalProcedimentos( profissionalProcedimentos );
 		return resp;
 	}
 	
@@ -286,16 +299,22 @@ public class AtendimentoLoader {
 	public AtendimentoPagamentoLoadResponse novoPagamentoResponse( 
 			Atendimento a, 
 			Consulta c, 
-			List<ExameItem> exames ) {
+			List<ExameItem> exames,
+			List<ProcedimentoItem> procedimentos ) {
 		
 		AtendimentoPagamentoLoadResponse resp = new AtendimentoPagamentoLoadResponse();
 		resp.setPago( a.isPago() );
 		resp.setValorPago( a.getValorPago() );
-		resp.setValorTotal( this.valorTotal( c, exames ) ); 
+		resp.setValorTotal( a.getValorTotal() ); 
+		resp.setValorTotalBruto( this.valorTotalBruto( c, exames, procedimentos ) ); 
 		return resp;
 	}
 	
-	private double valorTotal( ConsultaResponse consulta, List<ExameItemResponse> exames ) {
+	private double valorTotalBruto( 
+			ConsultaResponse consulta, 
+			List<ExameItemResponse> exames,
+			List<ProcedimentoItemResponse> procedimentos ) {
+		
 		double valorTotal = 0;
 		
 		if ( consulta != null )
@@ -304,10 +323,17 @@ public class AtendimentoLoader {
 		for( ExameItemResponse exame : exames )
 			valorTotal += exame.getValor();
 		
+		for( ProcedimentoItemResponse proc : procedimentos )
+			valorTotal += proc.getValor();
+		
 		return valorTotal;
 	}
 	
-	private double valorTotal( Consulta consulta, List<ExameItem> exames ) {
+	private double valorTotalBruto( 
+			Consulta consulta, 
+			List<ExameItem> exames, 
+			List<ProcedimentoItem> procedimentos ) {
+		
 		double valorTotal = 0;
 		
 		if ( consulta != null )
@@ -315,6 +341,9 @@ public class AtendimentoLoader {
 		
 		for( ExameItem exame : exames )
 			valorTotal += exame.getValor();
+		
+		for( ProcedimentoItem proc : procedimentos )
+			valorTotal += proc.getValor();
 		
 		return valorTotal;
 	}

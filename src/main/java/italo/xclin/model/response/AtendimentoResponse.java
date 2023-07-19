@@ -23,6 +23,8 @@ public class AtendimentoResponse {
 	
 	private boolean pago;
 	
+	private double valorTotalBruto;
+	
 	private double valorTotal;
 	
 	private double valorPago;
@@ -56,5 +58,7 @@ public class AtendimentoResponse {
 	private ConsultaResponse consulta;
 	
 	private List<ExameItemResponse> exames;
+	
+	private List<ProcedimentoItemResponse> procedimentos;
 		
 }

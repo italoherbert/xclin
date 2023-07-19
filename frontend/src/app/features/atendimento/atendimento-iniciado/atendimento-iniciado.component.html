@@ -101,15 +101,7 @@
                                     <div class="fs-5">
                                         {{atendimento.consulta.especialidadeNome}}
                                     </div>
-                                </div>                                                 
-                                <div class="col-sm-4">
-                                    <div class="fs-6 fw-bold">
-                                        Retorno:
-                                    </div>
-                                    <div class="fs-5">
-                                        {{atendimento.consulta.retorno == true ? 'Sim' : 'Não' }}
-                                    </div>
-                                </div> 
+                                </div>                                                                                  
                             </div>
                         </mat-card-content>
                     </mat-card>                                
@@ -129,6 +121,22 @@
                             </div>                        
                         </mat-card-content>
                     </mat-card> 
+
+                    <mat-card class="mt-4">
+                        <mat-card-header>
+                            <h1>Procedimentos</h1>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div *ngIf="atendimento.procedimentos.length === 0">
+                                <span class="text-primary">Nenhum procedimento incluído</span>
+                            </div>
+                            <div *ngIf="atendimento.procedimentos.length > 0">
+                                <mat-list-item *ngFor="let procedimento of atendimento.procedimentos">
+                                    {{procedimento.nome}}
+                                </mat-list-item>
+                            </div>                        
+                        </mat-card-content>
+                    </mat-card>
                 </div>                                                   
 
                 <div class="col-sm-12 my-2">

@@ -49,6 +49,7 @@ public class UsuarioLoader {
 		List<TipoResponse> usuarios = new ArrayList<>();
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.RAIZ ) );
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.ADMIN ) );
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.SUPORTE ) );
 		resp.setPerfis( usuarios ); 
 	}
 	
@@ -56,6 +57,7 @@ public class UsuarioLoader {
 		List<TipoResponse> usuarios = new ArrayList<>();
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.RAIZ ) );
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.ADMIN ) );
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.SUPORTE ) );
 		resp.setPerfis( usuarios ); 
 	}
 		

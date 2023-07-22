@@ -17,6 +17,8 @@ public class ConsultaResponse {
 	
 	private double valor;
 	
+	private boolean concluida;
+	
 	private Long especialidadeId;
 	
 	private String especialidadeNome;

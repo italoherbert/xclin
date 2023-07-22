@@ -25,6 +25,8 @@ public class Consulta {
 				
 	private double valor;
 	
+	private boolean concluida;
+	
 	@ManyToOne
 	@JoinColumn(name="especialidade_id")
 	private Especialidade especialidade;

@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -26,6 +27,7 @@ import { MatListModule } from '@angular/material/list';
     MatSelectModule,
     MatOptionModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatListModule
   ]
 })

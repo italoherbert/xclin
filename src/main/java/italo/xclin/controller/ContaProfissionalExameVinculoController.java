@@ -93,8 +93,9 @@ public class ContaProfissionalExameVinculoController {
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ProfissionalExameSaveLoadResponse resp = profissionalExameVinculoService.loadSave( logadoUID );
+		ProfissionalExameSaveLoadResponse resp = profissionalExameVinculoService.loadSave( logadoUID, clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	

@@ -42,7 +42,7 @@ export class LoginComponent {
       next: ( resp ) => {        
         localStorage.setItem( "token", resp.token );
         localStorage.setItem( 'username', resp.username );
-        localStorage.setItem( "perfil", resp.perfil );
+        localStorage.setItem( "perfil", resp.perfil );  
         localStorage.setItem( "perfil-label", resp.perfilLabel );
         this.showSpinner = false;
         this.router.navigate([ '/app', { outlets : { page: 'home' } } ]);

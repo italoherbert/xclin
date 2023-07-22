@@ -17,4 +17,6 @@ public class ProcedimentoItemResponse {
 	
 	private double valor;
 	
+	private boolean concluido;
+	
 }

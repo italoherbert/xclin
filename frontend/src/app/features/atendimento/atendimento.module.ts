@@ -10,6 +10,7 @@ import { AtendimentoTelaModule } from './atendimento-tela/atendimento-tela.modul
 import { AtendimentoAgendaModule } from './atendimento-agenda/atendimento-agenda.module';
 import { AtendimentoFilaCompletaModule } from './atendimento-fila-completa/atendimento-fila-completa.module';
 import { AtendimentoPagamentoModule } from './atendimento-pagamento/atendimento-pagamento.module';
+import { AtendimentoRetornoModule } from './atendimento-retorno/atendimento-retorno.module';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AtendimentoPagamentoModule } from './atendimento-pagamento/atendimento-
     AtendimentoFilaModule,
     AtendimentoNovoModule,
     AtendimentoRemarcarModule,
+    AtendimentoRetornoModule,
     AtendimentoTelaModule,
     AtendimentoAgendaModule,
     AtendimentoFilaCompletaModule,

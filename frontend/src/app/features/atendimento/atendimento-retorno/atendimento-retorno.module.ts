@@ -1,24 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AtendimentoDetalhesComponent } from './atendimento-detalhes.component';
+import { AtendimentoRetornoComponent } from './atendimento-retorno.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CalendarioModule } from 'src/app/shared/calendario/calendario.module';
 
 
 
 @NgModule({
   declarations: [
-    AtendimentoDetalhesComponent
+    AtendimentoRetornoComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
 
-    MatCardModule,
-    MatCheckboxModule,
+    CalendarioModule,
+
     MatButtonModule
   ]
 })
-export class AtendimentoDetalhesModule { }
+export class AtendimentoRetornoModule { }

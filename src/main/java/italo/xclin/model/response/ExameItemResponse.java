@@ -17,4 +17,6 @@ public class ExameItemResponse {
 	
 	private double valor;
 	
+	private boolean concluido;
+	
 }

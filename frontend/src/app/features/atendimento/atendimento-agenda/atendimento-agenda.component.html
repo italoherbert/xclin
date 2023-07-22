@@ -24,23 +24,24 @@
 
 <br />
 
+<app-calendario 
+    [quantidades]="quantidadesAgrupadasPorDia" 
+    (onDiaTurnoAlterado)="onDiaTurnoAlterado($event)"
+    (onCalendarioAlterado)="onCalendarioAlterado($event)">
+</app-calendario>
+
+<br />
+
+<div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
+    {{infoMsg}}
+</div>
+<div *ngIf="erroMsg !== null" class="alert alert-danger mb-2">
+    {{erroMsg}}
+</div>
+
 <div class="d-flex justify-content-center">
     <button mat-raised-button color="primary" (click)="paraListagemFila()">
         <fa-icon [icon]="icons.faCheck"></fa-icon>
         Visualizar
     </button>
 </div>
-
-<div *ngIf="infoMsg !== null" class="alert alert-success mt-2">
-    {{infoMsg}}
-</div>
-<div *ngIf="erroMsg !== null" class="alert alert-danger mt-2">
-    {{erroMsg}}
-</div>
-
-<br />
-<app-calendario 
-    [quantidades]="quantidadesAgrupadasPorDia" 
-    (onDiaTurnoAlterado)="onDiaTurnoAlterado($event)"
-    (onCalendarioAlterado)="onCalendarioAlterado($event)">
-</app-calendario>

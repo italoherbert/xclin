@@ -7,7 +7,7 @@ public interface Erro {
 	public final static String PROFISSIONAL_ACESSO_NAO_AUTORIZADO = "Seu usuário não é o profissional com permissão para realizar essa função.";
 	
 	public final static String NAO_PODE_INICIAR_ATENDIMENTO = "Você não pode iniciar a consulta por este formulário.";
-	public final static String USUARIO_NAO_DELETADO_POR_PERFIL = "Não é possível deletar um usuário com perfil diferente de RAIZ e ADMIN por aqui.";
+	public final static String USUARIO_NAO_DELETADO_POR_PERFIL = "Não é possível deletar um usuário com perfil diferente de RAIZ, ADMIN ou SUPORTE por aqui.";
 	
 	public final static String USERNAME_OBRIGATORIO = "O username é um campo de preenchimento obrigatório.";
 	public final static String SENHA_OBRIGATORIA = "A senha é um campo de preenchimento obrigatório.";
@@ -59,6 +59,7 @@ public interface Erro {
 	public final static String PACIENTE_ANEXO_NAO_ENCONTRADO = "O anexo do paciente não foi encontrado.";
 	public final static String EXAME_NAO_ENCONTRADO = "Exame não encontrado.";
 	public final static String PROCEDIMENTO_NAO_ENCONTRADO = "Procedimento não encontrado.";
+	public final static String CONSULTA_NAO_ENCONTRADA = "Consulta não encontrada.";
 	
 	public final static String USUARIO_LOGADO_NAO_ENCONTRADO = "O usuário logado não foi encontrado pelo ID.";
 	public final static String PROF_LOGADO_NAO_ENCONTRADO = "Você não está logado como professor.";

@@ -28,6 +28,8 @@ public class ExameItem {
 	
 	private double valor;
 	
+	private boolean concluido;
+	
 	@ManyToOne
 	@JoinColumn(name="orcamento_id")
 	private Orcamento orcamento;

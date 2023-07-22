@@ -93,8 +93,9 @@ public class ContaProfissionalProcedimentoVinculoController {
 		
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ProfissionalProcedimentoSaveLoadResponse resp = profissionalProcedimentoVinculoService.loadSave( logadoUID );
+		ProfissionalProcedimentoSaveLoadResponse resp = profissionalProcedimentoVinculoService.loadSave( logadoUID, clinicasIDs );
 		return ResponseEntity.ok( resp );
 	}
 	

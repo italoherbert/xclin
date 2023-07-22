@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faCircleLeft, faSave } from '@fortawesome/free-solid-svg-icons';
+import { Atendimento } from 'src/app/core/bean/atendimento/atendimento';
 import { AtendimentoAlter } from 'src/app/core/bean/atendimento/atendimento-alter';
+import { Orcamento } from 'src/app/core/bean/atendimento/orcamento';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 

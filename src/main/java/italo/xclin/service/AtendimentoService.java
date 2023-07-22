@@ -51,6 +51,7 @@ import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
+import italo.xclin.model.request.save.AtendimentoRetornoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.request.save.ExameItemSaveRequest;
@@ -71,6 +72,7 @@ import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.ProfissionalProcedimentoVinculoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoRetornoLoadResponse;
 import italo.xclin.model.response.load.edit.OrcamentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
@@ -80,11 +82,14 @@ import italo.xclin.model.response.load.tela.AtendimentoListaFilaTelaLoadResponse
 import italo.xclin.model.response.load.tela.AtendimentoTelaLoadResponse;
 import italo.xclin.repository.AtendimentoRepository;
 import italo.xclin.repository.ClinicaRepository;
+import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
+import italo.xclin.repository.ExameItemRepository;
 import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.OrcamentoRepository;
 import italo.xclin.repository.PacienteRepository;
+import italo.xclin.repository.ProcedimentoItemRepository;
 import italo.xclin.repository.ProcedimentoRepository;
 import italo.xclin.repository.ProfissionalRepository;
 import italo.xclin.repository.UsuarioRepository;
@@ -121,6 +126,15 @@ public class AtendimentoService {
 	@Autowired
 	private ProcedimentoRepository procedimentoRepository;
 	
+	@Autowired
+	private ConsultaRepository consultaRepository;
+	
+	@Autowired
+	private ExameItemRepository exameItemRepository;
+	
+	@Autowired
+	private ProcedimentoItemRepository procedimentoItemRepository;
+		
 	@Autowired
 	private LancamentoRepository lancamentoRepository;
 	
@@ -270,7 +284,7 @@ public class AtendimentoService {
 		}
 	}
 	
-	public void registraRetorno( Long atendimentoId ) throws ServiceException {
+	public void registraRetorno( Long atendimentoId, AtendimentoRetornoSaveRequest request ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
 			throw new ServiceException( Erro.ATENDIMENTO_NAO_ENCONTRADO );
@@ -283,7 +297,7 @@ public class AtendimentoService {
 		Orcamento orcamento = atendimento.getOrcamento();
 		
 		Atendimento novoAtendimento = atendimentoLoader.novoBean( profissional, paciente, clinica, orcamento );
-		atendimentoLoader.loadBean( novoAtendimento );
+		atendimentoLoader.loadBean( novoAtendimento, request );
 		
 		atendimentoRepository.save( novoAtendimento );
 	}
@@ -483,8 +497,14 @@ public class AtendimentoService {
 			
 			Long pacienteId = paciente.getId();
 			
-			List<AtendimentoObservacoesResponse> historicoObservacoes = this.getUltimasObservacoes( 
-					clinicaId, profissionalId, pacienteId, histObsPageSize );			
+			List<Atendimento> atendimentosUltObss = atendimentoRepository.getUltimasObservacoes(
+					clinicaId, profissionalId, pacienteId, PageRequest.of( 0, histObsPageSize ) );
+						
+			List<AtendimentoObservacoesResponse> observacoesLista = new ArrayList<>();
+			for( Atendimento at : atendimentosUltObss ) {
+				AtendimentoObservacoesResponse resp = atendimentoLoader.novoObservacoesResponse( at );
+				observacoesLista.add( resp );
+			}	
 			
 			List<PacienteAnexo> anexos = paciente.getAnexos();
 			
@@ -497,26 +517,12 @@ public class AtendimentoService {
 			}
 			
 			return atendimentoLoader.novoIniciadoResponse( 
-					atResp, historicoObservacoes, respAnexos, quantPacientesNaFila );
+					atResp, observacoesLista, respAnexos, quantPacientesNaFila );
 		}
 		
 		return atendimentoLoader.novoNenhumaIniciadaResponse( quantPacientesNaFila );		
 	}
-	
-	private List<AtendimentoObservacoesResponse> getUltimasObservacoes( 
-			Long clinicaId, Long profissionalId, Long pacienteId, int pageSize ) throws ServiceException {
-		
-		List<Atendimento> atendimentos = atendimentoRepository.getUltimasObservacoes(
-				clinicaId, profissionalId, pacienteId, PageRequest.of( 0, pageSize ) );
-		
-		List<AtendimentoObservacoesResponse> lista = new ArrayList<>();
-		for( Atendimento atendimento : atendimentos ) {
-			AtendimentoObservacoesResponse resp = atendimentoLoader.novoObservacoesResponse( atendimento );
-			lista.add( resp );
-		}
-		return lista;
-	}
-		
+			
 	public List<AtendimentoResponse> filtra( Long clinicaId, AtendimentoFiltroRequest request ) throws ServiceException {
 		Date dataIni = converter.stringToDataNEx( request.getDataInicio() );
 		Date dataFim = converter.stringToDataNEx( request.getDataFim() );
@@ -654,6 +660,12 @@ public class AtendimentoService {
 		return resp;
 	}
 	
+	public AtendimentoRetornoLoadResponse retornoLoad() throws ServiceException {
+		AtendimentoRetornoLoadResponse resp = atendimentoLoader.novoRetornoResponse();
+		atendimentoLoader.loadRetornoResponse( resp );
+		return resp;
+	}
+	
 	public OrcamentoPagamentoLoadResponse getPagamentoLoad( Long atendimentoId ) throws ServiceException {
 		Optional<Atendimento> atendimentoOp = atendimentoRepository.findById( atendimentoId );
 		if ( !atendimentoOp.isPresent() )
@@ -763,6 +775,39 @@ public class AtendimentoService {
 
 		return atendimentoRepository.agrupaPorDiaDeMes( clinicaId, profissionalId, mes, ano );		
 	}
+	
+	public void alterConsultaConcluida( Long consultaId, boolean concluida ) throws ServiceException {
+		Optional<Consulta> consultaOp = consultaRepository.findById( consultaId );
+		if ( !consultaOp.isPresent() )
+			throw new ServiceException( Erro.CONSULTA_NAO_ENCONTRADA );
+		
+		Consulta consulta = consultaOp.get();
+		consulta.setConcluida( concluida );
+		
+		consultaRepository.save( consulta );
+	}
+	
+	public void alterExameItemConcluido( Long exameItemId, boolean concluido ) throws ServiceException {
+		Optional<ExameItem> exameItemOp = exameItemRepository.findById( exameItemId );
+		if ( !exameItemOp.isPresent() )
+			throw new ServiceException( Erro.EXAME_NAO_ENCONTRADO );
+		
+		ExameItem exameItem = exameItemOp.get();
+		exameItem.setConcluido( concluido );
+		
+		exameItemRepository.save( exameItem );
+	}
+	
+	public void alterProcedimentoItemConcluido( Long procedimentoItemId, boolean concluido ) throws ServiceException {
+		Optional<ProcedimentoItem> procedimentoItemOp = procedimentoItemRepository.findById( procedimentoItemId );
+		if ( !procedimentoItemOp.isPresent() )
+			throw new ServiceException( Erro.PROCEDIMENTO_NAO_ENCONTRADO );
+		
+		ProcedimentoItem procedimentoItem = procedimentoItemOp.get();
+		procedimentoItem.setConcluido( concluido );
+		
+		procedimentoItemRepository.save( procedimentoItem );
+	}
 			
 	@Transactional
 	public void deleta( Long logadoUID, Long atendimentoId ) throws ServiceException {
@@ -799,7 +844,7 @@ public class AtendimentoService {
 		atendimentoRepository.deleteById( atendimentoId ); 
 	}
 	
-	public AtendimentoResponse atendimentoResponse( Atendimento atendimento ) throws ServiceException {
+	private AtendimentoResponse atendimentoResponse( Atendimento atendimento ) throws ServiceException {
 		Clinica clinica = atendimento.getClinica();
 		Profissional profissional2 = atendimento.getProfissional();
 		Paciente paciente = atendimento.getPaciente();

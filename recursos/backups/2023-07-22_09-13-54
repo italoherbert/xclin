@@ -250,12 +250,9 @@ CREATE TABLE public.atendimento (
     data_agendamento timestamp without time zone,
     data_atendimento date,
     data_finalizacao timestamp(6) without time zone,
-    especialidade_id bigint,
     data_save_observacoes timestamp(6) without time zone,
-    tem_consulta boolean,
-    valor_pago double precision,
-    pago boolean,
-    data_espera timestamp(6) without time zone
+    data_espera timestamp(6) without time zone,
+    orcamento_id bigint
 );
 
 
@@ -285,7 +282,6 @@ CREATE TABLE public.exame (
     id bigint NOT NULL,
     descricao character varying(255),
     nome character varying(255),
-    valor double precision NOT NULL,
     clinica_id bigint,
     data_exame timestamp(6) without time zone,
     paciente_id bigint
@@ -378,10 +374,10 @@ ALTER SEQUENCE public.clinica_pergunta_id_seq OWNED BY public.clinica_pergunta.i
 
 CREATE TABLE public.consulta (
     id bigint NOT NULL,
-    retorno boolean NOT NULL,
     valor double precision NOT NULL,
-    atendimento_id bigint,
-    especialidade_id bigint
+    especialidade_id bigint,
+    orcamento_id bigint,
+    concluida boolean
 );
 
 
@@ -543,7 +539,8 @@ CREATE TABLE public.exame_item (
     descricao character varying(255),
     nome character varying(255),
     valor double precision NOT NULL,
-    atendimento_id bigint
+    orcamento_id bigint,
+    concluido boolean
 );
 
 
@@ -606,6 +603,42 @@ ALTER TABLE public.lancamento_id_seq OWNER TO xclin;
 --
 
 ALTER SEQUENCE public.lancamento_id_seq OWNED BY public.lancamento.id;
+
+
+--
+-- Name: orcamento; Type: TABLE; Schema: public; Owner: xclin
+--
+
+CREATE TABLE public.orcamento (
+    id bigint NOT NULL,
+    pago boolean NOT NULL,
+    tem_consulta boolean NOT NULL,
+    valor_pago double precision NOT NULL,
+    valor_total double precision NOT NULL
+);
+
+
+ALTER TABLE public.orcamento OWNER TO xclin;
+
+--
+-- Name: orcamento_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+--
+
+CREATE SEQUENCE public.orcamento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.orcamento_id_seq OWNER TO xclin;
+
+--
+-- Name: orcamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+--
+
+ALTER SEQUENCE public.orcamento_id_seq OWNED BY public.orcamento.id;
 
 
 --
@@ -688,6 +721,78 @@ ALTER TABLE public.paciente_id_seq OWNER TO xclin;
 --
 
 ALTER SEQUENCE public.paciente_id_seq OWNED BY public.paciente.id;
+
+
+--
+-- Name: procedimento; Type: TABLE; Schema: public; Owner: xclin
+--
+
+CREATE TABLE public.procedimento (
+    id bigint NOT NULL,
+    descricao character varying(255),
+    nome character varying(255),
+    clinica_id bigint
+);
+
+
+ALTER TABLE public.procedimento OWNER TO xclin;
+
+--
+-- Name: procedimento_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+--
+
+CREATE SEQUENCE public.procedimento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.procedimento_id_seq OWNER TO xclin;
+
+--
+-- Name: procedimento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+--
+
+ALTER SEQUENCE public.procedimento_id_seq OWNED BY public.procedimento.id;
+
+
+--
+-- Name: procedimento_item; Type: TABLE; Schema: public; Owner: xclin
+--
+
+CREATE TABLE public.procedimento_item (
+    id bigint NOT NULL,
+    descricao character varying(255),
+    nome character varying(255),
+    valor double precision NOT NULL,
+    orcamento_id bigint,
+    concluido boolean
+);
+
+
+ALTER TABLE public.procedimento_item OWNER TO xclin;
+
+--
+-- Name: procedimento_item_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+--
+
+CREATE SEQUENCE public.procedimento_item_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.procedimento_item_id_seq OWNER TO xclin;
+
+--
+-- Name: procedimento_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+--
+
+ALTER SEQUENCE public.procedimento_item_id_seq OWNED BY public.procedimento_item.id;
 
 
 --
@@ -793,6 +898,41 @@ ALTER TABLE public.profissional_id_seq OWNER TO xclin;
 --
 
 ALTER SEQUENCE public.profissional_id_seq OWNED BY public.profissional.id;
+
+
+--
+-- Name: profissional_procedimento_vinculo; Type: TABLE; Schema: public; Owner: xclin
+--
+
+CREATE TABLE public.profissional_procedimento_vinculo (
+    id bigint NOT NULL,
+    procedimento_id bigint,
+    profissional_id bigint,
+    procedimento_valor double precision NOT NULL
+);
+
+
+ALTER TABLE public.profissional_procedimento_vinculo OWNER TO xclin;
+
+--
+-- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+--
+
+CREATE SEQUENCE public.profissional_procedimento_vinculo_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.profissional_procedimento_vinculo_id_seq OWNER TO xclin;
+
+--
+-- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+--
+
+ALTER SEQUENCE public.profissional_procedimento_vinculo_id_seq OWNED BY public.profissional_procedimento_vinculo.id;
 
 
 --
@@ -1106,6 +1246,13 @@ ALTER TABLE ONLY public.lancamento ALTER COLUMN id SET DEFAULT nextval('public.l
 
 
 --
+-- Name: orcamento id; Type: DEFAULT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.orcamento ALTER COLUMN id SET DEFAULT nextval('public.orcamento_id_seq'::regclass);
+
+
+--
 -- Name: paciente id; Type: DEFAULT; Schema: public; Owner: xclin
 --
 
@@ -1117,6 +1264,20 @@ ALTER TABLE ONLY public.paciente ALTER COLUMN id SET DEFAULT nextval('public.pac
 --
 
 ALTER TABLE ONLY public.paciente_anexo ALTER COLUMN id SET DEFAULT nextval('public.paciente_anexo_id_seq'::regclass);
+
+
+--
+-- Name: procedimento id; Type: DEFAULT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.procedimento ALTER COLUMN id SET DEFAULT nextval('public.procedimento_id_seq'::regclass);
+
+
+--
+-- Name: procedimento_item id; Type: DEFAULT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.procedimento_item ALTER COLUMN id SET DEFAULT nextval('public.procedimento_item_id_seq'::regclass);
 
 
 --
@@ -1138,6 +1299,13 @@ ALTER TABLE ONLY public.profissional_especialidade_vinculo ALTER COLUMN id SET D
 --
 
 ALTER TABLE ONLY public.profissional_exame_vinculo ALTER COLUMN id SET DEFAULT nextval('public.profissional_exame_vinculo_id_seq'::regclass);
+
+
+--
+-- Name: profissional_procedimento_vinculo id; Type: DEFAULT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.profissional_procedimento_vinculo ALTER COLUMN id SET DEFAULT nextval('public.profissional_procedimento_vinculo_id_seq'::regclass);
 
 
 --
@@ -1199,8 +1367,6 @@ COPY public.acesso (id, escrita, leitura, remocao, grupo_id, recurso_id) FROM st
 1	t	t	t	1	1
 2	t	t	t	1	2
 3	t	t	t	1	3
-5	f	t	f	2	2
-6	f	t	f	2	3
 7	t	t	t	1	4
 8	t	t	t	1	5
 9	t	t	t	1	6
@@ -1213,13 +1379,10 @@ COPY public.acesso (id, escrita, leitura, remocao, grupo_id, recurso_id) FROM st
 20	f	f	f	4	2
 21	f	f	f	4	3
 26	t	t	t	4	8
-27	t	t	t	5	9
 28	f	f	f	3	1
 29	f	f	f	3	2
 30	f	f	f	3	3
 35	t	t	t	3	8
-37	t	t	t	4	9
-36	t	t	t	3	9
 41	t	t	t	3	13
 42	t	t	t	3	12
 43	t	t	t	3	11
@@ -1237,14 +1400,8 @@ COPY public.acesso (id, escrita, leitura, remocao, grupo_id, recurso_id) FROM st
 55	f	f	f	1	13
 56	f	f	f	1	12
 57	f	f	f	1	11
-58	f	f	f	1	9
 59	f	f	f	1	8
 60	t	t	t	2	15
-61	f	f	f	2	14
-62	f	f	f	2	13
-63	f	f	f	2	12
-64	f	f	f	2	11
-65	f	f	f	2	9
 66	f	f	f	2	8
 67	f	f	f	2	7
 68	f	f	f	2	6
@@ -1291,12 +1448,42 @@ COPY public.acesso (id, escrita, leitura, remocao, grupo_id, recurso_id) FROM st
 99	f	f	f	3	19
 100	f	f	f	3	18
 101	f	f	f	3	17
-91	t	t	t	4	20
-4	f	t	f	2	1
 70	t	t	f	2	4
 102	f	f	f	2	21
 104	f	f	f	1	21
 103	t	f	f	1	22
+105	t	t	t	1	23
+106	t	t	t	2	23
+107	f	f	f	2	22
+61	t	t	f	2	14
+62	t	t	f	2	13
+63	t	t	f	2	12
+64	t	t	f	2	11
+6	f	f	f	2	3
+5	f	f	f	2	2
+4	f	f	f	2	1
+108	t	t	t	7	23
+109	f	f	f	7	22
+111	t	t	t	7	20
+112	f	f	f	7	19
+113	f	f	f	7	18
+114	f	f	f	7	17
+116	t	t	t	7	15
+117	f	f	f	7	14
+118	f	f	f	7	13
+119	f	f	f	7	12
+120	f	f	f	7	11
+122	f	t	f	7	8
+123	f	t	f	7	7
+124	f	t	f	7	6
+125	f	t	f	7	5
+126	f	t	f	7	4
+127	f	t	f	7	3
+128	f	t	f	7	2
+129	f	f	f	7	1
+110	t	t	f	7	21
+115	f	t	f	7	16
+91	f	f	f	4	20
 \.
 
 
@@ -1319,7 +1506,6 @@ COPY public.anamnese (id, data_criacao, nome, paciente_id) FROM stdin;
 COPY public.anamnese_modelo (id, data_criacao, nome, profissional_id) FROM stdin;
 4	2023-06-22	Cardiologia	5
 5	2023-06-23	odontologia	5
-6	2023-07-06	odonto	8
 7	2023-07-12	endocrinologia	5
 \.
 
@@ -1347,9 +1533,6 @@ COPY public.anamnese_modelo_pergunta (id, enum_names, enum_values, pergunta, tip
 19	\N		Bebe	BOOLEAN	5	\N
 20	\N		Você toma algum medicamento?	BOOLEAN	7	\N
 21	\N	Muito,Mais ou menos,Pouco,Não fuma	Você fuma?	ENUM	7	\N
-22	\N		Você fuma?	BOOLEAN	6	\N
-23	\N	Intenso,Normal	Como é o sangramento quando se corta?	ENUM	6	\N
-24	\N		Quais alergias?	STRING	6	\N
 \.
 
 
@@ -1398,31 +1581,10 @@ COPY public.anamnese_pergunta (id, enum_values, pergunta, tipo, paciente_id, res
 -- Data for Name: atendimento; Type: TABLE DATA; Schema: public; Owner: xclin
 --
 
-COPY public.atendimento (id, status, paciente_id, profissional_id, turno, clinica_id, observacoes, data_agendamento, data_atendimento, data_finalizacao, especialidade_id, data_save_observacoes, tem_consulta, valor_pago, pago, data_espera) FROM stdin;
-20	REGISTRADO	2	5	MANHA	2	GHI	2023-05-30 18:03:09.977	2023-05-29	\N	1	2023-05-30 18:03:09.977	f	0	f	\N
-19	REGISTRADO	2	5	MANHA	2	DEF	2023-05-30 18:02:45.697	2023-05-28	\N	1	2023-05-30 18:02:45.697	f	0	f	\N
-25	REGISTRADO	2	5	MANHA	2		2023-06-30 11:54:59.119	2023-06-30	\N	1	2023-06-30 11:54:59.119	f	0	f	\N
-21	REGISTRADO	2	5	MANHA	2	JKL	2023-05-30 18:03:37.433	2023-05-30	\N	1	2023-05-30 18:03:37.433	f	0	f	\N
-18	REGISTRADO	2	5	MANHA	2	ABC	2023-05-30 18:02:19.987	2023-06-27	\N	1	2023-05-30 18:02:19.987	f	0	f	\N
-22	REGISTRADO	2	5	MANHA	2	ABC João	2023-05-31 16:41:49.33	2023-05-31	\N	1	2023-06-09 15:49:49.427	f	0	f	\N
-26	INICIADO	4	5	MANHA	2	ABC	2023-07-01 20:18:01.793	2023-07-03	\N	\N	\N	f	100	t	\N
-28	INICIADO	4	5	TARDE	2	ABCD	2023-07-02 19:56:52.197	2023-07-03	\N	\N	\N	t	180	t	\N
-24	REGISTRADO	2	5	MANHA	2		2023-06-30 11:54:08.026	2023-07-03	\N	1	2023-06-30 11:54:08.026	f	50	t	\N
-45	INICIADO	23	8	MANHA	5		2023-07-13 10:34:01.481	2023-07-14	\N	\N	\N	t	0	f	\N
-37	FINALIZADO	2	5	MANHA	2		2023-07-12 09:32:36	2023-07-12	\N	\N	\N	t	100	t	2023-07-12 09:35:09.915
-35	INICIADO	8	5	MANHA	2		2023-07-12 09:27:00.637	2023-07-12	\N	\N	\N	t	150	t	2023-07-12 22:11:28.432
-39	ESPERANDO	3	5	MANHA	2		2023-07-12 09:33:44.96	2023-07-12	\N	\N	\N	f	100	t	2023-07-12 22:11:50.229
-31	REGISTRADO	4	5	NOITE	2		2023-07-07 12:20:52.911	2023-07-07	\N	\N	\N	t	0	f	2023-07-07 12:39:59.768
-32	ESPERANDO	6	5	NOITE	2		2023-07-07 12:21:21.572	2023-07-07	\N	\N	\N	t	0	f	2023-07-07 12:43:27.784
-34	REGISTRADO	2	5	NOITE	2		2023-07-07 13:31:00.831	2023-07-07	\N	\N	\N	t	0	f	\N
-33	REGISTRADO	6	5	MANHA	2		2023-07-07 13:31:59.441	2023-07-08	\N	\N	\N	t	100	t	\N
-40	FINALIZADO	18	8	MANHA	5		2023-07-13 10:10:30.837	2023-07-13	\N	\N	\N	t	180	t	2023-07-13 10:26:18.385
-43	REGISTRADO	21	8	MANHA	5		2023-07-13 10:13:26.378	2023-07-13	\N	\N	\N	t	0	f	2023-07-13 10:21:56.289
-41	REGISTRADO	19	8	MANHA	5		2023-07-13 10:12:11.991	2023-07-13	\N	\N	\N	t	300	t	2023-07-13 10:26:24.322
-38	FINALIZADO	10	5	MANHA	2		2023-07-12 09:33:09.332	2023-07-12	\N	\N	\N	t	0	f	2023-07-12 09:39:34.682
-44	CANCELADO	22	8	MANHA	5		2023-07-13 13:25:32.653	2023-07-13	\N	\N	\N	t	0	f	2023-07-13 10:26:21.682
-42	REGISTRADO	20	8	MANHA	5	Ultrasonografia realizada	2023-07-13 10:12:57.446	2023-07-13	\N	\N	2023-07-13 10:25:14.101	f	0	f	2023-07-13 10:17:42.056
-36	ESPERANDO	9	5	TARDE	2		2023-07-12 09:40:13.117	2023-07-12	\N	\N	\N	t	0	f	2023-07-12 09:35:56.975
+COPY public.atendimento (id, status, paciente_id, profissional_id, turno, clinica_id, observacoes, data_agendamento, data_atendimento, data_finalizacao, data_save_observacoes, data_espera, orcamento_id) FROM stdin;
+58	REGISTRADO	8	5	TARDE	2	\N	2023-07-20 09:52:42.239	2023-07-20	\N	\N	\N	2
+60	REGISTRADO	8	5	NOITE	2	\N	2023-07-20 10:00:01.189	2023-07-20	\N	\N	\N	2
+57	INICIADO	8	5	MANHA	2	ABC	2023-07-19 20:23:21.904	2023-07-20	\N	2023-07-20 12:59:49.94	\N	2
 \.
 
 
@@ -1452,21 +1614,8 @@ COPY public.clinica_pergunta (id, enum_names, enum_values, pergunta, tipo) FROM 
 -- Data for Name: consulta; Type: TABLE DATA; Schema: public; Owner: xclin
 --
 
-COPY public.consulta (id, retorno, valor, atendimento_id, especialidade_id) FROM stdin;
-2	t	100	28	1
-5	f	100	31	1
-6	f	100	32	1
-7	f	100	33	1
-8	f	100	34	1
-9	f	100	35	1
-10	f	100	36	1
-11	f	100	37	1
-12	t	0	38	1
-13	f	180	40	2
-14	f	200	41	2
-15	t	0	43	2
-16	f	200	44	2
-17	t	0	45	2
+COPY public.consulta (id, valor, especialidade_id, orcamento_id, concluida) FROM stdin;
+27	150	10	2	t
 \.
 
 
@@ -1536,9 +1685,10 @@ COPY public.especialidade (id, nome, clinica_id) FROM stdin;
 -- Data for Name: exame; Type: TABLE DATA; Schema: public; Owner: xclin
 --
 
-COPY public.exame (id, descricao, nome, valor, clinica_id, data_exame, paciente_id) FROM stdin;
-2		Ultrasonografia	0	2	\N	\N
-4		Eletrocardiograma	0	2	\N	\N
+COPY public.exame (id, descricao, nome, clinica_id, data_exame, paciente_id) FROM stdin;
+4		Eletrocardiograma	2	\N	\N
+2	Exame de ultrasonografia	Ultrasonografia	2	\N	\N
+5	Exame do estômago	Endoscopia	2	\N	\N
 \.
 
 
@@ -1546,13 +1696,9 @@ COPY public.exame (id, descricao, nome, valor, clinica_id, data_exame, paciente_
 -- Data for Name: exame_item; Type: TABLE DATA; Schema: public; Owner: xclin
 --
 
-COPY public.exame_item (id, descricao, nome, valor, atendimento_id) FROM stdin;
-1		Ultrasonografia	100	26
-2		Ultrasonografia	100	28
-3		Ultrasonografia	80	35
-4		Ultrasonografia	100	39
-5		Eletrocardiograma	150	41
-6		Ultrasonografia	100	42
+COPY public.exame_item (id, descricao, nome, valor, orcamento_id, concluido) FROM stdin;
+18	Exame de ultrasonografia	Ultrasonografia	100	2	t
+19		Eletrocardiograma	120	2	f
 \.
 
 
@@ -1587,6 +1733,29 @@ COPY public.lancamento (id, data_lancamento, tipo, valor, clinica_id, usuario_id
 40	2023-07-13 10:10:30.846	CREDITO	180	5	16	Pagamento creditado.
 41	2023-07-13 10:12:11.996	CREDITO	300	5	16	Pagamento creditado.
 42	2023-07-13 10:38:08.979	DEBITO	50	5	16	Precisei pra comprar café
+43	2023-07-18 22:30:57.933	CREDITO	520	2	12	Pagamento creditado.
+44	2023-07-19 11:07:37.92	CREDITO	600	2	12	Pagamento creditado.
+45	2023-07-19 11:08:37.73	CREDITO	600	2	12	Pagamento creditado.
+46	2023-07-19 11:08:41.262	CREDITO	600	2	12	Pagamento creditado.
+47	2023-07-19 11:08:43.13	CREDITO	600	2	12	Pagamento creditado.
+48	2023-07-19 11:08:46.575	CREDITO	600	2	12	Pagamento creditado.
+49	2023-07-19 11:08:50.637	DEBITO	600	2	12	Pagamento debitado.
+50	2023-07-19 11:15:54.211	CREDITO	500	2	12	Pagamento creditado.
+51	2023-07-19 11:16:53.253	CREDITO	500	2	12	Pagamento creditado.
+52	2023-07-19 11:18:57.705	CREDITO	580	2	12	Pagamento creditado.
+53	2023-07-19 20:23:48.017	CREDITO	500	2	12	Pagamento creditado.
+54	2023-07-19 20:23:51.839	CREDITO	600	2	12	Pagamento creditado.
+55	2023-07-19 20:23:57.106	DEBITO	600	2	12	Pagamento debitado.
+56	2023-07-19 20:24:02.459	CREDITO	500	2	12	Pagamento creditado.
+\.
+
+
+--
+-- Data for Name: orcamento; Type: TABLE DATA; Schema: public; Owner: xclin
+--
+
+COPY public.orcamento (id, pago, tem_consulta, valor_pago, valor_total) FROM stdin;
+2	f	t	500	875
 \.
 
 
@@ -1632,6 +1801,27 @@ COPY public.paciente_anexo (id, arquivo, nome, paciente_id) FROM stdin;
 
 
 --
+-- Data for Name: procedimento; Type: TABLE DATA; Schema: public; Owner: xclin
+--
+
+COPY public.procedimento (id, descricao, nome, clinica_id) FROM stdin;
+1		Obturação	2
+4	Extração de dentes	Extração	2
+3	Clareamento de dentes	Clareamento dentário	2
+\.
+
+
+--
+-- Data for Name: procedimento_item; Type: TABLE DATA; Schema: public; Owner: xclin
+--
+
+COPY public.procedimento_item (id, descricao, nome, valor, orcamento_id, concluido) FROM stdin;
+10	Clareamento de dentes	Clareamento dentário	320	2	t
+9	Extração de dentes	Extração	200	2	t
+\.
+
+
+--
 -- Data for Name: profissional; Type: TABLE DATA; Schema: public; Owner: xclin
 --
 
@@ -1648,7 +1838,6 @@ COPY public.profissional (id, funcao, nome, usuario_id) FROM stdin;
 
 COPY public.profissional_especialidade_vinculo (id, consulta_valor, especialidade_id, profissional_id) FROM stdin;
 22	100	1	5
-23	200	2	8
 24	150	10	5
 \.
 
@@ -1660,8 +1849,16 @@ COPY public.profissional_especialidade_vinculo (id, consulta_valor, especialidad
 COPY public.profissional_exame_vinculo (id, exame_valor, exame_id, profissional_id) FROM stdin;
 1	100	2	5
 2	150	4	5
-3	100	2	8
-4	200	4	8
+\.
+
+
+--
+-- Data for Name: profissional_procedimento_vinculo; Type: TABLE DATA; Schema: public; Owner: xclin
+--
+
+COPY public.profissional_procedimento_vinculo (id, procedimento_id, profissional_id, procedimento_valor) FROM stdin;
+2	4	5	200
+1	3	5	350
 \.
 
 
@@ -1688,7 +1885,6 @@ COPY public.recurso (id, nome) FROM stdin;
 6	profissional
 7	recepcionista
 8	paciente
-9	consulta
 11	naoAdminDiretor
 12	naoAdminProfissional
 13	naoAdminRecepcionista
@@ -1701,6 +1897,7 @@ COPY public.recurso (id, nome) FROM stdin;
 21	atendimento
 20	exame
 22	clinicaReg
+23	procedimento
 \.
 
 
@@ -1717,6 +1914,7 @@ COPY public.usuario (id, perfil, senha, username, criador_id) FROM stdin;
 18	PROFISSIONAL	7b85175b455060e3237e925f023053ca9515e8682a83c8b09911c724a1f8b75f	carlos	1
 12	PROFISSIONAL	c56132f2aa181259dfbd2f1acab8157dd926466227758f6ee6c430631a0692b6	profissional	1
 1	RAIZ	eef4e9a26c0b55f791e47ee65562cc78f19e07d2fcede3555f08f8463e3d15e6	italo	\N
+21	SUPORTE	717cfbe6c0470c0569ce0b199313479bc3039eee9fbc3dc4d602f056cee93bf5	adsuporte	1
 \.
 
 
@@ -1733,6 +1931,7 @@ COPY public.usuario_clinica_vinculo (id, clinica_id, usuario_id) FROM stdin;
 8	5	16
 9	5	17
 10	6	18
+11	5	21
 \.
 
 
@@ -1742,10 +1941,11 @@ COPY public.usuario_clinica_vinculo (id, clinica_id, usuario_id) FROM stdin;
 
 COPY public.usuario_grupo (id, nome) FROM stdin;
 1	RAIZ
-2	ADMIN
 3	DIRETOR
 5	RECEPCIONISTA
 4	PROFISSIONAL
+2	SUPORTE
+7	ADMIN
 \.
 
 
@@ -1756,15 +1956,13 @@ COPY public.usuario_grupo (id, nome) FROM stdin;
 COPY public.usuario_grupo_vinculo (id, grupo_id, usuario_id) FROM stdin;
 1	1	1
 2	2	2
-3	3	1
-4	4	1
-6	4	1
 7	4	12
 9	3	10
 10	4	16
 11	5	17
 16	5	13
 17	4	18
+21	2	21
 \.
 
 
@@ -1772,7 +1970,7 @@ COPY public.usuario_grupo_vinculo (id, grupo_id, usuario_id) FROM stdin;
 -- Name: acesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.acesso_id_seq', 104, true);
+SELECT pg_catalog.setval('public.acesso_id_seq', 129, true);
 
 
 --
@@ -1807,7 +2005,7 @@ SELECT pg_catalog.setval('public.anamnese_pergunta_id_seq', 206, true);
 -- Name: clinica_exame_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.clinica_exame_id_seq', 4, true);
+SELECT pg_catalog.setval('public.clinica_exame_id_seq', 5, true);
 
 
 --
@@ -1828,14 +2026,14 @@ SELECT pg_catalog.setval('public.clinica_pergunta_id_seq', 1, false);
 -- Name: consulta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.consulta_id_seq', 45, true);
+SELECT pg_catalog.setval('public.consulta_id_seq', 60, true);
 
 
 --
 -- Name: consulta_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.consulta_id_seq1', 17, true);
+SELECT pg_catalog.setval('public.consulta_id_seq1', 27, true);
 
 
 --
@@ -1863,14 +2061,21 @@ SELECT pg_catalog.setval('public.especialidade_id_seq', 10, true);
 -- Name: exame_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.exame_item_id_seq', 6, true);
+SELECT pg_catalog.setval('public.exame_item_id_seq', 19, true);
 
 
 --
 -- Name: lancamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.lancamento_id_seq', 42, true);
+SELECT pg_catalog.setval('public.lancamento_id_seq', 56, true);
+
+
+--
+-- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+--
+
+SELECT pg_catalog.setval('public.orcamento_id_seq', 2, true);
 
 
 --
@@ -1885,6 +2090,20 @@ SELECT pg_catalog.setval('public.paciente_anexo_id_seq', 6, true);
 --
 
 SELECT pg_catalog.setval('public.paciente_id_seq', 24, true);
+
+
+--
+-- Name: procedimento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+--
+
+SELECT pg_catalog.setval('public.procedimento_id_seq', 4, true);
+
+
+--
+-- Name: procedimento_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+--
+
+SELECT pg_catalog.setval('public.procedimento_item_id_seq', 10, true);
 
 
 --
@@ -1909,6 +2128,13 @@ SELECT pg_catalog.setval('public.profissional_id_seq', 9, true);
 
 
 --
+-- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+--
+
+SELECT pg_catalog.setval('public.profissional_procedimento_vinculo_id_seq', 2, true);
+
+
+--
 -- Name: recepcionista_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
@@ -1919,35 +2145,35 @@ SELECT pg_catalog.setval('public.recepcionista_id_seq', 3, true);
 -- Name: recurso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.recurso_id_seq', 22, true);
+SELECT pg_catalog.setval('public.recurso_id_seq', 23, true);
 
 
 --
 -- Name: usuario_clinica_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.usuario_clinica_vinculo_id_seq', 10, true);
+SELECT pg_catalog.setval('public.usuario_clinica_vinculo_id_seq', 11, true);
 
 
 --
 -- Name: usuario_grupo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.usuario_grupo_id_seq', 5, true);
+SELECT pg_catalog.setval('public.usuario_grupo_id_seq', 7, true);
 
 
 --
 -- Name: usuario_grupo_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.usuario_grupo_vinculo_id_seq', 17, true);
+SELECT pg_catalog.setval('public.usuario_grupo_vinculo_id_seq', 21, true);
 
 
 --
 -- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
 --
 
-SELECT pg_catalog.setval('public.usuario_id_seq', 18, true);
+SELECT pg_catalog.setval('public.usuario_id_seq', 21, true);
 
 
 --
@@ -2090,6 +2316,14 @@ ALTER TABLE ONLY public.lancamento
 
 
 --
+-- Name: orcamento orcamento_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.orcamento
+    ADD CONSTRAINT orcamento_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: paciente_anexo paciente_anexo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
 --
 
@@ -2103,6 +2337,22 @@ ALTER TABLE ONLY public.paciente_anexo
 
 ALTER TABLE ONLY public.paciente
     ADD CONSTRAINT paciente_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: procedimento_item procedimento_item_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.procedimento_item
+    ADD CONSTRAINT procedimento_item_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: procedimento procedimento_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.procedimento
+    ADD CONSTRAINT procedimento_pkey PRIMARY KEY (id);
 
 
 --
@@ -2127,6 +2377,14 @@ ALTER TABLE ONLY public.profissional_exame_vinculo
 
 ALTER TABLE ONLY public.profissional
     ADD CONSTRAINT profissional_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: profissional_procedimento_vinculo profissional_procedimento_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.profissional_procedimento_vinculo
+    ADD CONSTRAINT profissional_procedimento_vinculo_pkey PRIMARY KEY (id);
 
 
 --
@@ -2242,19 +2500,19 @@ ALTER TABLE ONLY public.atendimento
 
 
 --
--- Name: atendimento fk6b2r1cqh222pojyxebb15l09x; Type: FK CONSTRAINT; Schema: public; Owner: xclin
---
-
-ALTER TABLE ONLY public.atendimento
-    ADD CONSTRAINT fk6b2r1cqh222pojyxebb15l09x FOREIGN KEY (especialidade_id) REFERENCES public.especialidade(id);
-
-
---
 -- Name: consulta fk6b2r1cqh222pojyxebb15l09x; Type: FK CONSTRAINT; Schema: public; Owner: xclin
 --
 
 ALTER TABLE ONLY public.consulta
     ADD CONSTRAINT fk6b2r1cqh222pojyxebb15l09x FOREIGN KEY (especialidade_id) REFERENCES public.especialidade(id);
+
+
+--
+-- Name: procedimento_item fk76w1ruog7bdbe2xia3cc0uupl; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.procedimento_item
+    ADD CONSTRAINT fk76w1ruog7bdbe2xia3cc0uupl FOREIGN KEY (orcamento_id) REFERENCES public.orcamento(id);
 
 
 --
@@ -2290,6 +2548,14 @@ ALTER TABLE ONLY public.exame
 
 
 --
+-- Name: procedimento fk9rln4j1rj9w26i7phx1c5gdf0; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.procedimento
+    ADD CONSTRAINT fk9rln4j1rj9w26i7phx1c5gdf0 FOREIGN KEY (clinica_id) REFERENCES public.clinica(id);
+
+
+--
 -- Name: clinica fkanqpqlfw3fhgf8es22vqab5of; Type: FK CONSTRAINT; Schema: public; Owner: xclin
 --
 
@@ -2306,11 +2572,27 @@ ALTER TABLE ONLY public.anamnese
 
 
 --
+-- Name: exame_item fkdvremjeo8ta91io6mn6h526yt; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.exame_item
+    ADD CONSTRAINT fkdvremjeo8ta91io6mn6h526yt FOREIGN KEY (orcamento_id) REFERENCES public.orcamento(id);
+
+
+--
 -- Name: atendimento fkeku8hqbtg77sov7q67nt81074; Type: FK CONSTRAINT; Schema: public; Owner: xclin
 --
 
 ALTER TABLE ONLY public.atendimento
     ADD CONSTRAINT fkeku8hqbtg77sov7q67nt81074 FOREIGN KEY (clinica_id) REFERENCES public.clinica(id);
+
+
+--
+-- Name: profissional_procedimento_vinculo fkfjqyl2d94jmqehqyxseju3j6c; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.profissional_procedimento_vinculo
+    ADD CONSTRAINT fkfjqyl2d94jmqehqyxseju3j6c FOREIGN KEY (profissional_id) REFERENCES public.profissional(id);
 
 
 --
@@ -2330,11 +2612,11 @@ ALTER TABLE ONLY public.acesso
 
 
 --
--- Name: exame_item fkiae8v9iaqb4yxse5cw1wl8pe7; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: consulta fki9kiybstxsybblx7wm10dgoxy; Type: FK CONSTRAINT; Schema: public; Owner: xclin
 --
 
-ALTER TABLE ONLY public.exame_item
-    ADD CONSTRAINT fkiae8v9iaqb4yxse5cw1wl8pe7 FOREIGN KEY (atendimento_id) REFERENCES public.atendimento(id);
+ALTER TABLE ONLY public.consulta
+    ADD CONSTRAINT fki9kiybstxsybblx7wm10dgoxy FOREIGN KEY (orcamento_id) REFERENCES public.orcamento(id);
 
 
 --
@@ -2351,14 +2633,6 @@ ALTER TABLE ONLY public.usuario_grupo_vinculo
 
 ALTER TABLE ONLY public.lancamento
     ADD CONSTRAINT fkirm4gly5ufimgcv073s4q14cv FOREIGN KEY (clinica_id) REFERENCES public.clinica(id);
-
-
---
--- Name: consulta fkj7ixgcg7ai9r150n9guvdih4e; Type: FK CONSTRAINT; Schema: public; Owner: xclin
---
-
-ALTER TABLE ONLY public.consulta
-    ADD CONSTRAINT fkj7ixgcg7ai9r150n9guvdih4e FOREIGN KEY (atendimento_id) REFERENCES public.atendimento(id);
 
 
 --
@@ -2418,6 +2692,14 @@ ALTER TABLE ONLY public.usuario_clinica_vinculo
 
 
 --
+-- Name: atendimento fkohu6hcdnhq8bt4j0vyythxxhk; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.atendimento
+    ADD CONSTRAINT fkohu6hcdnhq8bt4j0vyythxxhk FOREIGN KEY (orcamento_id) REFERENCES public.orcamento(id);
+
+
+--
 -- Name: profissional_especialidade_vinculo fkom6xcr6evevbvfvtnuvmc4au2; Type: FK CONSTRAINT; Schema: public; Owner: xclin
 --
 
@@ -2471,6 +2753,14 @@ ALTER TABLE ONLY public.anamnese_modelo_pergunta
 
 ALTER TABLE ONLY public.exame
     ADD CONSTRAINT fksra8es0py0d0vdsrggxabfy6 FOREIGN KEY (paciente_id) REFERENCES public.paciente(id);
+
+
+--
+-- Name: profissional_procedimento_vinculo fktrlyx9qln0mfn7jmjsqh4xubj; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+--
+
+ALTER TABLE ONLY public.profissional_procedimento_vinculo
+    ADD CONSTRAINT fktrlyx9qln0mfn7jmjsqh4xubj FOREIGN KEY (procedimento_id) REFERENCES public.procedimento(id);
 
 
 --

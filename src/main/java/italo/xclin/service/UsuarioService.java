@@ -56,8 +56,9 @@ public class UsuarioService {
 		Usuario u = usuarioLoader.novoBean( usuarioLogado );
 		usuarioLoader.loadBean( u, request );
 		
-		usuarioRepository.save( u );			
-		usuarioSharedService.vinculaGrupo( usuarioLogado, perfil );						
+		usuarioRepository.save( u );
+		
+		usuarioSharedService.vinculaGrupo( u, perfil );						
 	}
 	
 	public void altera( Long usuarioId, UsuarioSaveRequest request ) throws ServiceException {
@@ -152,7 +153,9 @@ public class UsuarioService {
 			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );
 		
 		Usuario u = uop.get();
-		if ( u.getPerfil() != UsuarioPerfil.RAIZ && u.getPerfil() != UsuarioPerfil.ADMIN )
+		if ( u.getPerfil() != UsuarioPerfil.RAIZ && 
+				u.getPerfil() != UsuarioPerfil.ADMIN && 
+				u.getPerfil() != UsuarioPerfil.SUPORTE )
 			throw new ServiceException( Erro.USUARIO_NAO_DELETADO_POR_PERFIL );
 		
 		usuarioRepository.deleteById( id );

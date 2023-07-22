@@ -4,4 +4,5 @@ export interface ExameItem {
     nome : string;
     descricao : string;
     valor : number;
+    concluido : boolean;
 }

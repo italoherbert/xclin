@@ -78,6 +78,7 @@ import { ProcedimentoDetalhesComponent } from './features/procedimento/procedime
 import { ProcedimentoSaveComponent } from './features/procedimento/procedimento-save/procedimento-save.component';
 import { ProfissionalContaProcedimentosComponent } from './features/conta/profissional-conta/profissional-conta-procedimentos/profissional-conta-procedimentos.component';
 import { ProfissionalContaProcedimentoSaveComponent } from './features/conta/profissional-conta/profissional-conta-procedimento-save/profissional-conta-procedimento-save.component';
+import { AtendimentoRetornoComponent } from './features/atendimento/atendimento-retorno/atendimento-retorno.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -155,6 +156,7 @@ const routes: Routes = [
     { path: 'atendimento-fila-completa/:clinicaId/:profissionalId/:ano/:mes/:dia/:turno', component: AtendimentoFilaCompletaComponent, outlet: 'page' },
     { path: 'atendimento-iniciado', component: AtendimentoIniciadoComponent, outlet: 'page' },
     { path: 'atendimento-remarcar/:atendimentoId', component: AtendimentoRemarcarComponent, outlet: 'page' },
+    { path: 'atendimento-retorno/:atendimentoId', component: AtendimentoRetornoComponent, outlet: 'page' },
     { path: 'atendimento-alterar/:atendimentoId', component: AtendimentoAlterarComponent, outlet: 'page' },
     { path: 'atendimento-detalhes/:atendimentoId', component: AtendimentoDetalhesComponent, outlet: 'page' },
     { path: 'atendimento-agenda', component: AtendimentoAgendaComponent, outlet: 'page' },

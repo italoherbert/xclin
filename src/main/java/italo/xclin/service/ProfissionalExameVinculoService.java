@@ -79,14 +79,14 @@ public class ProfissionalExameVinculoService {
 		return lista;
 	}
 	
-	public ProfissionalExameSaveLoadResponse loadSave( Long logadoUID ) throws ServiceException {
+	public ProfissionalExameSaveLoadResponse loadSave( Long logadoUID, Long[] clinicasIDs ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 
-		List<Exame> exames = exameRepository.findAll();
+		List<Exame> exames = exameRepository.listaPorClinicasIDs( clinicasIDs );
 		List<ProfissionalExameVinculo> vinculos = profissional.getProfissionalExameVinculos();
 		
 		int vinculosSize = vinculos.size();

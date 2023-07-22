@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 
 import italo.xclin.enums.AtendimentoStatusEnumManager;
 import italo.xclin.enums.TurnoEnumManager;
+import italo.xclin.enums.tipos.AtendimentoStatus;
 import italo.xclin.exception.ConverterException;
 import italo.xclin.exception.LoaderException;
 import italo.xclin.logica.Converter;
@@ -19,6 +20,7 @@ import italo.xclin.model.Profissional;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
+import italo.xclin.model.request.save.AtendimentoRetornoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoObservacoesResponse;
@@ -30,6 +32,7 @@ import italo.xclin.model.response.ProfissionalExameVinculoResponse;
 import italo.xclin.model.response.ProfissionalProcedimentoVinculoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoRetornoLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
@@ -72,6 +75,17 @@ public class AtendimentoLoader {
 		}	
 	}
 	
+	public void loadBean( Atendimento a, AtendimentoRetornoSaveRequest request ) throws LoaderException {
+		a.setDataAgendamento( new Date() ); 
+		a.setTurno( turnoEnumManager.getEnum( request.getTurno() ) ); 
+		a.setStatus( AtendimentoStatus.REGISTRADO );
+		try {
+			a.setDataAtendimento( converter.stringToData( request.getDataAtendimento() ) );
+		} catch (ConverterException e) {
+			e.throwLoaderException();
+		}	
+	}
+	
 	public void loadBean( Atendimento a, AtendimentoAlterSaveRequest request ) {
 		a.setObservacoes( request.getObservacoes() );
 	}
@@ -80,11 +94,7 @@ public class AtendimentoLoader {
 		a.setObservacoes( request.getObservacoes() );
 		a.setDataSaveObservacoes( new Date() ); 
 	}
-	
-	public void loadBean( Atendimento a ) {
-		a.setDataAgendamento( new Date() );	
-	}
-		
+			
 	public void loadResponse( AtendimentoResponse resp, Atendimento a ) {
 		resp.setId( a.getId() );
 				
@@ -111,6 +121,10 @@ public class AtendimentoLoader {
 	}
 	
 	public void loadRemarcarResponse( AtendimentoRemarcarLoadResponse resp ) {
+		resp.setTurnos( turnoEnumManager.tipoResponses() );
+	}
+	
+	public void loadRetornoResponse( AtendimentoRetornoLoadResponse resp ) {
 		resp.setTurnos( turnoEnumManager.tipoResponses() );
 	}
 		
@@ -222,6 +236,10 @@ public class AtendimentoLoader {
 		resp.setTurno( a.getTurno().name() );
 		resp.setTurnoLabel( a.getTurno().label() ); 
 		return resp;
+	}
+	
+	public AtendimentoRetornoLoadResponse novoRetornoResponse() {
+		return new AtendimentoRetornoLoadResponse();
 	}
 	
 	public AtendimentoIniciadaTelaLoadResponse novoIniciadaTelaResponse(

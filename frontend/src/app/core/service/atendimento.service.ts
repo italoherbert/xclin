@@ -9,6 +9,7 @@ import { AtendimentoAlter } from '../bean/atendimento/atendimento-alter';
 import { AtendimentoObservacoesAlter } from '../bean/atendimento/atendimento-observacoes-alter';
 import { AtendimentoFilaCompletaFiltro } from '../bean/atendimento/atendimento-fila-completa-filtro';
 import { OrcamentoPagamentoSave } from '../bean/atendimento/orcamento-pagamento-save';
+import { AtendimentoRetornoSave } from '../bean/atendimento/atendimento-retorno-save';
 
 @Injectable({
   providedIn: 'root'
@@ -47,8 +48,16 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.patch( '/api/atendimento/remarca/'+atendimentoId, atendimentoSave, { headers: headers, withCredentials: true } 
-    );
+    return this.http.patch( '/api/atendimento/remarca/'+atendimentoId, atendimentoSave, { headers: headers, withCredentials: true } );
+  }
+
+  registraRetorno( atendimentoId : any, retornoSave : AtendimentoRetornoSave ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.patch( '/api/atendimento/retorno/'+atendimentoId, retornoSave, { headers: headers, withCredentials: true } );
   }
 
   efetuaPagamento( atendimentoId : any, pagamentoSave : OrcamentoPagamentoSave ): Observable<any> {
@@ -73,6 +82,30 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
     return this.http.patch( '/api/atendimento/altera/observacoes/'+atendimentoId, observacoesSave, { headers: headers, withCredentials: true } );
+  }
+
+  alteraConsultaConcluida( consultaId : any, concluida : boolean ) : Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.patch( '/api/atendimento/alter/consulta/concluida/'+consultaId+'/'+concluida, {}, { headers: headers, withCredentials: true } );
+  }
+
+  alteraExameItemConcluido( exameItemId : any, concluido : boolean ) : Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.patch( '/api/atendimento/alter/exameitem/concluido/'+exameItemId+'/'+concluido, {}, { headers: headers, withCredentials: true } );
+  }
+
+  alteraProcItemConcluido( procItemId : any, concluido : boolean ) : Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.patch( '/api/atendimento/alter/procitem/concluido/'+procItemId+'/'+concluido, {}, { headers: headers, withCredentials: true } );
   }
 
   iniciaAtendimento( clinicaId : any, profissionalId : any, atendimentoId : any, turno : any ): Observable<any> {
@@ -161,7 +194,7 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/atendimento/get/reg/'+profissionalId, { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/reg/'+profissionalId, { headers: headers, withCredentials: true } );
   }
 
   getAtendimentoRemarcar( atendimentoId : any ): Observable<any> {
@@ -169,7 +202,15 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/atendimento/get/remarcar/'+atendimentoId, { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/remarcar/'+atendimentoId, { headers: headers, withCredentials: true } );
+  }
+
+  getAtendimentoRetorno(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/atendimento/load/retorno', { headers: headers, withCredentials: true } );
   }
 
   getAtendimentoAlter( atendimentoId : any ): Observable<any> {
@@ -177,7 +218,7 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/atendimento/get/alter/'+atendimentoId, { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/alter/'+atendimentoId, { headers: headers, withCredentials: true } );
   }
 
   getAtendimentoTela(): Observable<any> {
@@ -185,7 +226,7 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/atendimento/get/tela', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/tela', { headers: headers, withCredentials: true } );
   }
 
   getListaFilaTela(): Observable<any> {
@@ -193,7 +234,7 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/atendimento/get/fila/tela', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/fila/tela', { headers: headers, withCredentials: true } );
   }
 
   getIniciadaTela(): Observable<any> {
@@ -201,14 +242,14 @@ export class AtendimentoService {
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
 
-    return this.http.get( '/api/atendimento/get/iniciado/tela', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/iniciado/tela', { headers: headers, withCredentials: true } );
   }
   
   loadNovoAtendimentoTela() : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
-    return this.http.get( '/api/atendimento/get/novoatendimento/tela', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/novoatendimento/tela', { headers: headers, withCredentials: true } );
   }  
 
   loadPagamentoTela( atendimentoId : any ): Observable<any> {
@@ -222,7 +263,7 @@ export class AtendimentoService {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )
     });
-    return this.http.get( '/api/atendimento/get/agenda/tela', { headers: headers, withCredentials: true } );
+    return this.http.get( '/api/atendimento/load/agenda/tela', { headers: headers, withCredentials: true } );
   }
 
   getQuantidadesAgrupadas( clinicaId : any, profissionalId : any, mes : any, ano : any ) : Observable<any> {
@@ -242,11 +283,11 @@ export class AtendimentoService {
     });
 
     return this.http.get( 
-      '/api/atendimento/get/quantidades/pordia/cid/'+atendimentoId+'/'+mes+'/'+ano, 
+      '/api/atendimento/get/quantidades/pordia/aid/'+atendimentoId+'/'+mes+'/'+ano, 
       { headers: headers, withCredentials: true } 
     );
   }
- 
+
   deletaAtendimento( id : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer '+localStorage.getItem( 'token' )

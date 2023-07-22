@@ -12,14 +12,16 @@ import italo.xclin.model.response.ExameItemResponse;
 public class ExameItemLoader {
 	
 	public void loadBean( ExameItem exame, ExameItemSaveRequest request ) throws LoaderException {		
-		exame.setValor( request.getValor() );		
+		exame.setValor( request.getValor() );	
+		exame.setConcluido( false );
 	}
 	
 	public void loadResponse( ExameItemResponse resp, ExameItem exame ) {
 		resp.setId( exame.getId() );
 		resp.setNome( exame.getNome() );
 		resp.setDescricao( exame.getDescricao() );
-		resp.setValor( exame.getValor() ); 
+		resp.setValor( exame.getValor() );
+		resp.setConcluido( exame.isConcluido() ); 
 	}
 		
 	public ExameItem novoBean( Exame exame ) {

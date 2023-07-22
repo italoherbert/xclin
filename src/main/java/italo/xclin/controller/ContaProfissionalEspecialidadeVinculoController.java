@@ -78,8 +78,9 @@ public class ContaProfissionalEspecialidadeVinculoController {
 			
 		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
 		Long logadoUID = tokenInfo.getUsuarioId();
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
 		
-		ProfissionalEspecialidadeSaveLoadResponse resp = profissionalEspecialidadeVinculoService.getEspecialidadeSaveLoad( logadoUID );
+		ProfissionalEspecialidadeSaveLoadResponse resp = profissionalEspecialidadeVinculoService.getEspecialidadeSaveLoad( logadoUID, clinicasIDs );
 		
 		return ResponseEntity.ok( resp );		
 	}

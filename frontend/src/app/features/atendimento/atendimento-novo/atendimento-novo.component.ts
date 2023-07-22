@@ -62,6 +62,11 @@ export class AtendimentoNovoComponent {
         this.clinicasIDs = resp.clinicasIDs;
         this.clinicasNomes = resp.clinicasNomes;
 
+        if ( this.clinicasIDs.length > 0 ) {
+          this.clinicaId = this.clinicasIDs[ 0 ];
+          this.clinicaSelecionada( null );
+        }
+
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -81,6 +86,9 @@ export class AtendimentoNovoComponent {
       next: (resp) => {
         this.profissionaisIDs = resp.ids;
         this.profissionaisNomes = resp.nomes;
+
+        if ( this.profissionaisIDs.length > 0 )
+          this.profissionalId = this.profissionaisIDs[ 0 ];        
 
         this.showSpinner = false;
       },

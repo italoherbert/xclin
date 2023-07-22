@@ -1,6 +1,6 @@
 <h1>Detalhes da clinica</h1>
 
-<div *ngIf="sistemaService.isAdminEscopo() === true">
+<div *ngIf="sistemaService.isAdminEscopo() === true || sistemaService.isSuporte()">
     <a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'clinica-save/'+clinicaDetalhes.clinica.id }}]">
         <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
         <span class="mx-3">Alterar clinica</span>

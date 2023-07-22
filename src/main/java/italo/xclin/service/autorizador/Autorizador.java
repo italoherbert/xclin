@@ -25,11 +25,14 @@ import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.repository.AnamneseModeloPerguntaRepository;
 import italo.xclin.repository.AtendimentoRepository;
+import italo.xclin.repository.ConsultaRepository;
 import italo.xclin.repository.EspecialidadeRepository;
+import italo.xclin.repository.ExameItemRepository;
 import italo.xclin.repository.ExameRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.repository.PacienteAnexoRepository;
 import italo.xclin.repository.PacienteRepository;
+import italo.xclin.repository.ProcedimentoItemRepository;
 import italo.xclin.repository.ProcedimentoRepository;
 import italo.xclin.repository.ProfissionalRepository;
 
@@ -65,6 +68,42 @@ public class Autorizador {
 	
 	@Autowired
 	private EspecialidadeRepository especialidadeRepository;
+	
+	@Autowired
+	private ConsultaRepository consultaRepository;
+	
+	@Autowired
+	private ExameItemRepository exameItemRepository;
+	
+	@Autowired
+	private ProcedimentoItemRepository procedimentoItemRepository;
+	
+	public void autorizaSeConsultaDeClinica( String authorizationHeader, Long consultaId ) throws AutorizacaoException {
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );		
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		boolean consultaDeClinica = consultaRepository.consultaDeClinica( consultaId, clinicasIDs );
+		if ( !consultaDeClinica )
+			throw new AutorizacaoException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
+	}
+	
+	public void autorizaSeExameItemDeClinica( String authorizationHeader, Long exameItemId ) throws AutorizacaoException {
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );		
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		boolean exameItemDeClinica = exameItemRepository.exameItemDeClinica( exameItemId, clinicasIDs );
+		if ( !exameItemDeClinica )
+			throw new AutorizacaoException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
+	}
+	
+	public void autorizaSeProcedimentoItemDeClinica( String authorizationHeader, Long procItemId ) throws AutorizacaoException {
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );		
+		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+		
+		boolean procItemDeClinica = procedimentoItemRepository.procedimentoItemDeClinica( procItemId, clinicasIDs );
+		if ( !procItemDeClinica )
+			throw new AutorizacaoException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
+	}
 	
 	public void autorizaSeEspecialidadeDeClinica( String authorizationHeader, Long especialidadeId ) throws AutorizacaoException {
 		Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );

@@ -62,7 +62,7 @@ public class ProfissionalEspecialidadeVinculoService {
 		return profissionalEspecialidadeVinculoLoader.novoEspecialidadeVinculosLoadResponse( profissional, lista );		
 	}
 	
-	public ProfissionalEspecialidadeSaveLoadResponse getEspecialidadeSaveLoad( Long logadoUID ) throws ServiceException {
+	public ProfissionalEspecialidadeSaveLoadResponse getEspecialidadeSaveLoad( Long logadoUID, Long[] clinicasIDs ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
@@ -72,7 +72,7 @@ public class ProfissionalEspecialidadeVinculoService {
 		List<ProfissionalEspecialidadeVinculo> vinculos = profissional.getProfissionalEspecialidadeVinculos();
 		int size = vinculos.size();
 		
-		List<Especialidade> especialidades = especialidadeRepository.findAll();
+		List<Especialidade> especialidades = especialidadeRepository.listaPorClinicasIDs( clinicasIDs );
 		
 		List<Long> especialidadesIDs = new ArrayList<>();
 		List<String> especialidadesNomes = new ArrayList<>();

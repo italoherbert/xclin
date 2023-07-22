@@ -1,4 +1,4 @@
-<h1>Atendimento iniciado</h1>
+<h1>Atendimento</h1>
 
 <mat-form-field>
     <mat-label>Clínica</mat-label>
@@ -41,7 +41,7 @@
 <div class="d-flex justify-content-center mt-3">
     <mat-card style="width: 50em">
         <mat-card-header>
-            <h1>Consulta iniciada</h1>
+            <h1>Atendimento iniciado</h1>
         </mat-card-header>
         <mat-card-content>
             <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
@@ -71,6 +71,19 @@
                         </a>
                     </div>
                 </div>  
+                <div class="col-sm-6 my-2">
+                    <div class="fs-6 fw-bold">
+                        Situação:
+                    </div>
+                    <div class="fs-5">
+                        <div class="text-primary" *ngIf="verificaSeConcluido() === true">
+                            Atendimento concluído
+                        </div>
+                        <div class="text-success" *ngIf="verificaSeConcluido() === false">
+                            Atendimento não concluído
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-12 my-2">
                     <div class="fs-6 fw-bold">
                         Anexos:
@@ -94,14 +107,25 @@
                                 <span class="text-primary">Consulta não incluída</span>
                             </div>
                             <div class="row" *ngIf="atendimento.orcamento.temConsulta === true">                           
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     <div class="fs-6 fw-bold">
                                         Especialidade:
                                     </div>
                                     <div class="fs-5">
                                         {{atendimento.orcamento.consulta.especialidadeNome}}
                                     </div>
-                                </div>                                                                                  
+                                </div>                                    
+                                <div class="col-sm-6">
+                                    <div class="fs-6 fw-bold">
+                                        Situação:
+                                    </div>
+                                    <div>                                        
+                                        <mat-checkbox color="primary" [(ngModel)]="atendimento.orcamento.consulta.concluida"
+                                                (change)="onChangeConsultaConcluida( $event )">
+                                            Concluída
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
                             </div>
                         </mat-card-content>
                     </mat-card>                                
@@ -115,9 +139,14 @@
                                 <span class="text-primary">Nenhum exame incluído</span>
                             </div>
                             <div *ngIf="atendimento.orcamento.exames.length > 0">
-                                <mat-list-item *ngFor="let exame of atendimento.orcamento.exames">
-                                    {{exame.nome}}
-                                </mat-list-item>
+                                <div class="mx-3" *ngFor="let exame of atendimento.orcamento.exames">
+                                    {{exame.nome}} 
+                                    <span class="p-2"></span>
+                                    <mat-checkbox color="primary" [(ngModel)]="exame.concluido" 
+                                            (change)="onChangeExameItemConcluido( $event, exame.id )">
+                                        Concluído
+                                    </mat-checkbox>
+                                </div>
                             </div>                        
                         </mat-card-content>
                     </mat-card> 
@@ -131,31 +160,40 @@
                                 <span class="text-primary">Nenhum procedimento incluído</span>
                             </div>
                             <div *ngIf="atendimento.orcamento.procedimentos.length > 0">
-                                <mat-list-item *ngFor="let procedimento of atendimento.orcamento.procedimentos">
-                                    {{procedimento.nome}}
-                                </mat-list-item>
+                                <div class="mx-3" *ngFor="let procedimento of atendimento.orcamento.procedimentos">
+                                    {{procedimento.nome}} 
+                                    <span class="p-2"></span>
+                                    <mat-checkbox color="primary" [(ngModel)]="procedimento.concluido"
+                                            (change)="onChangeProcItemConcluido( $event, procedimento.id )">
+                                        Concluído
+                                    </mat-checkbox>
+                                </div>
                             </div>                        
                         </mat-card-content>
                     </mat-card>
-                </div>                                                   
-
-                <div class="col-sm-12 my-2">
-                    <div *ngIf="obsInfoMsg !== null" class="alert alert-success mb-2">
-                        {{obsInfoMsg}}
-                    </div>
-                    <div *ngIf="obsErroMsg !== null" class="alert alert-danger mb-2">
-                        {{obsErroMsg}}
-                    </div>
-                    <div class="fs-5">
-                        <mat-form-field appearance="fill" class="w-100">
-                            <mat-label>Observações</mat-label>
-                            <textarea matInput rows="6" placeholder="Digite as observações" [(ngModel)]="observacoesSave.observacoes"></textarea>
-                            <button mat-raised-button color="primary" (click)="salvaObservacao()">
-                                <fa-icon [icon]="icons.faSave"></fa-icon>
-                                Salvar
-                            </button>                        
-                        </mat-form-field>
-                    </div>
+                
+                    <mat-card class="mt-4">
+                        <mat-card-header>
+                            <h1>Observações</h1>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <div *ngIf="obsInfoMsg !== null" class="alert alert-success mb-2">
+                                {{obsInfoMsg}}
+                            </div>
+                            <div *ngIf="obsErroMsg !== null" class="alert alert-danger mb-2">
+                                {{obsErroMsg}}
+                            </div>                    
+                            <mat-form-field appearance="fill" class="w-100">
+                                <mat-label>Observações</mat-label>
+                                <textarea matInput rows="4" placeholder="Observações" [(ngModel)]="observacoesSave.observacoes">
+                                </textarea>
+                                <button mat-raised-button color="primary" (click)="salvaObservacao()">
+                                    <fa-icon [icon]="icons.faSave"></fa-icon>
+                                    Salvar
+                                </button>                        
+                            </mat-form-field>
+                        </mat-card-content>
+                    </mat-card>
                 </div>                               
             </div>
         </mat-card-content>
@@ -166,12 +204,16 @@
 <h1>Histórico de observações recentes</h1>
 
 <div *ngFor="let obs of historicoObservacoes">
-    <div *ngIf="obs.observacoes.length > 0" class="rounded-3 my-2 p-1" style="background-color: #55A">
-        <div class="text-white p-1">
-            {{obs.dataSaveObservacoes | date: 'dd/MM/YYYY HH:mm:ss' }}
-        </div>
-        <div class="bg-white p-3 rounded-3">
-            {{obs.observacoes}}
+    <div *ngIf="obs.observacoes !== null">
+        <div *ngIf="obs.observacoes.length > 0">
+            <div class="rounded-3 my-2 p-1" style="background-color: #55A">
+                <div class="text-white p-1">
+                    {{obs.dataSaveObservacoes | date: 'dd/MM/YYYY HH:mm:ss' }}
+                </div>
+                <div class="bg-white p-3 rounded-3">
+                    {{obs.observacoes}}
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { faCheck, faCircleLeft, faEdit, faMoneyBill1, faMoneyBill1Wave, faPenToSquare, faRemove, faWrench } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faCircleLeft, faEdit, faMoneyBill1, faMoneyBill1Wave, faPenToSquare, faPersonWalkingArrowLoopLeft, faRemove, faSackDollar, faWrench } from '@fortawesome/free-solid-svg-icons';
 
 import * as moment from 'moment';
 
@@ -24,10 +24,11 @@ export class AtendimentoDetalhesComponent {
     faPenToSquare : faPenToSquare,
     faWrench : faWrench,
     faCircleLeft : faCircleLeft,
-    faMoneyBill1 : faMoneyBill1,
+    faSackDollar : faSackDollar,
     faRemove: faRemove,
     faCheck: faCheck,
-    faEdit: faEdit
+    faEdit: faEdit,
+    faPersonEalkingArrowLoopLeft : faPersonWalkingArrowLoopLeft 
   }
 
   atendimento : Atendimento = {
@@ -54,7 +55,8 @@ export class AtendimentoDetalhesComponent {
         id: 0,
         especialidadeId: 0,
         especialidadeNome: '',
-        valor: 0
+        valor: 0,
+        concluida : false
       },
       exames: [],
       procedimentos: []
@@ -89,6 +91,79 @@ export class AtendimentoDetalhesComponent {
         this.showSpinner = false;
       }
     });
+  }
+
+  onChangeConsultaConcluida( e : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let concluida = e.checked;
+    let consultaId = this.atendimento.orcamento.consulta.id;    
+
+    this.atendimentoService.alteraConsultaConcluida( consultaId, concluida ).subscribe({
+      next: (resp) => {
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  onChangeExameItemConcluido( e : any, exameItemId : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let concluido = e.checked;
+
+    this.atendimentoService.alteraExameItemConcluido( exameItemId, concluido ).subscribe({
+      next: (resp) => {
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  onChangeProcItemConcluido( e : any, procItemId : any ) {
+    this.infoMsg = null;
+    this.erroMsg = null;
+
+    this.showSpinner = true;
+
+    let concluido = e.checked;
+
+    this.atendimentoService.alteraProcItemConcluido( procItemId, concluido ).subscribe({
+      next: (resp) => {
+        this.showSpinner = false;
+      },
+      error: (erro) => {
+        this.erroMsg = this.sistemaService.mensagemErro( erro );
+        this.showSpinner = false;
+      }
+    });
+  }
+
+  verificaSeConcluido() {
+    if ( this.atendimento.orcamento.consulta.concluida === false )
+      return false;
+
+    for( let i = 0; i < this.atendimento.orcamento.exames.length; i++ )
+      if ( this.atendimento.orcamento.exames[ i ].concluido === false )
+        return false;
+
+    for( let i = 0; i < this.atendimento.orcamento.procedimentos.length; i++ )
+      if ( this.atendimento.orcamento.procedimentos[ i ].concluido === false )
+        return false;
+
+    return true;
   }
 
 }

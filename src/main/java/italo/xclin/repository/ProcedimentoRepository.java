@@ -16,4 +16,9 @@ public interface ProcedimentoRepository extends JpaRepository<Procedimento, Long
 		
 	public List<Procedimento> findByClinicaId( Long clinicaId );
 	
+	@Query("select p "
+			+ "from Procedimento p "
+			+ "where p.clinica.id in (?1)")
+	public List<Procedimento> listaPorClinicasIDs( Long[] clinicasIDs );
+	
 }

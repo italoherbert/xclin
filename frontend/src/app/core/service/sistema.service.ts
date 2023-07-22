@@ -39,10 +39,25 @@ export class SistemaService {
   getTimeFormat( d : string ) {    
     return moment( d, 'YYYY-MM-DD HH:mm:ss' ).format( 'HH:mm' );
   }
-
+  
   isAdminEscopo() {
     let perfil = localStorage.getItem( 'perfil' );
     return perfil == 'RAIZ' || perfil == 'ADMIN';  
+  }
+
+  isRaiz() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'RAIZ';
+  }
+
+  isAdmin() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'ADMIN';
+  }
+
+  isSuporte() {
+    let perfil = localStorage.getItem( 'perfil' );
+    return perfil == 'SUPORTE';
   }
 
   isProfissional() {

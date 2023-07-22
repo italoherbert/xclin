@@ -39,6 +39,10 @@ export class UsuarioGrupoTelaComponent {
     private sistemaService: SistemaService,
     private matDialog : MatDialog) {}
 
+  ngOnInit() {
+    this.filtra();
+  }
+
   filtra() {
     this.infoMsg = null;
     this.erroMsg = null;

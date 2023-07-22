@@ -16,4 +16,9 @@ public interface ExameRepository extends JpaRepository<Exame, Long> {
 		
 	public List<Exame> findByClinicaId( Long clinicaId );
 	
+	@Query("select e "
+			+ "from Exame e "
+			+ "where e.clinica.id in (?1)")
+	public List<Exame> listaPorClinicasIDs( Long[] clinicasIDs );
+	
 }

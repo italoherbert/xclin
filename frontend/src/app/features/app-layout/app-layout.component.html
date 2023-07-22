@@ -107,7 +107,8 @@
                 </a>
             </div>
 
-            <mat-list-item [routerLink]="[]" (click)="atendimentoMenuShow = !atendimentoMenuShow">
+            <mat-list-item [routerLink]="[]" (click)="atendimentoMenuShow = !atendimentoMenuShow"
+                    *ngIf="sistemaService.isSuporte() === false">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faCalendarDays"></fa-icon>
                     <div class="mx-2">Atendimentos</div>                    
@@ -149,7 +150,8 @@
                 </a>
             </div>              
 
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'lancamento-tela' } } ]" (click)="sidenav.toggle()">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'lancamento-tela' } } ]" (click)="sidenav.toggle()"
+                        *ngIf="sistemaService.isSuporte() === false">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faMoneyBillTrendUp"></fa-icon>
                     <div class="mx-2">Lançamentos</div>
@@ -157,7 +159,8 @@
             </mat-list-item> 
 
             
-            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]" (click)="sidenav.toggle()">
+            <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'paciente-tela' } } ]" (click)="sidenav.toggle()"
+                    *ngIf="sistemaService.isSuporte() === false">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faHospitalUser"></fa-icon>
                     <div class="mx-2">Pacientes</div>
@@ -171,7 +174,9 @@
                 </div>
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-profissional-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isRecepcionista() === true || sistemaService.isDiretor() === true">                       
+                    *ngIf="sistemaService.isRecepcionista() === true || 
+                            sistemaService.isDiretor() === true || 
+                            sistemaService.isSuporte() === true">                       
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUserDoctor"></fa-icon>
                     <div class="mx-2">Profissionais</div>
@@ -185,7 +190,9 @@
                 </div>
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-recepcionista-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isRecepcionista() === true || sistemaService.isDiretor() === true">                              
+                    *ngIf="sistemaService.isRecepcionista() === true || 
+                            sistemaService.isDiretor() === true || 
+                            sistemaService.isSuporte() === true">                              
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUserTie"></fa-icon>
                     <div class="mx-2">Recepcionistas</div>
@@ -199,14 +206,16 @@
                 </div>
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-diretor-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isDiretor() === true">                     
+                    *ngIf="sistemaService.isDiretor() === true || 
+                            sistemaService.isSuporte() === true">                     
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faUserNurse"></fa-icon>
                     <div class="mx-2">Diretores</div>
                 </div>
             </mat-list-item>
 
-            <mat-list-item [routerLink]="[]" (click)="relatorioMenuShow = !relatorioMenuShow">
+            <mat-list-item [routerLink]="[]" (click)="relatorioMenuShow = !relatorioMenuShow"
+                    *ngIf="sistemaService.isSuporte() === false">
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faFilePdf"></fa-icon>
                     <div class="mx-2">Relatorios</div>                    
@@ -237,28 +246,29 @@
                 </div>
             </mat-list-item>  
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'nao-admin-clinica-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() == false">               
+                    *ngIf="sistemaService.isAdminEscopo() == false || 
+                            sistemaService.isSuporte() === true">               
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faHospital"></fa-icon>
                     <div class="mx-2">Clínicas</div>
                 </div>
             </mat-list-item> 
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'especialidade-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() === true">               
+                    *ngIf="sistemaService.isAdminEscopo() === true || sistemaService.isSuporte()">               
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faStethoscope"></fa-icon>
                     <div class="mx-2">Especialidades</div>
                 </div>
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'exame-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() === true">               
+                    *ngIf="sistemaService.isAdminEscopo() === true || sistemaService.isSuporte()">               
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faDisease"></fa-icon>
                     <div class="mx-2">Exames</div>
                 </div>
             </mat-list-item>
             <mat-list-item [routerLink]="[ '/app', { outlets : { page : 'procedimento-tela' } } ]" (click)="sidenav.toggle()"
-                    *ngIf="sistemaService.isAdminEscopo() === true">               
+                    *ngIf="sistemaService.isAdminEscopo() === true || sistemaService.isSuporte()">               
                 <div class="d-flex flex-row">
                     <fa-icon [icon]="icons.faBedPulse"></fa-icon>
                     <div class="mx-2">Procedimentos</div>

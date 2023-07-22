@@ -15,3 +15,4 @@ public interface ProfissionalEspecialidadeVinculoRepository extends JpaRepositor
 	public Optional<ProfissionalEspecialidadeVinculo> busca( Long profissionalId, Long especialidadeId );
 	
 }
+

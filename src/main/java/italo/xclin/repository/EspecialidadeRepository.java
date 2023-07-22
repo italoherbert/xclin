@@ -30,4 +30,9 @@ public interface EspecialidadeRepository extends JpaRepository<Especialidade, Lo
 			+ "where e.clinica.id=?1")
 	public List<Especialidade> listaPorClinica( Long clinicaId );
 		
+	@Query("select e "
+			+ "from Especialidade e "
+			+ "where e.clinica.id in (?1)")
+	public List<Especialidade> listaPorClinicasIDs( Long[] clinicasIDs );
+	
 }

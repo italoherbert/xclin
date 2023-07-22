@@ -53,7 +53,7 @@ public class LoginService {
 				if ( acesso.isEscrita() )
 					roles.add( recurso + "WRITE" );
 				if ( acesso.isRemocao() )
-					roles.add( recurso + "DELETE" );
+					roles.add( recurso + "DELETE" );				
 			} );
 		} );
 		

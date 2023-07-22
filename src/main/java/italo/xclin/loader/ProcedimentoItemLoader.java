@@ -11,15 +11,17 @@ import italo.xclin.model.response.ProcedimentoItemResponse;
 @Component
 public class ProcedimentoItemLoader {
 
-	public void loadBean( ProcedimentoItem exame, ProcedimentoItemSaveRequest request ) throws LoaderException {		
-		exame.setValor( request.getValor() );		
+	public void loadBean( ProcedimentoItem proc, ProcedimentoItemSaveRequest request ) throws LoaderException {		
+		proc.setValor( request.getValor() );
+		proc.setConcluido( false ); 	
 	}
 	
 	public void loadResponse( ProcedimentoItemResponse resp, ProcedimentoItem procedimento ) {
 		resp.setId( procedimento.getId() );
 		resp.setNome( procedimento.getNome() );
 		resp.setDescricao( procedimento.getDescricao() );
-		resp.setValor( procedimento.getValor() ); 
+		resp.setValor( procedimento.getValor() );
+		resp.setConcluido( procedimento.isConcluido() ); 
 	}
 		
 	public ProcedimentoItem novoBean( Procedimento procedimento ) {

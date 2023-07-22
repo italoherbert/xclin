@@ -4,4 +4,5 @@ export interface ProcedimentoItem {
     nome : string;
     descricao : string;
     valor : number;
+    concluido : boolean;
 }

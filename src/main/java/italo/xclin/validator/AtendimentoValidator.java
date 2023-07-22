@@ -14,6 +14,8 @@ import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroReques
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
+import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
+import italo.xclin.model.request.save.AtendimentoRetornoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
 
 @Component
@@ -113,6 +115,22 @@ public class AtendimentoValidator {
 		} catch ( ConverterException e ) {
 			throw new ValidationException( Erro.DATA_CONSULTA_FILA_INVALIDA );
 		}
+		
+		if ( !turnoEnumManager.enumValida( request.getTurno() ) )
+			throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				
+	}
+	
+	public void validaRemarcar( AtendimentoRemarcarSaveRequest request ) throws ValidationException {
+		if ( request.getDataAtendimento() == null )
+			throw new ValidationException( Erro.DATA_ATENDIMENTO_INVALIDA );
+		
+		if ( !turnoEnumManager.enumValida( request.getTurno() ) )
+			throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				
+	}
+	
+	public void validaRetorno( AtendimentoRetornoSaveRequest request ) throws ValidationException {
+		if ( request.getDataAtendimento() == null )
+			throw new ValidationException( Erro.DATA_ATENDIMENTO_INVALIDA );
 		
 		if ( !turnoEnumManager.enumValida( request.getTurno() ) )
 			throw new ValidationException( Erro.TURNO_INVALIDO, request.getTurno() );				

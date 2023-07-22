@@ -25,7 +25,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	@Query("select u "
 			+ "from Usuario u "
 				+ "join UsuarioClinicaVinculo v "
-			+ "where v.clinica.id=?1")
+			+ "where v.usuario.id=u.id and v.clinica.id=?1")
 	public List<Usuario> listaPorClinica( Long clinicaId );
 	
 }

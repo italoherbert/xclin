@@ -1,4 +1,11 @@
-<h1>Detalhes da atendimento</h1>
+<h1>Detalhes do atendimento</h1>
+
+<a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'atendimento-retorno/'+atendimento.id }}]">
+    <fa-icon [icon]="icons.faPersonEalkingArrowLoopLeft"></fa-icon>
+    <span class="mx-3">Retorno</span>
+</a>
+
+<span class="p-2"></span>
 
 <a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'atendimento-remarcar/'+atendimento.id }}]">
     <fa-icon [icon]="icons.faWrench"></fa-icon>
@@ -8,7 +15,7 @@
 <span class="p-2"></span>
 
 <a mat-raised-button color="primary" class="my-1" [routerLink]="[ '/app', { outlets : { page : 'atendimento-pagamento/'+atendimento.id }}]">
-    <fa-icon [icon]="icons.faMoneyBill1"></fa-icon>
+    <fa-icon [icon]="icons.faSackDollar"></fa-icon>
     <span class="mx-3">Pagamento</span>
 </a>
 
@@ -78,7 +85,15 @@
                     <div class="fs-5" [ngClass]="atendimento.status == 'FINALIZADO' ? 'text-success' : 'text-primary'">
                         {{atendimento.statusLabel}}                        
                     </div>
-                </div>  
+                </div>
+                <div class="col-sm-8 my-3">
+                    <div class="fs-6 fw-bold">
+                        Situação:
+                    </div>
+                    <div class="fs-5" [ngClass]="verificaSeConcluido() === true ? 'text-success' : 'text-primary'">                        
+                        {{verificaSeConcluido() === true ? 'Atendimento concluído' : 'Atendimento não concluído' }}                      
+                    </div>
+                </div>   
                 
                 <div class="col-sm-12 p-3">
                     <mat-card>
@@ -92,7 +107,7 @@
                                 </span>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6" *ngIf="atendimento.orcamento.temConsulta === true">
+                                <div class="col-sm-6 my-2" *ngIf="atendimento.orcamento.temConsulta === true">
                                     <div class="fs-6 fw-bold">
                                         Especialidade:
                                     </div>
@@ -100,12 +115,23 @@
                                         {{atendimento.orcamento.consulta.especialidadeNome}}
                                     </div>
                                 </div>                                
-                                <div class="col-sm-6" *ngIf="atendimento.orcamento.temConsulta === true">
+                                <div class="col-sm-6 my-2" *ngIf="atendimento.orcamento.temConsulta === true">
                                     <div class="fs-6 fw-bold">
                                         Valor:
                                     </div>
                                     <div class="fs-5 text-primary">
                                         {{atendimento.orcamento.consulta.valor | currency: 'BRL'}}
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 my-2" *ngIf="atendimento.orcamento.temConsulta === true">
+                                    <div class="fs-6 fw-bold">
+                                        Situação:
+                                    </div>
+                                    <div class="fs-5 text-primary">
+                                        <mat-checkbox color="primary" [(ngModel)]="atendimento.orcamento.consulta.concluida" 
+                                                (change)="onChangeConsultaConcluida( $event )">
+                                            Concluída
+                                        </mat-checkbox>
                                     </div>
                                 </div>
                             </div>
@@ -129,12 +155,19 @@
                                         <tr>
                                             <th>Nome</th>
                                             <th>Valor</th>
+                                            <th>Concluído</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let exame of atendimento.orcamento.exames">
-                                            <td>{{exame.nome}}</td>
-                                            <td class="text-primary">{{exame.valor | currency: 'BRL'}}</td>
+                                            <td class="align-middle">{{exame.nome}}</td>
+                                            <td class="align-middle text-primary">{{exame.valor | currency: 'BRL'}}</td>
+                                            <td class="align-middle" [ngClass]="exame.concluido === true ? 'text-primary' : 'text-success'">
+                                                <mat-checkbox color="primary" [(ngModel)]="exame.concluido" 
+                                                        (change)="onChangeExameItemConcluido( $event, exame.id )">
+                                                    Concluído
+                                                </mat-checkbox>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -159,12 +192,19 @@
                                         <tr>
                                             <th>Nome</th>
                                             <th>Valor</th>
+                                            <th>Concluído</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr *ngFor="let procedimento of atendimento.orcamento.procedimentos">
-                                            <td>{{procedimento.nome}}</td>
-                                            <td class="text-primary">{{procedimento.valor | currency: 'BRL'}}</td>
+                                            <td class="align-middle">{{procedimento.nome}}</td>
+                                            <td class="align-middle text-primary">{{procedimento.valor | currency: 'BRL'}}</td>
+                                            <td class="align-middle text-primary">
+                                                <mat-checkbox color="primary" [(ngModel)]="procedimento.concluido" 
+                                                        (change)="onChangeProcItemConcluido( $event, procedimento.id )">
+                                                    Concluído
+                                                </mat-checkbox>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

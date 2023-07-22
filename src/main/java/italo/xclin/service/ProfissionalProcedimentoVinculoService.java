@@ -79,14 +79,14 @@ public class ProfissionalProcedimentoVinculoService {
 		return lista;
 	}
 	
-	public ProfissionalProcedimentoSaveLoadResponse loadSave( Long logadoUID ) throws ServiceException {
+	public ProfissionalProcedimentoSaveLoadResponse loadSave( Long logadoUID, Long[] clinicasIDs ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.buscaPorUsuario( logadoUID );
 		if ( !profissionalOp.isPresent() )
 			throw new ServiceException( Erro.PROF_LOGADO_NAO_ENCONTRADO );
 		
 		Profissional profissional = profissionalOp.get();
 
-		List<Procedimento> procedimentos = procedimentoRepository.findAll();
+		List<Procedimento> procedimentos = procedimentoRepository.listaPorClinicasIDs( clinicasIDs );
 		List<ProfissionalProcedimentoVinculo> vinculos = profissional.getProfissionalProcedimentoVinculos();
 		
 		int vinculosSize = vinculos.size();

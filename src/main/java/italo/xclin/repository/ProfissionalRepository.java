@@ -27,14 +27,14 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Long
 				+ "join p.usuario u "
 				+ "join UsuarioClinicaVinculo v "
 			+ "where v.usuario.id=u.id and v.clinica.id=?1")
-	public List<Profissional> listaPorClinica( Long cid );
+	public List<Profissional> listaPorClinica( Long aid );
 	
 	@Query("select p "
 			+ "from Profissional p "
 				+ "join p.usuario u "
 				+ "join UsuarioClinicaVinculo v "
 			+ "where v.usuario.id=u.id and v.clinica.id=?1 and p.usuario.id=?2")
-	public List<Profissional> listaPorClinica( Long cid, Long uid );
+	public List<Profissional> listaPorClinica( Long aid, Long uid );
 	
 	@Query("select p "
 			+ "from Profissional p "

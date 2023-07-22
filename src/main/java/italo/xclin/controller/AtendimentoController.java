@@ -24,14 +24,16 @@ import italo.xclin.model.request.filtro.AtendimentoListaFilaCompletaFiltroReques
 import italo.xclin.model.request.filtro.AtendimentoListaFilaFiltroRequest;
 import italo.xclin.model.request.save.AtendimentoAlterSaveRequest;
 import italo.xclin.model.request.save.AtendimentoObservacoesSaveRequest;
-import italo.xclin.model.request.save.OrcamentoPagamentoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoRemarcarSaveRequest;
+import italo.xclin.model.request.save.AtendimentoRetornoSaveRequest;
 import italo.xclin.model.request.save.AtendimentoSaveRequest;
+import italo.xclin.model.request.save.OrcamentoPagamentoSaveRequest;
 import italo.xclin.model.response.AtendimentoIniciadoResponse;
 import italo.xclin.model.response.AtendimentoResponse;
 import italo.xclin.model.response.load.edit.AtendimentoAlterLoadResponse;
-import italo.xclin.model.response.load.edit.OrcamentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.edit.AtendimentoRemarcarLoadResponse;
+import italo.xclin.model.response.load.edit.AtendimentoRetornoLoadResponse;
+import italo.xclin.model.response.load.edit.OrcamentoPagamentoLoadResponse;
 import italo.xclin.model.response.load.reg.AtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.reg.NovoAtendimentoRegLoadResponse;
 import italo.xclin.model.response.load.tela.AtendimentoAgendaLoadResponse;
@@ -100,9 +102,26 @@ public class AtendimentoController {
 		
 		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
 		
+		atendimentoValidator.validaRemarcar( request );
+		
 		atendimentoService.remarca( atendimentoId, request );
 		return ResponseEntity.ok().build();		
 	}	
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/retorno/{atendimentoId}")
+	public ResponseEntity<Object> remarca(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long atendimentoId,
+			@RequestBody AtendimentoRetornoSaveRequest request ) throws SistemaException {
+		
+		autorizador.autorizaPorAtendimentoEClinica( authorizationHeader, atendimentoId );
+		
+		atendimentoValidator.validaRetorno( request );
+		
+		atendimentoService.registraRetorno( atendimentoId, request );
+		return ResponseEntity.ok().build();		
+	}
 		
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/efetua/pagamento/{atendimentoId}")
@@ -198,6 +217,45 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/alter/consulta/concluida/{consultaId}/{concluida}")
+	public ResponseEntity<Object> alterConsultaConcluida(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long consultaId, 
+			@PathVariable boolean concluida ) throws SistemaException {
+		
+		autorizador.autorizaSeConsultaDeClinica( authorizationHeader, consultaId );
+		
+		atendimentoService.alterConsultaConcluida( consultaId, concluida );
+		return ResponseEntity.ok().build();
+	}
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/alter/exameitem/concluido/{exameItemId}/{concluido}")
+	public ResponseEntity<Object> alterExameItemConcluido(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long exameItemId, 
+			@PathVariable boolean concluido ) throws SistemaException {
+		
+		autorizador.autorizaSeExameItemDeClinica( authorizationHeader, exameItemId );
+		
+		atendimentoService.alterExameItemConcluido( exameItemId, concluido );
+		return ResponseEntity.ok().build();
+	}
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
+	@PatchMapping("/alter/procitem/concluido/{procItemId}/{concluido}")
+	public ResponseEntity<Object> alterProcItemConcluido(
+			@RequestHeader("Authorization") String authorizationHeader,
+			@PathVariable Long procItemId, 
+			@PathVariable boolean concluido ) throws SistemaException {
+		
+		autorizador.autorizaSeProcedimentoItemDeClinica( authorizationHeader, procItemId );
+		
+		atendimentoService.alterProcedimentoItemConcluido( procItemId, concluido );
+		return ResponseEntity.ok().build();
+	}
+	
+	@PreAuthorize("hasAuthority('atendimentoWRITE')")
 	@PatchMapping("/inicia/{clinicaId}/{profissionalId}/{atendimentoId}/{turno}")
 	public ResponseEntity<Object> iniciaAtendimento(
 			@RequestHeader("Authorization") String authorizationHeader,
@@ -260,7 +318,7 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/reg/{profissionalId}")
+	@GetMapping("/load/reg/{profissionalId}")
 	public ResponseEntity<Object> getRegLoad( 
 			@PathVariable Long profissionalId ) throws SistemaException {
 		
@@ -269,8 +327,8 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/remarcar/{atendimentoId}")
-	public ResponseEntity<Object> getRemarcadrLoad(
+	@GetMapping("/load/remarcar/{atendimentoId}")
+	public ResponseEntity<Object> loadRemarcar(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId ) throws SistemaException {		
 		
@@ -281,7 +339,14 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/alter/{atendimentoId}")
+	@GetMapping("/load/retorno")
+	public ResponseEntity<Object> loadRetorno() throws SistemaException {						
+		AtendimentoRetornoLoadResponse resp = atendimentoService.retornoLoad();
+		return ResponseEntity.ok( resp );
+	}
+	
+	@PreAuthorize("hasAuthority('atendimentoREAD')")
+	@GetMapping("/load/alter/{atendimentoId}")
 	public ResponseEntity<Object> getAlterLoad(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId ) throws SistemaException {
@@ -293,7 +358,7 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/tela")
+	@GetMapping("/load/tela")
 	public ResponseEntity<Object> getTelaLoad(
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 				
@@ -305,7 +370,7 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/fila/tela")
+	@GetMapping("/load/fila/tela")
 	public ResponseEntity<Object> getListaFilaTelaLoad(
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 				
@@ -317,7 +382,7 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/iniciado/tela")
+	@GetMapping("/load/iniciado/tela")
 	public ResponseEntity<Object> getIniciadaTelaLoad(
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 				
@@ -382,7 +447,7 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/novoatendimento/tela")
+	@GetMapping("/load/novoatendimento/tela")
 	public ResponseEntity<Object> getNovaConsultaLoad( 
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 		
@@ -394,7 +459,7 @@ public class AtendimentoController {
 	}
 
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/agenda/tela")
+	@GetMapping("/load/agenda/tela")
 	public ResponseEntity<Object> getConsultaAgendaLoad( 
 			@RequestHeader("Authorization") String authorizationHeader ) throws SistemaException {
 		
@@ -422,7 +487,7 @@ public class AtendimentoController {
 	}
 	
 	@PreAuthorize("hasAuthority('atendimentoREAD')")
-	@GetMapping("/get/quantidades/pordia/cid/{atendimentoId}/{mes}/{ano}")
+	@GetMapping("/get/quantidades/pordia/aid/{atendimentoId}/{mes}/{ano}")
 	public ResponseEntity<Object> agrupaPorDiaDoMes(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId,
@@ -434,7 +499,7 @@ public class AtendimentoController {
 		List<Object[]> resp = atendimentoService.agrupaPorDiaDeMes( atendimentoId, mes, ano );
 		return ResponseEntity.ok( resp );
 	}
-	
+		
 	@PreAuthorize("hasAuthority('atendimentoDELETE')")
 	@DeleteMapping("/deleta/{id}")
 	public ResponseEntity<Object> deleta(

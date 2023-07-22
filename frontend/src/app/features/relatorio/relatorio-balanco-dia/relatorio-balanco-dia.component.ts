@@ -54,7 +54,12 @@ export class RelatorioBalancoDiaComponent {
     this.relatorioService.loadBalancoDoDiaTela().subscribe({
       next: (resp) => {
         this.clinicasIDs = resp.clinicasIDs;
-        this.clinicasNomes = resp.clinicasNomes;
+        this.clinicasNomes = resp.clinicasNomes;    
+        
+        if ( this.clinicasIDs.length > 0 ) {
+          this.clinicaId = this.clinicasIDs[ 0 ];
+          this.clinicaSelecionada();
+        }
         
         this.showSpinner = false;
       },
@@ -76,6 +81,11 @@ export class RelatorioBalancoDiaComponent {
         this.usuariosIDs = resp.ids;
         this.usuariosNomes = resp.nomes;
 
+        this.usuariosIDs.unshift( -1 );
+        this.usuariosNomes.unshift( 'Todos' );
+
+        this.usuarioId = -1;
+
         this.showSpinner = false;
       },
       error: (erro) => {
@@ -90,6 +100,8 @@ export class RelatorioBalancoDiaComponent {
     this.infoMsg = null;
 
     this.showSpinner = true;
+
+    this.balancoDoDia.incluirTodosOsUsuarios = this.usuarioId === -1;
 
     this.relatorioService.getRelatorioBalancoDoDia( this.clinicaId, this.balancoDoDia ).subscribe({
       next: (resp) => {

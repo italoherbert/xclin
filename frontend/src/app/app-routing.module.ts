@@ -79,6 +79,8 @@ import { ProcedimentoSaveComponent } from './features/procedimento/procedimento-
 import { ProfissionalContaProcedimentosComponent } from './features/conta/profissional-conta/profissional-conta-procedimentos/profissional-conta-procedimentos.component';
 import { ProfissionalContaProcedimentoSaveComponent } from './features/conta/profissional-conta/profissional-conta-procedimento-save/profissional-conta-procedimento-save.component';
 import { AtendimentoRetornoComponent } from './features/atendimento/atendimento-retorno/atendimento-retorno.component';
+import { SuporteContaDetalhesComponent } from './features/conta/suporte-conta/suporte-conta-detalhes/suporte-conta-detalhes.component';
+import { SuporteContaAlterarComponent } from './features/conta/suporte-conta/suporte-conta-alterar/suporte-conta-alterar.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -100,10 +102,12 @@ const routes: Routes = [
     { path: 'profissional-conta-detalhes', component: ProfissionalContaDetalhesComponent, outlet: 'page' },
     { path: 'recepcionista-conta-detalhes', component: RecepcionistaContaDetalhesComponent, outlet: 'page' },
     { path: 'diretor-conta-detalhes', component: DiretorContaDetalhesComponent, outlet: 'page' },
+    { path: 'suporte-conta-detalhes', component: SuporteContaDetalhesComponent, outlet: 'page' },
     
     { path: 'profissional-conta-alterar', component: ProfissionalContaAlterarComponent, outlet: 'page'},
     { path: 'recepcionista-conta-alterar', component: RecepcionistaContaAlterarComponent, outlet: 'page'},
     { path: 'diretor-conta-alterar', component: DiretorContaAlterarComponent, outlet: 'page'},
+    { path: 'suporte-conta-alterar', component: SuporteContaAlterarComponent, outlet: 'page'},
 
     { path: 'usuario-tela', component: UsuarioTelaComponent, outlet: 'page' },
     { path: 'usuario-detalhes/:id', component: UsuarioDetalhesComponent, outlet: 'page' },

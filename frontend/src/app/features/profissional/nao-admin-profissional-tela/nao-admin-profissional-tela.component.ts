@@ -24,7 +24,7 @@ export class NaoAdminProfissionalTelaComponent {
   }
 
   profissionalFiltro : NaoAdminProfissionalFiltro = {
-    nomeIni : ''
+    filtroNome : ''
   }
 
   profissionais : any;

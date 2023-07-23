@@ -4,6 +4,7 @@ import { ContaAlterarSenhaModule } from './conta-alterar-senha/conta-alterar-sen
 import { DiretorContaModule } from './diretor-conta/diretor-conta.module';
 import { ProfissionalContaModule } from './profissional-conta/profissional-conta.module';
 import { RecepcionistaContaModule } from './recepcionista-conta/recepcionista-conta.module';
+import { SuporteContaModule } from './suporte-conta/suporte-conta.module';
 
 
 
@@ -15,7 +16,8 @@ import { RecepcionistaContaModule } from './recepcionista-conta/recepcionista-co
     ContaAlterarSenhaModule,
     DiretorContaModule,
     ProfissionalContaModule,
-    RecepcionistaContaModule
+    RecepcionistaContaModule,
+    SuporteContaModule
   ]
 })
 export class UsuarioContaModule { }

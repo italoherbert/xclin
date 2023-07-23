@@ -21,30 +21,18 @@ public interface RecepcionistaRepository extends JpaRepository<Recepcionista, Lo
 	@Query("select r from Recepcionista r where r.usuario.id=?1")
 	public Optional<Recepcionista> buscaPorUsuario( Long uid );
 	
-	@Query("select r from Recepcionista r "
-			+ "join Clinica c "
-		 + "where lower_unaccent(c.nome) like lower_unaccent(?1)")
-	public List<Recepcionista> filtraPorClinica( String clinicaNomeIni );
-	
-	@Query("select r from Recepcionista r "
-			+ "join Clinica c "
-		 + "where "
-		 	+ "lower_unaccent(r.nome) like lower_unaccent(?1) and "
-		 	+ "lower_unaccent(c.nome) like lower_unaccent(?2)") 
-	public List<Recepcionista> filtra( String nomeIni, String clinicaNomeIni );
-	
 	@Query("select r "
 		 + "from Recepcionista r "
 		 + "where "
 		 	+ "r.clinica.id=?1 and "
 		 	+ "lower_unaccent(r.nome) like lower_unaccent(?1)")
-	public List<Recepcionista> filtra( Long clinicaId, String nomeIni );
+	public List<Recepcionista> filtra( Long clinicaId, String filtroNome );
 	
 	@Query("select r "
 			 + "from Recepcionista r "
 			 + "where "
 			 	+ "r.clinica.id=?1")
-	public List<Recepcionista> filtra( Long clinicaId );
+	public List<Recepcionista> listaPorClinica( Long clinicaId );
 		
 	@Query("select r "
 		 + "from Recepcionista r "

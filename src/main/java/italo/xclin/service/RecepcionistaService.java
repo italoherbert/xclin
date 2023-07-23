@@ -136,23 +136,14 @@ public class RecepcionistaService {
 		recepcionistaRepository.save( r );
 	}
 	
-	public List<RecepcionistaResponse> filtra( RecepcionistaFiltroRequest request ) throws ServiceException {
-		String nomeIni = request.getNomeIni();
-		String clinicaNomeIni = request.getClinicaNomeIni();
+	public List<RecepcionistaResponse> filtra( Long clinicaId, RecepcionistaFiltroRequest request ) throws ServiceException {
+		String filtroNome = request.getFiltroNome();
 
 		List<Recepcionista> recepcionistas;
-		if ( nomeIni.equals( "*" ) ) {
-			if ( !request.getClinicaNomeIni().isBlank() ) {
-				recepcionistas = recepcionistaRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
-			} else {
-				recepcionistas = recepcionistaRepository.findAll();
-			}
+		if ( filtroNome.equals( "*" ) ) {
+			recepcionistas = recepcionistaRepository.listaPorClinica( clinicaId );			
 		} else {
-			if ( !request.getClinicaNomeIni().isBlank() ) {
-				recepcionistas = recepcionistaRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
-			} else {
-				recepcionistas = recepcionistaRepository.filtra( nomeIni+"%" );
-			}
+			recepcionistas = recepcionistaRepository.filtra( clinicaId, "%"+filtroNome+"%" );			
 		}
 		
 		List<RecepcionistaResponse> lista = new ArrayList<>();

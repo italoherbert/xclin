@@ -115,23 +115,14 @@ public class ProfissionalService {
 		profissionalRepository.save( p );
 	}
 	
-	public List<ProfissionalResponse> filtra( ProfissionalFiltroRequest request ) throws ServiceException {
-		String nomeIni = request.getNomeIni();
-		String clinicaNomeIni = request.getClinicaNomeIni();
+	public List<ProfissionalResponse> filtra( Long clinicaId, ProfissionalFiltroRequest request ) throws ServiceException {
+		String filtroNome = request.getFiltroNome();
 		
 		List<Profissional> profissionais;
-		if ( nomeIni.equals( "*" ) ) {
-			if ( !request.getClinicaNomeIni().isBlank() ) {
-				profissionais = profissionalRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
-			} else {
-				profissionais = profissionalRepository.findAll();
-			}
+		if ( filtroNome.equals( "*" ) ) {
+			profissionais = profissionalRepository.listaPorClinica( clinicaId );			
 		} else {
-			if ( !request.getClinicaNomeIni().isBlank() ) {
-				profissionais = profissionalRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
-			} else {
-				profissionais = profissionalRepository.filtraPorNome( nomeIni+"%" );
-			}
+			profissionais = profissionalRepository.filtra( clinicaId, "%"+filtroNome+"%" );
 		}
 		
 		List<ProfissionalResponse> lista = new ArrayList<>();

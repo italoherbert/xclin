@@ -24,7 +24,7 @@ export class NaoAdminRecepcionistaTelaComponent {
   }
 
   recepcionistaFiltro : NaoAdminRecepcionistaFiltro = {
-    nomeIni : '*',
+    filtroNome : '*',
   }
 
   recepcionistas : any;

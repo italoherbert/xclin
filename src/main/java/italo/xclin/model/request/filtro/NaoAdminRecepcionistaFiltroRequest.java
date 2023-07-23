@@ -9,6 +9,6 @@ import lombok.Setter;
 @Setter
 public class NaoAdminRecepcionistaFiltroRequest {
 
-	private String nomeIni;
+	private String filtroNome;
 	
 }

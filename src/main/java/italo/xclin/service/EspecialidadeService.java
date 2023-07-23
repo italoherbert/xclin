@@ -145,28 +145,18 @@ public class EspecialidadeService {
 		return especialidadeLoader.novoRegLoadResponse( clinicasIDs2, clinicasNomes2 );
 	}
 	
-	public EspecialidadeEditLoadResponse loadEditTela( Long[] clinicasIDs, Long especialidadeId ) throws ServiceException {
+	public EspecialidadeEditLoadResponse loadEditTela( Long especialidadeId ) throws ServiceException {
 		Optional<Especialidade> especialidadeOp = especialidadeRepository.findById( especialidadeId );
 		if ( !especialidadeOp.isPresent() )
 			throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
 		
 		Especialidade esp = especialidadeOp.get();
 		Clinica clinica = esp.getClinica();
-											
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
-		
-		List<Long> clinicasIDs2 = new ArrayList<>();
-		List<String> clinicasNomes2 = new ArrayList<>();
-		
-		for( Clinica c : clinicas ) {
-			clinicasIDs2.add( c.getId() );
-			clinicasNomes2.add( c.getNome() );
-		}
 		
 		EspecialidadeResponse eresp = especialidadeLoader.novoResponse();
 		especialidadeLoader.loadResponse( eresp, esp );
 			
-		return especialidadeLoader.novoEditLoadResponse( clinica, eresp, clinicasIDs2, clinicasNomes2 );
+		return especialidadeLoader.novoEditLoadResponse( clinica, eresp );
 	}
 	
 	public void deleta( Long id ) throws ServiceException {

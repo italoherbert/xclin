@@ -70,8 +70,11 @@ export class EspecialidadeSaveComponent {
 
       this.especialidadeService.loadEditTela( id ).subscribe( {
         next: ( resp ) => {
-          this.clinicasIDs = resp.clinicasIDs;
-          this.clinicasNomes = resp.clinicasNomes;
+          this.clinicasIDs = [];
+          this.clinicasNomes = [];
+          
+          this.clinicasIDs.push( resp.clinicaId );
+          this.clinicasNomes.push( resp.clinicaNome );
 
           this.especialidadeSave.nome = resp.especialidade.nome;
           this.clinicaId = resp.clinicaId;

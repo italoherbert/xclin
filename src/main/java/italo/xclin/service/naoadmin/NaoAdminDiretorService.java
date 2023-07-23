@@ -39,13 +39,13 @@ public class NaoAdminDiretorService {
 	private UsuarioLoader usuarioLoader;
 
 	public List<DiretorResponse> filtra( Long clinicaId, NaoAdminDiretorFiltroRequest request ) throws ServiceException {
-		String nomeIni = request.getNomeIni();
+		String filtroNome = request.getFiltroNome();
 		
 		List<Diretor> diretores;
-		if ( nomeIni.equals( "*" ) ) {
-			diretores = diretorRepository.filtra( clinicaId );
+		if ( filtroNome.equals( "*" ) ) {
+			diretores = diretorRepository.filtraPorClinica( clinicaId );
 		} else {		
-			diretores = diretorRepository.filtra( clinicaId, nomeIni+"%" );
+			diretores = diretorRepository.filtra( clinicaId, filtroNome+"%" );
 		}
 		
 		List<DiretorResponse> lista = new ArrayList<>();

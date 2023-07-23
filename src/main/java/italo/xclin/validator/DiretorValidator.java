@@ -28,19 +28,16 @@ public class DiretorValidator {
 	}
 	
 	public void validaFiltro( DiretorFiltroRequest request ) throws ValidationException {
-		if ( request.getNomeIni() == null )
+		if ( request.getFiltroNome() == null )
 			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
-		if ( request.getNomeIni().isBlank() )
-			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
-		
-		if ( request.getClinicaNomeIni() == null )
-			throw new ValidationException( Erro.CLINICA_NOME_INI_OBRIGATORIO );		
+		if ( request.getFiltroNome().isBlank() )
+			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );		
 	}
 	
 	public void validaNaoAdminFiltro( NaoAdminDiretorFiltroRequest request ) throws ValidationException {
-		if ( request.getNomeIni() == null )
+		if ( request.getFiltroNome() == null )
 			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
-		if ( request.getNomeIni().isBlank() )
+		if ( request.getFiltroNome().isBlank() )
 			throw new ValidationException( Erro.NOME_INI_OBRIGATORIO );
 	}
 	

@@ -136,7 +136,7 @@ public class ExameService {
 		return exameLoader.novoRegResponse( clinicasIDs2, clinicasNomes2 );
 	}
 	
-	public ExameEditLoadResponse editLoad( Long[] clinicasIDs, Long clinicaExameId ) throws ServiceException {				
+	public ExameEditLoadResponse editLoad( Long clinicaExameId ) throws ServiceException {				
 		Optional<Exame> exameOp = exameRepository.findById( clinicaExameId );
 		if ( !exameOp.isPresent() )
 			throw new ServiceException( Erro.EXAME_NAO_ENCONTRADO );

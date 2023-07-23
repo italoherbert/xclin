@@ -1,7 +1,5 @@
 package italo.xclin.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.xclin.exception.SistemaException;
-import italo.xclin.model.response.UsuarioClinicaVinculoResponse;
+import italo.xclin.model.response.load.vinculos.UsuarioClinicaVinculosLoadResponse;
 import italo.xclin.service.UsuarioClinicaVinculoService;
 
 @RestController
@@ -36,8 +34,8 @@ public class UsuarioClinicaVinculoController {
 	@PreAuthorize("hasAuthority('usuarioREAD')")
 	@GetMapping("/lista/{usuarioId}")
 	public ResponseEntity<Object> lista( @PathVariable Long usuarioId ) throws SistemaException {
-		List<UsuarioClinicaVinculoResponse> lista = usuarioClinicaVinculoService.listaPorUsuario( usuarioId ); 
-		return ResponseEntity.ok( lista );
+		UsuarioClinicaVinculosLoadResponse resp = usuarioClinicaVinculoService.vinculadas( usuarioId ); 
+		return ResponseEntity.ok( resp );
 	}
 	
 	@PreAuthorize("hasAuthority('usuarioDELETE')")

@@ -25,9 +25,10 @@ export class RecepcionistaTelaComponent {
   }
 
   recepcionistaFiltro : RecepcionistaFiltro = {
-    nomeIni : '',
-    clinicaNomeIni: ''
+    filtroNome: '*'
   }
+
+  clinicaId : number = 0;
 
   recepcionistas : any;
 
@@ -42,7 +43,7 @@ export class RecepcionistaTelaComponent {
 
     this.showSpinner = true;
 
-    this.recepcionistaService.filtraRecepcionistas( this.recepcionistaFiltro ).subscribe({
+    this.recepcionistaService.filtraRecepcionistas( this.clinicaId, this.recepcionistaFiltro ).subscribe({
       next: ( resp ) => {
         this.recepcionistas = resp;
         if ( this.recepcionistas.length == 0 )
@@ -54,6 +55,14 @@ export class RecepcionistaTelaComponent {
         this.showSpinner = false;
       }
     });
+  }
+
+  onClinicaSelect( clinicaId : any ) {
+    this.clinicaId = clinicaId;
+  }
+
+  onClinicaSelectErroCreate( erro : any ) {
+    this.erroMsg = this.sistemaService.mensagemErro( erro );
   }
 
   remove( id : any ) {

@@ -25,9 +25,10 @@ export class DiretorTelaComponent {
   }
 
   diretorFiltro : DiretorFiltro = {
-    nomeIni : '',
-    clinicaNomeIni: ''
+    filtroNome: '*'
   }
+
+  clinicaId : number = 0;
 
   diretores : any;
 
@@ -42,7 +43,7 @@ export class DiretorTelaComponent {
 
     this.showSpinner = true;
 
-    this.diretorService.filtraDiretores( this.diretorFiltro ).subscribe({
+    this.diretorService.filtraDiretores( this.clinicaId, this.diretorFiltro ).subscribe({
       next: ( resp ) => {
         this.diretores = resp;
         if ( this.diretores.length == 0 )
@@ -54,6 +55,14 @@ export class DiretorTelaComponent {
         this.showSpinner = false;
       }
     });
+  }
+
+  onClinicaSelect( clinicaId : any ) {
+    this.clinicaId = clinicaId;
+  }
+
+  onClinicaSelectErroCreate( erro : any ) {
+    this.erroMsg = this.sistemaService.mensagemErro( erro );
   }
 
   remove( id : any ) {

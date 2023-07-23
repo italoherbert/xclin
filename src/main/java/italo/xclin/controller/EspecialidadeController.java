@@ -125,13 +125,9 @@ public class EspecialidadeController {
 	@PreAuthorize("hasAuthority('especialidadeREAD')")
 	@GetMapping("/load/edit/{especialidadeId}")
 	public ResponseEntity<Object> loadEditTela( 
-			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long especialidadeId ) throws SistemaException {
 		
-		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
-		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
-		
-		EspecialidadeEditLoadResponse resp = especialidadeService.loadEditTela( clinicasIDs, especialidadeId );
+		EspecialidadeEditLoadResponse resp = especialidadeService.loadEditTela( especialidadeId );
 		return ResponseEntity.ok( resp );		
 	}
 		

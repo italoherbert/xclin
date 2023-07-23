@@ -67,12 +67,13 @@ public class RecepcionistaController {
 	}
 	
 	@PreAuthorize("hasAuthority('recepcionistaREAD')")
-	@PostMapping("/filtra")
+	@PostMapping("/filtra/{clinicaId}")
 	public ResponseEntity<Object> filtra( 
+			@PathVariable Long clinicaId,
 			@RequestBody RecepcionistaFiltroRequest request ) throws SistemaException {
 		
 		recepcionistaValidator.validaFiltro( request );
-		List<RecepcionistaResponse> lista = recepcionistaService.filtra( request );
+		List<RecepcionistaResponse> lista = recepcionistaService.filtra( clinicaId, request );
 		return ResponseEntity.ok( lista );
 	}
 	

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ProfissionalRemoveDialog, ProfissionalTelaComponent } from './profissional-tela.component';
+import { ClinicaAutocompleteInputModule } from 'src/app/shared/clinica-autocomplete-input/clinica-autocomplete-input.module';
 
 
 
@@ -17,6 +18,8 @@ import { ProfissionalRemoveDialog, ProfissionalTelaComponent } from './profissio
   imports: [
     CommonModule,
     SharedModule,
+
+    ClinicaAutocompleteInputModule,
 
     MatFormFieldModule,
     MatInputModule,

@@ -10,10 +10,13 @@ import org.springframework.stereotype.Service;
 import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.loader.UsuarioClinicaVinculoLoader;
+import italo.xclin.loader.UsuarioLoader;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Usuario;
 import italo.xclin.model.UsuarioClinicaVinculo;
 import italo.xclin.model.response.UsuarioClinicaVinculoResponse;
+import italo.xclin.model.response.UsuarioResponse;
+import italo.xclin.model.response.load.vinculos.UsuarioClinicaVinculosLoadResponse;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.UsuarioClinicaVinculoRepository;
 import italo.xclin.repository.UsuarioRepository;
@@ -32,6 +35,9 @@ public class UsuarioClinicaVinculoService {
 	
 	@Autowired
 	private UsuarioClinicaVinculoLoader usuarioClinicaVinculoLoader;
+	
+	@Autowired
+	private UsuarioLoader usuarioLoader;
 			
 	public void vincula( Long usuarioId, Long clinicaId ) throws ServiceException {
 		boolean existe = usuarioClinicaVinculoRepository.existe( usuarioId, clinicaId );
@@ -56,7 +62,7 @@ public class UsuarioClinicaVinculoService {
 		usuarioClinicaVinculoRepository.save( vinculo );		
 	}
 	
-	public List<UsuarioClinicaVinculoResponse> listaPorUsuario( Long usuarioId ) throws ServiceException {
+	public UsuarioClinicaVinculosLoadResponse vinculadas( Long usuarioId ) throws ServiceException {
 		Optional<Usuario> usuarioOp = usuarioRepository.findById( usuarioId );
 		if ( !usuarioOp.isPresent() )
 			throw new ServiceException( Erro.USUARIO_NAO_ENCONTRADO );
@@ -75,7 +81,10 @@ public class UsuarioClinicaVinculoService {
 			lista.add( resp );
 		}
 		
-		return lista;
+		UsuarioResponse usuarioResp = usuarioLoader.novoResponse();
+		usuarioLoader.loadResponse( usuarioResp, u ); 
+		
+		return usuarioClinicaVinculoLoader.novoVinculosResponse( usuarioResp, lista );
 	}
 	
 	public void deleta( Long vinculoId ) throws ServiceException {

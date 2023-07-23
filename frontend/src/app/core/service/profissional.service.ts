@@ -32,13 +32,13 @@ export class ProfissionalService {
     return this.http.put( '/api/profissional/altera/'+id, profissionalSave, { headers: headers, withCredentials: true } )
   }
 
-  filtraProfissionais( filtro: ProfissionalFiltro ): Observable<any> {
+  filtraProfissionais( clinicaId : any, filtro: ProfissionalFiltro ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.post( '/api/profissional/filtra', filtro, { headers: headers, withCredentials: true } )
+    return this.http.post( '/api/profissional/filtra/'+clinicaId, filtro, { headers: headers, withCredentials: true } )
   }
 
   getProfissional( id : any ): Observable<any> {

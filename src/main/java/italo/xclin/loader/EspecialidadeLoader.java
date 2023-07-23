@@ -52,15 +52,12 @@ public class EspecialidadeLoader {
 	
 	public EspecialidadeEditLoadResponse novoEditLoadResponse(
 			Clinica clinica,
-			EspecialidadeResponse eresp,			
-			List<Long> clinicasIDs, List<String> clinicasNomes ) {
+			EspecialidadeResponse eresp ) {
 		
-		EspecialidadeEditLoadResponse resp = new EspecialidadeEditLoadResponse();
-		resp.setClinicaId( clinica.getId() );
-		
+		EspecialidadeEditLoadResponse resp = new EspecialidadeEditLoadResponse();				
 		resp.setEspecialidade( eresp );
-		resp.setClinicasIDs( clinicasIDs );
-		resp.setClinicasNomes( clinicasNomes ); 
+		resp.setClinicaId( clinica.getId() );
+		resp.setClinicaNome( clinica.getNome() );
 		return resp;
 	}
 

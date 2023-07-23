@@ -85,12 +85,13 @@ public class ProfissionalController {
 	}
 			
 	@PreAuthorize("hasAuthority('profissionalREAD')")
-	@PostMapping("/filtra")
+	@PostMapping("/filtra/{clinicaId}")
 	public ResponseEntity<Object> filtra( 
+			@PathVariable Long clinicaId,
 			@RequestBody ProfissionalFiltroRequest request ) throws SistemaException {
 		
 		profissionalValidator.validaFiltro( request );
-		List<ProfissionalResponse> lista = profissionalService.filtra( request );
+		List<ProfissionalResponse> lista = profissionalService.filtra( clinicaId, request );
 		return ResponseEntity.ok( lista );
 	}
 	

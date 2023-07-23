@@ -22,7 +22,7 @@ public class ProfissionalSharedService {
 	}
 	
 	public ListaResponse listaPorClinica( Long clinicaId, Long logadoUID ) {
-		List<Profissional> profissionais = profissionalRepository.listaPorClinica( clinicaId, logadoUID );
+		List<Profissional> profissionais = profissionalRepository.listaPorClinicaEUsuario( clinicaId, logadoUID );
 		return this.toListaResponse( profissionais );
 	}
 	

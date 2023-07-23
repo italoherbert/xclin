@@ -24,7 +24,7 @@ export class NaoAdminDiretorTelaComponent {
   }
 
   diretorFiltro : NaoAdminDiretorFiltro = {
-    nomeIni : '*',
+    filtroNome : '*',
   }
 
   diretores : any;

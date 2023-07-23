@@ -9,8 +9,6 @@ import lombok.Setter;
 @Setter
 public class RecepcionistaFiltroRequest {
 
-	private String nomeIni;
-	
-	private String clinicaNomeIni;
-		
+	private String filtroNome;
+			
 }

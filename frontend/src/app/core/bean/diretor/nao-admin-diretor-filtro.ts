@@ -1,4 +1,4 @@
 
 export interface NaoAdminDiretorFiltro {
-    nomeIni : String;
+    filtroNome : String;
 }

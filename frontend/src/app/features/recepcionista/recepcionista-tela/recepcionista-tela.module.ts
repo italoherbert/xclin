@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ClinicaAutocompleteInputModule } from 'src/app/shared/clinica-autocomplete-input/clinica-autocomplete-input.module';
 
 
 
@@ -17,6 +18,8 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports: [
     CommonModule,
     SharedModule,
+
+    ClinicaAutocompleteInputModule,
 
     MatFormFieldModule,
     MatInputModule,

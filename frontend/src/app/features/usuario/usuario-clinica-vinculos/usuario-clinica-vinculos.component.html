@@ -12,19 +12,21 @@
             <h1>Vínculos</h1>
         </mat-card-header>
         <mat-card-content>
-            <mat-form-field appearance="fill">
-                <mat-label>Clínica</mat-label>
-                <input matInput type="text" 
-                    placeholder="Escolha a clínica" 
-                    [matAutocomplete]="auto"
-                    [(ngModel)]="clinicaNome"
-                    (input)="onClinicaInput($event)" />
-                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onClinicaSelected($event)">
-                    <mat-option *ngFor="let nome of clinicasNomes; index as i" [value]="nome" [id]="''+i">
-                        {{nome}}
-                    </mat-option>
-                </mat-autocomplete>
-            </mat-form-field>
+            <div class="row">
+                <div class="col-sm-6 my-3">
+                    <div class="fs-6 fw-bold">
+                        Username:
+                    </div>
+                    <div class="fs-5">
+                        {{usuario.username}}
+                    </div>
+                </div>
+            </div>
+
+            <app-clinica-autocomplete-input 
+                    (onSelect)="onClinicaSelected($event)"
+                    (OnErroCreated)="onClinicaSelectErroCreate( $event )"
+             />
 
             <div *ngIf="infoMsg !== null" class="alert alert-success mb-2">
                 {{infoMsg}}

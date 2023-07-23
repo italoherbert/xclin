@@ -64,12 +64,13 @@ public class DiretorController {
 	}
 	
 	@PreAuthorize("hasAuthority('diretorREAD')")
-	@PostMapping("/filtra")
+	@PostMapping("/filtra/{clinicaId}")
 	public ResponseEntity<Object> filtra( 
+			@PathVariable Long clinicaId,
 			@RequestBody DiretorFiltroRequest request ) throws SistemaException {
 		
 		diretorValidator.validaFiltro( request );
-		List<DiretorResponse> lista = diretorService.filtra( request );
+		List<DiretorResponse> lista = diretorService.filtra( clinicaId, request );
 		return ResponseEntity.ok( lista );
 	}
 	

@@ -31,13 +31,13 @@ export class DiretorService {
     return this.http.put( '/api/diretor/altera/'+id, diretorSave, { headers: headers, withCredentials: true } )
   }
 
-  filtraDiretores( filtro: DiretorFiltro ): Observable<any> {
+  filtraDiretores( clinicaId : any, filtro: DiretorFiltro ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.post( '/api/diretor/filtra', filtro, { headers: headers, withCredentials: true } );
+    return this.http.post( '/api/diretor/filtra/'+clinicaId, filtro, { headers: headers, withCredentials: true } );
   }
 
   getDiretor( id : any ): Observable<any> {

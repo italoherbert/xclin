@@ -25,9 +25,10 @@ export class ProfissionalTelaComponent {
   }
 
   profissionalFiltro : ProfissionalFiltro = {
-    nomeIni : '',
-    clinicaNomeIni: ''
+    filtroNome: '*'
   }
+
+  clinicaId : number = 0;
 
   profissionais : any;
 
@@ -42,7 +43,7 @@ export class ProfissionalTelaComponent {
 
     this.showSpinner = true;
 
-    this.profissionalService.filtraProfissionais( this.profissionalFiltro ).subscribe({
+    this.profissionalService.filtraProfissionais( this.clinicaId, this.profissionalFiltro ).subscribe({
       next: ( resp ) => {
         this.profissionais = resp;
         if ( this.profissionais.length == 0 )
@@ -54,6 +55,14 @@ export class ProfissionalTelaComponent {
         this.showSpinner = false;
       }
     });
+  }
+
+  onClinicaSelect( clinicaId : any ) {
+    this.clinicaId = clinicaId;
+  }
+
+  onClinicaSelectErroCreate( erro : any ) {
+    this.erroMsg = this.sistemaService.mensagemErro( erro );
   }
 
   remove( id : any ) {
@@ -73,7 +82,7 @@ export class ProfissionalTelaComponent {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }
-    });
+    });    
   }
 
   mostraRemoveDialog( id : any ) {

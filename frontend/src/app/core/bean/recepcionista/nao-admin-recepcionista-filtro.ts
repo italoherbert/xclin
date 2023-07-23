@@ -1,4 +1,4 @@
 
 export interface NaoAdminRecepcionistaFiltro {
-    nomeIni : string;
+    filtroNome : string;
 }

@@ -111,23 +111,14 @@ public class DiretorService {
 		diretorRepository.save( d );
 	}
 		
-	public List<DiretorResponse> filtra( DiretorFiltroRequest request ) throws ServiceException {
-		String nomeIni = request.getNomeIni();
-		String clinicaNomeIni = request.getClinicaNomeIni();
+	public List<DiretorResponse> filtra( Long clinicaId, DiretorFiltroRequest request ) throws ServiceException {
+		String filtroNome = request.getFiltroNome();
 		
-		List<Diretor> diretores;
-		if ( nomeIni.equals( "*" ) ) {
-			if ( !request.getClinicaNomeIni().isBlank() ) {
-				diretores = diretorRepository.filtraPorClinica( "%"+clinicaNomeIni+"%" );
-			} else {
-				diretores = diretorRepository.findAll();
-			}
+		List<Diretor> diretores = diretorRepository.filtraPorClinica( clinicaId );
+		if ( filtroNome.equals( "*" ) ) {
+			diretores = diretorRepository.filtraPorClinica( clinicaId );
 		} else {
-			if ( !request.getClinicaNomeIni().isBlank() ) {
-				diretores = diretorRepository.filtra( nomeIni+"%", "%"+clinicaNomeIni+"%" );
-			} else {
-				diretores = diretorRepository.filtraPorNome( nomeIni+"%" );
-			}
+			diretores = diretorRepository.filtra( clinicaId, "%"+filtroNome+"%" );
 		}
 		
 		List<DiretorResponse> lista = new ArrayList<>();

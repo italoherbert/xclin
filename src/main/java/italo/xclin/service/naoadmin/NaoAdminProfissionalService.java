@@ -40,13 +40,13 @@ public class NaoAdminProfissionalService {
 	private UsuarioLoader usuarioLoader;
 
 	public List<ProfissionalResponse> filtra( Long clinicaId, NaoAdminProfissionalFiltroRequest request ) throws ServiceException {
-		String nomeIni = request.getNomeIni();
+		String filtroNome = request.getFiltroNome();
 		
 		List<Profissional> profissionais;
-		if ( nomeIni.equals( "*" ) ) {
-			profissionais = profissionalRepository.filtra( clinicaId );
+		if ( filtroNome.equals( "*" ) ) {
+			profissionais = profissionalRepository.listaPorClinica( clinicaId );
 		} else {		
-			profissionais = profissionalRepository.filtra( clinicaId, nomeIni+"%" );
+			profissionais = profissionalRepository.filtra( clinicaId, filtroNome+"%" );
 		}
 		
 		List<ProfissionalResponse> lista = new ArrayList<>();

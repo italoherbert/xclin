@@ -30,13 +30,13 @@ export class RecepcionistaService {
     return this.http.put( '/api/recepcionista/altera/'+clinicaId+'/'+recepcionistaId, recepcionistaSave, { headers: headers, withCredentials: true } )
   }
 
-  filtraRecepcionistas( filtro: RecepcionistaFiltro ): Observable<any> {
+  filtraRecepcionistas( clinicaId : any, filtro: RecepcionistaFiltro ): Observable<any> {
     let headers = new HttpHeaders({
       'Content-Type' : 'application/json',
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.post( '/api/recepcionista/filtra', filtro, { headers: headers, withCredentials: true } )
+    return this.http.post( '/api/recepcionista/filtra/'+clinicaId, filtro, { headers: headers, withCredentials: true } )
   }
 
   getRecepcionista( id : any ): Observable<any> {

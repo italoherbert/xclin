@@ -37,13 +37,13 @@ public class NaoAdminRecepcionistaService {
 	private UsuarioLoader usuarioLoader;
 
 	public List<RecepcionistaResponse> filtra( Long clinicaId, NaoAdminRecepcionistaFiltroRequest request ) throws ServiceException {
-		String nomeIni = request.getNomeIni();
+		String filtroNome = request.getFiltroNome();
 		
 		List<Recepcionista> recepcionistas;
-		if ( nomeIni.equals( "*" ) ) {
-			recepcionistas = recepcionistaRepository.filtra( clinicaId );
+		if ( filtroNome.equals( "*" ) ) {
+			recepcionistas = recepcionistaRepository.listaPorClinica( clinicaId );
 		} else {		
-			recepcionistas = recepcionistaRepository.filtra( clinicaId, nomeIni+"%" );
+			recepcionistas = recepcionistaRepository.filtra( clinicaId, filtroNome+"%" );
 		}
 		
 		List<RecepcionistaResponse> lista = new ArrayList<>();

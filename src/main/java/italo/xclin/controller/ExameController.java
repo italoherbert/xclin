@@ -125,13 +125,9 @@ public class ExameController {
 	@PreAuthorize("hasAuthority('exameREAD')")
 	@GetMapping("/load/edit/{exameId}")
 	public ResponseEntity<Object> editLoad(
-			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long exameId ) throws SistemaException {
-			
-		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
-		Long[] clinicasIDs = tokenInfo.getClinicasIDs();
-		
-		ExameEditLoadResponse resp = exameService.editLoad( clinicasIDs, exameId );
+					
+		ExameEditLoadResponse resp = exameService.editLoad( exameId );
 		return ResponseEntity.ok( resp );
 	}
 	

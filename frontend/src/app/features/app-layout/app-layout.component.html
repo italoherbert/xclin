@@ -24,6 +24,10 @@
                     *ngIf="sistemaService.isDiretor() === true">
                Sua conta
             </a>
+            <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'suporte-conta-detalhes' } }]" 
+                    *ngIf="sistemaService.isSuporte() === true">
+               Sua conta
+            </a>
 
             <a mat-menu-item [routerLink]="[ '/app', { outlets : { page : 'profissional-conta-especialidades' } }]" 
                     *ngIf="sistemaService.isProfissional() === true">

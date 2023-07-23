@@ -27,32 +27,14 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Long
 				+ "join p.usuario u "
 				+ "join UsuarioClinicaVinculo v "
 			+ "where v.usuario.id=u.id and v.clinica.id=?1")
-	public List<Profissional> listaPorClinica( Long aid );
+	public List<Profissional> listaPorClinica( Long clinicaId );
 	
 	@Query("select p "
 			+ "from Profissional p "
 				+ "join p.usuario u "
 				+ "join UsuarioClinicaVinculo v "
 			+ "where v.usuario.id=u.id and v.clinica.id=?1 and p.usuario.id=?2")
-	public List<Profissional> listaPorClinica( Long aid, Long uid );
-	
-	@Query("select p "
-			+ "from Profissional p "
-				+ "join p.usuario u "
-				+ "join UsuarioClinicaVinculo v "
-			+ "where u.id=v.usuario.id and "
-				+ "lower_unaccent(v.clinica.nome) like lower_unaccent(?1)")
-	public List<Profissional> filtraPorClinica( String clinicaNomeIni );
-	
-	@Query("select p "
-			+ "from Profissional p "
-				+ "join p.usuario u "
-				+ "join UsuarioClinicaVinculo v "
-			+ "where "
-				+ "v.usuario.id=u.id and "
-		 		+ "lower_unaccent(p.nome) like lower_unaccent(?1) and "
-		 		+ "lower_unaccent(v.clinica.nome) like lower_unaccent(?2)") 
-	public List<Profissional> filtra( String nomeIni, String clinicaNomeIni );
+	public List<Profissional> listaPorClinicaEUsuario( Long clinicaId, Long usuarioId );
 	
 	@Query("select p "
 			+ "from Profissional p "
@@ -63,16 +45,7 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Long
 		 		+ "v.clinica.id=?1 and "
 		 		+ "lower_unaccent(p.nome) like lower_unaccent(?2)")
 	public List<Profissional> filtra( Long clinicaId, String nomeIni );
-	
-	@Query("select p "
-			 + "from Profissional p "
-			 	+ "join p.usuario u "
-			 	+ "join UsuarioClinicaVinculo v "
-			 + "where "
-			 	+ "v.usuario.id=u.id and "
-			 	+ "v.clinica.id=?1")
-	public List<Profissional> filtra( Long clinicaId );
-		
+				
 	@Query("select p "
 		 + "from Profissional p "
 		 	+ "join p.usuario u "

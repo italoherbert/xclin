@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import * as moment from 'moment';
@@ -9,11 +9,11 @@ import { AtendimentoService } from 'src/app/core/service/atendimento.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
 @Component({
-  selector: 'app-atendimento-tela',
-  templateUrl: './atendimento-tela.component.html',
-  styleUrls: ['./atendimento-tela.component.css']
+  selector: 'app-atendimento-filtro',
+  templateUrl: './atendimento-filtro.component.html',
+  styleUrls: ['./atendimento-filtro.component.css']
 })
-export class AtendimentoTelaComponent {
+export class AtendimentoFiltroComponent {
 
   infoMsg : any = null;
   erroMsg : any = null;
@@ -125,7 +125,7 @@ export class AtendimentoTelaComponent {
       next: ( resp ) => {
         this.filtra();
 
-        this.infoMsg = 'Atendimento deletada com sucesso!';
+        this.infoMsg = 'Atendimento deletado com sucesso!';
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -135,8 +135,8 @@ export class AtendimentoTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open(AtendimentoRemoveDialog);
+  mostraRemoveDialog( id : any, pacienteNome : any ) {
+    let dialogRef = this.matDialog.open(AtendimentoRemoveDialog, { data : { pacienteNome : pacienteNome } } );
     dialogRef.afterClosed().subscribe( (result) => {
       if ( result === true )
         this.remove( id );
@@ -152,5 +152,7 @@ export class AtendimentoTelaComponent {
   templateUrl: 'atendimento-remove-dialog.html',
 })
 export class AtendimentoRemoveDialog {
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data : any ) {}
 
 }

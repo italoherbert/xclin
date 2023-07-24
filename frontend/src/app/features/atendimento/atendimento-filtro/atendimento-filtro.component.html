@@ -98,7 +98,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(c.id)">
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(c.id, c.pacienteNome)">
                         <fa-icon [icon]="icons.faTrashCan"></fa-icon>
                         remover
                     </a>

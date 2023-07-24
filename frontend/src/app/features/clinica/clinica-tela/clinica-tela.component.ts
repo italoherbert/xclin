@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ClinicaFiltro } from 'src/app/core/bean/clinica/clinica-filtro';
 import { ClinicaService } from 'src/app/core/service/clinica.service';
@@ -75,11 +75,11 @@ export class ClinicaTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( ClinicaRemoveDialog );
+  mostraRemoveDialog( id : any, clinicaNome : any ) {
+    let dialogRef = this.matDialog.open( ClinicaRemoveDialog, { data : { clinicaNome : clinicaNome} } );
     dialogRef.afterClosed().subscribe( ( result ) => {
       if ( result === true )
-        this.remove( id );
+        this.remove( id );      
     } );
   }
 
@@ -90,5 +90,22 @@ export class ClinicaTelaComponent {
   templateUrl: "clinica-remove-dialog.html"
 })
 export class ClinicaRemoveDialog {
+
+  resposta : string = '';
+  erroMsg : any = null;
+
+  constructor( 
+    public matDialogRef : MatDialogRef<ClinicaRemoveDialog>,
+    @Inject(MAT_DIALOG_DATA) public data : any ) {}
+
+  onRemove() {
+    this.erroMsg = null;
+    
+    if ( this.resposta.toLowerCase() == 'remova' ) {
+      this.matDialogRef.close( true );
+    } else {
+      this.erroMsg = "Você não digitou corretamente o nome: 'remova'.";
+    }
+  }
 
 }

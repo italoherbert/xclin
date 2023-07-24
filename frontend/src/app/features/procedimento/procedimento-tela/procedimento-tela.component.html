@@ -61,7 +61,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(procedimento.id)">
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(procedimento.id, procedimento.nome)">
                         <fa-icon [icon]="icons.faTrashCan"></fa-icon>
                         remover
                     </a>

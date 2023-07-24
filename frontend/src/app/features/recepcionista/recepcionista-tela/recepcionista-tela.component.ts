@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { RecepcionistaFiltro } from 'src/app/core/bean/recepcionista/recepcionista-filtro';
 import { RecepcionistaService } from 'src/app/core/service/recepcionista.service';
@@ -85,8 +85,8 @@ export class RecepcionistaTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open(RecepcionistaRemoveDialog );
+  mostraRemoveDialog( id : any, recepcionistaNome : any ) {
+    let dialogRef = this.matDialog.open( RecepcionistaRemoveDialog, { data : { recepcionistaNome : recepcionistaNome } } );
     dialogRef.afterClosed().subscribe( (result) => {
       if ( result === true )
         this.remove( id );
@@ -102,5 +102,7 @@ export class RecepcionistaTelaComponent {
   templateUrl: 'recepcionista-remove-dialog.html',
 })
 export class RecepcionistaRemoveDialog {
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data : any ) {}
 
 }

@@ -501,7 +501,7 @@ public class AtendimentoController {
 	}
 		
 	@PreAuthorize("hasAuthority('atendimentoDELETE')")
-	@DeleteMapping("/deleta/{id}")
+	@DeleteMapping("/deleta/{atendimentoId}")
 	public ResponseEntity<Object> deleta(
 			@RequestHeader("Authorization") String authorizationHeader,
 			@PathVariable Long atendimentoId ) throws SistemaException {

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import { UsuarioFiltro } from 'src/app/core/bean/usuario/usuario-filtro';
@@ -76,8 +76,8 @@ export class UsuarioTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( UsuarioRemoveDialog );
+  mostraRemoveDialog( id : any, username : any ) {
+    let dialogRef = this.matDialog.open( UsuarioRemoveDialog, { data : { username : username}} );
     dialogRef.afterClosed().subscribe( (result) => {
       if ( result === true )
         this.remove( id );
@@ -93,5 +93,21 @@ export class UsuarioTelaComponent {
   templateUrl: 'usuario-remove-dialog.html',
 })
 export class UsuarioRemoveDialog {
+
+  resposta : string = '';
+  erroMsg : any = null;
+
+  constructor(
+    public matDialogRef : MatDialogRef<UsuarioRemoveDialog>,
+    @Inject(MAT_DIALOG_DATA) public data : any
+  ) {}
+
+  onRemove() {
+    if ( this.resposta.toLowerCase() == 'remova' ) {
+      this.matDialogRef.close( true );
+    } else {
+      this.erroMsg = "Você não informou corretamente o nome 'remova'.";
+    }
+  }
 
 }

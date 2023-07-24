@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ProfissionalFiltro } from 'src/app/core/bean/profissional/profissional-filtro';
 import { ProfissionalService } from 'src/app/core/service/profissional.service';
@@ -85,8 +85,8 @@ export class ProfissionalTelaComponent {
     });    
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open(ProfissionalRemoveDialog );
+  mostraRemoveDialog( id : any, profissionalNome : any ) {
+    let dialogRef = this.matDialog.open( ProfissionalRemoveDialog, { data : { profissionalNome : profissionalNome } } );
     dialogRef.afterClosed().subscribe( (result) => {
       if ( result === true )
         this.remove( id );
@@ -102,6 +102,23 @@ export class ProfissionalTelaComponent {
   templateUrl: 'profissional-remove-dialog.html',
 })
 export class ProfissionalRemoveDialog {
+
+  resposta : string = '';
+  erroMsg : any = null;
+
+  constructor( 
+    public matDialogRef : MatDialogRef<ProfissionalRemoveDialog>,
+    @Inject(MAT_DIALOG_DATA) public data : any ) {}
+
+  onRemove() {
+    this.erroMsg = null;
+    
+    if ( this.resposta.toLowerCase() == 'remova' ) {
+      this.matDialogRef.close( true );
+    } else {
+      this.erroMsg = "Você não digitou corretamente o nome: 'remova'.";
+    }
+  }
 
 }
 

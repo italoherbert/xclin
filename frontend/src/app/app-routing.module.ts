@@ -33,7 +33,7 @@ import { PacienteSaveComponent } from './features/paciente/paciente-save/pacient
 import { AtendimentoDetalhesComponent } from './features/atendimento/atendimento-detalhes/atendimento-detalhes.component';
 import { AtendimentoRemarcarComponent } from './features/atendimento/atendimento-remarcar/atendimento-remarcar.component';
 import { AtendimentoNovoComponent } from './features/atendimento/atendimento-novo/atendimento-novo.component';
-import { AtendimentoTelaComponent } from './features/atendimento/atendimento-tela/atendimento-tela.component';
+import { AtendimentoFiltroComponent } from './features/atendimento/atendimento-filtro/atendimento-filtro.component';
 import { AtendimentoFilaComponent } from './features/atendimento/atendimento-fila/atendimento-fila.component';
 import { NaoAdminDiretorTelaComponent } from './features/diretor/nao-admin-diretor-tela/nao-admin-diretor-tela.component';
 import { NaoAdminProfissionalTelaComponent } from './features/profissional/nao-admin-profissional-tela/nao-admin-profissional-tela.component';
@@ -155,7 +155,7 @@ const routes: Routes = [
     { path: 'paciente-anexos/:pacienteId', component: PacienteAnexosComponent, outlet: 'page' },
 
     { path: 'atendimento-novo', component: AtendimentoNovoComponent, outlet: 'page' },
-    { path: 'atendimento-tela', component: AtendimentoTelaComponent, outlet: 'page' },
+    { path: 'atendimento-tela', component: AtendimentoFiltroComponent, outlet: 'page' },
     { path: 'atendimento-fila', component: AtendimentoFilaComponent, outlet: 'page' },
     { path: 'atendimento-fila-completa/:clinicaId/:profissionalId/:ano/:mes/:dia/:turno', component: AtendimentoFilaCompletaComponent, outlet: 'page' },
     { path: 'atendimento-iniciado', component: AtendimentoIniciadoComponent, outlet: 'page' },

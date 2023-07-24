@@ -41,7 +41,7 @@
     </div>
 </div>
 
-<div class="table-responsive mt-3" style="height: 20em">    
+<div class="table-responsive mt-3">    
     <table class="table">
         <thead>
             <tr>
@@ -60,7 +60,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(p.id)">
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(p.id, p.nome)">
                         <fa-icon [icon]="icons.faTrashCan"></fa-icon>
                         remover
                     </a>

@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>Remoção de recepcionista</h1>
 <div mat-dialog-content>
-  <p>Tem certeza que deseja remover esse/essa recepcionista?</p>  
+  <p>
+    Tem certeza que deseja remover o/a recepcionista: <br />
+    <b>{{data.recepcionistaNome}}</b> ?
+  </p>  
 </div>
 <div mat-dialog-actions>
   <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>

@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Paciente } from 'src/app/core/bean/paciente/paciente';
 import { PacienteFiltro } from 'src/app/core/bean/paciente/paciente-filtro';
@@ -100,8 +100,8 @@ export class PacienteTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open(PacienteRemoveDialog );
+  mostraRemoveDialog( id : any, pacienteNome : any ) {
+    let dialogRef = this.matDialog.open( PacienteRemoveDialog, { data : { pacienteNome : pacienteNome } } );
     dialogRef.afterClosed().subscribe( (result) => {
       if ( result === true )
         this.remove( id );
@@ -118,4 +118,21 @@ export class PacienteTelaComponent {
 })
 export class PacienteRemoveDialog {
 
+  resposta : string = '';
+  erroMsg : any = null;
+
+  constructor( 
+    public matDialogRef : MatDialogRef<PacienteRemoveDialog>,
+    @Inject(MAT_DIALOG_DATA) public data : any ) {}
+
+  onRemove() {
+    this.erroMsg = null;
+    
+    if ( this.resposta.toLowerCase() == 'remova' ) {
+      this.matDialogRef.close( true );
+    } else {
+      this.erroMsg = "Você não digitou corretamente o nome: 'remova'.";
+    }
+  }
+  
 }

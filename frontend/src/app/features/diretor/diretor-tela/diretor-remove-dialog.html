@@ -1,6 +1,10 @@
 <h1 mat-dialog-title>Remoção de diretor</h1>
 <div mat-dialog-content>
-  <p>Tem certeza que deseja remover esse diretor?</p>  
+  <p>
+    Tem certeza que deseja remover o diretor de nome: <br />
+    <b>{{data.diretorNome}}</b> <br />
+    E todos os seus relacionamentos?
+  </p>  
 </div>
 <div mat-dialog-actions>
   <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>

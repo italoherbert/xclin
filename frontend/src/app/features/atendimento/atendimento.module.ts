@@ -6,7 +6,7 @@ import { AtendimentoDetalhesModule } from './atendimento-detalhes/atendimento-de
 import { AtendimentoFilaModule } from './atendimento-fila/atendimento-fila.module';
 import { AtendimentoNovoModule } from './atendimento-novo/atendimento-novo.module';
 import { AtendimentoRemarcarModule } from './atendimento-remarcar/atendimento-remarcar.module';
-import { AtendimentoTelaModule } from './atendimento-tela/atendimento-tela.module';
+import { AtendimentoFiltroModule } from './atendimento-filtro/atendimento-filtro.module';
 import { AtendimentoAgendaModule } from './atendimento-agenda/atendimento-agenda.module';
 import { AtendimentoFilaCompletaModule } from './atendimento-fila-completa/atendimento-fila-completa.module';
 import { AtendimentoPagamentoModule } from './atendimento-pagamento/atendimento-pagamento.module';
@@ -27,7 +27,7 @@ import { AtendimentoRetornoModule } from './atendimento-retorno/atendimento-reto
     AtendimentoNovoModule,
     AtendimentoRemarcarModule,
     AtendimentoRetornoModule,
-    AtendimentoTelaModule,
+    AtendimentoFiltroModule,
     AtendimentoAgendaModule,
     AtendimentoFilaCompletaModule,
     AtendimentoPagamentoModule

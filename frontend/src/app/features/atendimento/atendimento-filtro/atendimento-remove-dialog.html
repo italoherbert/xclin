@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>Remoção de consulta</h1>
 <div mat-dialog-content>
-  <p>Tem certeza que deseja remover essa consulta?</p>  
+  <p>
+    Tem certeza que deseja remover o atendimento do paciente: <br />
+    <b>{{data.pacienteNome}}</b>?
+  </p>  
 </div>
 <div mat-dialog-actions>
   <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>

@@ -1,8 +1,18 @@
 <h1 mat-dialog-title>Remoção de clinica</h1>
 <div mat-dialog-content>
-    Tem certeza que deseja remover essa clinica com todos os seus relacionamentos?
+    <p>
+        Tem certeza que deseja remover essa clinica de nome: <br />
+        <b>{{data.clinicaNome}}</b> <br />
+        E todos os seus relacionamentos?
+    </p>
+    <p>Se sim, digite abaixo o nome <b>remova</b>:</p>
+    <mat-form-field appearance="outline">
+        <input matInput type="text" placeholder="Digite sua resposta" [(ngModel)]="resposta">
+    </mat-form-field>
+
+    <p class="alert alert-danger" *ngIf="erroMsg != null">{{erroMsg}}</p>
 </div>
 <div mat-dialog-actions>
-    <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>
+    <button mat-button color="warn" (click)="onRemove()">Remover</button>
     <button mat-button color="primary" [mat-dialog-close]="false">Cancelar</button>
 </div>

@@ -1,8 +1,20 @@
 <h1 mat-dialog-title>Remoção de grupo</h1>
 <div mat-dialog-content>
-  <p>Tem certeza que deseja remover esse usuário com todos os seus relacionamentos?</p>  
+  <p>
+    Tem certeza que deseja remover o usuário: <br />
+    <b>{{data.username}}</b> <br />
+    e todos os seus relacionamentos?
+  </p>  
+
+  <p>Se sim, digite abaixo o texto <b>remova</b>: </p>
+
+  <mat-form-field appearance="outline">
+    <input matInput type="text" placeholder="Informe a resposta" [(ngModel)]="resposta" />
+  </mat-form-field>
+
+  <p class="alert alert-danger" *ngIf="erroMsg != null">{{erroMsg}}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>
+  <button mat-button color="warn" (click)="onRemove()">Remover</button>
   <button mat-button color="primary" [mat-dialog-close]="false">Cancelar</button>
 </div>

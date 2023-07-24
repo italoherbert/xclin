@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ExameFiltro } from 'src/app/core/bean/exame/exame-filtro';
 import { ExameService } from 'src/app/core/service/exame.service';
@@ -102,8 +102,8 @@ export class ExameTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( ExameRemoveDialog );
+  mostraRemoveDialog( id : any, exameNome : any ) {
+    let dialogRef = this.matDialog.open( ExameRemoveDialog, { data : { exameNome : exameNome }} );
     dialogRef.afterClosed().subscribe( ( result ) => {
       if ( result === true )
         this.remove( id );
@@ -117,5 +117,7 @@ export class ExameTelaComponent {
   templateUrl: "exame-remove-dialog.html"
 })
 export class ExameRemoveDialog {
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data : any ) {}
 
 }

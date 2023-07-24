@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { AnamneseModelo } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo';
 import { AnamneseModeloFiltro } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo-filtro';
@@ -82,8 +82,8 @@ export class AnamneseModeloTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( AnamneseModeloRemoveDialog );
+  mostraRemoveDialog( id : any, modeloNome : any ) {
+    let dialogRef = this.matDialog.open( AnamneseModeloRemoveDialog, { data : { modeloNome : modeloNome } } );
     dialogRef.afterClosed().subscribe( ( result ) => {
       if ( result === true )
         this.remove( id );
@@ -97,6 +97,8 @@ export class AnamneseModeloTelaComponent {
   templateUrl: "anamnese-modelo-remove-dialog.html"
 })
 export class AnamneseModeloRemoveDialog {
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data : any ) {}
 
 }
 

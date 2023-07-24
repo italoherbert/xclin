@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { EspecialidadeFiltro } from 'src/app/core/bean/especialidade/especialidade-filtro';
 import { EspecialidadeService } from 'src/app/core/service/especialidade.service';
@@ -92,7 +92,7 @@ export class EspecialidadeTelaComponent {
       next: ( resp ) => {
         this.filtra();
 
-        this.infoMsg = 'Especialidade deletado com sucesso!';
+        this.infoMsg = 'Especialidade deletada com sucesso!';
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -102,8 +102,8 @@ export class EspecialidadeTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( EspecialidadeRemoveDialog );
+  mostraRemoveDialog( id : any, especialidadeNome : any ) {
+    let dialogRef = this.matDialog.open( EspecialidadeRemoveDialog, { data : { especialidadeNome: especialidadeNome }} );
     dialogRef.afterClosed().subscribe( ( result ) => {
       if ( result === true )
         this.remove( id );
@@ -117,5 +117,7 @@ export class EspecialidadeTelaComponent {
   templateUrl: "especialidade-remove-dialog.html"
 })
 export class EspecialidadeRemoveDialog {
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data : any ) {}
 
 }

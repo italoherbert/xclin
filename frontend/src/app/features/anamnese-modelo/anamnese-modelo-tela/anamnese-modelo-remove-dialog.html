@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>Remoção de modelo de anamnese</h1>
 <div mat-dialog-content>
-    Tem certeza que deseja remover esse modelo de anamnese?
+    <p>
+        Tem certeza que deseja remover o modelo: <br />
+        <b>{{data.modeloNome}}</b>?
+    </p>
 </div>
 <div mat-dialog-actions>
     <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>

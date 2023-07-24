@@ -39,16 +39,16 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let r of clinicas">
-                <td>{{r.nome}}</td>
+            <tr *ngFor="let c of clinicas">
+                <td>{{c.nome}}</td>
                 <td>
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'clinica-detalhes/'+r.id }}]">
+                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'clinica-detalhes/'+c.id }}]">
                         <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
                         detalhes
                     </a>
                 </td>
                 <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(r.id)">
+                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(c.id, c.nome)">
                         <fa-icon [icon]="icons.faTrashCan"></fa-icon>
                         remover
                     </a>

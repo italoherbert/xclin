@@ -817,7 +817,7 @@ public class AtendimentoService {
 						
 		Atendimento atendimento = atendimentoOp.get();
 		Orcamento orcamento = atendimento.getOrcamento();
-		
+				
 		if ( orcamento.isPago() ) {
 			Clinica clinica = atendimento.getClinica();
 

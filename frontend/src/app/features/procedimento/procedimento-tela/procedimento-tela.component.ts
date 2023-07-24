@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { ProcedimentoFiltro } from 'src/app/core/bean/procedimento/procedimento-filtro';
 import { ProcedimentoService } from 'src/app/core/service/procedimento.service';
@@ -102,8 +102,8 @@ export class ProcedimentoTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( ProcedimentoRemoveDialog );
+  mostraRemoveDialog( id : any, procedimentoNome : any ) {
+    let dialogRef = this.matDialog.open( ProcedimentoRemoveDialog, { data : { procedimentoNome : procedimentoNome } } );
     dialogRef.afterClosed().subscribe( ( result ) => {
       if ( result === true )
         this.remove( id );
@@ -117,5 +117,7 @@ export class ProcedimentoTelaComponent {
   templateUrl: "procedimento-remove-dialog.html"
 })
 export class ProcedimentoRemoveDialog {
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data : any ) {}
 
 }

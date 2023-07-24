@@ -1,6 +1,9 @@
 <h1 mat-dialog-title>Remoção de procedimento</h1>
 <div mat-dialog-content>
-    Tem certeza que deseja remover esse procedimento?
+    <p>
+        Tem certeza que deseja remover o procedimento: <br />
+        <b>{{data.procedimentoNome}}</b> ?
+    </p>
 </div>
 <div mat-dialog-actions>
     <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>

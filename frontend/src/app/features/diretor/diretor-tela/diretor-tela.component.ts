@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { DiretorFiltro } from 'src/app/core/bean/diretor/diretor-filtro';
 import { DiretorService } from 'src/app/core/service/diretor.service';
@@ -85,8 +85,8 @@ export class DiretorTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open(DiretorRemoveDialog );
+  mostraRemoveDialog( id : any, diretorNome : any ) {
+    let dialogRef = this.matDialog.open( DiretorRemoveDialog, { data : { diretorNome : diretorNome } } );
     dialogRef.afterClosed().subscribe( (result) => {
       if ( result === true )
         this.remove( id );
@@ -102,5 +102,7 @@ export class DiretorTelaComponent {
   templateUrl: 'diretor-remove-dialog.html',
 })
 export class DiretorRemoveDialog {
+
+  constructor( @Inject(MAT_DIALOG_DATA) public data : any ) {}
 
 }

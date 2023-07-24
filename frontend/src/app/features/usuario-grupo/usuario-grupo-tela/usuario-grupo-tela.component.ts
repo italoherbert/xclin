@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -63,15 +63,6 @@ export class UsuarioGrupoTelaComponent {
     });
   }
 
-  mostraRemoveDialog( id : any ) {
-    let dialogRef = this.matDialog.open( UsuarioGrupoRemoveDialog );
-    dialogRef.afterClosed().subscribe( 
-      (result) => {
-        if ( result === true )
-          this.remove( id );
-    } );
-  }
-
   remove( id : any ) {
     this.infoMsg = null;
     this.erroMsg = null;
@@ -82,7 +73,7 @@ export class UsuarioGrupoTelaComponent {
       next: ( resp ) => {
         this.filtra();
 
-        this.infoMsg = 'Usuario deletado com sucesso!';
+        this.infoMsg = 'Grupo de usuario deletado com sucesso!';
         this.showSpinner = false;
       },
       error: ( erro ) => {
@@ -92,6 +83,15 @@ export class UsuarioGrupoTelaComponent {
     });
   }
 
+  
+  mostraRemoveDialog( id : any, grupoNome : any ) {
+    let dialogRef = this.matDialog.open( UsuarioGrupoRemoveDialog, { data : { grupoNome : grupoNome }} );
+    dialogRef.afterClosed().subscribe( 
+      (result) => {
+        if ( result === true )
+          this.remove( id );
+    } );
+  }
 
 }
 
@@ -100,5 +100,21 @@ export class UsuarioGrupoTelaComponent {
   templateUrl: 'usuario-grupo-remove-dialog.html',
 })
 export class UsuarioGrupoRemoveDialog {
+
+  resposta : string = '';
+  erroMsg : any = null;
+
+  constructor(
+    public matDialogRef : MatDialogRef<UsuarioGrupoRemoveDialog>,
+    @Inject(MAT_DIALOG_DATA) public data : any
+  ) {}
+
+  onRemove() {
+    if ( this.resposta.toLowerCase() == 'remova' ) {
+      this.matDialogRef.close( true );
+    } else {
+      this.erroMsg = "Você não informou corretamente o nome 'remova'.";
+    }
+  }
 
 }

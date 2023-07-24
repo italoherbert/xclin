@@ -1,6 +1,9 @@
-<h1 mat-dialog-title>Remoção de recurso</h1>
+<h1 mat-dialog-title>Remoção de especialidade</h1>
 <div mat-dialog-content>
-    Tem certeza que deseja remover essa especialidade com todos os seus relacionamentos?
+    <p>
+        Tem certeza que deseja remover a especialidade: <br />
+        <b>{{data.especialidadeNome}}</b>?
+    </p>
 </div>
 <div mat-dialog-actions>
     <button mat-button color="warn" [mat-dialog-close]="true">Remover</button>

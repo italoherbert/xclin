@@ -5,7 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { AtendimentoRemoveDialog, AtendimentoTelaComponent } from './atendimento-tela.component';
+import { AtendimentoFiltroComponent, AtendimentoRemoveDialog } from './atendimento-filtro.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatNativeDateModule, MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -15,7 +15,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
-    AtendimentoTelaComponent,
+    AtendimentoFiltroComponent,
     AtendimentoRemoveDialog
   ],
   imports: [
@@ -33,4 +33,4 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule
   ]
 })
-export class AtendimentoTelaModule { }
+export class AtendimentoFiltroModule { }

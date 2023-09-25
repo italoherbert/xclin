@@ -69,7 +69,7 @@ Isso irá executar o backend do projeto. Verifique o log do spring boot e, se tu
 
 ## Rodando o frontend
 
-Para rodar o frontend Angular 15, basta utilizar o comando "npm" para instalar as dependências:
+Para rodar o frontend Angular 15, basta navegar pelo terminal até a pasta frontend, presente na raiz do projeto e utilizar o comando "npm" para instalar as dependências:
 
 ```
 npm install

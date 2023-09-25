@@ -30,10 +30,7 @@ Foram utilizadas também as seguintes tecnologias:
 
 ## O banco de dados
 
-Para fazer o sistema funcionar é necessário criar e popular o banco de dados. Para isso, esteja certo de ter em seu computador o PostgreSQL Server 15.2 em execução e o cliente PSQL acessível pela linha de comandos e, então, faça o seguinte:
-
-* navegue pelo terminal até a pasta raiz do projeto
-* execute os seguintes comandos para criar o banco de dados:
+Para fazer o sistema funcionar é necessário criar e popular o banco de dados. Para isso, esteja certo de ter em seu computador o PostgreSQL Server 15.2 em execução e o cliente PSQL acessível pela linha de comandos e, então, execute o seguinte:
 
 ```
 psql -U postgres

@@ -19,6 +19,7 @@ O sistema foi feito com uso das seguintes tecnologias:
 * Java 17
 * Spring Boot 3.x
 * Angular 15
+* Angular Material
 * PostgreSQL 15.2
 
 Foram utilizadas também as seguintes tecnologias:

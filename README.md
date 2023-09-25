@@ -1,6 +1,8 @@
 # XCLIN - Sistema para Clínicas Médicas
 
-O XCLIN foi feito para suprir as necessidades de automação de clínicas médicas ou odontológicas. O sistema tem suporte a controle e agendamento de consultas, exames e procedimentos que podem ser vinculados a um profissional, data e turno de atendimento. 
+O XCLIN foi feito para suprir as necessidades de automação de clínicas médicas ou odontológicas. 
+
+O sistema tem suporte a controle e agendamento de consultas, exames e procedimentos que podem ser vinculados a um profissional, data e turno de atendimento. 
 
 O XCLIN também suporta controle de fluxo de caixa, bem como, usuários e restrição de acesso pelo perfil e cadastro e utilização de dados de clínicas, pacientes, usuários, recepcionistas, profissionais, diretores, etc.
 

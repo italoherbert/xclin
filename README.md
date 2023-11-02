@@ -50,6 +50,17 @@ Ou faça o seguinte:
 ```
 psql -U postgres xclin < xclin.sql
 ```
+
+## Crie as seguintes variáveis de ambiente:
+
+```
+XCLIN_DB_URL=jdbc:postgresql://localhost:5432/xclin
+XCLIN_DB_USERNAME=postgres
+XCLIN_DB_PASSWORD=postgres
+```
+
+Caso a configuração de banco de dados esteja diferente, altere no conteúdo das variáveis de ambiente.
+
 Agora o banco de dados já deve estar criado e você pode rodar o aplicativo "java/spring boot"!
 
 ## Rodando o backend

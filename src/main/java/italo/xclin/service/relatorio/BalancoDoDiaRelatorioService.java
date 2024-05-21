@@ -56,8 +56,8 @@ public class BalancoDoDiaRelatorioService {
 		} else {
 			Long usuarioId = request.getUsuarioId();
 			lancamentos = lancamentoRepository.clinicaUsuarioLancamentosDoDia( clinicaId, usuarioId, dataDia );
-		}
-				
+		}		
+		
 		double total = 0;
 		for( Lancamento l : lancamentos ) {
 			if ( l.getTipo() == LancamentoTipo.CREDITO ) {

@@ -138,7 +138,7 @@ export class AtendimentoRegistroComponent {
         }
 
         let procedimentos = resp.profissionalProcedimentos;
-        for( let i = 0; i < exames.length; i++ ) {
+        for( let i = 0; i < procedimentos.length; i++ ) {
           this.procedimentosNaoIncluidosIDs.push( procedimentos[ i ].procedimentoId );
           this.procedimentosNaoIncluidosNomes.push( procedimentos[ i ].procedimentoNome );
           this.procedimentosNaoIncluidosValores.push( procedimentos[ i ].procedimentoValor );

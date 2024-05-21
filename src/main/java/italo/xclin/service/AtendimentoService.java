@@ -271,7 +271,7 @@ public class AtendimentoService {
 		atendimento.setStatus( AtendimentoStatus.REGISTRADO ); 
 		
 		atendimentoRepository.save( atendimento );
-		
+				
 		if ( request.getOrcamento().getValorPago() > 0 ) {
 			Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );		
 			lanc.setDataLancamento( new Date() );

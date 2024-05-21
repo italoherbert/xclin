@@ -180,6 +180,8 @@ export class AtendimentoRegistroComponent {
         valor : this.procedimentosIncluidosValores[ i ]
       } );
     }
+
+    this.atendimentoSave.orcamento.valorTotal = this.valorTotal;
     
     this.showSpinner = true;
 

@@ -272,14 +272,16 @@ public class AtendimentoService {
 		
 		atendimentoRepository.save( atendimento );
 		
-		Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );		
-		lanc.setDataLancamento( new Date() );
-		lanc.setTipo( LancamentoTipo.CREDITO );
-		lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );
-		
-		lanc.setValor( request.getOrcamento().getValorPago() );
-		
-		lancamentoRepository.save( lanc );		
+		if ( request.getOrcamento().getValorPago() > 0 ) {
+			Lancamento lanc = lancamentoLoader.novoBean( usuarioLogado, clinica );		
+			lanc.setDataLancamento( new Date() );
+			lanc.setTipo( LancamentoTipo.CREDITO );
+			lanc.setObservacoes( Info.PAGAMENTO_CREDITADO );
+			
+			lanc.setValor( request.getOrcamento().getValorPago() );
+
+			lancamentoRepository.save( lanc );		
+		}		
 	}
 	
 	public void registraRetorno( Long atendimentoId, AtendimentoRetornoSaveRequest request ) throws ServiceException {

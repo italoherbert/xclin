@@ -13,6 +13,14 @@ export class ClinicaService {
 
   constructor( private http: HttpClient ) { }
 
+  getInicialPageLogo(): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/clinica/logo/initial-page', { headers: headers, withCredentials: true } )
+  }
+
   getLogo( clinicaId : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

@@ -5,6 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.databind.JsonSerializable.Base;
+
 import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.model.Clinica;
@@ -38,6 +40,22 @@ public class ClinicaLogoService {
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
 
 		Clinica clinica = clinicaOp.get();
+        return clinicaLogoSharedService.getLogo( clinica );
+    }
+
+    public Base64ImageResponse getPaginaInicialLogo( Long[] clinicasIDs ) throws ServiceException {
+        if ( clinicasIDs == null )
+            return clinicaLogoSharedService.getLogo( null );
+        if ( clinicasIDs.length != 1 )
+            return clinicaLogoSharedService.getLogo( null );
+        
+        Long clinicaId = clinicasIDs[ 0 ];
+        
+        Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
+		if ( !clinicaOp.isPresent() )
+			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
+
+		Clinica clinica = clinicaOp.get();        
         return clinicaLogoSharedService.getLogo( clinica );
     }
 

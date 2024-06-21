@@ -16,12 +16,16 @@ import italo.xclin.model.response.Base64ImageResponse;
 public class ClinicaLogoSharedService {
     
     public final static String DEFAULT_LOGO_IMAGE_TYPE = "png";
+    public final static String LOGO_IMAGE_PATH = "/xclin-logo.png";
 
 	@Autowired
 	private ImageUtil imageUtil;			
 
 	public Base64ImageResponse getLogo( Clinica clinica ) throws ServiceException {		
-		String logoBase64 = clinica.getLogomarca();
+        
+		String logoBase64 = null;
+        if ( clinica != null )
+            logoBase64 = clinica.getLogomarca();
 
         Base64ImageResponse resp = new Base64ImageResponse();
 
@@ -32,7 +36,7 @@ public class ClinicaLogoSharedService {
             semLogo = true;
 
         if ( semLogo ) {
-            InputStream in = getClass().getResourceAsStream( "/xclin-logo.png" );
+            InputStream in = getClass().getResourceAsStream( LOGO_IMAGE_PATH );
             if ( in == null )
                 throw new ServiceException( Erro.FALHA_LEITURA_LOGO_DEFAULT );
 

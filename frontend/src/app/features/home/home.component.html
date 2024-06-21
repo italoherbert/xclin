@@ -1,8 +1,17 @@
-<h1 class="text-center fs-1 mt-5">Tela inicial</h1>
 
-<div class="d-flex justify-content-center mt-5">
-    <p class="fs-4 p-3 rounded-2" style="background-color: #99A; color: #33A; font-weight: bold">
-        Olá <span class="text-dark">{{username}}</span>, você está logado como: 
-        <span class="text-dark">{{perfilLabel}}</span>
-    </p>
+<div class="container d-flex flex-column justify-content-center">    
+    <mat-card>
+        <mat-card-header>
+            <h3><b>Seja bem vindo!</b></h3>
+        </mat-card-header>
+        <mat-card-content>            
+            <p class="fs-4 p-3 rounded-2 border border-light" style="color: #33A; font-weight: bold">
+                Olá <span class="text-dark">{{username}}</span>, você está logado como: 
+                <span class="text-dark">{{perfilLabel}}</span>                
+            </p>
+            <div class="text-center">
+                <img [src]="logo" height="200"/>
+            </div>
+        </mat-card-content>
+    </mat-card>    
 </div>

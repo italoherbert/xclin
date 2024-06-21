@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import italo.xclin.exception.SistemaException;
+import italo.xclin.logica.JWTTokenInfo;
+import italo.xclin.logica.JWTTokenLogica;
 import italo.xclin.model.request.save.ClinicaLogoSaveRequest;
 import italo.xclin.model.response.Base64ImageResponse;
 import italo.xclin.service.ClinicaLogoService;
@@ -27,15 +29,28 @@ public class ClinicaLogoController {
     @Autowired
     private Autorizador autorizador;
 
+    @Autowired
+    private JWTTokenLogica jwtTokenLogica;
+
     @PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/{clinicaId}")
-	public Base64ImageResponse clinicaLogo( 
+	public Base64ImageResponse getLogo( 
             @RequestHeader( "Authorization" ) String authorizationHeader,     
             @PathVariable Long clinicaId ) throws SistemaException {
 
         autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
 		return clinicaLogoService.getLogo( clinicaId );
 	}
+
+    @PreAuthorize("hasAuthority('clinicaREAD')")
+	@GetMapping("/initial-page")
+    public Base64ImageResponse getPaginaInicialLogo(
+            @RequestHeader( "Authorization" ) String authorizationHeader ) throws SistemaException {
+        JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+        Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+
+        return clinicaLogoService.getPaginaInicialLogo( clinicasIDs );
+    }
 
     @PreAuthorize("hasAuthority('clinicaWRITE')")
 	@PutMapping("/{clinicaId}")

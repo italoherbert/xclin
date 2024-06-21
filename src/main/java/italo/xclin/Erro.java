@@ -125,4 +125,8 @@ public interface Erro {
 	public final static String FALHA_GER_PDF = "Falha na geração do relatório em formato PDF.";
 	
 	public final static String FALHA_LEITURA_IMG_DE_RELATORIO = "A imagem: $1 do relatório não foi encontrada no classpath.";
+
+	public final static String ARQ_IMG_NAO_BASE64 = "A imagem no banco de dados está em formato inválido.";
+	public final static String FALHA_LEITURA_LOGO_DEFAULT = "Não foi possível carregar a logomarca default.";
+
 }

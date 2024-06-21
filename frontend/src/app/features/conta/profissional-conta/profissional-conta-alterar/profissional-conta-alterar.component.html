@@ -22,8 +22,8 @@
 
                 <div class="col-sm-6">
                     <mat-form-field appearance="fill" class="w-100">
-                        <mat-label>Seu nome de usuário</mat-label>
-                        <mat-select placeholder="Seu nome de usuário" [(ngModel)]="profissionalSave.funcao">
+                        <mat-label>Sua função</mat-label>
+                        <mat-select placeholder="Sua função" [(ngModel)]="profissionalSave.funcao">
                             <mat-option *ngFor="let f of funcoes" [value]="f.name">
                                 {{f.label}}
                             </mat-option>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { ClinicaSave } from '../bean/clinica/clinica-save';
 import { ClinicaFiltro } from '../bean/clinica/clinica-filtro';
+import { ClinicaLogoSave } from '../bean/clinica/clinica-logo-save';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,30 @@ import { ClinicaFiltro } from '../bean/clinica/clinica-filtro';
 export class ClinicaService {
 
   constructor( private http: HttpClient ) { }
+
+  getLogo( clinicaId : any ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.get( '/api/clinica/logo/'+clinicaId, { headers: headers, withCredentials: true } )
+  }
+
+  salvaLogo( clinicaId : any, logo : ClinicaLogoSave ) : Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.put( '/api/clinica/logo/'+clinicaId, logo, { headers: headers, withCredentials: true } )  
+  }
+
+  paraLogoDefault( clinicaId : any ) : Observable<any> {
+    let headers = new HttpHeaders({
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.put( '/api/clinica/logo/to-default/'+clinicaId, {}, { headers: headers, withCredentials: true } )  
+  }
 
   listaPorNome( nomeIni : any, limit : any ): Observable<any> {
     let headers = new HttpHeaders({

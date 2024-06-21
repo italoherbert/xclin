@@ -81,6 +81,7 @@ import { ProfissionalContaProcedimentoSaveComponent } from './features/conta/pro
 import { AtendimentoRetornoComponent } from './features/atendimento/atendimento-retorno/atendimento-retorno.component';
 import { SuporteContaDetalhesComponent } from './features/conta/suporte-conta/suporte-conta-detalhes/suporte-conta-detalhes.component';
 import { SuporteContaAlterarComponent } from './features/conta/suporte-conta/suporte-conta-alterar/suporte-conta-alterar.component';
+import { ClinicaLogoComponent } from './features/clinica/clinica-logo/clinica-logo.component';
 
 const routes: Routes = [
   { path: '', redirectTo:'login', pathMatch: 'full'},
@@ -132,6 +133,7 @@ const routes: Routes = [
     { path: 'clinica-detalhes/:id', component: ClinicaDetalhesComponent, outlet: 'page' },
     { path: 'clinica-save/:id', component: ClinicaSaveComponent, outlet: 'page' },
     { path: 'nao-admin-clinica-tela', component: NaoAdminClinicaTelaComponent, outlet: 'page' },
+    { path: 'clinica-logo/:id', component: ClinicaLogoComponent, outlet: 'page' },
 
     { path: 'diretor-tela', component: DiretorTelaComponent, outlet: 'page' },
     { path: 'diretor-detalhes/:id', component: DiretorDetalhesComponent, outlet: 'page' },

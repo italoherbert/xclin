@@ -1,5 +1,6 @@
 package italo.xclin.service.relatorio;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -15,13 +16,16 @@ import italo.xclin.Erro;
 import italo.xclin.enums.tipos.LancamentoTipo;
 import italo.xclin.exception.ServiceException;
 import italo.xclin.logica.Converter;
+import italo.xclin.logica.ImageUtil;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Lancamento;
 import italo.xclin.model.request.relatorio.BalancoDoDiaRelatorioRequest;
+import italo.xclin.model.response.Base64ImageResponse;
 import italo.xclin.model.response.load.relatorio.BalancoDoDiaLoadTelaResponse;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.LancamentoRepository;
 import italo.xclin.service.relatorio.jrdatasource.LancamentosDoDiaJRDataSource;
+import italo.xclin.service.shared.ClinicaLogoSharedService;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -37,9 +41,15 @@ public class BalancoDoDiaRelatorioService {
 	
 	@Autowired
 	private ClinicaRepository clinicaRepository;
+
+	@Autowired
+	private ClinicaLogoSharedService clinicaLogoSharedService;
 	
 	@Autowired
 	private Converter converter;
+
+	@Autowired
+	private ImageUtil imageUtil;
 	
 	public byte[] geraRelatorio( Long clinicaId, BalancoDoDiaRelatorioRequest request ) throws ServiceException {
 		Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
@@ -69,7 +79,9 @@ public class BalancoDoDiaRelatorioService {
 		
 		LancamentosDoDiaJRDataSource lancamentosJRDS = new LancamentosDoDiaJRDataSource( lancamentos, converter );
 				
-		InputStream logoIS = getClass().getResourceAsStream( "/xclin-logo.png" );
+		Base64ImageResponse base64ImageResp = clinicaLogoSharedService.getLogo( clinica );
+		byte[] logoBytes = imageUtil.base64ToBytes( base64ImageResp.getImageBase64() );
+		InputStream logoIS = new ByteArrayInputStream( logoBytes );
 		
 		Map<String, Object> paramsMap = new HashMap<>();
 		paramsMap.put( "logo", logoIS );

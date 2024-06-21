@@ -1,12 +1,18 @@
 package italo.xclin.service.shared;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import italo.xclin.Erro;
+import italo.xclin.exception.ServiceException;
+import italo.xclin.logica.ImageUtil;
 import italo.xclin.model.Clinica;
+import italo.xclin.model.response.Base64ImageResponse;
 import italo.xclin.model.response.ListaResponse;
 import italo.xclin.repository.ClinicaRepository;
 

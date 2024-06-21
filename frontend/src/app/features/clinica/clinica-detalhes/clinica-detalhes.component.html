@@ -5,6 +5,10 @@
         <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
         <span class="mx-3">Alterar clinica</span>
     </a>
+    <a mat-raised-button color="primary" class="my-1 mx-2" [routerLink]="[ '/app', { outlets : { page : 'clinica-logo/'+clinicaDetalhes.clinica.id }}]">
+        <fa-icon [icon]="icons.faPenToSquare"></fa-icon>
+        <span class="mx-3">Alterar logomarca</span>
+    </a>
 </div>
 
 <br />

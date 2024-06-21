@@ -51,7 +51,7 @@ public class ClinicaService {
 	
 	@Autowired
 	private LocalidadesSharedService localidadesSharedService;	
-		
+			
 	public void registra( Long logadoUID, ClinicaSaveRequest request ) throws ServiceException {
 		String nome = request.getNome();
 		

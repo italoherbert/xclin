@@ -26,6 +26,7 @@ import italo.xclin.model.response.load.detalhes.ClinicaDetalhesLoadResponse;
 import italo.xclin.model.response.load.edit.ClinicaEditLoadResponse;
 import italo.xclin.model.response.load.reg.ClinicaRegLoadResponse;
 import italo.xclin.service.ClinicaService;
+import italo.xclin.service.autorizador.Autorizador;
 import italo.xclin.validator.ClinicaValidator;
 
 @RestController
@@ -40,6 +41,9 @@ public class ClinicaController {
 	
 	@Autowired
 	private JWTTokenLogica jwtTokenLogica;
+
+	@Autowired
+	private Autorizador autorizador;
 	
 	@PreAuthorize("hasAuthority('clinicaRegWRITE')")
 	@PostMapping("/registra")
@@ -57,9 +61,12 @@ public class ClinicaController {
 	@PreAuthorize("hasAuthority('clinicaWRITE')")
 	@PutMapping("/altera/{id}")
 	public ResponseEntity<Object> altera( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long id, 
 			@RequestBody ClinicaSaveRequest request ) throws SistemaException {
 		
+		autorizador.autorizaPorClinica( authorizationHeader, id ); 
+
 		clinicaValidator.validaSave( request );
 		clinicaService.altera( id, request );
 		return ResponseEntity.ok().build(); 	
@@ -94,7 +101,12 @@ public class ClinicaController {
 		
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/get/{id}")
-	public ResponseEntity<Object> get( @PathVariable Long id ) throws SistemaException {
+	public ResponseEntity<Object> get( 
+		@RequestHeader( "Authorization" ) String authorizationHeader,
+		@PathVariable Long id ) throws SistemaException {
+		
+		autorizador.autorizaPorClinica( authorizationHeader, id ); 
+
 		ClinicaResponse resp = clinicaService.get( id );
 		return ResponseEntity.ok( resp );
 	}
@@ -102,7 +114,10 @@ public class ClinicaController {
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/get/edit/{id}")
 	public ResponseEntity<Object> getEditLoad( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long id ) throws SistemaException {
+
+		autorizador.autorizaPorClinica( authorizationHeader, id ); 
 		
 		ClinicaEditLoadResponse resp = clinicaService.getEditLoad( id );
 		return ResponseEntity.ok( resp );
@@ -111,7 +126,10 @@ public class ClinicaController {
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/get/detalhes/{id}")
 	public ResponseEntity<Object> getDetalhesLoad( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,	
 			@PathVariable Long id ) throws SistemaException {
+
+		autorizador.autorizaPorClinica( authorizationHeader, id );
 		
 		ClinicaDetalhesLoadResponse resp = clinicaService.getDetalhesLoad( id );
 		return ResponseEntity.ok( resp );
@@ -127,10 +145,13 @@ public class ClinicaController {
 	@PreAuthorize("hasAuthority('clinicaDELETE')")
 	@DeleteMapping("/deleta/{id}")
 	public ResponseEntity<Object> deleta( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable Long id ) throws SistemaException {
+		
+		autorizador.autorizaPorClinica( authorizationHeader, id );
 		
 		clinicaService.deleta( id );
 		return ResponseEntity.ok().build();
 	}
-	
+		
 }

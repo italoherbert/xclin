@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Diretor } from 'src/app/core/bean/diretor/diretor';
 import { NaoAdminDiretorFiltro } from 'src/app/core/bean/diretor/nao-admin-diretor-filtro';
 import { DiretorService } from 'src/app/core/service/diretor.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -27,11 +29,12 @@ export class NaoAdminDiretorTelaComponent {
     filtroNome : '*',
   }
 
-  diretores : any;
-
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
   clinicaId : number = 0;
+
+  diretoresColumns: string[] = ['nome', 'detalhes'];
+  diretoresDataSource = new MatTableDataSource<Diretor>([]);
 
   constructor( 
     private diretorService: DiretorService, 
@@ -68,8 +71,8 @@ export class NaoAdminDiretorTelaComponent {
 
     this.diretorService.filtraDiretoresNaoAdmin( this.clinicaId, this.diretorFiltro ).subscribe({
       next: ( resp ) => {
-        this.diretores = resp;
-        if ( this.diretores.length == 0 )
+        this.diretoresDataSource.data = resp;
+        if ( this.diretoresDataSource.data.length == 0 )
           this.infoMsg = "Nenhum diretor encontrado.";
         this.showSpinner = false;
       },

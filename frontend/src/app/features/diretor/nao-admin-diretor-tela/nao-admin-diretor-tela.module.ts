@@ -7,6 +7,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { NaoAdminDiretorTelaComponent } from './nao-admin-diretor-tela.component';
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
 
 
 
@@ -22,7 +24,10 @@ import { NaoAdminDiretorTelaComponent } from './nao-admin-diretor-tela.component
     MatInputModule,
     MatSelectModule,
     MatOptionModule,
-    MatButtonModule
+    MatButtonModule,
+    MatTableModule,
+
+    PaginatorModule
   ]
 })
 export class NaoAdminDiretorTelaModule { }

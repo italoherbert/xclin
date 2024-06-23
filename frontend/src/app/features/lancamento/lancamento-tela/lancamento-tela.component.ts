@@ -7,6 +7,7 @@ import { LancamentoService } from 'src/app/core/service/lancamento.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
 import * as moment from 'moment';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-lancamento-tela',
@@ -34,13 +35,15 @@ export class LancamentoTelaComponent {
     filtroUsername : ''
   }
 
-  lancamentos : Lancamento[] = [];
   saldos : number[] = [];
 
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
 
   clinicaId : number = 0;
+
+  lancamentosColumns: string[] = ['dataLancamento', 'tipo', 'valor', 'saldo', 'detalhes', 'remover'];
+  lancamentosDataSource = new MatTableDataSource<Lancamento>([]);
 
   constructor(
     private matDialog : MatDialog,
@@ -82,13 +85,13 @@ export class LancamentoTelaComponent {
 
     this.lancamentoService.filtra( this.clinicaId, this.lancamentoFiltro ).subscribe({
       next: (resp) => {
-        this.lancamentos = resp;
+        this.lancamentosDataSource.data = resp;
 
         this.saldos.splice( 0, this.saldos.length );
 
         let saldo = 0;
-        for( let i = 0; i < this.lancamentos.length; i++ ) {
-          let l = this.lancamentos[ i ];
+        for( let i = 0; i < this.lancamentosDataSource.data.length; i++ ) {
+          let l = this.lancamentosDataSource.data[ i ];
           if ( l.tipo === 'CREDITO' ) {
             saldo += l.valor;
           } else if ( l.tipo == 'DEBITO' ) {
@@ -97,7 +100,7 @@ export class LancamentoTelaComponent {
           this.saldos.push( saldo );
         }
         
-        if ( this.lancamentos.length === 0 )
+        if ( this.lancamentosDataSource.data.length === 0 )
           this.infoMsg = "Nenhum lançamento encontrado pelos critérios de busca informados.";
           
         this.showSpinner = false;

@@ -42,31 +42,34 @@
     </div>
 </div>
 
-<div class="table-responsive mt-3" style="height: 20em">    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Detalhes</th>
-                <th>Remover</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let procedimento of procedimentos">
-                <td>{{procedimento.nome}}</td>
-                <td>
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'procedimento-detalhes/'+procedimento.id }}]">
-                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
-                        detalhes
-                    </a>
-                </td>
-                <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(procedimento.id, procedimento.nome)">
-                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
-                        remover
-                    </a>
-                </td>
-            </tr>
-        </tbody>
+<div class="mat-elevation-z8 mt-3">
+    <table mat-table [dataSource]="procedimentosDataSource">
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let procedimento"> {{procedimento.nome}} </td>
+        </ng-container>        
+        <ng-container matColumnDef="detalhes">
+            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
+            <td mat-cell *matCellDef="let procedimento">
+                <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'procedimento-detalhes/'+procedimento.id }}]">
+                    <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                    detalhes
+                </a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="remover">
+            <th mat-header-cell *matHeaderCellDef>Remover</th>
+            <td mat-cell *matCellDef="let procedimento">
+                <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(procedimento.id, procedimento.nome)">
+                    <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                    remover
+                </a>
+            </td>
+        </ng-container> 
+
+        <tr mat-header-row *matHeaderRowDef="procedimentosColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: procedimentosColumns;"></tr>
     </table>
+
+    <app-paginator [tableDataSource]="procedimentosDataSource"></app-paginator>
 </div>

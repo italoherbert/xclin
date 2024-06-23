@@ -5,8 +5,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
-
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 
     MatCardModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTableModule,
+
+    PaginatorModule
   ]
 })
 export class UsuarioGrupoDetalhesModule { }

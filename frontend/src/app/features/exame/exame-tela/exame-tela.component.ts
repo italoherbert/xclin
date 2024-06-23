@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Exame } from 'src/app/core/bean/exame/exame';
 import { ExameFiltro } from 'src/app/core/bean/exame/exame-filtro';
 import { ExameService } from 'src/app/core/service/exame.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -28,11 +30,12 @@ export class ExameTelaComponent {
     filtroNome : '*'  
   }
 
-  exames : any[] = [];
-
   clinicaId : number = 0;
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
+
+  examesColumns: string[] = ['nome', 'detalhes', 'remover'];
+  examesDataSource = new MatTableDataSource<Exame>([]);
 
   constructor(
     private matDialog : MatDialog, 
@@ -70,8 +73,8 @@ export class ExameTelaComponent {
 
     this.exameService.filtra( this.clinicaId, this.exameFiltro ).subscribe({
       next: ( resp ) => {
-        this.exames = resp;
-        if ( this.exames.length == 0 )
+        this.examesDataSource.data = resp;
+        if ( this.examesDataSource.data.length == 0 )
           this.infoMsg = "Nenhum exame encontrado.";
         this.showSpinner = false;
       },

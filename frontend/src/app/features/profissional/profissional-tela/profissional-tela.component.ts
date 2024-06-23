@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Profissional } from 'src/app/core/bean/profissional/profissional';
 import { ProfissionalFiltro } from 'src/app/core/bean/profissional/profissional-filtro';
 import { ProfissionalService } from 'src/app/core/service/profissional.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -30,7 +32,8 @@ export class ProfissionalTelaComponent {
 
   clinicaId : number = 0;
 
-  profissionais : any;
+  profissionaisColumns : string[] = [ 'nome', 'detalhes', 'remover' ];
+  profissionaisDataSource = new MatTableDataSource<Profissional>([]);
 
   constructor( 
     private matDialog: MatDialog,
@@ -45,8 +48,8 @@ export class ProfissionalTelaComponent {
 
     this.profissionalService.filtraProfissionais( this.clinicaId, this.profissionalFiltro ).subscribe({
       next: ( resp ) => {
-        this.profissionais = resp;
-        if ( this.profissionais.length == 0 )
+        this.profissionaisDataSource.data = resp;
+        if ( this.profissionaisDataSource.data.length == 0 )
           this.infoMsg = "Nenhum profissional encontrado.";
         this.showSpinner = false;
       },

@@ -1,6 +1,8 @@
 import { Component, INJECTOR, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Recurso } from 'src/app/core/bean/recurso/recurso';
 import { RecursoFiltro } from 'src/app/core/bean/recurso/recurso-filtro';
 import { RecursoService } from 'src/app/core/service/recurso.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -28,7 +30,8 @@ export class RecursoTelaComponent {
     nomeIni : '*'
   }
 
-  recursos : any;
+  recursosColumns : string[] = [ 'nome', 'detalhes', 'remover' ];
+  recursosDataSource = new MatTableDataSource<Recurso>([]);
 
   constructor(
     private matDialog : MatDialog, 
@@ -43,8 +46,8 @@ export class RecursoTelaComponent {
 
     this.recursoService.filtraRecursos( this.recursoFiltro ).subscribe({
       next: ( resp ) => {
-        this.recursos = resp;
-        if ( this.recursos.length == 0 )
+        this.recursosDataSource.data = resp;
+        if ( this.recursosDataSource.data.length == 0 )
           this.infoMsg = "Nenhum recurso encontrado.";
         this.showSpinner = false;
       },

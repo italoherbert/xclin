@@ -10,6 +10,8 @@ import { LancamentoRemoveDialog, LancamentoTelaComponent } from './lancamento-te
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
 
 
 
@@ -30,7 +32,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatOptionModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+
+    PaginatorModule
   ]
 })
 export class LancamentoTelaModule { }

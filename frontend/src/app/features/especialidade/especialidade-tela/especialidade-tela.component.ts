@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Especialidade } from 'src/app/core/bean/especialidade/especialidade';
 import { EspecialidadeFiltro } from 'src/app/core/bean/especialidade/especialidade-filtro';
 import { EspecialidadeService } from 'src/app/core/service/especialidade.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -32,7 +34,8 @@ export class EspecialidadeTelaComponent {
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
 
-  especialidades : any;
+  especialidadesColumns: string[] = ['nome', 'detalhes', 'remover'];
+  especialidadesDataSource = new MatTableDataSource<Especialidade>([]);
 
   constructor(
     private matDialog : MatDialog, 
@@ -70,8 +73,8 @@ export class EspecialidadeTelaComponent {
 
     this.especialidadeService.filtraEspecialidades( this.clinicaId, this.especialidadeFiltro ).subscribe({
       next: ( resp ) => {
-        this.especialidades = resp;
-        if ( this.especialidades.length == 0 )
+        this.especialidadesDataSource.data = resp;
+        if ( this.especialidadesDataSource.data.length == 0 )
           this.infoMsg = "Nenhuma especialidade encontrada.";
         this.showSpinner = false;
       },

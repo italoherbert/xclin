@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Recepcionista } from 'src/app/core/bean/recepcionista/recepcionista';
 import { RecepcionistaFiltro } from 'src/app/core/bean/recepcionista/recepcionista-filtro';
 import { RecepcionistaService } from 'src/app/core/service/recepcionista.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -30,7 +32,8 @@ export class RecepcionistaTelaComponent {
 
   clinicaId : number = 0;
 
-  recepcionistas : any;
+  recepcionistasColumns : string[] = [ 'nome', 'detalhes', 'remover' ];
+  recepcionistasDataSource = new MatTableDataSource<Recepcionista>([]);
 
   constructor( 
     private matDialog: MatDialog,
@@ -45,8 +48,8 @@ export class RecepcionistaTelaComponent {
 
     this.recepcionistaService.filtraRecepcionistas( this.clinicaId, this.recepcionistaFiltro ).subscribe({
       next: ( resp ) => {
-        this.recepcionistas = resp;
-        if ( this.recepcionistas.length == 0 )
+        this.recepcionistasDataSource.data = resp;
+        if ( this.recepcionistasDataSource.data.length == 0 )
           this.infoMsg = "Nenhum recepcionista encontrado.";
         this.showSpinner = false;
       },

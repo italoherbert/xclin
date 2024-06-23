@@ -9,6 +9,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
 
 
 
@@ -28,7 +30,10 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatTableModule,
+
+    PaginatorModule
   ]
 })
 export class PacienteTelaModule { }

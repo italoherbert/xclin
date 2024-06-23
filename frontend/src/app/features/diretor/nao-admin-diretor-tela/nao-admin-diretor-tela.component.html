@@ -33,24 +33,25 @@
     </div>
 </div>
 
-<div class="table-responsive mt-3" style="height: 20em">    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Detalhes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let d of diretores">
-                <td>{{d.nome}}</td>
-                <td>
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'diretor-detalhes/'+d.id }}]">
-                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
-                        detalhes
-                    </a>
-                </td>                
-            </tr>
-        </tbody>
+<div class="mat-elevation-z8 mt-3">
+    <table mat-table [dataSource]="diretoresDataSource">
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let diretor"> {{diretor.nome}} </td>
+        </ng-container>        
+        <ng-container matColumnDef="detalhes">
+            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
+            <td mat-cell *matCellDef="let diretor">
+                <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'diretor-detalhes/'+diretor.id }}]">
+                    <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                    detalhes
+                </a>
+            </td>
+        </ng-container>
+       
+        <tr mat-header-row *matHeaderRowDef="diretoresColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: diretoresColumns;"></tr>
     </table>
+
+    <app-paginator [tableDataSource]="diretoresDataSource"></app-paginator>
 </div>

@@ -6,6 +6,8 @@ import { SistemaService } from 'src/app/core/service/sistema.service';
 
 import { UsuarioGrupoFiltro } from 'src/app/core/bean/usuario-grupo/usuario-grupo-filtro';
 import { UsuarioGrupoService } from 'src/app/core/service/usuario-grupo.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { UsuarioGrupo } from 'src/app/core/bean/usuario-grupo/usuario-grupo';
 
 
 
@@ -32,7 +34,8 @@ export class UsuarioGrupoTelaComponent {
     nomeIni : '*'
   }
 
-  grupos : any;
+  usuarioGruposColumns : string[] = [ 'nome', 'detalhes', 'remover' ];
+  usuarioGruposDataSource = new MatTableDataSource<UsuarioGrupo>([]);
 
   constructor( 
     private usuarioGrupoService: UsuarioGrupoService, 
@@ -51,8 +54,8 @@ export class UsuarioGrupoTelaComponent {
 
     this.usuarioGrupoService.filtraGrupos( this.grupoFiltro ).subscribe({
       next: ( resp ) => {
-        this.grupos = resp;
-        if ( this.grupos.length == 0 )
+        this.usuarioGruposDataSource.data = resp;
+        if ( this.usuarioGruposDataSource.data.length == 0 )
           this.infoMsg = "Nenhum grupo encontrado.";
         this.showSpinner = false;
       },

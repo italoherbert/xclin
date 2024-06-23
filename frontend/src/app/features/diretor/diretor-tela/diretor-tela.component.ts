@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Diretor } from 'src/app/core/bean/diretor/diretor';
 import { DiretorFiltro } from 'src/app/core/bean/diretor/diretor-filtro';
 import { DiretorService } from 'src/app/core/service/diretor.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -30,7 +32,8 @@ export class DiretorTelaComponent {
 
   clinicaId : number = 0;
 
-  diretores : any;
+  diretoresColumns: string[] = ['nome', 'detalhes', 'remover'];
+  diretoresDataSource = new MatTableDataSource<Diretor>([]);
 
   constructor( 
     private matDialog: MatDialog,
@@ -45,8 +48,8 @@ export class DiretorTelaComponent {
 
     this.diretorService.filtraDiretores( this.clinicaId, this.diretorFiltro ).subscribe({
       next: ( resp ) => {
-        this.diretores = resp;
-        if ( this.diretores.length == 0 )
+        this.diretoresDataSource.data = resp;
+        if ( this.diretoresDataSource.data.length == 0 )
           this.infoMsg = "Nenhum diretor encontrado.";
         this.showSpinner = false;
       },

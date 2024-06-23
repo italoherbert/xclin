@@ -7,6 +7,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ClinicaAutocompleteInputModule } from 'src/app/shared/clinica-autocomplete-input/clinica-autocomplete-input.module';
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
 
 
 
@@ -19,12 +21,14 @@ import { ClinicaAutocompleteInputModule } from 'src/app/shared/clinica-autocompl
     CommonModule,
     SharedModule,
 
-    ClinicaAutocompleteInputModule,
-
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatTableModule,
+
+    ClinicaAutocompleteInputModule,
+    PaginatorModule
   ]
 })
 export class RecepcionistaTelaModule { }

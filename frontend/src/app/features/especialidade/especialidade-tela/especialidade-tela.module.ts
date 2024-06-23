@@ -8,6 +8,8 @@ import { EspecialidadeRemoveDialog, EspecialidadeTelaComponent } from './especia
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,10 @@ import { MatOptionModule } from '@angular/material/core';
     MatButtonModule,
     MatDialogModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    MatTableModule,
+
+    PaginatorModule
   ]
 })
 export class EspecialidadeTelaModule { }

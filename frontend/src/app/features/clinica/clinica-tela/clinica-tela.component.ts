@@ -1,6 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Clinica } from 'src/app/core/bean/clinica/clinica';
 import { ClinicaFiltro } from 'src/app/core/bean/clinica/clinica-filtro';
 import { ClinicaService } from 'src/app/core/service/clinica.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -28,7 +30,8 @@ export class ClinicaTelaComponent {
     nomeIni : ''
   }
 
-  clinicas : any;
+  clinicasColumns: string[] = ['nome', 'detalhes', 'remover'];
+  clinicasDataSource = new MatTableDataSource<Clinica>([]);
 
   constructor(
     private matDialog : MatDialog, 
@@ -43,8 +46,8 @@ export class ClinicaTelaComponent {
 
     this.clinicaService.filtraClinicas( this.clinicaFiltro ).subscribe({
       next: ( resp ) => {
-        this.clinicas = resp;
-        if ( this.clinicas.length == 0 )
+        this.clinicasDataSource.data = resp;
+        if ( this.clinicasDataSource.data.length == 0 )
           this.infoMsg = "Nenhuma clínica encontrada.";
         this.showSpinner = false;
       },

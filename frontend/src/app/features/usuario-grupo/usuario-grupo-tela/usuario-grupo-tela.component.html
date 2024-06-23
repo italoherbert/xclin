@@ -29,31 +29,34 @@
     </div>
 </div>
 
-<div class="table-responsive mt-3">    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Detalhes</th>
-                <th>Remover</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let g of grupos">
-                <td>{{g.nome}}</td>
-                <td>
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-detalhes/'+g.id }}]">
-                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
-                        detalhes
-                    </a>
-                </td>
-                <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(g.id, g.nome)">
-                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
-                        remover
-                    </a>
-                </td>
-            </tr>
-        </tbody>
+<div class="mat-elevation-z8 mt-3">
+    <table mat-table [dataSource]="usuarioGruposDataSource">
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let grupo"> {{grupo.nome}} </td>
+        </ng-container>        
+        <ng-container matColumnDef="detalhes">
+            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
+            <td mat-cell *matCellDef="let grupo">
+                <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'usuario-grupo-detalhes/'+grupo.id }}]">
+                    <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                    detalhes
+                </a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="remover">
+            <th mat-header-cell *matHeaderCellDef>Remover</th>
+            <td mat-cell *matCellDef="let grupo">
+                <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(grupo.id, grupo.nome)">
+                    <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                    remover
+                </a>
+            </td>
+        </ng-container> 
+
+        <tr mat-header-row *matHeaderRowDef="usuarioGruposColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: usuarioGruposColumns;"></tr>
     </table>
+
+    <app-paginator [tableDataSource]="usuarioGruposDataSource"></app-paginator>
 </div>

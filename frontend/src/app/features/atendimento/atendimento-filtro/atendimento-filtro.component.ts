@@ -1,8 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 import * as moment from 'moment';
+import { Atendimento } from 'src/app/core/bean/atendimento/atendimento';
 
 import { AtendimentoFiltro } from 'src/app/core/bean/atendimento/atendimento-filtro';
 import { AtendimentoService } from 'src/app/core/service/atendimento.service';
@@ -40,7 +42,6 @@ export class AtendimentoFiltroComponent {
     incluirTodosStatuses: false
   }
 
-  atendimentos : any;
   clinicaId : number = 0;
 
   clinicasIDs : number[] = [];
@@ -48,6 +49,9 @@ export class AtendimentoFiltroComponent {
 
   statuses : any[] = [];
   turnos : any[] = [];
+
+  atendimentosColumns: string[] = ['nome', 'dataAtendimento', 'turno', 'detalhes', 'remover' ];
+  atendimentosDataSource = new MatTableDataSource<Atendimento>([]);
 
   constructor( 
     private matDialog: MatDialog,
@@ -103,8 +107,8 @@ export class AtendimentoFiltroComponent {
 
     this.atendimentoService.filtraAtendimentos( this.clinicaId, this.atendimentoFiltro ).subscribe({
       next: ( resp ) => {
-        this.atendimentos = resp;
-        if ( this.atendimentos.length == 0 )
+        this.atendimentosDataSource.data = resp;
+        if ( this.atendimentosDataSource.data.length == 0 )
           this.infoMsg = "Nenhuma atendimento encontrada.";
         this.showSpinner = false;
       },

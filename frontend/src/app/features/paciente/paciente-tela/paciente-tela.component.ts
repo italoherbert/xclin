@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Paciente } from 'src/app/core/bean/paciente/paciente';
 import { PacienteFiltro } from 'src/app/core/bean/paciente/paciente-filtro';
@@ -29,11 +30,12 @@ export class PacienteTelaComponent {
     nomeIni : '',
   }
 
-  pacientes : Paciente[] = [];
-
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
   clinicaId : number = -1;
+
+  pacientesColumns : string[] = [ 'nome', 'detalhes', 'remover' ];
+  pacientesDataSource = new MatTableDataSource<Paciente>([]);
 
   constructor( 
     private matDialog: MatDialog,
@@ -66,9 +68,9 @@ export class PacienteTelaComponent {
 
     this.pacienteService.filtraPacientes( this.clinicaId, this.pacienteFiltro ).subscribe({
       next: ( resp ) => {
-        this.pacientes = resp;        
+        this.pacientesDataSource.data = resp;        
 
-        if ( this.pacientes.length === 0 )
+        if ( this.pacientesDataSource.data.length === 0 )
           this.infoMsg = "Nenhum paciente registrado.";
 
         this.showSpinner = false;

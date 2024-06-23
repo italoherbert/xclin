@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { Acesso } from 'src/app/core/bean/acesso/acesso';
 import { UsuarioGrupoDetalhes } from 'src/app/core/bean/usuario-grupo/usuario-grupo-detalhes';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 import { UsuarioGrupoService } from 'src/app/core/service/usuario-grupo.service';
@@ -31,6 +33,9 @@ export class UsuarioGrupoDetalhesComponent {
     acessos : []
   }
 
+  acessosColumns : string[] = [ 'recurso', 'leitura', 'escrita', 'remocao' ];
+  acessosDataSource = new MatTableDataSource<Acesso>([]);
+
   constructor( private actRoute : ActivatedRoute, private usuarioGrupoService: UsuarioGrupoService, private sistemaService: SistemaService) {}
 
   ngOnInit() {
@@ -44,6 +49,8 @@ export class UsuarioGrupoDetalhesComponent {
     this.usuarioGrupoService.getGrupoDetalhes( id ).subscribe({
       next: ( resp ) => {
         this.grupoDetalhes = resp;
+        this.acessosDataSource.data = this.grupoDetalhes.acessos;
+        
         this.showSpinner = false;
       },
       error: ( erro ) => {

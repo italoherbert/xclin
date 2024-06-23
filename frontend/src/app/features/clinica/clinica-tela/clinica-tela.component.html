@@ -29,31 +29,34 @@
     </div>
 </div>
 
-<div class="table-responsive mt-3">    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Detalhes</th>
-                <th>Remover</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let c of clinicas">
-                <td>{{c.nome}}</td>
-                <td>
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'clinica-detalhes/'+c.id }}]">
-                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
-                        detalhes
-                    </a>
-                </td>
-                <td>
-                    <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(c.id, c.nome)">
-                        <fa-icon [icon]="icons.faTrashCan"></fa-icon>
-                        remover
-                    </a>
-                </td>
-            </tr>
-        </tbody>
+<div class="mat-elevation-z8 mt-3">
+    <table mat-table [dataSource]="clinicasDataSource">
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Nome</th>
+            <td mat-cell *matCellDef="let clinica"> {{clinica.nome}} </td>
+        </ng-container>        
+        <ng-container matColumnDef="detalhes">
+            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
+            <td mat-cell *matCellDef="let clinica">
+                <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'clinica-detalhes/'+clinica.id }}]">
+                    <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                    detalhes
+                </a>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="remover">
+            <th mat-header-cell *matHeaderCellDef>Remover</th>
+            <td mat-cell *matCellDef="let clinica">
+                <a class="text-danger text-decoration-none" [routerLink]="[]" (click)="mostraRemoveDialog(clinica.id, clinica.nome)">
+                    <fa-icon [icon]="icons.faTrashCan"></fa-icon>
+                    remover
+                </a>
+            </td>
+        </ng-container> 
+
+        <tr mat-header-row *matHeaderRowDef="clinicasColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: clinicasColumns;"></tr>
     </table>
+
+    <app-paginator [tableDataSource]="clinicasDataSource"></app-paginator>
 </div>

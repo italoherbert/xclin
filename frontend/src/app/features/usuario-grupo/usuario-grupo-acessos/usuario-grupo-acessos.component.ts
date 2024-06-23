@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { faCircleLeft, faRotate, faSave } from '@fortawesome/free-solid-svg-icons';
+import { Acesso } from 'src/app/core/bean/acesso/acesso';
 import { UsuarioGrupo } from 'src/app/core/bean/usuario-grupo/usuario-grupo';
 import { UsuarioGrupoAcessosSave } from 'src/app/core/bean/usuario-grupo/usuario-grupo-acessos-save';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -29,9 +31,8 @@ export class UsuarioGrupoAcessosComponent {
     nome: '' 
   }
 
-  acessosSave : UsuarioGrupoAcessosSave = {
-    acessos : []
-  }
+  acessosColumns : string[] = [ 'recurso', 'leitura', 'escrita', 'remocao' ];
+  acessosDataSource = new MatTableDataSource<Acesso>([]);
 
   constructor( 
     private actRoute : ActivatedRoute, 
@@ -49,7 +50,7 @@ export class UsuarioGrupoAcessosComponent {
     this.usuarioGrupoService.getGrupoEdit( id ).subscribe({
       next: ( resp ) => {
         this.grupo = resp.grupo;
-        this.acessosSave.acessos = resp.acessos;
+        this.acessosDataSource.data = resp.acessos;
 
         this.showSpinner = false;
       },
@@ -70,7 +71,7 @@ export class UsuarioGrupoAcessosComponent {
 
     this.usuarioGrupoService.sincronizaAcessos( id ).subscribe({
       next: ( resp ) => {
-        this.acessosSave.acessos = resp;
+        this.acessosDataSource.data = resp;
 
         this.infoMsg = "Acessos sincronizados!";
         this.showSpinner = false;
@@ -90,7 +91,11 @@ export class UsuarioGrupoAcessosComponent {
 
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
-    this.usuarioGrupoService.salvaAcessos( id, this.acessosSave ).subscribe({
+    let acessosSave : UsuarioGrupoAcessosSave = {
+      acessos: this.acessosDataSource.data
+    };
+
+    this.usuarioGrupoService.salvaAcessos( id, acessosSave ).subscribe({
       next: ( resp ) => {        
         this.infoMsg = "Acessos salvos com sucesso.";
         this.showSpinner = false;

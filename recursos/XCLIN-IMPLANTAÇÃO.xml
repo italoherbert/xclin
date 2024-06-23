@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<indexing>
+ <paragraph index="9" node_type="writer">Implantação do XCLIN e configuração do servidor</paragraph>
+ <paragraph index="13" node_type="writer">Criando o usuário não root</paragraph>
+ <paragraph index="15" node_type="writer">	Crie um usuário de nome xy190 com o comando abaixo:</paragraph>
+ <paragraph index="17" node_type="writer">useradd -s /bin/bash -aG sudo -m xy190</paragraph>
+ <paragraph index="19" node_type="writer">	Será criada uma pasta em home. Isto é, /home/xy190</paragraph>
+ <paragraph index="21" node_type="writer">	Altere o password sudo para xy190:</paragraph>
+ <paragraph index="23" node_type="writer">su -</paragraph>
+ <paragraph index="24" node_type="writer">passwd xy190</paragraph>
+ <paragraph index="26" node_type="writer">	Crie agora a pasta .ssh e o arquivo authorized_keys na pasta do usuário xy190. Esse arquivo deve conter as chaves públicas para conexão via ssh sem senha de root.</paragraph>
+ <paragraph index="28" node_type="writer">su - xy190</paragraph>
+ <paragraph index="30" node_type="writer">mkdir .ssh</paragraph>
+ <paragraph index="31" node_type="writer">cd .ssh</paragraph>
+ <paragraph index="32" node_type="writer">touch authorized_keys</paragraph>
+ <paragraph index="34" node_type="writer">Configuração do ssh</paragraph>
+ <paragraph index="36" node_type="writer">	Criar as chaves privadas e públicas através do putty utilizando o comando abaixo:</paragraph>
+ <paragraph index="38" node_type="writer">ssh-keygen</paragraph>
+ <paragraph index="40" node_type="writer">	Por padrão, será criada a chave id_rsa que é a chave privada e a chave id_rsa.pub que é a chave pública.</paragraph>
+ <paragraph index="42" node_type="writer">	Transferir via sftp o arquivo id_rsa.pub para o servidor e adicionar ao arquivo authorized_keys conforme baixo:</paragraph>
+ <paragraph index="44" node_type="writer">cat id_rsa.pub &gt; .ssh/authorized_keys </paragraph>
+ <paragraph index="46" node_type="writer">	Isto supondo que o arquivo id_rsa.pub foi transferido para o diretório /home/xy190 e você entrou neste diretório.</paragraph>
+ <paragraph index="48" node_type="writer">	Agora é hora de configurar o arquivo /etc/ssh/sshd_config. Edite este arquivo e configure como a seguir:</paragraph>
+ <paragraph index="50" node_type="writer">Port 37814</paragraph>
+ <paragraph index="51" node_type="writer">#PermitRootLogin</paragraph>
+ <paragraph index="52" node_type="writer">PublicKeyAuthentication yes</paragraph>
+ <paragraph index="54" node_type="writer">	No final do arquivo adicione a seguinte linha:</paragraph>
+ <paragraph index="56" node_type="writer">AllowUsers xy190</paragraph>
+ <paragraph index="58" node_type="writer">	Reinicie o ssh com o seguinte comando:</paragraph>
+ <paragraph index="60" node_type="writer">systemctl restart sshd</paragraph>
+ <paragraph index="62" node_type="writer">Instalação e configuração do JDK</paragraph>
+ <paragraph index="64" node_type="writer">	Para instalação do jdk, pode ser utilizado o comando wget para fazer download do site da oracle. Exemplo como segue:</paragraph>
+ <paragraph index="66" node_type="writer">wget https://download.oracle.com/java/20/latest/jdk-20_linux-x64_bin.tar.gz</paragraph>
+ <paragraph index="68" node_type="writer">	Extrair o conteúdo para a pasta /opt que, neste caso, fica assim:</paragraph>
+ <paragraph index="70" node_type="writer">/opt/jdk-20.0.1</paragraph>
+ <paragraph index="72" node_type="writer">Instalação e configuração do tomcat</paragraph>
+ <paragraph index="74" node_type="writer">Baixar com o comando wget como segue:</paragraph>
+ <paragraph index="76" node_type="writer">wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.10/bin/apache-tomcat-10.1.10.tar.gz</paragraph>
+ <paragraph index="78" node_type="writer">	Extrair o conteúdo para pasta /opt que, neste caso, deve fica assim:</paragraph>
+ <paragraph index="80" node_type="writer">/opt/tomcat</paragraph>
+ <paragraph index="82" node_type="writer">	Após isto, é necessário criar um usuário para o tomcat com os seguintes comandos:</paragraph>
+ <paragraph index="84" node_type="writer">sudo useradd -s /bin/false -d /opt/tomcat tomcat</paragraph>
+ <paragraph index="85" node_type="writer">sudo chown -R tomcat:tomcat /opt/tomcat</paragraph>
+ <paragraph index="86" node_type="writer">sudo chmod u+x /opt/tomcat/bin</paragraph>
+ <paragraph index="88" node_type="writer">	Com a opção -s /bin/false, ninguém poderá entrar na conta criada!</paragraph>
+ <paragraph index="90" node_type="writer">	Após isto, editar o arquivo server.xml de configuração do tomcat para desabilitar o shutdown via script shutdown.sh.</paragraph>
+ <paragraph index="92" node_type="writer">	Altere a seguinte linha no arquivo server.xml:</paragraph>
+ <paragraph index="94" node_type="writer">&lt;Server port=”8005” shutdown=”SHUTDOWN”&gt;</paragraph>
+ <paragraph index="95" node_type="writer">	</paragraph>
+ <paragraph index="96" node_type="writer">	</paragraph>
+ <paragraph index="97" node_type="writer">	Para:</paragraph>
+ <paragraph index="99" node_type="writer">&lt;Server port=”-1” shutdown=”SHUTDOWN”&gt;</paragraph>
+ <paragraph index="101" node_type="writer">Configurar o serviço do tomcat:</paragraph>
+ <paragraph index="103" node_type="writer">	Crie o arquivo tomcat.service como abaixo:</paragraph>
+ <paragraph index="105" node_type="writer">touch /etc/systemd/system/tomcat.service</paragraph>
+ <paragraph index="107" node_type="writer">	Edite o arquivo com o conteúdo parecido com o seguinte:</paragraph>
+ <paragraph index="109" node_type="writer">[Unit]
+Description=Tomcat servlet container
+After=syslog.target network.target
+
+[Service]
+Type=forking
+
+User=tomcat
+Group=tomcat
+
+Environment=&quot;JAVA_HOME=/opt/jdk-20.0.1&quot;
+Environment=&quot;JAVA_OPTS=-Djava.security.egd=file:///dev/urandom&quot;
+
+Environment=&quot;CATALINA_BASE=/opt/tomcat&quot;
+Environment=&quot;CATALINA_HOME=/opt/tomcat&quot;
+Environment=&quot;CATALINA_PID=/opt/tomcat/temp/tomcat.pid&quot;
+Environment=&quot;CATALINA_OPTS=-Xms512M -Xmx1024M
+
+ExecStart=/opt/tomcat/bin/startup.sh
+ExecStop=/bin/kill -15 $MAINPID
+
+[Install]
+WantedBy=multi-user.target </paragraph>
+ <paragraph index="111" node_type="writer">	Manipule o serviço como segue:</paragraph>
+ <paragraph index="113" node_type="writer">sudo systemctl start tomcat</paragraph>
+ <paragraph index="114" node_type="writer">sudo systemctl stop tomcat</paragraph>
+ <paragraph index="115" node_type="writer">sudo systemctl restart tomcat</paragraph>
+ <paragraph index="116" node_type="writer">sudo systemctl status tomcat</paragraph>
+ <paragraph index="118" node_type="writer">Instalação e configuração do apache</paragraph>
+ <paragraph index="120" node_type="writer">	Instalar com o seguinte comando:</paragraph>
+ <paragraph index="122" node_type="writer">sudo apt install apache2</paragraph>
+ <paragraph index="124" node_type="writer">	Instale o certbot para configuração do SSL via Let’s Encrypt</paragraph>
+ <paragraph index="126" node_type="writer">sudo apt install certbot python3-certbot-apache</paragraph>
+ <paragraph index="130" node_type="writer">	Feito isto, configurar o VirtualHost como segue:</paragraph>
+ <paragraph index="132" node_type="writer">&lt;VirtualHost *:80&gt;</paragraph>
+ <paragraph index="133" node_type="writer">	ServerAdmin italoherbert@outlook.com</paragraph>
+ <paragraph index="134" node_type="writer">	ServerName xclin.com.br</paragraph>
+ <paragraph index="135" node_type="writer">	ServerAlias www.xclin.com.br</paragraph>
+ <paragraph index="136" node_type="writer">	DocumentRoot /var/www/xclin.com.br</paragraph>
+ <paragraph index="138" node_type="writer">	ErrorLog ${APACHE_LOG_DIR}/error.log</paragraph>
+ <paragraph index="139" node_type="writer">	CustomLog ${APACHE_LOG_DIR}/access.log</paragraph>
+ <paragraph index="140" node_type="writer">&lt;/VirtualHost&gt;</paragraph>
+ <paragraph index="142" node_type="writer">	Crie o diretório /var/www/xclin.com.br/ e crie um arquivo html neste diretório com nome index.html e um conteúdo de sua preferência para testar o acesso.</paragraph>
+ <paragraph index="144" node_type="writer">	Agora configure o certificado com o seguinte comando:</paragraph>
+ <paragraph index="146" node_type="writer">certbot –apache -d xclin.com.br -d www.xclin.com.br</paragraph>
+ <paragraph index="148" node_type="writer">	Agora reinicie o apache e acesse a página via https</paragraph>
+ <paragraph index="150" node_type="writer">Configurando a integração tomcat/apache</paragraph>
+ <paragraph index="152" node_type="writer">	Será utilizado o módulo mod_proxy para esta configuração</paragraph>
+ <paragraph index="154" node_type="writer">	Por padrão o mod_proxy já vem instalado com o apache, bastando apanas habilitá-lo como segue:</paragraph>
+ <paragraph index="156" node_type="writer">sudo a2enmod proxy</paragraph>
+ <paragraph index="157" node_type="writer">sudo a2enmod proxy_http</paragraph>
+ <paragraph index="159" node_type="writer">	Feito isto, configure o Proxy e ProxyReverse no arquivo de configuração do VirtualHost</paragraph>
+ <paragraph index="161" node_type="writer">SSLProxyEngine on</paragraph>
+ <paragraph index="162" node_type="writer">ProxyPass /api http://localhost:8080/api</paragraph>
+ <paragraph index="163" node_type="writer">ProxyPassReverse /api http://localhost:8080/api</paragraph>
+ <paragraph index="164" node_type="writer">	</paragraph>
+ <paragraph index="165" node_type="writer">	Atenção: O arquivo de host após configurado o certificado SSL é: xclin.com.br-le-ssl.conf</paragraph>
+ <paragraph index="167" node_type="writer">	Agora configurar no tomcat o arquivo server.xml. Localize a seguinte linha:</paragraph>
+ <paragraph index="169" node_type="writer">&lt;Connector port=”8080” …</paragraph>
+ <paragraph index="171" node_type="writer">	Adicione as opções proxyName e proxyPort como segue:</paragraph>
+ <paragraph index="173" node_type="writer">&lt;Connector port=”8080” …  proxyName=”localhost” proxyPort=”80” /&gt;</paragraph>
+ <paragraph index="175" node_type="writer">	</paragraph>
+ <paragraph index="178" node_type="writer">Instalando o postgresql</paragraph>
+ <paragraph index="180" node_type="writer">	Primeiramente, instalar o postgresql 13 com os seguintes comandos:</paragraph>
+ <paragraph index="182" node_type="writer">sudo apt update</paragraph>
+ <paragraph index="183" node_type="writer">sudo apt install postgresql-13</paragraph>
+ <paragraph index="185" node_type="writer">	Após a instalação, entrar com usuário do sistema que foi criado com a instalação: O usuário postgres. Então, faça como segue:</paragraph>
+ <paragraph index="187" node_type="writer">sudo passwd postgres</paragraph>
+ <paragraph index="189" node_type="writer">	Crie uma senha e acesse a conta do usuário postgres:</paragraph>
+ <paragraph index="191" node_type="writer">su – postgres</paragraph>
+ <paragraph index="193" node_type="writer">	Agora utilize o comando psql para entrar no cliente do postgresql:</paragraph>
+ <paragraph index="195" node_type="writer">psql</paragraph>
+ <paragraph index="197" node_type="writer">	Agora você pode administrar o banco de dados através desse procedimento.</paragraph>
+ <paragraph index="199" node_type="writer">Instalação da aplicação xclin</paragraph>
+ <paragraph index="200" node_type="writer">	</paragraph>
+ <paragraph index="201" node_type="writer">	Crie e configure o banco de dados xclin e usuário xclin como segue. Claro, antes acessar o cliente postgresql via comando psql.</paragraph>
+ <paragraph index="203" node_type="writer">create database xclin;</paragraph>
+ <paragraph index="205" node_type="writer">create user xclin with password '3950Vm08';</paragraph>
+ <paragraph index="207" node_type="writer">alter database xclin owner to xclin;</paragraph>
+ <paragraph index="209" node_type="writer">grant all on database xclin to xclin;</paragraph>
+ <paragraph index="210" node_type="writer">grant all on all tables in schema public to xclin;</paragraph>
+ <paragraph index="211" node_type="writer">grant all on all sequences in schema public to xclin;</paragraph>
+ <paragraph index="213" node_type="writer">	É necessário também a criação da extensão “unaccent” que é utilizada para retirar acentos com uso da função lower_unaccent definida abaixo:</paragraph>
+ <paragraph index="215" node_type="writer">create or replace function lower_unaccent( varchar ) returns varchar as $$</paragraph>
+ <paragraph index="216" node_type="writer">begin</paragraph>
+ <paragraph index="217" node_type="writer">    return lower(unaccent($1));</paragraph>
+ <paragraph index="218" node_type="writer">end;</paragraph>
+ <paragraph index="219" node_type="writer">$$ language plpgsql;</paragraph>
+ <paragraph index="221" node_type="writer">	A função unaccent pode ser habilitada com o seguinte comando:</paragraph>
+ <paragraph index="223" node_type="writer">create extension unaccent;</paragraph>
+ <paragraph index="225" node_type="writer">	Após isto, transfira o backup de banco de dados de nome xclin.sql para pasta (por exemplo) resources e então entre no psql e execute:</paragraph>
+ <paragraph index="227" node_type="writer">psql xclin ou \c xclin</paragraph>
+ <paragraph index="229" node_type="writer">\i /home/xy190/recursos/xclin.sql</paragraph>
+ <paragraph index="231" node_type="writer">	Configure o serviço do tomcat com as seguintes variáveis de ambiente:</paragraph>
+ <paragraph index="233" node_type="writer">Environment=”XCLIN_DB_URL=jdbc:postgresql://localhost:5432/xclin&quot;
+Environment=&quot;XCLIN_DB_USERNAME=xclin&quot;</paragraph>
+ <paragraph index="234" node_type="writer">Environment=”XCLIN_DB_PASSWORD=3950Vm08”</paragraph>
+ <paragraph index="236" node_type="writer">	Após configurado o banco de dados e as variáveis de ambientes, também, do banco de dados, faça o seguinte:</paragraph>
+ <paragraph index="237" node_type="writer">	</paragraph>
+ <paragraph index="238" node_type="writer">	Instale o unzip com o seguinte comando:</paragraph>
+ <paragraph index="240" node_type="writer">sudo apt install unzip</paragraph>
+ <paragraph index="243" node_type="writer">	Transfira via sftp o arquivo war do xclin para pasta do usuário e, então, crie o script a seguir com nome deploy.sh</paragraph>
+ <paragraph index="245" node_type="writer">cd /opt/tomcat/webapps</paragraph>
+ <paragraph index="246" node_type="writer">rm -r ROOT</paragraph>
+ <paragraph index="247" node_type="writer">unzip /home/xy190/xclin.war -d ROOT</paragraph>
+ <paragraph index="248" node_type="writer">systemctl restart</paragraph>
+ <paragraph index="250" node_type="writer">	Não esqueça de tornar o arquivo deploy.sh executável com o seguinte comando:</paragraph>
+ <paragraph index="252" node_type="writer">sudo chmod +x deploy.sh</paragraph>
+ <paragraph index="254" node_type="writer">	Execute o script:</paragraph>
+ <paragraph index="256" node_type="writer">sudo ./deploy.sh</paragraph>
+ <paragraph index="258" node_type="writer">	Agora transfira os arquivos do frontend angular via sftp para a pasta: /home/xy190/xclin.com.br/</paragraph>
+ <paragraph index="260" node_type="writer">	Feito isto, crie o script deploy-frontend.sh</paragraph>
+ <paragraph index="262" node_type="writer">vim deploy-frontend.sh</paragraph>
+ <paragraph index="264" node_type="writer">	Esse arquivo deve ter o seguinte conteúdo:</paragraph>
+ <paragraph index="266" node_type="writer">cd /var/www/xclin.com.br</paragraph>
+ <paragraph index="268" node_type="writer">if [ `pwd` = '/var/www/xclin.com.br' ]; then</paragraph>
+ <paragraph index="269" node_type="writer">        rm -r *</paragraph>
+ <paragraph index="270" node_type="writer">        cp -r /home/xy190/xclin.com.br/* .</paragraph>
+ <paragraph index="272" node_type="writer">        systemctl restart apache2</paragraph>
+ <paragraph index="273" node_type="writer">fi</paragraph>
+ <paragraph index="275" node_type="writer">	Não esqueça de conceder permissão de execução do arquivo criado com o seguinte comando:</paragraph>
+ <paragraph index="277" node_type="writer">sudo chmod +x deploy-frontend.sh	</paragraph>
+ <paragraph index="278" node_type="writer">	</paragraph>
+ <paragraph index="279" node_type="writer">	Execute o script:</paragraph>
+ <paragraph index="281" node_type="writer">sudo ./deploy-frontend.sh</paragraph>
+ <paragraph index="283" node_type="writer">	</paragraph>
+ <paragraph index="284" node_type="writer">	Instalando o certificado do serviço do IBGE</paragraph>
+ <paragraph index="286" node_type="writer">	Agora falta apenas adicionar o certificado digital do serviço de localização de cidades e Ufs do ibge. Faça conforme abaixo para baixar o certificado:</paragraph>
+ <paragraph index="288" node_type="writer">openssl s_client -connect servicodados.ibge.gov.br:443</paragraph>
+ <paragraph index="290" node_type="writer">	Serão mostrados vários dados, inclusive o certificado. Então, selecione o certificado e copie o conteúdo para um arquivo. Pode ser: </paragraph>
+ <paragraph index="292" node_type="writer">trust.pem</paragraph>
+ <paragraph index="294" node_type="writer">	Então adicione o certificado ao arquivo cacerts do jdk conforme o seguinte:</paragraph>
+ <paragraph index="296" node_type="writer">/opt/jdk-20.0.1/bin/keytool -import -trustcacerts -noprompt -storepass changeit -alias servicodados.ibge.com.br -file trust.pem -keystore /opt/jdk-20.0.1/lib/security/cacerts</paragraph>
+ <paragraph index="297" node_type="writer">	</paragraph>
+ <paragraph index="298" node_type="writer">	Instalando a fonte</paragraph>
+ <paragraph index="300" node_type="writer">	É necessário também instalar uma fonte no linux para funcionar os relatórios. Então, faça como segue:</paragraph>
+ <paragraph index="302" node_type="writer">sudo apt install fontconfig</paragraph>
+ <paragraph index="303" node_type="writer">sudo fc-cache –force</paragraph>
+ <paragraph index="305" node_type="writer">	</paragraph>
+ <paragraph index="307" node_type="writer">	Pronto! Feito isto, tudo deve estar configurado e, com os dois serviços dos servidores tomcat e apache em execução, pode testar o sistema pelo link abaixo:</paragraph>
+ <paragraph index="309" node_type="writer">https://www.xclin.com.br</paragraph>
+</indexing>

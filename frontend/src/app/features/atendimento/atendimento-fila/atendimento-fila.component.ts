@@ -6,6 +6,9 @@ import { ProfissionalService } from 'src/app/core/service/profissional.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
 import * as moment from 'moment';
+import { MatTableDataSource } from '@angular/material/table';
+import { AnamneseModelo } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo';
+import { Atendimento } from 'src/app/core/bean/atendimento/atendimento';
 
 @Component({
   selector: 'app-atendimento-fila',
@@ -35,8 +38,6 @@ export class AtendimentoFilaComponent {
   clinicaId : number = 0;
   profissionalId : number = 0;
 
-  atendimentos : any[] = [];
-
   clinicasIDs : number[] = [];
   clinicasNomes : string[] = [];
 
@@ -45,6 +46,9 @@ export class AtendimentoFilaComponent {
 
   turnos : any[] = [];
   statuses : any[] = [];
+
+  atendimentosColumns: string[] = ['nome', 'novoStatus', 'dataAtendimento', 'turno', 'detalhes' ];
+  atendimentosDataSource = new MatTableDataSource<Atendimento>([]);
 
   constructor(
     private atendimentoService: AtendimentoService, 
@@ -145,7 +149,7 @@ export class AtendimentoFilaComponent {
     this.atendimentoService.listaFila( 
           this.clinicaId, this.profissionalId, this.atendimentoFilaFiltro ).subscribe({
         next: (resp) => {
-          this.atendimentos = resp;
+          this.atendimentosDataSource.data = resp;
 
           let filaFiltro = {
             clinicaId : this.clinicaId,
@@ -155,7 +159,7 @@ export class AtendimentoFilaComponent {
 
           localStorage.setItem( 'fila-filtro', JSON.stringify( filaFiltro ) );
 
-          if ( this.atendimentos.length == 0 )
+          if ( this.atendimentosDataSource.data.length == 0 )
             this.infoMsg = "Nenhuma atendimento encontrada.";
 
           this.showSpinner = false;

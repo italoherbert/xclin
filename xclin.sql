@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.2
--- Dumped by pg_dump version 15.2
+-- Dumped from database version 14.12 (Ubuntu 14.12-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.12 (Ubuntu 14.12-0ubuntu0.22.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -31,7 +31,7 @@ COMMENT ON EXTENSION unaccent IS 'text search dictionary that removes accents';
 
 
 --
--- Name: lower_unaccent(character varying); Type: FUNCTION; Schema: public; Owner: xclin
+-- Name: lower_unaccent(character varying); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
 CREATE FUNCTION public.lower_unaccent(character varying) RETURNS character varying
@@ -43,14 +43,14 @@ end;
 $_$;
 
 
-ALTER FUNCTION public.lower_unaccent(character varying) OWNER TO xclin;
+ALTER FUNCTION public.lower_unaccent(character varying) OWNER TO postgres;
 
 SET default_tablespace = '';
 
 SET default_table_access_method = heap;
 
 --
--- Name: acesso; Type: TABLE; Schema: public; Owner: xclin
+-- Name: acesso; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.acesso (
@@ -63,10 +63,10 @@ CREATE TABLE public.acesso (
 );
 
 
-ALTER TABLE public.acesso OWNER TO xclin;
+ALTER TABLE public.acesso OWNER TO postgres;
 
 --
--- Name: acesso_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: acesso_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.acesso_id_seq
@@ -77,17 +77,17 @@ CREATE SEQUENCE public.acesso_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.acesso_id_seq OWNER TO xclin;
+ALTER TABLE public.acesso_id_seq OWNER TO postgres;
 
 --
--- Name: acesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: acesso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.acesso_id_seq OWNED BY public.acesso.id;
 
 
 --
--- Name: anamnese; Type: TABLE; Schema: public; Owner: xclin
+-- Name: anamnese; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.anamnese (
@@ -98,10 +98,10 @@ CREATE TABLE public.anamnese (
 );
 
 
-ALTER TABLE public.anamnese OWNER TO xclin;
+ALTER TABLE public.anamnese OWNER TO postgres;
 
 --
--- Name: anamnese_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: anamnese_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.anamnese_id_seq
@@ -112,17 +112,17 @@ CREATE SEQUENCE public.anamnese_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.anamnese_id_seq OWNER TO xclin;
+ALTER TABLE public.anamnese_id_seq OWNER TO postgres;
 
 --
--- Name: anamnese_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: anamnese_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.anamnese_id_seq OWNED BY public.anamnese.id;
 
 
 --
--- Name: anamnese_modelo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: anamnese_modelo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.anamnese_modelo (
@@ -133,10 +133,10 @@ CREATE TABLE public.anamnese_modelo (
 );
 
 
-ALTER TABLE public.anamnese_modelo OWNER TO xclin;
+ALTER TABLE public.anamnese_modelo OWNER TO postgres;
 
 --
--- Name: anamnese_modelo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.anamnese_modelo_id_seq
@@ -147,17 +147,17 @@ CREATE SEQUENCE public.anamnese_modelo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.anamnese_modelo_id_seq OWNER TO xclin;
+ALTER TABLE public.anamnese_modelo_id_seq OWNER TO postgres;
 
 --
--- Name: anamnese_modelo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.anamnese_modelo_id_seq OWNED BY public.anamnese_modelo.id;
 
 
 --
--- Name: anamnese_modelo_pergunta; Type: TABLE; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_pergunta; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.anamnese_modelo_pergunta (
@@ -171,10 +171,10 @@ CREATE TABLE public.anamnese_modelo_pergunta (
 );
 
 
-ALTER TABLE public.anamnese_modelo_pergunta OWNER TO xclin;
+ALTER TABLE public.anamnese_modelo_pergunta OWNER TO postgres;
 
 --
--- Name: anamnese_modelo_pergunta_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_pergunta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.anamnese_modelo_pergunta_id_seq
@@ -185,17 +185,17 @@ CREATE SEQUENCE public.anamnese_modelo_pergunta_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.anamnese_modelo_pergunta_id_seq OWNER TO xclin;
+ALTER TABLE public.anamnese_modelo_pergunta_id_seq OWNER TO postgres;
 
 --
--- Name: anamnese_modelo_pergunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_pergunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.anamnese_modelo_pergunta_id_seq OWNED BY public.anamnese_modelo_pergunta.id;
 
 
 --
--- Name: anamnese_pergunta; Type: TABLE; Schema: public; Owner: xclin
+-- Name: anamnese_pergunta; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.anamnese_pergunta (
@@ -212,10 +212,10 @@ CREATE TABLE public.anamnese_pergunta (
 );
 
 
-ALTER TABLE public.anamnese_pergunta OWNER TO xclin;
+ALTER TABLE public.anamnese_pergunta OWNER TO postgres;
 
 --
--- Name: anamnese_pergunta_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: anamnese_pergunta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.anamnese_pergunta_id_seq
@@ -226,17 +226,17 @@ CREATE SEQUENCE public.anamnese_pergunta_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.anamnese_pergunta_id_seq OWNER TO xclin;
+ALTER TABLE public.anamnese_pergunta_id_seq OWNER TO postgres;
 
 --
--- Name: anamnese_pergunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: anamnese_pergunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.anamnese_pergunta_id_seq OWNED BY public.anamnese_pergunta.id;
 
 
 --
--- Name: atendimento; Type: TABLE; Schema: public; Owner: xclin
+-- Name: atendimento; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.atendimento (
@@ -256,10 +256,10 @@ CREATE TABLE public.atendimento (
 );
 
 
-ALTER TABLE public.atendimento OWNER TO xclin;
+ALTER TABLE public.atendimento OWNER TO postgres;
 
 --
--- Name: clinica; Type: TABLE; Schema: public; Owner: xclin
+-- Name: clinica; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.clinica (
@@ -268,14 +268,15 @@ CREATE TABLE public.clinica (
     nome character varying(255),
     telefone character varying(255),
     usuario_id bigint,
-    endereco_id bigint
+    endereco_id bigint,
+    logomarca text
 );
 
 
-ALTER TABLE public.clinica OWNER TO xclin;
+ALTER TABLE public.clinica OWNER TO postgres;
 
 --
--- Name: exame; Type: TABLE; Schema: public; Owner: xclin
+-- Name: exame; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.exame (
@@ -288,10 +289,10 @@ CREATE TABLE public.exame (
 );
 
 
-ALTER TABLE public.exame OWNER TO xclin;
+ALTER TABLE public.exame OWNER TO postgres;
 
 --
--- Name: clinica_exame_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: clinica_exame_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.clinica_exame_id_seq
@@ -302,17 +303,17 @@ CREATE SEQUENCE public.clinica_exame_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.clinica_exame_id_seq OWNER TO xclin;
+ALTER TABLE public.clinica_exame_id_seq OWNER TO postgres;
 
 --
--- Name: clinica_exame_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: clinica_exame_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.clinica_exame_id_seq OWNED BY public.exame.id;
 
 
 --
--- Name: clinica_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: clinica_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.clinica_id_seq
@@ -323,17 +324,17 @@ CREATE SEQUENCE public.clinica_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.clinica_id_seq OWNER TO xclin;
+ALTER TABLE public.clinica_id_seq OWNER TO postgres;
 
 --
--- Name: clinica_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: clinica_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.clinica_id_seq OWNED BY public.clinica.id;
 
 
 --
--- Name: clinica_pergunta; Type: TABLE; Schema: public; Owner: xclin
+-- Name: clinica_pergunta; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.clinica_pergunta (
@@ -345,10 +346,10 @@ CREATE TABLE public.clinica_pergunta (
 );
 
 
-ALTER TABLE public.clinica_pergunta OWNER TO xclin;
+ALTER TABLE public.clinica_pergunta OWNER TO postgres;
 
 --
--- Name: clinica_pergunta_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: clinica_pergunta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.clinica_pergunta_id_seq
@@ -359,17 +360,17 @@ CREATE SEQUENCE public.clinica_pergunta_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.clinica_pergunta_id_seq OWNER TO xclin;
+ALTER TABLE public.clinica_pergunta_id_seq OWNER TO postgres;
 
 --
--- Name: clinica_pergunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: clinica_pergunta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.clinica_pergunta_id_seq OWNED BY public.clinica_pergunta.id;
 
 
 --
--- Name: consulta; Type: TABLE; Schema: public; Owner: xclin
+-- Name: consulta; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.consulta (
@@ -381,10 +382,10 @@ CREATE TABLE public.consulta (
 );
 
 
-ALTER TABLE public.consulta OWNER TO xclin;
+ALTER TABLE public.consulta OWNER TO postgres;
 
 --
--- Name: consulta_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: consulta_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.consulta_id_seq
@@ -395,17 +396,17 @@ CREATE SEQUENCE public.consulta_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.consulta_id_seq OWNER TO xclin;
+ALTER TABLE public.consulta_id_seq OWNER TO postgres;
 
 --
--- Name: consulta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: consulta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.consulta_id_seq OWNED BY public.atendimento.id;
 
 
 --
--- Name: consulta_id_seq1; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: consulta_id_seq1; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.consulta_id_seq1
@@ -416,17 +417,17 @@ CREATE SEQUENCE public.consulta_id_seq1
     CACHE 1;
 
 
-ALTER TABLE public.consulta_id_seq1 OWNER TO xclin;
+ALTER TABLE public.consulta_id_seq1 OWNER TO postgres;
 
 --
--- Name: consulta_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: consulta_id_seq1; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.consulta_id_seq1 OWNED BY public.consulta.id;
 
 
 --
--- Name: diretor; Type: TABLE; Schema: public; Owner: xclin
+-- Name: diretor; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.diretor (
@@ -436,10 +437,10 @@ CREATE TABLE public.diretor (
 );
 
 
-ALTER TABLE public.diretor OWNER TO xclin;
+ALTER TABLE public.diretor OWNER TO postgres;
 
 --
--- Name: diretor_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: diretor_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.diretor_id_seq
@@ -450,17 +451,17 @@ CREATE SEQUENCE public.diretor_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.diretor_id_seq OWNER TO xclin;
+ALTER TABLE public.diretor_id_seq OWNER TO postgres;
 
 --
--- Name: diretor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: diretor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.diretor_id_seq OWNED BY public.diretor.id;
 
 
 --
--- Name: endereco; Type: TABLE; Schema: public; Owner: xclin
+-- Name: endereco; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.endereco (
@@ -473,10 +474,10 @@ CREATE TABLE public.endereco (
 );
 
 
-ALTER TABLE public.endereco OWNER TO xclin;
+ALTER TABLE public.endereco OWNER TO postgres;
 
 --
--- Name: endereco_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: endereco_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.endereco_id_seq
@@ -487,17 +488,17 @@ CREATE SEQUENCE public.endereco_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.endereco_id_seq OWNER TO xclin;
+ALTER TABLE public.endereco_id_seq OWNER TO postgres;
 
 --
--- Name: endereco_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: endereco_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.endereco_id_seq OWNED BY public.endereco.id;
 
 
 --
--- Name: especialidade; Type: TABLE; Schema: public; Owner: xclin
+-- Name: especialidade; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.especialidade (
@@ -507,10 +508,10 @@ CREATE TABLE public.especialidade (
 );
 
 
-ALTER TABLE public.especialidade OWNER TO xclin;
+ALTER TABLE public.especialidade OWNER TO postgres;
 
 --
--- Name: especialidade_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: especialidade_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.especialidade_id_seq
@@ -521,17 +522,17 @@ CREATE SEQUENCE public.especialidade_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.especialidade_id_seq OWNER TO xclin;
+ALTER TABLE public.especialidade_id_seq OWNER TO postgres;
 
 --
--- Name: especialidade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: especialidade_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.especialidade_id_seq OWNED BY public.especialidade.id;
 
 
 --
--- Name: exame_item; Type: TABLE; Schema: public; Owner: xclin
+-- Name: exame_item; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.exame_item (
@@ -544,10 +545,10 @@ CREATE TABLE public.exame_item (
 );
 
 
-ALTER TABLE public.exame_item OWNER TO xclin;
+ALTER TABLE public.exame_item OWNER TO postgres;
 
 --
--- Name: exame_item_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: exame_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.exame_item_id_seq
@@ -558,17 +559,17 @@ CREATE SEQUENCE public.exame_item_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.exame_item_id_seq OWNER TO xclin;
+ALTER TABLE public.exame_item_id_seq OWNER TO postgres;
 
 --
--- Name: exame_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: exame_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.exame_item_id_seq OWNED BY public.exame_item.id;
 
 
 --
--- Name: lancamento; Type: TABLE; Schema: public; Owner: xclin
+-- Name: lancamento; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.lancamento (
@@ -582,10 +583,10 @@ CREATE TABLE public.lancamento (
 );
 
 
-ALTER TABLE public.lancamento OWNER TO xclin;
+ALTER TABLE public.lancamento OWNER TO postgres;
 
 --
--- Name: lancamento_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: lancamento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.lancamento_id_seq
@@ -596,17 +597,17 @@ CREATE SEQUENCE public.lancamento_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.lancamento_id_seq OWNER TO xclin;
+ALTER TABLE public.lancamento_id_seq OWNER TO postgres;
 
 --
--- Name: lancamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: lancamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.lancamento_id_seq OWNED BY public.lancamento.id;
 
 
 --
--- Name: orcamento; Type: TABLE; Schema: public; Owner: xclin
+-- Name: orcamento; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.orcamento (
@@ -618,10 +619,10 @@ CREATE TABLE public.orcamento (
 );
 
 
-ALTER TABLE public.orcamento OWNER TO xclin;
+ALTER TABLE public.orcamento OWNER TO postgres;
 
 --
--- Name: orcamento_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: orcamento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.orcamento_id_seq
@@ -632,17 +633,17 @@ CREATE SEQUENCE public.orcamento_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.orcamento_id_seq OWNER TO xclin;
+ALTER TABLE public.orcamento_id_seq OWNER TO postgres;
 
 --
--- Name: orcamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: orcamento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.orcamento_id_seq OWNED BY public.orcamento.id;
 
 
 --
--- Name: paciente; Type: TABLE; Schema: public; Owner: xclin
+-- Name: paciente; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.paciente (
@@ -665,10 +666,10 @@ CREATE TABLE public.paciente (
 );
 
 
-ALTER TABLE public.paciente OWNER TO xclin;
+ALTER TABLE public.paciente OWNER TO postgres;
 
 --
--- Name: paciente_anexo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: paciente_anexo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.paciente_anexo (
@@ -679,10 +680,10 @@ CREATE TABLE public.paciente_anexo (
 );
 
 
-ALTER TABLE public.paciente_anexo OWNER TO xclin;
+ALTER TABLE public.paciente_anexo OWNER TO postgres;
 
 --
--- Name: paciente_anexo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: paciente_anexo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.paciente_anexo_id_seq
@@ -693,17 +694,17 @@ CREATE SEQUENCE public.paciente_anexo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.paciente_anexo_id_seq OWNER TO xclin;
+ALTER TABLE public.paciente_anexo_id_seq OWNER TO postgres;
 
 --
--- Name: paciente_anexo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: paciente_anexo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.paciente_anexo_id_seq OWNED BY public.paciente_anexo.id;
 
 
 --
--- Name: paciente_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: paciente_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.paciente_id_seq
@@ -714,17 +715,17 @@ CREATE SEQUENCE public.paciente_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.paciente_id_seq OWNER TO xclin;
+ALTER TABLE public.paciente_id_seq OWNER TO postgres;
 
 --
--- Name: paciente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: paciente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.paciente_id_seq OWNED BY public.paciente.id;
 
 
 --
--- Name: procedimento; Type: TABLE; Schema: public; Owner: xclin
+-- Name: procedimento; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.procedimento (
@@ -735,10 +736,10 @@ CREATE TABLE public.procedimento (
 );
 
 
-ALTER TABLE public.procedimento OWNER TO xclin;
+ALTER TABLE public.procedimento OWNER TO postgres;
 
 --
--- Name: procedimento_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: procedimento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.procedimento_id_seq
@@ -749,17 +750,17 @@ CREATE SEQUENCE public.procedimento_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.procedimento_id_seq OWNER TO xclin;
+ALTER TABLE public.procedimento_id_seq OWNER TO postgres;
 
 --
--- Name: procedimento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: procedimento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.procedimento_id_seq OWNED BY public.procedimento.id;
 
 
 --
--- Name: procedimento_item; Type: TABLE; Schema: public; Owner: xclin
+-- Name: procedimento_item; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.procedimento_item (
@@ -772,10 +773,10 @@ CREATE TABLE public.procedimento_item (
 );
 
 
-ALTER TABLE public.procedimento_item OWNER TO xclin;
+ALTER TABLE public.procedimento_item OWNER TO postgres;
 
 --
--- Name: procedimento_item_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: procedimento_item_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.procedimento_item_id_seq
@@ -786,17 +787,17 @@ CREATE SEQUENCE public.procedimento_item_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.procedimento_item_id_seq OWNER TO xclin;
+ALTER TABLE public.procedimento_item_id_seq OWNER TO postgres;
 
 --
--- Name: procedimento_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: procedimento_item_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.procedimento_item_id_seq OWNED BY public.procedimento_item.id;
 
 
 --
--- Name: profissional; Type: TABLE; Schema: public; Owner: xclin
+-- Name: profissional; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.profissional (
@@ -807,10 +808,10 @@ CREATE TABLE public.profissional (
 );
 
 
-ALTER TABLE public.profissional OWNER TO xclin;
+ALTER TABLE public.profissional OWNER TO postgres;
 
 --
--- Name: profissional_especialidade_vinculo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.profissional_especialidade_vinculo (
@@ -821,10 +822,10 @@ CREATE TABLE public.profissional_especialidade_vinculo (
 );
 
 
-ALTER TABLE public.profissional_especialidade_vinculo OWNER TO xclin;
+ALTER TABLE public.profissional_especialidade_vinculo OWNER TO postgres;
 
 --
--- Name: profissional_especialidade_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.profissional_especialidade_vinculo_id_seq
@@ -835,17 +836,17 @@ CREATE SEQUENCE public.profissional_especialidade_vinculo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.profissional_especialidade_vinculo_id_seq OWNER TO xclin;
+ALTER TABLE public.profissional_especialidade_vinculo_id_seq OWNER TO postgres;
 
 --
--- Name: profissional_especialidade_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.profissional_especialidade_vinculo_id_seq OWNED BY public.profissional_especialidade_vinculo.id;
 
 
 --
--- Name: profissional_exame_vinculo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.profissional_exame_vinculo (
@@ -856,10 +857,10 @@ CREATE TABLE public.profissional_exame_vinculo (
 );
 
 
-ALTER TABLE public.profissional_exame_vinculo OWNER TO xclin;
+ALTER TABLE public.profissional_exame_vinculo OWNER TO postgres;
 
 --
--- Name: profissional_exame_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.profissional_exame_vinculo_id_seq
@@ -870,17 +871,17 @@ CREATE SEQUENCE public.profissional_exame_vinculo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.profissional_exame_vinculo_id_seq OWNER TO xclin;
+ALTER TABLE public.profissional_exame_vinculo_id_seq OWNER TO postgres;
 
 --
--- Name: profissional_exame_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.profissional_exame_vinculo_id_seq OWNED BY public.profissional_exame_vinculo.id;
 
 
 --
--- Name: profissional_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: profissional_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.profissional_id_seq
@@ -891,17 +892,17 @@ CREATE SEQUENCE public.profissional_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.profissional_id_seq OWNER TO xclin;
+ALTER TABLE public.profissional_id_seq OWNER TO postgres;
 
 --
--- Name: profissional_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: profissional_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.profissional_id_seq OWNED BY public.profissional.id;
 
 
 --
--- Name: profissional_procedimento_vinculo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: profissional_procedimento_vinculo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.profissional_procedimento_vinculo (
@@ -912,10 +913,10 @@ CREATE TABLE public.profissional_procedimento_vinculo (
 );
 
 
-ALTER TABLE public.profissional_procedimento_vinculo OWNER TO xclin;
+ALTER TABLE public.profissional_procedimento_vinculo OWNER TO postgres;
 
 --
--- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.profissional_procedimento_vinculo_id_seq
@@ -926,17 +927,17 @@ CREATE SEQUENCE public.profissional_procedimento_vinculo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.profissional_procedimento_vinculo_id_seq OWNER TO xclin;
+ALTER TABLE public.profissional_procedimento_vinculo_id_seq OWNER TO postgres;
 
 --
--- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.profissional_procedimento_vinculo_id_seq OWNED BY public.profissional_procedimento_vinculo.id;
 
 
 --
--- Name: recepcionista; Type: TABLE; Schema: public; Owner: xclin
+-- Name: recepcionista; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.recepcionista (
@@ -947,10 +948,10 @@ CREATE TABLE public.recepcionista (
 );
 
 
-ALTER TABLE public.recepcionista OWNER TO xclin;
+ALTER TABLE public.recepcionista OWNER TO postgres;
 
 --
--- Name: recepcionista_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: recepcionista_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.recepcionista_id_seq
@@ -961,17 +962,17 @@ CREATE SEQUENCE public.recepcionista_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.recepcionista_id_seq OWNER TO xclin;
+ALTER TABLE public.recepcionista_id_seq OWNER TO postgres;
 
 --
--- Name: recepcionista_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: recepcionista_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.recepcionista_id_seq OWNED BY public.recepcionista.id;
 
 
 --
--- Name: recurso; Type: TABLE; Schema: public; Owner: xclin
+-- Name: recurso; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.recurso (
@@ -980,10 +981,10 @@ CREATE TABLE public.recurso (
 );
 
 
-ALTER TABLE public.recurso OWNER TO xclin;
+ALTER TABLE public.recurso OWNER TO postgres;
 
 --
--- Name: recurso_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: recurso_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.recurso_id_seq
@@ -994,17 +995,17 @@ CREATE SEQUENCE public.recurso_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.recurso_id_seq OWNER TO xclin;
+ALTER TABLE public.recurso_id_seq OWNER TO postgres;
 
 --
--- Name: recurso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: recurso_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.recurso_id_seq OWNED BY public.recurso.id;
 
 
 --
--- Name: usuario; Type: TABLE; Schema: public; Owner: xclin
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.usuario (
@@ -1016,10 +1017,10 @@ CREATE TABLE public.usuario (
 );
 
 
-ALTER TABLE public.usuario OWNER TO xclin;
+ALTER TABLE public.usuario OWNER TO postgres;
 
 --
--- Name: usuario_clinica_vinculo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.usuario_clinica_vinculo (
@@ -1029,10 +1030,10 @@ CREATE TABLE public.usuario_clinica_vinculo (
 );
 
 
-ALTER TABLE public.usuario_clinica_vinculo OWNER TO xclin;
+ALTER TABLE public.usuario_clinica_vinculo OWNER TO postgres;
 
 --
--- Name: usuario_clinica_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.usuario_clinica_vinculo_id_seq
@@ -1043,17 +1044,17 @@ CREATE SEQUENCE public.usuario_clinica_vinculo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuario_clinica_vinculo_id_seq OWNER TO xclin;
+ALTER TABLE public.usuario_clinica_vinculo_id_seq OWNER TO postgres;
 
 --
--- Name: usuario_clinica_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.usuario_clinica_vinculo_id_seq OWNED BY public.usuario_clinica_vinculo.id;
 
 
 --
--- Name: usuario_grupo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: usuario_grupo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.usuario_grupo (
@@ -1062,10 +1063,10 @@ CREATE TABLE public.usuario_grupo (
 );
 
 
-ALTER TABLE public.usuario_grupo OWNER TO xclin;
+ALTER TABLE public.usuario_grupo OWNER TO postgres;
 
 --
--- Name: usuario_grupo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: usuario_grupo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.usuario_grupo_id_seq
@@ -1076,17 +1077,17 @@ CREATE SEQUENCE public.usuario_grupo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuario_grupo_id_seq OWNER TO xclin;
+ALTER TABLE public.usuario_grupo_id_seq OWNER TO postgres;
 
 --
--- Name: usuario_grupo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: usuario_grupo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.usuario_grupo_id_seq OWNED BY public.usuario_grupo.id;
 
 
 --
--- Name: usuario_grupo_vinculo; Type: TABLE; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.usuario_grupo_vinculo (
@@ -1096,10 +1097,10 @@ CREATE TABLE public.usuario_grupo_vinculo (
 );
 
 
-ALTER TABLE public.usuario_grupo_vinculo OWNER TO xclin;
+ALTER TABLE public.usuario_grupo_vinculo OWNER TO postgres;
 
 --
--- Name: usuario_grupo_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.usuario_grupo_vinculo_id_seq
@@ -1110,17 +1111,17 @@ CREATE SEQUENCE public.usuario_grupo_vinculo_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuario_grupo_vinculo_id_seq OWNER TO xclin;
+ALTER TABLE public.usuario_grupo_vinculo_id_seq OWNER TO postgres;
 
 --
--- Name: usuario_grupo_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.usuario_grupo_vinculo_id_seq OWNED BY public.usuario_grupo_vinculo.id;
 
 
 --
--- Name: usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: xclin
+-- Name: usuario_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
 CREATE SEQUENCE public.usuario_id_seq
@@ -1131,236 +1132,236 @@ CREATE SEQUENCE public.usuario_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuario_id_seq OWNER TO xclin;
+ALTER TABLE public.usuario_id_seq OWNER TO postgres;
 
 --
--- Name: usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: xclin
+-- Name: usuario_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.usuario_id_seq OWNED BY public.usuario.id;
 
 
 --
--- Name: acesso id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: acesso id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.acesso ALTER COLUMN id SET DEFAULT nextval('public.acesso_id_seq'::regclass);
 
 
 --
--- Name: anamnese id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: anamnese id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese ALTER COLUMN id SET DEFAULT nextval('public.anamnese_id_seq'::regclass);
 
 
 --
--- Name: anamnese_modelo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: anamnese_modelo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_modelo ALTER COLUMN id SET DEFAULT nextval('public.anamnese_modelo_id_seq'::regclass);
 
 
 --
--- Name: anamnese_modelo_pergunta id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_pergunta id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_modelo_pergunta ALTER COLUMN id SET DEFAULT nextval('public.anamnese_modelo_pergunta_id_seq'::regclass);
 
 
 --
--- Name: anamnese_pergunta id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: anamnese_pergunta id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_pergunta ALTER COLUMN id SET DEFAULT nextval('public.anamnese_pergunta_id_seq'::regclass);
 
 
 --
--- Name: atendimento id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: atendimento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.atendimento ALTER COLUMN id SET DEFAULT nextval('public.consulta_id_seq'::regclass);
 
 
 --
--- Name: clinica id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: clinica id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.clinica ALTER COLUMN id SET DEFAULT nextval('public.clinica_id_seq'::regclass);
 
 
 --
--- Name: clinica_pergunta id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: clinica_pergunta id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.clinica_pergunta ALTER COLUMN id SET DEFAULT nextval('public.clinica_pergunta_id_seq'::regclass);
 
 
 --
--- Name: consulta id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: consulta id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.consulta ALTER COLUMN id SET DEFAULT nextval('public.consulta_id_seq1'::regclass);
 
 
 --
--- Name: diretor id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: diretor id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.diretor ALTER COLUMN id SET DEFAULT nextval('public.diretor_id_seq'::regclass);
 
 
 --
--- Name: endereco id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: endereco id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.endereco ALTER COLUMN id SET DEFAULT nextval('public.endereco_id_seq'::regclass);
 
 
 --
--- Name: especialidade id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: especialidade id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.especialidade ALTER COLUMN id SET DEFAULT nextval('public.especialidade_id_seq'::regclass);
 
 
 --
--- Name: exame id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: exame id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.exame ALTER COLUMN id SET DEFAULT nextval('public.clinica_exame_id_seq'::regclass);
 
 
 --
--- Name: exame_item id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: exame_item id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.exame_item ALTER COLUMN id SET DEFAULT nextval('public.exame_item_id_seq'::regclass);
 
 
 --
--- Name: lancamento id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: lancamento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.lancamento ALTER COLUMN id SET DEFAULT nextval('public.lancamento_id_seq'::regclass);
 
 
 --
--- Name: orcamento id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: orcamento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orcamento ALTER COLUMN id SET DEFAULT nextval('public.orcamento_id_seq'::regclass);
 
 
 --
--- Name: paciente id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: paciente id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.paciente ALTER COLUMN id SET DEFAULT nextval('public.paciente_id_seq'::regclass);
 
 
 --
--- Name: paciente_anexo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: paciente_anexo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.paciente_anexo ALTER COLUMN id SET DEFAULT nextval('public.paciente_anexo_id_seq'::regclass);
 
 
 --
--- Name: procedimento id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: procedimento id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.procedimento ALTER COLUMN id SET DEFAULT nextval('public.procedimento_id_seq'::regclass);
 
 
 --
--- Name: procedimento_item id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: procedimento_item id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.procedimento_item ALTER COLUMN id SET DEFAULT nextval('public.procedimento_item_id_seq'::regclass);
 
 
 --
--- Name: profissional id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: profissional id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional ALTER COLUMN id SET DEFAULT nextval('public.profissional_id_seq'::regclass);
 
 
 --
--- Name: profissional_especialidade_vinculo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_especialidade_vinculo ALTER COLUMN id SET DEFAULT nextval('public.profissional_especialidade_vinculo_id_seq'::regclass);
 
 
 --
--- Name: profissional_exame_vinculo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_exame_vinculo ALTER COLUMN id SET DEFAULT nextval('public.profissional_exame_vinculo_id_seq'::regclass);
 
 
 --
--- Name: profissional_procedimento_vinculo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: profissional_procedimento_vinculo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_procedimento_vinculo ALTER COLUMN id SET DEFAULT nextval('public.profissional_procedimento_vinculo_id_seq'::regclass);
 
 
 --
--- Name: recepcionista id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: recepcionista id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.recepcionista ALTER COLUMN id SET DEFAULT nextval('public.recepcionista_id_seq'::regclass);
 
 
 --
--- Name: recurso id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: recurso id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.recurso ALTER COLUMN id SET DEFAULT nextval('public.recurso_id_seq'::regclass);
 
 
 --
--- Name: usuario id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: usuario id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario ALTER COLUMN id SET DEFAULT nextval('public.usuario_id_seq'::regclass);
 
 
 --
--- Name: usuario_clinica_vinculo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_clinica_vinculo ALTER COLUMN id SET DEFAULT nextval('public.usuario_clinica_vinculo_id_seq'::regclass);
 
 
 --
--- Name: usuario_grupo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: usuario_grupo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_grupo ALTER COLUMN id SET DEFAULT nextval('public.usuario_grupo_id_seq'::regclass);
 
 
 --
--- Name: usuario_grupo_vinculo id; Type: DEFAULT; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_grupo_vinculo ALTER COLUMN id SET DEFAULT nextval('public.usuario_grupo_vinculo_id_seq'::regclass);
 
 
 --
--- Name: 18480; Type: BLOB; Schema: -; Owner: xclin
+-- Name: 18480; Type: BLOB; Schema: -; Owner: postgres
 --
 
 SELECT pg_catalog.lo_create('18480');
 
 
-ALTER LARGE OBJECT 18480 OWNER TO xclin;
+ALTER LARGE OBJECT 18480 OWNER TO postgres;
 
 --
--- Data for Name: acesso; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: acesso; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.acesso (id, escrita, leitura, remocao, grupo_id, recurso_id) FROM stdin;
@@ -1368,7 +1369,6 @@ COPY public.acesso (id, escrita, leitura, remocao, grupo_id, recurso_id) FROM st
 2	t	t	t	1	2
 3	t	t	t	1	3
 5	f	t	f	2	2
-6	f	t	f	2	3
 7	t	t	t	1	4
 8	t	t	t	1	5
 9	t	t	t	1	6
@@ -1468,23 +1468,25 @@ COPY public.acesso (id, escrita, leitura, remocao, grupo_id, recurso_id) FROM st
 105	t	t	t	1	23
 106	t	t	t	2	23
 107	f	f	f	2	22
+6	t	t	t	2	3
 \.
 
 
 --
--- Data for Name: anamnese; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: anamnese; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.anamnese (id, data_criacao, nome, paciente_id) FROM stdin;
 8	2023-06-25	odontologia	2
-7	2023-07-05	odontologia	4
 11	2023-07-12	endocrinologia	3
 12	2023-07-13	odonto	20
+13	2024-05-20	odonto	21
+7	2024-05-20	ABC	4
 \.
 
 
 --
--- Data for Name: anamnese_modelo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: anamnese_modelo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.anamnese_modelo (id, data_criacao, nome, profissional_id) FROM stdin;
@@ -1492,11 +1494,12 @@ COPY public.anamnese_modelo (id, data_criacao, nome, profissional_id) FROM stdin
 5	2023-06-23	odontologia	5
 6	2023-07-06	odonto	8
 7	2023-07-12	endocrinologia	5
+8	2024-05-20	ABC	10
 \.
 
 
 --
--- Data for Name: anamnese_modelo_pergunta; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: anamnese_modelo_pergunta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.anamnese_modelo_pergunta (id, enum_names, enum_values, pergunta, tipo, anamnese_modelo_id, enums_values) FROM stdin;
@@ -1521,28 +1524,16 @@ COPY public.anamnese_modelo_pergunta (id, enum_names, enum_values, pergunta, tip
 22	\N		Você fuma?	BOOLEAN	6	\N
 23	\N	Intenso,Normal	Como é o sangramento quando se corta?	ENUM	6	\N
 24	\N		Quais alergias?	STRING	6	\N
+25	\N		O paciente fuma?	BOOLEAN	8	\N
+26	\N		Você bebe bebida alcoólica?	BOOLEAN	8	\N
 \.
 
 
 --
--- Data for Name: anamnese_pergunta; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: anamnese_pergunta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.anamnese_pergunta (id, enum_values, pergunta, tipo, paciente_id, resposta_boolean, resposta_enum, resposta_string, anamnese_id, enums_values) FROM stdin;
-155		Está tomando algum medicamento?	BOOLEAN	\N	f	\N	\N	7	\N
-156		Quais medicamentos está tomando? (posologia e dose)	STRING	\N	f	\N	\N	7	\N
-157		Tem algum tipo de alegia?	BOOLEAN	\N	f	\N	\N	7	\N
-158		Quais tipos de alergia tem?	STRING	\N	f	\N	\N	7	\N
-159		Tem ou teve algum problema do coração?	BOOLEAN	\N	f	\N	\N	7	\N
-160		Qual problema do coração teve?	STRING	\N	f	\N	\N	7	\N
-161		Sente falta de ar com frequência?	BOOLEAN	\N	f	\N	\N	7	\N
-162	Sim,Não,Não sei	Tem diabetes?	ENUM	\N	f	\N	\N	7	\N
-163	Normal,Excecivo	Quando se corta há um sangramento?	ENUM	\N	f	\N	\N	7	\N
-164	Normal,Complicada	Sua cicatrização é?	ENUM	\N	f	\N	\N	7	\N
-165		Já fez alguma cirurgia?	BOOLEAN	\N	f	\N	\N	7	\N
-166	Sim,Não,Não sei	È gestante?	ENUM	\N	f	\N	\N	7	\N
-167		Se gestante, quantas semanas de gestação?	STRING	\N	f	\N	\N	7	\N
-168		Bebe	BOOLEAN	\N	f	\N	\N	7	\N
 113		Está tomando algum medicamento?	BOOLEAN	\N	t	\N	\N	8	\N
 114		Quais medicamentos está tomando? (posologia e dose)	STRING	\N	f	\N	Olanzapina, dipirona	8	\N
 115		Tem algum tipo de alegia?	BOOLEAN	\N	t	\N	\N	8	\N
@@ -1562,36 +1553,52 @@ COPY public.anamnese_pergunta (id, enum_values, pergunta, tipo, paciente_id, res
 204		Você fuma?	BOOLEAN	\N	t	\N	\N	12	\N
 205	Intenso,Normal	Como é o sangramento quando se corta?	ENUM	\N	f	Normal	\N	12	\N
 206		Quais alergias?	STRING	\N	f	\N	Alergia a ovos	12	\N
+207		Você fuma?	BOOLEAN	\N	f	\N	\N	13	\N
+208	Intenso,Normal	Como é o sangramento quando se corta?	ENUM	\N	f	\N	\N	13	\N
+209		Quais alergias?	STRING	\N	f	\N	\N	13	\N
+212		O paciente fuma?	BOOLEAN	\N	t	\N	\N	7	\N
+213		Você bebe bebida alcoólica?	BOOLEAN	\N	f	\N	\N	7	\N
 \.
 
 
 --
--- Data for Name: atendimento; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: atendimento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.atendimento (id, status, paciente_id, profissional_id, turno, clinica_id, observacoes, data_agendamento, data_atendimento, data_finalizacao, data_save_observacoes, data_espera, orcamento_id) FROM stdin;
 57	INICIADO	8	5	MANHA	2	ABC	2023-07-19 20:23:21.904	2023-07-20	\N	2023-07-19 20:25:01.695	\N	2
 58	REGISTRADO	8	5	TARDE	2	\N	2023-07-20 09:52:42.239	2023-07-20	\N	\N	\N	2
 60	REGISTRADO	8	5	NOITE	2	\N	2023-07-20 10:00:01.189	2023-07-20	\N	\N	\N	2
+61	REGISTRADO	6	5	TARDE	2		2024-05-16 21:52:09.214	2024-05-17	\N	\N	\N	3
+63	REGISTRADO	4	10	MANHA	2	\N	2024-05-20 17:18:09.495	2024-05-28	\N	\N	\N	4
+62	FINALIZADO	4	10	TARDE	2	abcde	2024-05-20 17:10:38.209	2024-05-27	\N	\N	2024-05-20 17:12:16.351	4
+64	FINALIZADO	4	10	NOITE	2	abce	2024-05-20 17:27:39.141	2024-05-20	\N	\N	2024-05-20 17:27:59.545	5
+65	REGISTRADO	24	10	MANHA	2	abc	2024-05-21 03:45:25.283	2024-05-28	\N	\N	\N	6
+66	REGISTRADO	24	10	MANHA	2	avb	2024-05-21 03:53:48.185	2024-05-29	\N	\N	\N	7
+67	REGISTRADO	3	10	MANHA	2		2024-05-21 04:40:37.387	2024-05-30	\N	\N	\N	8
+68	CANCELADO	6	10	MANHA	2		2024-05-21 04:44:18.034	2024-05-31	\N	\N	\N	9
+69	REGISTRADO	14	10	MANHA	2		2024-05-21 04:51:59.588	2024-05-31	\N	\N	\N	10
+70	FINALIZADO	25	11	MANHA	8		2024-06-20 08:11:29.797	2024-06-20	\N	\N	2024-06-20 08:14:48.232	11
 \.
 
 
 --
--- Data for Name: clinica; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: clinica; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.clinica (id, email, nome, telefone, usuario_id, endereco_id) FROM stdin;
-2	italoherbert@outlook.com	Clinica Nordeste	(87) 99905-2371	1	1
-3		Clínica Amazonas	(87) 99050-9687	1	2
-4		Clínica João Mariano	(81) 99906-8955	1	3
-5		Consultório Odondológico Dr. Aderivan Maciel	(87) 00000-0000	1	9
-6		Clínica Dr Mariano	(87) 99905-9867	1	22
-7		Clinica do SUL	(87) 00093-2091	1	30
+COPY public.clinica (id, email, nome, telefone, usuario_id, endereco_id, logomarca) FROM stdin;
+2	italoherbert@outlook.com	Clinica Nordeste	(87) 99905-2371	1	1	\N
+3		Clínica Amazonas	(87) 99050-9687	1	2	\N
+4		Clínica João Mariano	(81) 99906-8955	1	3	\N
+5		Consultório Odondológico Dr. Aderivan Maciel	(87) 00000-0000	1	9	\N
+6		Clínica Dr Mariano	(87) 99905-9867	1	22	\N
+7		Clinica do SUL	(87) 00093-2091	1	30	\N
+8	clipageu@hotmail.com	Clinica Pageú	87 99904-3402	1	31	\N
 \.
 
 
 --
--- Data for Name: clinica_pergunta; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: clinica_pergunta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.clinica_pergunta (id, enum_names, enum_values, pergunta, tipo) FROM stdin;
@@ -1599,16 +1606,25 @@ COPY public.clinica_pergunta (id, enum_names, enum_values, pergunta, tipo) FROM 
 
 
 --
--- Data for Name: consulta; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: consulta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.consulta (id, valor, especialidade_id, orcamento_id, concluida) FROM stdin;
 27	150	10	2	t
+28	80	1	3	f
+29	350	3	4	t
+30	300	10	5	f
+31	400	3	6	f
+32	400	3	7	t
+33	400	3	8	f
+34	400	3	9	f
+35	400	3	10	f
+36	100	12	11	t
 \.
 
 
 --
--- Data for Name: diretor; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: diretor; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.diretor (id, nome, usuario_id) FROM stdin;
@@ -1617,7 +1633,7 @@ COPY public.diretor (id, nome, usuario_id) FROM stdin;
 
 
 --
--- Data for Name: endereco; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: endereco; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.endereco (id, bairro, logradouro, numero, codigo_municipio, codigo_uf) FROM stdin;
@@ -1648,11 +1664,13 @@ COPY public.endereco (id, bairro, logradouro, numero, codigo_municipio, codigo_u
 29				0	0
 30				0	0
 9				2600104	26
+31				2600401	26
+32				2613602	26
 \.
 
 
 --
--- Data for Name: especialidade; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: especialidade; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.especialidade (id, nome, clinica_id) FROM stdin;
@@ -1666,11 +1684,16 @@ COPY public.especialidade (id, nome, clinica_id) FROM stdin;
 10	Endocrinologia	2
 1	Cardiologista	3
 2	Cirurgião dentista	3
+11	Cardiologia	8
+12	Ortodontia	8
+13	Endocrinologia	8
+14	Fonoaudiologia	8
+15	Oftalmologia	8
 \.
 
 
 --
--- Data for Name: exame; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: exame; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.exame (id, descricao, nome, clinica_id, data_exame, paciente_id) FROM stdin;
@@ -1681,17 +1704,21 @@ COPY public.exame (id, descricao, nome, clinica_id, data_exame, paciente_id) FRO
 
 
 --
--- Data for Name: exame_item; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: exame_item; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.exame_item (id, descricao, nome, valor, orcamento_id, concluido) FROM stdin;
 18	Exame de ultrasonografia	Ultrasonografia	100	2	t
 19		Eletrocardiograma	120	2	f
+20		Eletrocardiograma	150	3	f
+21		Eletrocardiograma	90	4	t
+22		Eletrocardiograma	100	5	f
+23		Eletrocardiograma	100	6	f
 \.
 
 
 --
--- Data for Name: lancamento; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: lancamento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.lancamento (id, data_lancamento, tipo, valor, clinica_id, usuario_id, observacoes) FROM stdin;
@@ -1735,20 +1762,65 @@ COPY public.lancamento (id, data_lancamento, tipo, valor, clinica_id, usuario_id
 54	2023-07-19 20:23:51.839	CREDITO	600	2	12	Pagamento creditado.
 55	2023-07-19 20:23:57.106	DEBITO	600	2	12	Pagamento debitado.
 56	2023-07-19 20:24:02.459	CREDITO	500	2	12	Pagamento creditado.
+57	2024-05-20 17:16:12.029	CREDITO	400	2	19	Pagamento creditado.
+58	2024-05-20 17:16:31.879	CREDITO	420	2	19	Pagamento creditado.
+59	2024-05-20 17:28:47.894	CREDITO	200	2	19	Pagamento creditado.
+60	2024-05-20 17:28:51.01	CREDITO	280	2	19	Pagamento creditado.
+61	2024-05-20 22:18:36.632	DEBITO	280	2	19	Pagamento debitado.
+62	2024-05-20 22:19:57.92	CREDITO	10	2	19	Pagamento creditado.
+63	2024-05-20 22:21:15.851	CREDITO	30	2	19	Pagamento creditado.
+64	2024-05-20 22:23:06.59	CREDITO	210	2	19	Pagamento creditado.
+65	2024-05-21 03:46:11.362	CREDITO	100	2	19	Pagamento creditado.
+66	2024-05-21 03:46:15.339	CREDITO	100	2	19	Pagamento creditado.
+67	2024-05-21 03:46:22.19	CREDITO	100	2	19	Pagamento creditado.
+68	2024-05-21 03:53:48.19	CREDITO	100	2	19	Pagamento creditado.
+69	2024-05-21 03:55:17.96	CREDITO	100	2	19	Pagamento creditado.
+70	2024-05-21 04:40:37.395	CREDITO	100	2	19	Pagamento creditado.
+71	2024-05-21 04:44:18.069	CREDITO	100	2	19	Pagamento creditado.
+72	2024-05-21 04:51:59.598	CREDITO	100	2	19	Pagamento creditado.
+73	2024-05-21 10:16:45.94	CREDITO	200	2	19	Pagamento creditado.
+74	2024-05-21 10:16:58.679	CREDITO	50	2	19	Pagamento creditado.
+75	2024-05-21 10:17:06.102	CREDITO	30	2	19	Pagamento creditado.
+76	2024-05-21 10:17:09.096	CREDITO	20	2	19	Pagamento creditado.
+77	2024-05-21 10:17:20.586	CREDITO	0	2	19	Pagamento creditado.
+78	2024-06-20 08:17:24.139	CREDITO	100	8	21	Pagamento creditado.
+79	2024-06-20 08:17:28.435	CREDITO	100	8	21	Pagamento creditado.
+80	2024-06-20 08:18:10.188	DEBITO	200	8	21	Pagamento debitado.
+81	2024-06-20 08:18:14.817	CREDITO	100	8	21	Pagamento creditado.
+82	2024-06-20 08:19:42.088	DEBITO	100	8	21	Pagamento debitado.
+83	2024-06-20 08:19:43.824	DEBITO	0	8	21	Pagamento debitado.
+84	2024-06-20 08:19:48.286	CREDITO	0	8	21	Pagamento creditado.
+85	2024-06-20 08:19:59.872	CREDITO	100	8	21	Pagamento creditado.
+86	2024-06-20 08:20:02.427	CREDITO	100	8	21	Pagamento creditado.
+87	2024-06-20 08:20:09.28	DEBITO	200	8	21	Pagamento debitado.
+88	2024-06-20 08:20:12.042	CREDITO	100	8	21	Pagamento creditado.
+89	2024-06-20 09:17:32.102	CREDITO	300	8	21	Pagamento creditado.
+90	2024-06-20 09:17:54.883	CREDITO	300	8	21	Pagamento creditado.
+91	2024-06-20 09:18:10.245	DEBITO	700	8	21	Pagamento debitado.
+92	2024-06-20 09:18:21.945	CREDITO	100	8	21	Pagamento creditado.
 \.
 
 
 --
--- Data for Name: orcamento; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: orcamento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.orcamento (id, pago, tem_consulta, valor_pago, valor_total) FROM stdin;
 2	f	t	500	875
+3	f	t	200	250
+4	t	t	420	420
+5	t	t	210	200
+6	t	t	400	400
+7	f	t	200	400
+8	f	t	100	0
+9	f	t	100	0
+10	t	t	400	400
+11	t	t	100	100
 \.
 
 
 --
--- Data for Name: paciente; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: paciente; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.paciente (id, cpf, data_nascimento, data_registro, email, estado_civil, nacionalidade, nome, observacoes, ocupacao, rg, sexo, telefone, clinica_id, endereco_id, anamnese_criada) FROM stdin;
@@ -1768,16 +1840,17 @@ COPY public.paciente (id, cpf, data_nascimento, data_registro, email, estado_civ
 17		1997-05-13	2023-07-11 12:39:19.584		\N	\N	Zélia Ramos	\N			\N		2	21	f
 18		1997-06-17	2023-07-13 10:06:09.671		\N	\N	Adalberto Ramos	\N			\N		5	23	f
 19		1977-03-24	2023-07-13 10:06:33.803		\N	\N	Bernardo José	\N			\N		5	24	f
-21		1992-12-18	2023-07-13 10:08:02.913		\N	\N	Geraldo Marcio	\N			\N		5	26	f
 22		1993-02-28	2023-07-13 10:08:30.634		\N	\N	José Mario de Oliveira	\N			\N		5	27	f
 20		1997-10-30	2023-07-13 10:07:36.944		\N	\N	Elaine Siqueira	\N			\N		5	25	t
 23	044.291.594-24	1984-06-20	2023-07-13 10:32:45.647		DIVORCIADO	BRASILEIRO	Aderivan Maciel Gomes	\N			MASCULINO	(87) 9997-5395	5	28	f
 24		2001-05-22	2023-07-13 13:08:03.623		\N	\N	José Carlos de Brito Nunes	\N			\N		2	29	f
+21		1992-12-18	2023-07-13 10:08:02.913		\N	\N	Geraldo Marcio	\N			\N		5	26	t
+25		1992-02-13	2024-06-20 08:10:35.939		\N	\N	Carlos brito nunes de lima	\N			\N		8	32	f
 \.
 
 
 --
--- Data for Name: paciente_anexo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: paciente_anexo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.paciente_anexo (id, arquivo, nome, paciente_id) FROM stdin;
@@ -1789,7 +1862,7 @@ COPY public.paciente_anexo (id, arquivo, nome, paciente_id) FROM stdin;
 
 
 --
--- Data for Name: procedimento; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: procedimento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.procedimento (id, descricao, nome, clinica_id) FROM stdin;
@@ -1800,39 +1873,46 @@ COPY public.procedimento (id, descricao, nome, clinica_id) FROM stdin;
 
 
 --
--- Data for Name: procedimento_item; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: procedimento_item; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.procedimento_item (id, descricao, nome, valor, orcamento_id, concluido) FROM stdin;
 10	Clareamento de dentes	Clareamento dentário	320	2	t
 9	Extração de dentes	Extração	200	2	t
+11	Clareamento de dentes	Clareamento dentário	50	3	f
 \.
 
 
 --
--- Data for Name: profissional; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: profissional; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.profissional (id, funcao, nome, usuario_id) FROM stdin;
 5	0	João da Silva Brito Nunes	12
 8	2	Aderivan Maciel	16
 9	0	Carlos Manoel da Silva	18
+10	0	Samuel	19
+11	0	Carlos Manuel	21
 \.
 
 
 --
--- Data for Name: profissional_especialidade_vinculo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: profissional_especialidade_vinculo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.profissional_especialidade_vinculo (id, consulta_valor, especialidade_id, profissional_id) FROM stdin;
 22	100	1	5
 23	200	2	8
 24	150	10	5
+25	400	3	10
+26	300	10	10
+27	100	12	11
+28	100	13	11
 \.
 
 
 --
--- Data for Name: profissional_exame_vinculo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: profissional_exame_vinculo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.profissional_exame_vinculo (id, exame_valor, exame_id, profissional_id) FROM stdin;
@@ -1840,11 +1920,12 @@ COPY public.profissional_exame_vinculo (id, exame_valor, exame_id, profissional_
 2	150	4	5
 3	100	2	8
 4	200	4	8
+5	100	4	10
 \.
 
 
 --
--- Data for Name: profissional_procedimento_vinculo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: profissional_procedimento_vinculo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.profissional_procedimento_vinculo (id, procedimento_id, profissional_id, procedimento_valor) FROM stdin;
@@ -1854,17 +1935,18 @@ COPY public.profissional_procedimento_vinculo (id, procedimento_id, profissional
 
 
 --
--- Data for Name: recepcionista; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: recepcionista; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.recepcionista (id, nome, clinica_id, usuario_id) FROM stdin;
 2	Maria Carla de Brito	2	13
 3	Maria José dos Anjos	5	17
+4	Maria da Paz	8	22
 \.
 
 
 --
--- Data for Name: recurso; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: recurso; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.recurso (id, nome) FROM stdin;
@@ -1894,7 +1976,7 @@ COPY public.recurso (id, nome) FROM stdin;
 
 
 --
--- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.usuario (id, perfil, senha, username, criador_id) FROM stdin;
@@ -1906,11 +1988,15 @@ COPY public.usuario (id, perfil, senha, username, criador_id) FROM stdin;
 18	PROFISSIONAL	7b85175b455060e3237e925f023053ca9515e8682a83c8b09911c724a1f8b75f	carlos	1
 12	PROFISSIONAL	c56132f2aa181259dfbd2f1acab8157dd926466227758f6ee6c430631a0692b6	profissional	1
 1	RAIZ	eef4e9a26c0b55f791e47ee65562cc78f19e07d2fcede3555f08f8463e3d15e6	italo	\N
+19	PROFISSIONAL	90cc33a41b541af2c1964e3e10a46088cbdedf63031efaa35d588a698c91193f	samuel	1
+20	ADMIN	ed2befb11499489e2570cb053f774b8ed93e89eddab3f78867a2a5f32c58845e	joao	1
+21	PROFISSIONAL	cca457407f24b80c72d89dd061837112cb99a0aa050c155514b320b7aaffe95c	manuel	1
+22	RECEPCIONISTA	fa6b06622e23f34131f86a6e23cf0baa1e0b9433ef419a7841bdc429d79a61dd	dapaz	1
 \.
 
 
 --
--- Data for Name: usuario_clinica_vinculo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: usuario_clinica_vinculo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.usuario_clinica_vinculo (id, clinica_id, usuario_id) FROM stdin;
@@ -1922,11 +2008,15 @@ COPY public.usuario_clinica_vinculo (id, clinica_id, usuario_id) FROM stdin;
 8	5	16
 9	5	17
 10	6	18
+11	2	19
+12	8	20
+13	8	21
+14	8	22
 \.
 
 
 --
--- Data for Name: usuario_grupo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: usuario_grupo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.usuario_grupo (id, nome) FROM stdin;
@@ -1939,7 +2029,7 @@ COPY public.usuario_grupo (id, nome) FROM stdin;
 
 
 --
--- Data for Name: usuario_grupo_vinculo; Type: TABLE DATA; Schema: public; Owner: xclin
+-- Data for Name: usuario_grupo_vinculo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.usuario_grupo_vinculo (id, grupo_id, usuario_id) FROM stdin;
@@ -1954,217 +2044,221 @@ COPY public.usuario_grupo_vinculo (id, grupo_id, usuario_id) FROM stdin;
 11	5	17
 16	5	13
 17	4	18
+18	4	19
+19	2	20
+20	4	21
+21	5	22
 \.
 
 
 --
--- Name: acesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: acesso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.acesso_id_seq', 107, true);
 
 
 --
--- Name: anamnese_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: anamnese_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.anamnese_id_seq', 12, true);
-
-
---
--- Name: anamnese_modelo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.anamnese_modelo_id_seq', 7, true);
+SELECT pg_catalog.setval('public.anamnese_id_seq', 13, true);
 
 
 --
--- Name: anamnese_modelo_pergunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.anamnese_modelo_pergunta_id_seq', 24, true);
-
-
---
--- Name: anamnese_pergunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.anamnese_pergunta_id_seq', 206, true);
+SELECT pg_catalog.setval('public.anamnese_modelo_id_seq', 8, true);
 
 
 --
--- Name: clinica_exame_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_pergunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.anamnese_modelo_pergunta_id_seq', 26, true);
+
+
+--
+-- Name: anamnese_pergunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.anamnese_pergunta_id_seq', 213, true);
+
+
+--
+-- Name: clinica_exame_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.clinica_exame_id_seq', 5, true);
 
 
 --
--- Name: clinica_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: clinica_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.clinica_id_seq', 7, true);
+SELECT pg_catalog.setval('public.clinica_id_seq', 8, true);
 
 
 --
--- Name: clinica_pergunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: clinica_pergunta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.clinica_pergunta_id_seq', 1, false);
 
 
 --
--- Name: consulta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: consulta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.consulta_id_seq', 60, true);
-
-
---
--- Name: consulta_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.consulta_id_seq1', 27, true);
+SELECT pg_catalog.setval('public.consulta_id_seq', 70, true);
 
 
 --
--- Name: diretor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: consulta_id_seq1; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.consulta_id_seq1', 36, true);
+
+
+--
+-- Name: diretor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.diretor_id_seq', 4, true);
 
 
 --
--- Name: endereco_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: endereco_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.endereco_id_seq', 30, true);
-
-
---
--- Name: especialidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.especialidade_id_seq', 10, true);
+SELECT pg_catalog.setval('public.endereco_id_seq', 32, true);
 
 
 --
--- Name: exame_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: especialidade_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.exame_item_id_seq', 19, true);
-
-
---
--- Name: lancamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.lancamento_id_seq', 56, true);
+SELECT pg_catalog.setval('public.especialidade_id_seq', 15, true);
 
 
 --
--- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: exame_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.orcamento_id_seq', 2, true);
+SELECT pg_catalog.setval('public.exame_item_id_seq', 23, true);
 
 
 --
--- Name: paciente_anexo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: lancamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.lancamento_id_seq', 92, true);
+
+
+--
+-- Name: orcamento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.orcamento_id_seq', 11, true);
+
+
+--
+-- Name: paciente_anexo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.paciente_anexo_id_seq', 6, true);
 
 
 --
--- Name: paciente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: paciente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.paciente_id_seq', 24, true);
+SELECT pg_catalog.setval('public.paciente_id_seq', 25, true);
 
 
 --
--- Name: procedimento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: procedimento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.procedimento_id_seq', 4, true);
 
 
 --
--- Name: procedimento_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: procedimento_item_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.procedimento_item_id_seq', 10, true);
-
-
---
--- Name: profissional_especialidade_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.profissional_especialidade_vinculo_id_seq', 24, true);
+SELECT pg_catalog.setval('public.procedimento_item_id_seq', 11, true);
 
 
 --
--- Name: profissional_exame_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.profissional_exame_vinculo_id_seq', 4, true);
-
-
---
--- Name: profissional_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.profissional_id_seq', 9, true);
+SELECT pg_catalog.setval('public.profissional_especialidade_vinculo_id_seq', 28, true);
 
 
 --
--- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.profissional_exame_vinculo_id_seq', 5, true);
+
+
+--
+-- Name: profissional_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.profissional_id_seq', 11, true);
+
+
+--
+-- Name: profissional_procedimento_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.profissional_procedimento_vinculo_id_seq', 2, true);
 
 
 --
--- Name: recepcionista_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: recepcionista_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.recepcionista_id_seq', 3, true);
-
-
---
--- Name: recurso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
---
-
-SELECT pg_catalog.setval('public.recurso_id_seq', 23, true);
+SELECT pg_catalog.setval('public.recepcionista_id_seq', 4, true);
 
 
 --
--- Name: usuario_clinica_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: recurso_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_clinica_vinculo_id_seq', 10, true);
+SELECT pg_catalog.setval('public.recurso_id_seq', 24, true);
 
 
 --
--- Name: usuario_grupo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.usuario_clinica_vinculo_id_seq', 14, true);
+
+
+--
+-- Name: usuario_grupo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
 SELECT pg_catalog.setval('public.usuario_grupo_id_seq', 5, true);
 
 
 --
--- Name: usuario_grupo_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_grupo_vinculo_id_seq', 17, true);
+SELECT pg_catalog.setval('public.usuario_grupo_vinculo_id_seq', 21, true);
 
 
 --
--- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: xclin
+-- Name: usuario_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.usuario_id_seq', 18, true);
+SELECT pg_catalog.setval('public.usuario_id_seq', 22, true);
 
 
 --
@@ -2187,7 +2281,7 @@ SELECT pg_catalog.lo_close(0);
 COMMIT;
 
 --
--- Name: acesso acesso_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: acesso acesso_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.acesso
@@ -2195,7 +2289,7 @@ ALTER TABLE ONLY public.acesso
 
 
 --
--- Name: anamnese_modelo_pergunta anamnese_modelo_pergunta_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_pergunta anamnese_modelo_pergunta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_modelo_pergunta
@@ -2203,7 +2297,7 @@ ALTER TABLE ONLY public.anamnese_modelo_pergunta
 
 
 --
--- Name: anamnese_modelo anamnese_modelo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese_modelo anamnese_modelo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_modelo
@@ -2211,7 +2305,7 @@ ALTER TABLE ONLY public.anamnese_modelo
 
 
 --
--- Name: anamnese_pergunta anamnese_pergunta_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese_pergunta anamnese_pergunta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_pergunta
@@ -2219,7 +2313,7 @@ ALTER TABLE ONLY public.anamnese_pergunta
 
 
 --
--- Name: anamnese anamnese_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese anamnese_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese
@@ -2227,7 +2321,7 @@ ALTER TABLE ONLY public.anamnese
 
 
 --
--- Name: exame clinica_exame_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: exame clinica_exame_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.exame
@@ -2235,7 +2329,7 @@ ALTER TABLE ONLY public.exame
 
 
 --
--- Name: clinica_pergunta clinica_pergunta_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: clinica_pergunta clinica_pergunta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.clinica_pergunta
@@ -2243,7 +2337,7 @@ ALTER TABLE ONLY public.clinica_pergunta
 
 
 --
--- Name: clinica clinica_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: clinica clinica_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.clinica
@@ -2251,7 +2345,7 @@ ALTER TABLE ONLY public.clinica
 
 
 --
--- Name: atendimento consulta_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: atendimento consulta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.atendimento
@@ -2259,7 +2353,7 @@ ALTER TABLE ONLY public.atendimento
 
 
 --
--- Name: consulta consulta_pkey1; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: consulta consulta_pkey1; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.consulta
@@ -2267,7 +2361,7 @@ ALTER TABLE ONLY public.consulta
 
 
 --
--- Name: diretor diretor_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: diretor diretor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.diretor
@@ -2275,7 +2369,7 @@ ALTER TABLE ONLY public.diretor
 
 
 --
--- Name: endereco endereco_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: endereco endereco_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.endereco
@@ -2283,7 +2377,7 @@ ALTER TABLE ONLY public.endereco
 
 
 --
--- Name: especialidade especialidade_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: especialidade especialidade_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.especialidade
@@ -2291,7 +2385,7 @@ ALTER TABLE ONLY public.especialidade
 
 
 --
--- Name: exame_item exame_item_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: exame_item exame_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.exame_item
@@ -2299,7 +2393,7 @@ ALTER TABLE ONLY public.exame_item
 
 
 --
--- Name: lancamento lancamento_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: lancamento lancamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.lancamento
@@ -2307,7 +2401,7 @@ ALTER TABLE ONLY public.lancamento
 
 
 --
--- Name: orcamento orcamento_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: orcamento orcamento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.orcamento
@@ -2315,7 +2409,7 @@ ALTER TABLE ONLY public.orcamento
 
 
 --
--- Name: paciente_anexo paciente_anexo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: paciente_anexo paciente_anexo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.paciente_anexo
@@ -2323,7 +2417,7 @@ ALTER TABLE ONLY public.paciente_anexo
 
 
 --
--- Name: paciente paciente_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: paciente paciente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.paciente
@@ -2331,7 +2425,7 @@ ALTER TABLE ONLY public.paciente
 
 
 --
--- Name: procedimento_item procedimento_item_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: procedimento_item procedimento_item_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.procedimento_item
@@ -2339,7 +2433,7 @@ ALTER TABLE ONLY public.procedimento_item
 
 
 --
--- Name: procedimento procedimento_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: procedimento procedimento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.procedimento
@@ -2347,7 +2441,7 @@ ALTER TABLE ONLY public.procedimento
 
 
 --
--- Name: profissional_especialidade_vinculo profissional_especialidade_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo profissional_especialidade_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_especialidade_vinculo
@@ -2355,7 +2449,7 @@ ALTER TABLE ONLY public.profissional_especialidade_vinculo
 
 
 --
--- Name: profissional_exame_vinculo profissional_exame_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo profissional_exame_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_exame_vinculo
@@ -2363,7 +2457,7 @@ ALTER TABLE ONLY public.profissional_exame_vinculo
 
 
 --
--- Name: profissional profissional_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional profissional_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional
@@ -2371,7 +2465,7 @@ ALTER TABLE ONLY public.profissional
 
 
 --
--- Name: profissional_procedimento_vinculo profissional_procedimento_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_procedimento_vinculo profissional_procedimento_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_procedimento_vinculo
@@ -2379,7 +2473,7 @@ ALTER TABLE ONLY public.profissional_procedimento_vinculo
 
 
 --
--- Name: recepcionista recepcionista_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: recepcionista recepcionista_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.recepcionista
@@ -2387,7 +2481,7 @@ ALTER TABLE ONLY public.recepcionista
 
 
 --
--- Name: recurso recurso_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: recurso recurso_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.recurso
@@ -2395,7 +2489,7 @@ ALTER TABLE ONLY public.recurso
 
 
 --
--- Name: usuario_clinica_vinculo usuario_clinica_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo usuario_clinica_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_clinica_vinculo
@@ -2403,7 +2497,7 @@ ALTER TABLE ONLY public.usuario_clinica_vinculo
 
 
 --
--- Name: usuario_grupo usuario_grupo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario_grupo usuario_grupo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_grupo
@@ -2411,7 +2505,7 @@ ALTER TABLE ONLY public.usuario_grupo
 
 
 --
--- Name: usuario_grupo_vinculo usuario_grupo_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo usuario_grupo_vinculo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_grupo_vinculo
@@ -2419,7 +2513,7 @@ ALTER TABLE ONLY public.usuario_grupo_vinculo
 
 
 --
--- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario
@@ -2427,7 +2521,7 @@ ALTER TABLE ONLY public.usuario
 
 
 --
--- Name: especialidade fk14ft4dfv55lk730kec19esad0; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: especialidade fk14ft4dfv55lk730kec19esad0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.especialidade
@@ -2435,7 +2529,7 @@ ALTER TABLE ONLY public.especialidade
 
 
 --
--- Name: atendimento fk1oq22nlbbvpijm5n2t6vqi1is; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: atendimento fk1oq22nlbbvpijm5n2t6vqi1is; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.atendimento
@@ -2443,7 +2537,7 @@ ALTER TABLE ONLY public.atendimento
 
 
 --
--- Name: usuario_clinica_vinculo fk23by4lok4wmh35emw3bv4gwdl; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo fk23by4lok4wmh35emw3bv4gwdl; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_clinica_vinculo
@@ -2451,7 +2545,7 @@ ALTER TABLE ONLY public.usuario_clinica_vinculo
 
 
 --
--- Name: anamnese_modelo fk24cebna7eirr7f8mu763tr0nq; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese_modelo fk24cebna7eirr7f8mu763tr0nq; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_modelo
@@ -2459,7 +2553,7 @@ ALTER TABLE ONLY public.anamnese_modelo
 
 
 --
--- Name: clinica fk3ardy4cugio8i2oigmenojsss; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: clinica fk3ardy4cugio8i2oigmenojsss; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.clinica
@@ -2467,7 +2561,7 @@ ALTER TABLE ONLY public.clinica
 
 
 --
--- Name: profissional_exame_vinculo fk4kitbaeqq87d0m63mgbgxhq3e; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo fk4kitbaeqq87d0m63mgbgxhq3e; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_exame_vinculo
@@ -2475,7 +2569,7 @@ ALTER TABLE ONLY public.profissional_exame_vinculo
 
 
 --
--- Name: profissional fk509yihu28yuuinro8jxectk7q; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional fk509yihu28yuuinro8jxectk7q; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional
@@ -2483,7 +2577,7 @@ ALTER TABLE ONLY public.profissional
 
 
 --
--- Name: atendimento fk5cf4njjq0kgjvhb1077rdc4d6; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: atendimento fk5cf4njjq0kgjvhb1077rdc4d6; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.atendimento
@@ -2491,7 +2585,7 @@ ALTER TABLE ONLY public.atendimento
 
 
 --
--- Name: consulta fk6b2r1cqh222pojyxebb15l09x; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: consulta fk6b2r1cqh222pojyxebb15l09x; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.consulta
@@ -2499,7 +2593,7 @@ ALTER TABLE ONLY public.consulta
 
 
 --
--- Name: procedimento_item fk76w1ruog7bdbe2xia3cc0uupl; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: procedimento_item fk76w1ruog7bdbe2xia3cc0uupl; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.procedimento_item
@@ -2507,7 +2601,7 @@ ALTER TABLE ONLY public.procedimento_item
 
 
 --
--- Name: usuario fk7n8ptg8x9n6p7x0bs11a8rkw9; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario fk7n8ptg8x9n6p7x0bs11a8rkw9; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario
@@ -2515,7 +2609,7 @@ ALTER TABLE ONLY public.usuario
 
 
 --
--- Name: paciente_anexo fk7yygxwj73x3d3khrjs3etj7pg; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: paciente_anexo fk7yygxwj73x3d3khrjs3etj7pg; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.paciente_anexo
@@ -2523,7 +2617,7 @@ ALTER TABLE ONLY public.paciente_anexo
 
 
 --
--- Name: profissional_especialidade_vinculo fk8a5eremo0d8a2wk103ugyyb45; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo fk8a5eremo0d8a2wk103ugyyb45; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_especialidade_vinculo
@@ -2531,7 +2625,7 @@ ALTER TABLE ONLY public.profissional_especialidade_vinculo
 
 
 --
--- Name: exame fk8bcs8ym9u3ovdj8b6rp4ap8ky; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: exame fk8bcs8ym9u3ovdj8b6rp4ap8ky; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.exame
@@ -2539,7 +2633,7 @@ ALTER TABLE ONLY public.exame
 
 
 --
--- Name: procedimento fk9rln4j1rj9w26i7phx1c5gdf0; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: procedimento fk9rln4j1rj9w26i7phx1c5gdf0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.procedimento
@@ -2547,7 +2641,7 @@ ALTER TABLE ONLY public.procedimento
 
 
 --
--- Name: clinica fkanqpqlfw3fhgf8es22vqab5of; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: clinica fkanqpqlfw3fhgf8es22vqab5of; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.clinica
@@ -2555,7 +2649,7 @@ ALTER TABLE ONLY public.clinica
 
 
 --
--- Name: anamnese fkd5o10n5lcs0r1be35cw8wnslm; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese fkd5o10n5lcs0r1be35cw8wnslm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese
@@ -2563,7 +2657,7 @@ ALTER TABLE ONLY public.anamnese
 
 
 --
--- Name: exame_item fkdvremjeo8ta91io6mn6h526yt; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: exame_item fkdvremjeo8ta91io6mn6h526yt; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.exame_item
@@ -2571,7 +2665,7 @@ ALTER TABLE ONLY public.exame_item
 
 
 --
--- Name: atendimento fkeku8hqbtg77sov7q67nt81074; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: atendimento fkeku8hqbtg77sov7q67nt81074; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.atendimento
@@ -2579,7 +2673,7 @@ ALTER TABLE ONLY public.atendimento
 
 
 --
--- Name: profissional_procedimento_vinculo fkfjqyl2d94jmqehqyxseju3j6c; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_procedimento_vinculo fkfjqyl2d94jmqehqyxseju3j6c; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_procedimento_vinculo
@@ -2587,7 +2681,7 @@ ALTER TABLE ONLY public.profissional_procedimento_vinculo
 
 
 --
--- Name: usuario_grupo_vinculo fkg771d6fl2whmboerscrs2sgq0; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo fkg771d6fl2whmboerscrs2sgq0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_grupo_vinculo
@@ -2595,7 +2689,7 @@ ALTER TABLE ONLY public.usuario_grupo_vinculo
 
 
 --
--- Name: acesso fkh6g3pl8m5532hpiwchblfa8n3; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: acesso fkh6g3pl8m5532hpiwchblfa8n3; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.acesso
@@ -2603,7 +2697,7 @@ ALTER TABLE ONLY public.acesso
 
 
 --
--- Name: consulta fki9kiybstxsybblx7wm10dgoxy; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: consulta fki9kiybstxsybblx7wm10dgoxy; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.consulta
@@ -2611,7 +2705,7 @@ ALTER TABLE ONLY public.consulta
 
 
 --
--- Name: usuario_grupo_vinculo fkinb0jr0jn2h73e480r3x7bjfd; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario_grupo_vinculo fkinb0jr0jn2h73e480r3x7bjfd; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_grupo_vinculo
@@ -2619,7 +2713,7 @@ ALTER TABLE ONLY public.usuario_grupo_vinculo
 
 
 --
--- Name: lancamento fkirm4gly5ufimgcv073s4q14cv; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: lancamento fkirm4gly5ufimgcv073s4q14cv; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.lancamento
@@ -2627,7 +2721,7 @@ ALTER TABLE ONLY public.lancamento
 
 
 --
--- Name: anamnese_pergunta fkjpj244e6532xd4p3q2ib3yejs; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese_pergunta fkjpj244e6532xd4p3q2ib3yejs; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_pergunta
@@ -2635,7 +2729,7 @@ ALTER TABLE ONLY public.anamnese_pergunta
 
 
 --
--- Name: paciente fkkot1yx16akjbjpmbxp47advjb; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: paciente fkkot1yx16akjbjpmbxp47advjb; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.paciente
@@ -2643,7 +2737,7 @@ ALTER TABLE ONLY public.paciente
 
 
 --
--- Name: profissional_exame_vinculo fkl89dw7ksr4bvauskpjjt72lt; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_exame_vinculo fkl89dw7ksr4bvauskpjjt72lt; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_exame_vinculo
@@ -2651,7 +2745,7 @@ ALTER TABLE ONLY public.profissional_exame_vinculo
 
 
 --
--- Name: anamnese_pergunta fkm393dqiiilh7t55bp26qw6lfy; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese_pergunta fkm393dqiiilh7t55bp26qw6lfy; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_pergunta
@@ -2659,7 +2753,7 @@ ALTER TABLE ONLY public.anamnese_pergunta
 
 
 --
--- Name: acesso fkn0twqkqdabt0m5g5q9oop6hd2; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: acesso fkn0twqkqdabt0m5g5q9oop6hd2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.acesso
@@ -2667,7 +2761,7 @@ ALTER TABLE ONLY public.acesso
 
 
 --
--- Name: recepcionista fko3gbobbj43dw6r37p4f49ebjm; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: recepcionista fko3gbobbj43dw6r37p4f49ebjm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.recepcionista
@@ -2675,7 +2769,7 @@ ALTER TABLE ONLY public.recepcionista
 
 
 --
--- Name: usuario_clinica_vinculo fko9ls9u0fandytyu60ihg09gx0; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: usuario_clinica_vinculo fko9ls9u0fandytyu60ihg09gx0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.usuario_clinica_vinculo
@@ -2683,7 +2777,7 @@ ALTER TABLE ONLY public.usuario_clinica_vinculo
 
 
 --
--- Name: atendimento fkohu6hcdnhq8bt4j0vyythxxhk; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: atendimento fkohu6hcdnhq8bt4j0vyythxxhk; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.atendimento
@@ -2691,7 +2785,7 @@ ALTER TABLE ONLY public.atendimento
 
 
 --
--- Name: profissional_especialidade_vinculo fkom6xcr6evevbvfvtnuvmc4au2; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_especialidade_vinculo fkom6xcr6evevbvfvtnuvmc4au2; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_especialidade_vinculo
@@ -2699,7 +2793,7 @@ ALTER TABLE ONLY public.profissional_especialidade_vinculo
 
 
 --
--- Name: diretor fkpju2hubicpb0l2vq8vr9fq34s; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: diretor fkpju2hubicpb0l2vq8vr9fq34s; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.diretor
@@ -2707,7 +2801,7 @@ ALTER TABLE ONLY public.diretor
 
 
 --
--- Name: recepcionista fkppebap8451v2nydf63yoxxb5a; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: recepcionista fkppebap8451v2nydf63yoxxb5a; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.recepcionista
@@ -2715,7 +2809,7 @@ ALTER TABLE ONLY public.recepcionista
 
 
 --
--- Name: lancamento fkpq8mu65bmp2hw9wl4kdahxajq; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: lancamento fkpq8mu65bmp2hw9wl4kdahxajq; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.lancamento
@@ -2723,7 +2817,7 @@ ALTER TABLE ONLY public.lancamento
 
 
 --
--- Name: paciente fkpus64vtl67yxnw2kimogd7abx; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: paciente fkpus64vtl67yxnw2kimogd7abx; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.paciente
@@ -2731,7 +2825,7 @@ ALTER TABLE ONLY public.paciente
 
 
 --
--- Name: anamnese_modelo_pergunta fks3mds1md16tqs8mhejf3acrbx; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: anamnese_modelo_pergunta fks3mds1md16tqs8mhejf3acrbx; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.anamnese_modelo_pergunta
@@ -2739,7 +2833,7 @@ ALTER TABLE ONLY public.anamnese_modelo_pergunta
 
 
 --
--- Name: exame fksra8es0py0d0vdsrggxabfy6; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: exame fksra8es0py0d0vdsrggxabfy6; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.exame
@@ -2747,7 +2841,7 @@ ALTER TABLE ONLY public.exame
 
 
 --
--- Name: profissional_procedimento_vinculo fktrlyx9qln0mfn7jmjsqh4xubj; Type: FK CONSTRAINT; Schema: public; Owner: xclin
+-- Name: profissional_procedimento_vinculo fktrlyx9qln0mfn7jmjsqh4xubj; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.profissional_procedimento_vinculo

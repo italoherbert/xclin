@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { AnamneseModelo } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo';
 import { AnamneseModeloFiltro } from 'src/app/core/bean/anamnese-modelo/anamnese-modelo-filtro';
@@ -29,7 +30,8 @@ export class AnamneseModeloTelaComponent {
     filtroNome: '*'
   }
 
-  anamneseModelos : AnamneseModelo[] = [];
+  anamneseModelosColumns: string[] = ['nome', 'detalhes', 'remover'];
+  anamneseModelosDataSource = new MatTableDataSource<AnamneseModelo>([]);
 
   constructor( 
     private matDialog : MatDialog,
@@ -48,9 +50,9 @@ export class AnamneseModeloTelaComponent {
 
     this.anamneseModeloService.filtra( this.anamneseModeloFiltro ).subscribe({
       next: (resp) => {
-        this.anamneseModelos = resp;        
+        this.anamneseModelosDataSource.data = resp;        
 
-        if ( this.anamneseModelos.length === 0 )
+        if ( this.anamneseModelosDataSource.data.length === 0 )
           this.infoMsg = "Nenhum modelo de anamnese encontrado pelos critérios de busca informados.";
 
         this.showSpinner = false;        

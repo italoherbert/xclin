@@ -14,7 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>xclin</name>
-	<description>Sistema de Clínica Odontológica</description>
+	<description>Sistema de Clínica Médica/Odontológica</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.2</spring-cloud.version>

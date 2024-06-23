@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { AtendimentoFilaComponent } from './atendimento-fila.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
+import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
 
 
 
@@ -27,7 +29,10 @@ import { MatMenuModule } from '@angular/material/menu';
     MatButtonModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMenuModule
+    MatMenuModule,
+    MatTableModule,
+
+    PaginatorModule
   ]
 })
 export class AtendimentoFilaModule { }

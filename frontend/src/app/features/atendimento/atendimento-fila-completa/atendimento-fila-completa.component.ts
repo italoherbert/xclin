@@ -6,6 +6,7 @@ import { SistemaService } from 'src/app/core/service/sistema.service';
 import { Atendimento } from 'src/app/core/bean/atendimento/atendimento';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { ActivatedRoute } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-atendimento-fila-completa',
@@ -28,7 +29,8 @@ export class AtendimentoFilaCompletaComponent {
     turno: ''
   }
 
-  atendimentos : Atendimento[] = [];
+  atendimentosColumns: string[] = ['nome', 'novoStatus', 'dataAtendimento', 'turno', 'detalhes' ];
+  atendimentosDataSource = new MatTableDataSource<Atendimento>([]);
 
   constructor( 
     private actRoute: ActivatedRoute,
@@ -54,9 +56,9 @@ export class AtendimentoFilaCompletaComponent {
 
     this.atendimentoService.listaFilaCompleta( clinicaId, profissionalId, this.atendimentoFilaFiltro ).subscribe( {
       next: (resp) => {
-        this.atendimentos = resp;
+        this.atendimentosDataSource.data = resp;
 
-        if ( this.atendimentos.length == 0 )
+        if ( this.atendimentosDataSource.data.length == 0 )
           this.infoMsg = "Nenhuma atendimento agendada para esta data e turno.";
           
         this.showSpinner = false;

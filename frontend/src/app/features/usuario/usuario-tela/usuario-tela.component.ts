@@ -1,6 +1,9 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Usuario } from 'src/app/core/bean/usuario/usuario';
 
 import { UsuarioFiltro } from 'src/app/core/bean/usuario/usuario-filtro';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -31,6 +34,9 @@ export class UsuarioTelaComponent {
 
   usuarios : any;
 
+  usuariosColumns: string[] = ['nome', 'perfil', 'detalhes', 'remover'];
+  usuariosDataSource = new MatTableDataSource<Usuario>([]);
+
   constructor( 
     private matDialog: MatDialog,
     private usuarioService: UsuarioService, 
@@ -44,8 +50,8 @@ export class UsuarioTelaComponent {
 
     this.usuarioService.filtraUsuarios( this.usuarioFiltro ).subscribe({
       next: ( resp ) => {
-        this.usuarios = resp;
-        if ( this.usuarios.length == 0 )
+        this.usuariosDataSource.data = resp;
+        if ( this.usuariosDataSource.data.length == 0 )
           this.infoMsg = "Nenhum usuário encontrado.";
         this.showSpinner = false;
       },

@@ -70,57 +70,64 @@
     {{erroMsg}}
 </div>
 
-<div class="table-responsive mt-3" style="height: 20em">    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Paciente</th>
-                <th>Novo status</th>
-                <th>Data de atendimento</th>                
-                <th>Turno</th>
-                <th>Detalhes</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let c of atendimentos">
-                <td class="align-middle">{{c.pacienteNome}}</td>                
-                <td>
-                    {{c.statusLabel}}
-                    <button mat-button [matMenuTriggerFor]="statusMenu">
-                        <fa-icon [icon]="icons.faChevronDown"></fa-icon>
+<div class="mat-elevation-z8 mt-3">
+    <table mat-table [dataSource]="atendimentosDataSource">
+        <ng-container matColumnDef="nome">
+            <th mat-header-cell *matHeaderCellDef>Paciente</th>
+            <td mat-cell *matCellDef="let atendimento"> {{atendimento.pacienteNome}} </td>
+        </ng-container> 
+        <ng-container matColumnDef="novoStatus">
+            <th mat-header-cell *matHeaderCellDef>Novo status</th>
+            <td mat-cell *matCellDef="let atendimento"> 
+                {{atendimento.statusLabel}}
+                <button mat-button [matMenuTriggerFor]="statusMenu">
+                    <fa-icon [icon]="icons.faChevronDown"></fa-icon>
+                </button>
+                <mat-menu #statusMenu="matMenu">                                                                        
+                    <button mat-menu-item (click)="setaParaEsperando( atendimento.id )" 
+                            *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO'">
+                        Esperando
                     </button>
-                    <mat-menu #statusMenu="matMenu">                                                                        
-                        <button mat-menu-item (click)="setaParaEsperando( c.id )" 
-                                *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO'">
-                            Esperando
-                        </button>
-                        <button mat-menu-item (click)="iniciaAtendimento( c.id, c.turno)" 
-                                *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO' || atendimentoFilaFiltro.status==='ESPERANDO'">
-                            Iniciar
-                        </button>
-                        <button mat-menu-item (click)="finalizaAtendimento( c.id )"
-                                *ngIf="atendimentoFilaFiltro.status === 'INICIADO'">
-                            Finalizar
-                        </button>
-                        <button mat-menu-item (click)="cancelaAtendimento( c.id )"
-                                *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO'">
-                            Cancelar
-                        </button>
-                        <button mat-menu-item (click)="setaParaRegistrado( c.id )" 
-                                *ngIf="atendimentoFilaFiltro.status !== 'REGISTRADO'">
-                            Agendado
-                        </button>
-                    </mat-menu>
-                </td>                
-                <td class="align-middle">{{c.dataAtendimento | date: 'dd/MM/yyyy'}}</td>
-                <td class="align-middle">{{c.turnoLabel}}</td>
-                <td class="align-middle">
-                    <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'atendimento-detalhes/'+c.id }}]">
-                        <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
-                        detalhes
-                    </a>
-                </td>
-            </tr>
-        </tbody>
+                    <button mat-menu-item (click)="iniciaAtendimento( atendimento.id, atendimento.turno)" 
+                            *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO' || atendimentoFilaFiltro.status==='ESPERANDO'">
+                        Iniciar
+                    </button>
+                    <button mat-menu-item (click)="finalizaAtendimento( atendimento.id )"
+                            *ngIf="atendimentoFilaFiltro.status === 'INICIADO'">
+                        Finalizar
+                    </button>
+                    <button mat-menu-item (click)="cancelaAtendimento( atendimento.id )"
+                            *ngIf="atendimentoFilaFiltro.status === 'REGISTRADO'">
+                        Cancelar
+                    </button>
+                    <button mat-menu-item (click)="setaParaRegistrado( atendimento.id )" 
+                            *ngIf="atendimentoFilaFiltro.status !== 'REGISTRADO'">
+                        Agendado
+                    </button>
+                </mat-menu> 
+            </td>
+        </ng-container>        
+        <ng-container matColumnDef="dataAtendimento">
+            <th mat-header-cell *matHeaderCellDef>Data de atendimento</th>
+            <td mat-cell *matCellDef="let atendimento">{{atendimento.dataAtendimento | date: 'dd/MM/yyyy'}}</td>
+        </ng-container>
+        <ng-container matColumnDef="turno">
+            <th mat-header-cell *matHeaderCellDef>Turno</th>
+            <td mat-cell *matCellDef="let atendimento">{{atendimento.turnoLabel}}</td>
+        </ng-container>  
+        <ng-container matColumnDef="detalhes">
+            <th mat-header-cell *matHeaderCellDef>Detalhes</th>
+            <td mat-cell *matCellDef="let atendimento">
+                <a class="text-primary text-decoration-none" [routerLink]="[ '/app', { outlets : { page : 'atendimento-detalhes/'+atendimento.id }}]">
+                    <fa-icon [icon]="icons.faCircleInfo"></fa-icon>
+                    detalhes
+                </a>
+            </td>
+        </ng-container> 
+
+        <tr mat-header-row *matHeaderRowDef="atendimentosColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: atendimentosColumns;"></tr>
     </table>
+
+    <app-paginator [tableDataSource]="atendimentosDataSource"></app-paginator>
 </div>

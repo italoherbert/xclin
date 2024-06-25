@@ -65,7 +65,7 @@ public class NaoAdminProfissionalService {
 	}
 	
 	public NaoAdminProfissionalTelaLoadResponse getTelaLoad( Long[] clinicasIDs ) throws ServiceException {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		

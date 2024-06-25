@@ -116,7 +116,7 @@ public class ProcedimentoService {
 	}
 	
 	public ProcedimentoTelaLoadResponse telaLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();		
@@ -129,7 +129,7 @@ public class ProcedimentoService {
 	}
 	
 	public ProcedimentoRegLoadResponse regLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();		

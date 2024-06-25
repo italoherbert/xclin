@@ -98,7 +98,7 @@ public class LancamentoService {
 	}
 	
 	public LancamentoTelaLoadResponse getLancamentoTelaLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
@@ -112,7 +112,7 @@ public class LancamentoService {
 	}
 	
 	public LancamentoRegLoadResponse getLancamentoRegLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();

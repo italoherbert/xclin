@@ -111,7 +111,7 @@ public class ExameService {
 	}
 	
 	public ExameTelaLoadResponse telaLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();		
@@ -124,7 +124,7 @@ public class ExameService {
 	}
 	
 	public ExameRegLoadResponse regLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();	

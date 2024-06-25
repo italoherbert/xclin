@@ -26,7 +26,17 @@ public interface ClinicaRepository extends JpaRepository<Clinica, Long> {
 	public List<Clinica> lista( String nome, Pageable p );
 	
 	@Query("select c from Clinica c where c.id in (?1)")
-	public List<Clinica> buscaPorIDs( Long[] ids );
+	public List<Clinica> listaPorIDs( Long[] ids );
+
+	@Query("select c "
+		+ "from Clinica c " 
+		+ "where lower_unaccent(c.nome) like lower_unaccent(?1) and c.id in (?2)")
+	public List<Clinica> listaPorIDsPorNome( String nomeLike, Long[] ids );
+
+	@Query("select c "
+		+ "from Clinica c " 
+		+ "where lower_unaccent(c.nome) like lower_unaccent(?1) and c.id in (?2)")
+	public List<Clinica> listaPorIDsPorNome( String nomeLike, Long[] ids, Pageable p );
 	
 	@Query("select c from Clinica c where c.id=?1 and c.id in (?2)")
 	public Optional<Clinica> busca( Long clinicaId, Long[] ids );

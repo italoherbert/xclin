@@ -160,7 +160,7 @@ public class PacienteService {
 		List<UFResponse> ufs = localidadesSharedService.listaUFs();
 		List<MunicipioResponse> municipios = localidadesSharedService.listaMunicipios( codigoUf );
 		
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		for( Clinica clinica : clinicas ) {
@@ -206,7 +206,7 @@ public class PacienteService {
 	public PacienteRegLoadResponse getRegLoad( Long[] clinicasIDs ) throws ServiceException {
 		List<UFResponse> ufs = localidadesSharedService.listaUFs();
 
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		for( Clinica clinica : clinicas ) {
@@ -222,7 +222,7 @@ public class PacienteService {
 	}
 	
 	public PacienteTelaLoadResponse getTelaLoad( Long[] clinicasIDs ) throws ServiceException {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();

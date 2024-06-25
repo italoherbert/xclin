@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import italo.xclin.Erro;
@@ -132,6 +133,51 @@ public class ClinicaService {
 		return new ListaResponse( ids, nomes );
 	}
 			
+	public List<ClinicaResponse> filtraPorIDs( Long[] clinicasIDs, ClinicaFiltroRequest request ) throws ServiceException {
+		String nomeIni = request.getNomeIni();
+
+		List<Clinica> clinicas;
+		if ( nomeIni.equals( "*" ) ) {
+			clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
+		} else {
+			String nomeLike = "%"+nomeIni+"%";
+			clinicas = clinicaRepository.listaPorIDsPorNome( nomeLike, clinicasIDs );		
+		}
+		
+		return this.clinicasToResponse( clinicas );
+	}
+
+	public List<ClinicaResponse> filtraPorIDsPorNome( Long[] clinicasIDs, String nomeIni ) throws ServiceException {
+		List<Clinica> clinicas;
+		if ( nomeIni.equals( "*" ) ) {
+			clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
+		} else {
+			String nomeLike = "%"+nomeIni+"%";
+			clinicas = clinicaRepository.listaPorIDsPorNome( nomeLike, clinicasIDs );			
+		}
+		return this.clinicasToResponse( clinicas );
+	}
+
+	public ListaResponse listaPorIDsPorNome( Long[] clinicasIDs, String nomeIni, int limit ) throws ServiceException {
+		List<Clinica> clinicas;
+		if ( nomeIni.equals( "*" ) ) {
+			clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
+		} else {
+			String nomeLike = "%"+nomeIni+"%";
+			clinicas = clinicaRepository.listaPorIDsPorNome( nomeLike, clinicasIDs, Pageable.ofSize( limit ) );		
+		}
+
+		List<Long> ids = new ArrayList<>();
+		List<String> nomes = new ArrayList<>();
+
+		for( Clinica c : clinicas ) {
+			ids.add( c.getId() );
+			nomes.add( c.getNome() );			
+		}
+		
+		return new ListaResponse( ids, nomes );
+	}
+
 	public ClinicaResponse get( Long id ) throws ServiceException {
 		Optional<Clinica> cop = clinicaRepository.findById( id );
 		if ( !cop.isPresent() )

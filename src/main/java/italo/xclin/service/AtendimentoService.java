@@ -693,7 +693,7 @@ public class AtendimentoService {
 	}
 	
 	public AtendimentoTelaLoadResponse getTelaLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		
@@ -708,7 +708,7 @@ public class AtendimentoService {
 	}
 	
 	public NovoAtendimentoRegLoadResponse getNovoAtendimentoRegLoad( Long[] clinicasIDs ) throws ServiceException {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		
@@ -721,7 +721,7 @@ public class AtendimentoService {
 	}
 	
 	public AtendimentoListaFilaTelaLoadResponse getFiltroResumidoTelaLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		
@@ -736,7 +736,7 @@ public class AtendimentoService {
 	}
 	
 	public AtendimentoIniciadaTelaLoadResponse getIniciadoTelaLoad( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		

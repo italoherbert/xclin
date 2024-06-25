@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import italo.xclin.Erro;
+import italo.xclin.enums.tipos.UsuarioPerfil;
 import italo.xclin.exception.AutorizacaoException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
@@ -269,6 +270,13 @@ public class Autorizador {
 				return;
 				
 		throw new AutorizacaoException( Erro.CLINICA_ACESSO_NAO_AUTORIZADO );
+	}
+
+	public boolean verificaSeRaiz( String authorizationHeader ) throws AutorizacaoException {
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );		
+		String perfil = tokenInfo.getPerfil();
+
+		return ( perfil.equalsIgnoreCase( UsuarioPerfil.RAIZ.name() ) );
 	}
 			
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import italo.xclin.enums.tipos.UsuarioPerfil;
 import italo.xclin.exception.SistemaException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
@@ -75,27 +76,60 @@ public class ClinicaController {
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@PostMapping("/filtra")
 	public ResponseEntity<Object> filtra( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@RequestBody ClinicaFiltroRequest request ) throws SistemaException {
 		
 		clinicaValidator.validaFiltro( request );
-		List<ClinicaResponse> lista = clinicaService.filtra( request );
+
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+
+		List<ClinicaResponse> lista;
+		if ( tokenInfo.getPerfil().equalsIgnoreCase( UsuarioPerfil.RAIZ.name() ) ) {
+			lista = clinicaService.filtra( request );
+		} else {
+			Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+			lista = clinicaService.filtraPorIDs( clinicasIDs, request );			
+		}		
+
 		return ResponseEntity.ok( lista );
 	}
 	
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/filtra/pornome/{nomeIni}")
-	public ResponseEntity<Object> filtra( @PathVariable String nomeIni ) throws SistemaException {		
-		List<ClinicaResponse> lista = clinicaService.filtraPorNome( nomeIni );
+	public ResponseEntity<Object> filtra( 
+			@RequestHeader( "Authorization" ) String authorizationHeader,
+			@PathVariable String nomeIni ) throws SistemaException {		
+
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+
+		List<ClinicaResponse> lista;
+		if ( tokenInfo.getPerfil().equalsIgnoreCase( UsuarioPerfil.RAIZ.name() ) ) {
+			lista = clinicaService.filtraPorNome( nomeIni );
+		} else {
+			Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+			lista = clinicaService.filtraPorIDsPorNome( clinicasIDs, nomeIni );
+		}
+
 		return ResponseEntity.ok( lista );
 	}
 	
 	@PreAuthorize("hasAuthority('clinicaREAD')")
 	@GetMapping("/lista/limite/{nomeIni}/{quant}")
 	public ResponseEntity<Object> listaPorNomeEClinica(
+			@RequestHeader( "Authorization" ) String authorizationHeader,
 			@PathVariable String nomeIni,
 			@PathVariable int quant ) throws SistemaException {
+
+		JWTTokenInfo tokenInfo = jwtTokenLogica.authorizationHeaderTokenInfo( authorizationHeader );
+
+		ListaResponse resp;
+		if ( tokenInfo.getPerfil().equalsIgnoreCase( UsuarioPerfil.RAIZ.name() ) ) {
+			resp = clinicaService.listaPorNome( nomeIni, quant );
+		} else {
+			Long[] clinicasIDs = tokenInfo.getClinicasIDs();
+			resp = clinicaService.listaPorIDsPorNome( clinicasIDs, nomeIni, quant );
+		}
 						
-		ListaResponse resp = clinicaService.listaPorNome( nomeIni, quant );
 		return ResponseEntity.ok( resp );
 	}
 		

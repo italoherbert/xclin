@@ -17,7 +17,7 @@ public class ClinicaSharedService {
 	private ClinicaRepository clinicaRepository;
 		
 	public ListaResponse listaPorIDs( Long[] clinicasIDs ) {
-		List<Clinica> clinicas = clinicaRepository.buscaPorIDs( clinicasIDs );
+		List<Clinica> clinicas = clinicaRepository.listaPorIDs( clinicasIDs );
 		List<Long> clinicasIDs2 = new ArrayList<>();
 		List<String> clinicasNomes2 = new ArrayList<>();
 		

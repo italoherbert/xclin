@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,7 +30,11 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 	private JWTTokenLogica jwtLogica;
 	
 	@Override
-	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+	protected void doFilterInternal(
+			@NonNull HttpServletRequest request, 
+			@NonNull HttpServletResponse response, 
+			@NonNull FilterChain filterChain) throws ServletException, IOException {
+				
 		String auth = request.getHeader( "Authorization" );
 				
 		boolean authHeaderValido = true;
@@ -39,7 +44,7 @@ public class AutenticacaoFilter extends OncePerRequestFilter {
 			authHeaderValido = auth.startsWith( "Bearer " );						
 		}
 		
-		if ( authHeaderValido ) {		
+		if ( authHeaderValido && auth != null ) {		
 			String token = auth.substring( 7 );
 			try {
 				JWTTokenInfo tokenInfo = jwtLogica.tokenInfo( token );

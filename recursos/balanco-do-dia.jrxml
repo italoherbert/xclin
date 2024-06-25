@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5d9af1ec-75f5-45d6-931a-223db3ba2e91">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="af5757e1-f74f-4a41-97c4-bc953e8c656a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -58,8 +58,8 @@
 		<![CDATA[]]>
 	</queryString>
 	<field name="usuario" class="java.lang.String"/>
-	<field name="entrada" class="java.lang.String"/>
-	<field name="saida" class="java.lang.String"/>
+	<field name="credito" class="java.lang.String"/>
+	<field name="debito" class="java.lang.String"/>
 	<field name="total" class="java.lang.String"/>
 	<field name="tipo" class="java.lang.String"/>
 	<field name="totalValor" class="java.lang.Double"/>
@@ -215,14 +215,14 @@
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="c2efbb00-6b42-4803-9c07-c082c4e145aa"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{entrada}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{credito}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="240" y="-1" width="100" height="20" uuid="0d7957b1-0c1b-40e8-853a-a13e134c1f79">
 					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="b7733bde-5362-4ef9-a217-3069775a17ee"/>
 				</reportElement>
 				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{saida}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{debito}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement style="totalRowStyle" x="308" y="0" width="100" height="20" uuid="195efd13-63bc-43f5-8c86-ef7bbd762ffc">

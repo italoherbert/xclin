@@ -1,9 +1,5 @@
 package italo.xclin.logica;
 
-import java.io.ByteArrayInputStream;
-
-import javax.imageio.ImageIO;
-
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.stereotype.Component;
 

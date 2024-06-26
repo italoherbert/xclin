@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
 import { Profissional } from 'src/app/core/bean/profissional/profissional';
 import { ProfissionalFiltro } from 'src/app/core/bean/profissional/profissional-filtro';
 import { ProfissionalService } from 'src/app/core/service/profissional.service';
@@ -31,6 +32,7 @@ export class ProfissionalTelaComponent {
   }
 
   clinicaId : number = 0;
+  todosFlag : boolean = false;
 
   profissionaisColumns : string[] = [ 'nome', 'detalhes', 'remover' ];
   profissionaisDataSource = new MatTableDataSource<Profissional>([]);
@@ -38,7 +40,7 @@ export class ProfissionalTelaComponent {
   constructor( 
     private matDialog: MatDialog,
     private profissionalService: ProfissionalService, 
-    private sistemaService: SistemaService) {}
+    public sistemaService: SistemaService) {}
 
   filtra() {
     this.infoMsg = null;
@@ -46,7 +48,14 @@ export class ProfissionalTelaComponent {
 
     this.showSpinner = true;
 
-    this.profissionalService.filtraProfissionais( this.clinicaId, this.profissionalFiltro ).subscribe({
+    let observable : Observable<any>; 
+    if ( this.todosFlag === true ) {
+      observable = this.profissionalService.filtraProfissionaisTodos( this.profissionalFiltro );     
+    } else {    
+      observable = this.profissionalService.filtraProfissionais( this.clinicaId, this.profissionalFiltro );
+    }
+      
+    observable.subscribe({
       next: ( resp ) => {
         this.profissionaisDataSource.data = resp;
         if ( this.profissionaisDataSource.data.length == 0 )
@@ -57,7 +66,7 @@ export class ProfissionalTelaComponent {
         this.erroMsg = this.sistemaService.mensagemErro( erro );
         this.showSpinner = false;
       }
-    });
+    });  
   }
 
   onClinicaSelect( clinicaId : any ) {

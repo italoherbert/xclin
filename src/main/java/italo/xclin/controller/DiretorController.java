@@ -74,6 +74,16 @@ public class DiretorController {
 		return ResponseEntity.ok( lista );
 	}
 	
+	@PreAuthorize("hasAuthority('diretorTodosREAD')")
+	@PostMapping("/filtra-todos")
+	public ResponseEntity<Object> filtraTodos( 
+			@RequestBody DiretorFiltroRequest request ) throws SistemaException {
+		
+		diretorValidator.validaFiltro( request );
+		List<DiretorResponse> lista = diretorService.filtraTodos( request );
+		return ResponseEntity.ok( lista );
+	}
+
 	@PreAuthorize("hasAuthority('diretorREAD')")
 	@GetMapping("/get/{id}")
 	public ResponseEntity<Object> get( @PathVariable Long id ) throws SistemaException {

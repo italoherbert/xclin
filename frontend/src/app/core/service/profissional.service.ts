@@ -41,6 +41,15 @@ export class ProfissionalService {
     return this.http.post( '/api/profissional/filtra/'+clinicaId, filtro, { headers: headers, withCredentials: true } )
   }
 
+  filtraProfissionaisTodos( filtro: ProfissionalFiltro ): Observable<any> {
+    let headers = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
+    });
+
+    return this.http.post( '/api/profissional/filtra-todos', filtro, { headers: headers, withCredentials: true } )
+  }
+
   getProfissional( id : any ): Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )

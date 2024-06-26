@@ -83,7 +83,17 @@ public class ProfissionalController {
 		profissionalService.altera( id, request );
 		return ResponseEntity.ok().build(); 	
 	}
-			
+	
+	@PreAuthorize("hasAuthority('profissionalTodosREAD')")
+	@PostMapping("/filtra-todos")
+	public ResponseEntity<Object> filtraTodos( 
+			@RequestBody ProfissionalFiltroRequest request ) throws SistemaException {
+		
+		profissionalValidator.validaFiltro( request );
+		List<ProfissionalResponse> lista = profissionalService.filtraTodos( request );
+		return ResponseEntity.ok( lista );
+	}
+
 	@PreAuthorize("hasAuthority('profissionalREAD')")
 	@PostMapping("/filtra/{clinicaId}")
 	public ResponseEntity<Object> filtra( 

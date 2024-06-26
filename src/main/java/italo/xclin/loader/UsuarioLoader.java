@@ -50,6 +50,7 @@ public class UsuarioLoader {
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.RAIZ ) );
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.ADMIN ) );
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.SUPORTE ) );
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.VISITANTE ) );
 		resp.setPerfis( usuarios ); 
 	}
 	
@@ -58,6 +59,7 @@ public class UsuarioLoader {
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.RAIZ ) );
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.ADMIN ) );
 		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.SUPORTE ) );
+		usuarios.add( usuarioPerfilEnumManager.tipoResponse( UsuarioPerfil.VISITANTE ) );
 		resp.setPerfis( usuarios ); 
 	}
 		

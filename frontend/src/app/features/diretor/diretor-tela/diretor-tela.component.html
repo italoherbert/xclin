@@ -20,6 +20,10 @@
     </mat-form-field>
 
     <br />
+    <ng-container *ngIf="sistemaService.isAdminEscopo() === true">
+        <mat-checkbox [(ngModel)]="todosFlag" color="primary">Filtrar sobre todos</mat-checkbox>
+    </ng-container>
+    <br />
     <br />
 
     <div class="d-flex flex-row align-items-center">

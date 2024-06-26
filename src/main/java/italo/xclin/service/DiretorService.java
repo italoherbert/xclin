@@ -114,7 +114,7 @@ public class DiretorService {
 	public List<DiretorResponse> filtra( Long clinicaId, DiretorFiltroRequest request ) throws ServiceException {
 		String filtroNome = request.getFiltroNome();
 		
-		List<Diretor> diretores = diretorRepository.filtraPorClinica( clinicaId );
+		List<Diretor> diretores;
 		if ( filtroNome.equals( "*" ) ) {
 			diretores = diretorRepository.filtraPorClinica( clinicaId );
 		} else {
@@ -132,7 +132,29 @@ public class DiretorService {
 		}
 		return lista;
 	}
+	
+	public List<DiretorResponse> filtraTodos( DiretorFiltroRequest request ) throws ServiceException {
+		String filtroNome = request.getFiltroNome();
+		
+		List<Diretor> diretores;
+		if ( filtroNome.equals( "*" ) ) {
+			diretores = diretorRepository.findAll();
+		} else {
+			diretores = diretorRepository.filtraTodos( "%"+filtroNome+"%" );
+		}
+		
+		List<DiretorResponse> lista = new ArrayList<>();
+		for( Diretor d : diretores ) {
+			UsuarioResponse uresp = usuarioLoader.novoResponse();
+			usuarioLoader.loadResponse( uresp, d.getUsuario() ); 
 			
+			DiretorResponse resp = diretorLoader.novoResponse( uresp );
+			diretorLoader.loadResponse( resp, d );			
+			lista.add( resp );
+		}
+		return lista;
+	}
+
 	public DiretorResponse get( Long id ) throws ServiceException {
 		Optional<Diretor> diretorOp = diretorRepository.findById( id );
 		if ( !diretorOp.isPresent() )

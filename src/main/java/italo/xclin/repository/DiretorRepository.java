@@ -37,9 +37,15 @@ public interface DiretorRepository extends JpaRepository<Diretor, Long> {
 		 + "where "
 		 	+ "v.usuario.id=u.id and "
 		 	+ "v.clinica.id=?1 and "
-		 	+ "lower_unaccent(d.nome) like lower_unaccent(?1)")
+		 	+ "lower_unaccent(d.nome) like lower_unaccent(?2)")
 	public List<Diretor> filtra( Long clinicaId, String filtroNome );
 		
+	@Query("select d "
+		 + "from Diretor d "
+		 + "where "
+		 	+ "lower_unaccent(d.nome) like lower_unaccent(?1)")
+	public List<Diretor> filtraTodos( String filtroNome );
+
 	@Query("select d "
 		 + "from Diretor d "
 		 	+ "join d.usuario u "

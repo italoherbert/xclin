@@ -42,7 +42,7 @@ export class SistemaService {
   
   isAdminEscopo() {
     let perfil = localStorage.getItem( 'perfil' );
-    return perfil == 'RAIZ' || perfil == 'ADMIN';  
+    return perfil == 'RAIZ' || perfil == 'ADMIN' || perfil == 'VISITANTE';  
   }
 
   isRaiz() {

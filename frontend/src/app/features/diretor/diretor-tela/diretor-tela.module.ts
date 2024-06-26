@@ -9,6 +9,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ClinicaAutocompleteInputModule } from 'src/app/shared/clinica-autocomplete-input/clinica-autocomplete-input.module';
 import { MatTableModule } from '@angular/material/table';
 import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -28,6 +29,7 @@ import { PaginatorModule } from 'src/app/shared/paginator/paginator.module';
     MatButtonModule,
     MatDialogModule,
     MatTableModule,
+    MatCheckboxModule,
 
     PaginatorModule
   ]

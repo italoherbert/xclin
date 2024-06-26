@@ -31,7 +31,6 @@ import italo.xclin.logica.Converter;
 import italo.xclin.model.Atendimento;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
-import italo.xclin.model.ConsultaEspecialidadeVinculo;
 import italo.xclin.model.Especialidade;
 import italo.xclin.model.Exame;
 import italo.xclin.model.ExameItem;

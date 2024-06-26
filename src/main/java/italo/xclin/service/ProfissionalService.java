@@ -136,6 +136,28 @@ public class ProfissionalService {
 		}
 		return lista;
 	}
+
+	public List<ProfissionalResponse> filtraTodos( ProfissionalFiltroRequest request ) throws ServiceException {
+		String filtroNome = request.getFiltroNome();
+		
+		List<Profissional> profissionais;
+		if ( filtroNome.equals( "*" ) ) {
+			profissionais = profissionalRepository.findAll();		
+		} else {
+			profissionais = profissionalRepository.filtraTodos( "%"+filtroNome+"%" );
+		}
+		
+		List<ProfissionalResponse> lista = new ArrayList<>();
+		for( Profissional p : profissionais ) {
+			UsuarioResponse uresp = usuarioLoader.novoResponse();
+			usuarioLoader.loadResponse( uresp, p.getUsuario() ); 
+			
+			ProfissionalResponse resp = profissionalLoader.novoResponse( uresp );
+			profissionalLoader.loadResponse( resp, p );			
+			lista.add( resp );
+		}
+		return lista;
+	}
 		
 	public ProfissionalResponse get( Long id ) throws ServiceException {
 		Optional<Profissional> profissionalOp = profissionalRepository.findById( id );

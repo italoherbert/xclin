@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { faCircleInfo, faFilter, faPlusCircle, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
 import { Diretor } from 'src/app/core/bean/diretor/diretor';
 import { DiretorFiltro } from 'src/app/core/bean/diretor/diretor-filtro';
 import { DiretorService } from 'src/app/core/service/diretor.service';
@@ -31,6 +32,7 @@ export class DiretorTelaComponent {
   }
 
   clinicaId : number = 0;
+  todosFlag : boolean = false;
 
   diretoresColumns: string[] = ['nome', 'detalhes', 'remover'];
   diretoresDataSource = new MatTableDataSource<Diretor>([]);
@@ -38,7 +40,7 @@ export class DiretorTelaComponent {
   constructor( 
     private matDialog: MatDialog,
     private diretorService: DiretorService, 
-    private sistemaService: SistemaService) {}
+    public sistemaService: SistemaService) {}
 
   filtra() {
     this.infoMsg = null;
@@ -46,7 +48,14 @@ export class DiretorTelaComponent {
 
     this.showSpinner = true;
 
-    this.diretorService.filtraDiretores( this.clinicaId, this.diretorFiltro ).subscribe({
+    let observable : Observable<any>;
+    if ( this.todosFlag === true ) {
+      observable = this.diretorService.filtraDiretoresTodos( this.diretorFiltro );
+    } else {
+      observable = this.diretorService.filtraDiretores( this.clinicaId, this.diretorFiltro );
+    }
+
+    observable.subscribe({
       next: ( resp ) => {
         this.diretoresDataSource.data = resp;
         if ( this.diretoresDataSource.data.length == 0 )

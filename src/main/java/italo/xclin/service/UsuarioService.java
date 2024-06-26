@@ -57,7 +57,7 @@ public class UsuarioService {
 		usuarioLoader.loadBean( u, request );
 		
 		usuarioRepository.save( u );
-		
+	
 		usuarioSharedService.vinculaGrupo( u, perfil );						
 	}
 	

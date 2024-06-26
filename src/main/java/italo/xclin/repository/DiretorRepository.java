@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import italo.xclin.model.Diretor;
@@ -46,4 +47,8 @@ public interface DiretorRepository extends JpaRepository<Diretor, Long> {
 		 + "where v.usuario.id=u.id and d.id=?1 and v.clinica.id in (?2)")
 	public Optional<Diretor> busca( Long diretorId, Long[] clinicasIDs );
 	
+	@Modifying
+	@Query("delete from Diretor d where d.id in (select d.id from Diretor d join d.usuario u, UsuarioClinicaVinculo v where v.usuario.id=d.usuario.id and v.clinica.id=?1)")
+	public void deletaPorClinica( Long clinicaId );
+
 }

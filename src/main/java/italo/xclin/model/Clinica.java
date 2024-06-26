@@ -53,7 +53,7 @@ public class Clinica {
 	
 	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
 	private List<Lancamento> lancamentos;
-	
+		
 	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
 	private List<Especialidade> especialidades;
 	
@@ -63,4 +63,7 @@ public class Clinica {
 	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
 	private List<Procedimento> procedimentos;
 	
+	@OneToMany(mappedBy="clinica", cascade=CascadeType.ALL)
+	private List<Recepcionista> recepcionistas;
+
 }

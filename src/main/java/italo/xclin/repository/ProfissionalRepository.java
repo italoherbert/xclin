@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import italo.xclin.model.Profissional;
@@ -54,4 +55,8 @@ public interface ProfissionalRepository extends JpaRepository<Profissional, Long
 		 	+ "v.usuario.id=u.id and p.id=?1 and v.clinica.id in (?2)")
 	public Optional<Profissional> busca( Long profissionalId, Long[] clinicasIDs );
 	
+	@Modifying
+	@Query("delete from Profissional p where p.id in (select p.id from Profissional p, UsuarioClinicaVinculo v where v.usuario.id=p.usuario.id and v.clinica.id=?1)")
+	public void deletaPorClinica( Long clinicaId );
+
 }

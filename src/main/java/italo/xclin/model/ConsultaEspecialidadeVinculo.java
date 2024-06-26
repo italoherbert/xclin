@@ -1,13 +1,14 @@
 package italo.xclin.model;
 
-import jakarta.persistence.CascadeType;
+import org.hibernate.annotations.ManyToAny;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -18,22 +19,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="consulta")
-public class Consulta {
+@Table(name="consulta_especialidade_vinculo")
+public class ConsultaEspecialidadeVinculo {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-				
-	private double valor;
-	
-	private boolean concluida;
-	
-	@OneToOne(mappedBy = "consulta", cascade = CascadeType.ALL)
-	private ConsultaEspecialidadeVinculo consultaEspecialidadeVinculo;
-	
-	@OneToOne
-	@JoinColumn(name="orcamento_id")
-	private Orcamento orcamento;
-	
+
+    @OneToOne
+    @JoinColumn(name="consulta_id") 
+    private Consulta consulta;
+
+    @ManyToOne
+    @JoinColumn(name="especialidade_id")
+    private Especialidade especialidade;
+
 }

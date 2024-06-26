@@ -3,6 +3,7 @@ package italo.xclin.loader;
 import org.springframework.stereotype.Component;
 
 import italo.xclin.model.Consulta;
+import italo.xclin.model.ConsultaEspecialidadeVinculo;
 import italo.xclin.model.Especialidade;
 import italo.xclin.model.request.save.ConsultaSaveRequest;
 import italo.xclin.model.response.ConsultaResponse;
@@ -23,7 +24,13 @@ public class ConsultaLoader {
 		
 	public Consulta novoBean( Especialidade especialidade ) {
 		Consulta consulta = new Consulta();
-		consulta.setEspecialidade( especialidade );
+
+		ConsultaEspecialidadeVinculo vinculo = new ConsultaEspecialidadeVinculo();
+		vinculo.setConsulta( consulta );
+		vinculo.setEspecialidade( especialidade );
+
+		consulta.setConsultaEspecialidadeVinculo( vinculo );
+
 		return consulta;
 	}
 	

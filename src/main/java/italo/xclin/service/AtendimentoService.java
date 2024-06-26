@@ -31,6 +31,7 @@ import italo.xclin.logica.Converter;
 import italo.xclin.model.Atendimento;
 import italo.xclin.model.Clinica;
 import italo.xclin.model.Consulta;
+import italo.xclin.model.ConsultaEspecialidadeVinculo;
 import italo.xclin.model.Especialidade;
 import italo.xclin.model.Exame;
 import italo.xclin.model.ExameItem;
@@ -223,7 +224,7 @@ public class AtendimentoService {
 				throw new ServiceException( Erro.ESPECIALIDADE_NAO_ENCONTRADA );
 
 			Especialidade especialidade = especialidadeOp.get();
-			
+									
 			consulta = consultaLoader.novoBean( especialidade );
 			consultaLoader.loadBean( consulta, consultaRequest ); 
 		}
@@ -857,7 +858,7 @@ public class AtendimentoService {
 		
 		ConsultaResponse consultaResp = null;
 		if ( orcamento.isTemConsulta() ) {
-			Especialidade esp = consulta.getEspecialidade();
+			Especialidade esp = consulta.getConsultaEspecialidadeVinculo().getEspecialidade();
 			consultaResp = consultaLoader.novoResponse( esp );
 			consultaLoader.loadResponse( consultaResp, consulta );
 		}

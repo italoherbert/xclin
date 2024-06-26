@@ -67,7 +67,7 @@ public class Atendimento {
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
 		
-	@OneToOne(cascade= {CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToOne(cascade= {CascadeType.ALL})
 	@JoinColumn(name="orcamento_id")
 	private Orcamento orcamento;
 	

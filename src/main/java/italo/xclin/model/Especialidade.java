@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,10 +32,11 @@ public class Especialidade {
 	@ManyToOne
 	@JoinColumn(name="clinica_id")
 	private Clinica clinica;
-	
+		
 	@OneToMany(mappedBy="especialidade", cascade=CascadeType.ALL)
 	private List<ProfissionalEspecialidadeVinculo> profissionalEspecialidadeVinculos;
-	
+
 	@OneToMany(mappedBy="especialidade", cascade=CascadeType.ALL)
-	private List<Consulta> consultas;
+	private List<ConsultaEspecialidadeVinculo> consultaEspecialidadeVinculos;
+	
 }

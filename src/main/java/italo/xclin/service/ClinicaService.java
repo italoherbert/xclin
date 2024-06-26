@@ -31,6 +31,7 @@ import italo.xclin.model.response.load.reg.ClinicaRegLoadResponse;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.repository.UsuarioRepository;
 import italo.xclin.service.shared.LocalidadesSharedService;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ClinicaService {
@@ -40,7 +41,7 @@ public class ClinicaService {
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
-	
+
 	@Autowired
 	private ClinicaLoader clinicaLoader;
 	
@@ -257,6 +258,7 @@ public class ClinicaService {
 		return resp;
 	}
 		
+	@Transactional
 	public void deleta( Long id ) throws ServiceException {
 		boolean existe = clinicaRepository.existsById( id );
 		if ( !existe )

@@ -1,0 +1,11 @@
+cd temp
+
+put target/xclin.war
+
+mkdir web
+
+cd web
+
+lcd frontend/dist/frontend
+
+put -r *

@@ -102,7 +102,7 @@
 				<text><![CDATA[Clínica:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="60" y="90" width="100" height="30" forecolor="#6600FF" uuid="c2b14e22-0c27-4dac-b201-cb40e43a06e8"/>
+				<reportElement x="60" y="90" width="498" height="30" forecolor="#6600FF" uuid="c2b14e22-0c27-4dac-b201-cb40e43a06e8"/>
 				<textElement verticalAlignment="Middle">
 					<font size="14"/>
 				</textElement>

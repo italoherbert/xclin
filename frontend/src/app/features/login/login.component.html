@@ -13,13 +13,15 @@
 
                 <mat-icon matSuffix>account_circle</mat-icon>
             </mat-form-field>
-            <mat-form-field appearance="fill" class="w-100">
-                <mat-label>Senha</mat-label>
-                <input matInput type="password" placeholder="Senha" 
+            <mat-form-field appearance="fill" class="w-100 d-flex flex-column">
+                <mat-label>Senha</mat-label>                
+                <input matInput [type]="inputType" placeholder="Senha" 
                     [(ngModel)]="login.senha" 
                     (keyup.enter)="logar()" />
-
-                <mat-icon matSuffix>password</mat-icon>
+                
+                <button mat-icon-button matSuffix (click)="eyeClick()">
+                    <fa-icon [icon]="eyeIcon"></fa-icon>
+                </button>
             </mat-form-field>            
             <div class="d-flex align-items-center">
                 <button mat-raised-button color="primary" class="w-100" (click)="logar()">

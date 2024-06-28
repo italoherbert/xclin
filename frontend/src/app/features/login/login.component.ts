@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { faRightToBracket } from '@fortawesome/free-solid-svg-icons';
+import { faRightToBracket, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/core/bean/login';
 import { UsuarioService } from 'src/app/core/service/usuario.service';
@@ -14,6 +14,8 @@ import { SistemaService } from 'src/app/core/service/sistema.service';
 export class LoginComponent {
 
   icons : any = {
+    faEye,
+    faEyeSlash,
     faRightToBracket
   };
 
@@ -24,6 +26,9 @@ export class LoginComponent {
     username : '',
     senha: ''
   };
+
+  inputType : string = 'password';
+  eyeIcon : any = this.icons.faEye;
 
   showSpinner : boolean = false;
 
@@ -37,6 +42,8 @@ export class LoginComponent {
     this.erroMsg = null;
 
     this.showSpinner = true;
+
+    this.login.username = this.login.username.trim();
 
     this.usuarioService.logar( this.login ).subscribe({
       next: ( resp ) => {        
@@ -62,6 +69,16 @@ export class LoginComponent {
 
     if ( code == 13 )
       this.logar();
+  }
+
+  eyeClick() {
+    if ( this.inputType == 'password' ) {
+      this.inputType = 'text';
+      this.eyeIcon = faEyeSlash;
+    } else {
+      this.inputType = 'password';
+      this.eyeIcon = faEye;
     }
+  }
 
 }

@@ -29,12 +29,15 @@ export class ClinicaService {
     return this.http.get( '/api/clinica/logo/'+clinicaId, { headers: headers, withCredentials: true } )
   }
 
-  salvaLogo( clinicaId : any, logo : ClinicaLogoSave ) : Observable<any> {
+  salvaLogo( clinicaId : any, logoFile : File ) : Observable<any> {
     let headers = new HttpHeaders({
       'Authorization' : 'Bearer ' + localStorage.getItem( 'token' )
     });
 
-    return this.http.put( '/api/clinica/logo/'+clinicaId, logo, { headers: headers, withCredentials: true } )  
+    let formData = new FormData();
+    formData.append( "logoFile", logoFile );
+
+    return this.http.put( '/api/clinica/logo/'+clinicaId, formData, { headers: headers, withCredentials: true } )  
   }
 
   paraLogoDefault( clinicaId : any ) : Observable<any> {

@@ -6,15 +6,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import italo.xclin.exception.SistemaException;
 import italo.xclin.logica.JWTTokenInfo;
 import italo.xclin.logica.JWTTokenLogica;
-import italo.xclin.model.request.save.ClinicaLogoSaveRequest;
 import italo.xclin.model.response.Base64ImageResponse;
 import italo.xclin.service.ClinicaLogoService;
 import italo.xclin.service.autorizador.Autorizador;
@@ -57,10 +57,11 @@ public class ClinicaLogoController {
 	public ResponseEntity<Object> alteraLogo( 
             @RequestHeader( "Authorization" ) String authorizationHeader,     
             @PathVariable Long clinicaId,
-            @RequestBody ClinicaLogoSaveRequest request ) throws SistemaException {
+            @RequestParam("logoFile") MultipartFile logoFile ) throws SistemaException {
 
         autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
-        clinicaLogoService.salvaLogo( clinicaId, request );
+                
+        clinicaLogoService.salvaLogo( clinicaId, logoFile );
 		return ResponseEntity.ok().build();
 	}
 
@@ -70,11 +71,8 @@ public class ClinicaLogoController {
             @RequestHeader( "Authorization" ) String authorizationHeader,     
             @PathVariable Long clinicaId ) throws SistemaException {
 
-        ClinicaLogoSaveRequest request = new ClinicaLogoSaveRequest();
-        request.setLogo( null );
-
         autorizador.autorizaPorClinica( authorizationHeader, clinicaId );
-        clinicaLogoService.salvaLogo( clinicaId, request );
+        clinicaLogoService.salvaLogo( clinicaId, null );
 		return ResponseEntity.ok().build();
 	}
 

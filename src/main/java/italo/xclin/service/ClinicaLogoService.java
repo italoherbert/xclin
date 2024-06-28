@@ -1,14 +1,16 @@
 package italo.xclin.service;
 
+import java.io.IOException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import italo.xclin.Erro;
 import italo.xclin.exception.ServiceException;
+import italo.xclin.logica.ImageUtil;
 import italo.xclin.model.Clinica;
-import italo.xclin.model.request.save.ClinicaLogoSaveRequest;
 import italo.xclin.model.response.Base64ImageResponse;
 import italo.xclin.repository.ClinicaRepository;
 import italo.xclin.service.shared.ClinicaLogoSharedService;
@@ -22,14 +24,29 @@ public class ClinicaLogoService {
     @Autowired
     private ClinicaLogoSharedService clinicaLogoSharedService;
 
-    public void salvaLogo( Long clinicaId, ClinicaLogoSaveRequest request ) throws ServiceException {
+    @Autowired
+    private ImageUtil imageUtil;
+
+    public void salvaLogo( Long clinicaId, MultipartFile logoFile ) throws ServiceException {
         Optional<Clinica> clinicaOp = clinicaRepository.findById( clinicaId );
 		if ( !clinicaOp.isPresent() )
 			throw new ServiceException( Erro.CLINICA_NAO_ENCONTRADA );
 
 		Clinica clinica = clinicaOp.get();
-		clinica.setLogomarca( request.getLogo() );
-        clinicaRepository.save( clinica );
+        try {            
+            String base64Str = null;
+            if ( logoFile != null ) {
+                byte[] bytes = logoFile.getBytes();
+
+                String contentType = logoFile.getContentType();
+                base64Str = imageUtil.bytesToBase64( bytes, contentType );
+            }            
+
+            clinica.setLogomarca( base64Str );        
+            clinicaRepository.save( clinica );
+        } catch ( IOException e ) {
+            throw new ServiceException( Erro.FALHA_LEITURA_LOGO_DEFAULT );
+        }
     }
 
     public Base64ImageResponse getLogo( Long clinicaId ) throws ServiceException {

@@ -1,6 +1,7 @@
 package italo.xclin.logica;
 
-import org.apache.tomcat.util.codec.binary.Base64;
+import java.util.Base64;
+
 import org.springframework.stereotype.Component;
 
 import jakarta.xml.bind.DatatypeConverter;
@@ -27,8 +28,8 @@ public class ImageUtil {
 		return DatatypeConverter.parseBase64Binary( base64Image );
     }
 
-    public String bytesToBase64( byte[] bytes, String imageType ) {
-        return "data:image/"+imageType+";base64," + Base64.encodeBase64String( bytes );
+    public String bytesToBase64( byte[] bytes, String imageContentType ) {
+        return "data:"+imageContentType+";base64," + Base64.getEncoder().encodeToString( bytes );
     }
 
 }

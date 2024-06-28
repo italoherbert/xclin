@@ -69,23 +69,17 @@ export class ClinicaLogoComponent {
     let id = this.actRoute.snapshot.paramMap.get( 'id' );
 
     const file : File = event.target.files[0];
-    if ( file ) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.logoSave.logo = ''+reader.result;
-        this.logoNome = file.name;
-        this.clinicaService.salvaLogo( id, this.logoSave ).subscribe( {
-          next: ( dados ) => {
-            this.carregaLogo();
-            this.showSpinner = false;
-          },
-          error: ( erro ) => {
-            this.erroMsg = this.sistemaService.mensagemErro( erro );
-            this.showSpinner = false;
-          }
-        } );
-      };
+    if ( file ) {      
+      this.clinicaService.salvaLogo( id, file ).subscribe( {
+        next: ( dados ) => {
+          this.carregaLogo();
+          this.showSpinner = false;
+        },
+        error: ( erro ) => {
+          this.erroMsg = this.sistemaService.mensagemErro( erro );
+          this.showSpinner = false;
+        }
+      } );
     }
   }
 

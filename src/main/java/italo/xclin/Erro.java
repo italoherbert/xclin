@@ -129,4 +129,8 @@ public interface Erro {
 	public final static String ARQ_IMG_NAO_BASE64 = "A imagem no banco de dados está em formato inválido.";
 	public final static String FALHA_LEITURA_LOGO_DEFAULT = "Não foi possível carregar a logomarca default.";
 
+	public final static String LOGO_LEN_EXCEEDED = "O tamanho máximo de $1 da imagem foi excedido.";
+
+	public final static String TOMCAT_FILE_SIZE_LIMIT_EXCEEDED = "O arquivo enviado tem um tamanho acima do máximo suportado que é $1";
+
 }

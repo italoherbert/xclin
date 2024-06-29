@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { Especialidade } from 'src/app/core/bean/especialidade/especialidade';
 import { ContaProfissionalService } from 'src/app/core/service/conta-profissional.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
@@ -21,7 +23,9 @@ export class ProfissionalContaEspecialidadesComponent {
 
   profissionalNome : string = '';
   profissionalFuncao: string = '';
-  especialidades: any[] = [];     
+
+  especialidadesColumns: string[] = ['nome', 'valorConsulta'];
+  especialidadesDataSource = new MatTableDataSource<any>([]);
 
   constructor( 
     private contaProfissionalService: ContaProfissionalService,
@@ -42,7 +46,7 @@ export class ProfissionalContaEspecialidadesComponent {
       next: (resp) => {
         this.profissionalNome = resp.profissionalNome;
         this.profissionalFuncao = resp.profissionalFuncao;
-        this.especialidades = resp.especialidades;
+        this.especialidadesDataSource.data = resp.especialidades;
 
         this.showSpinner = false;
       },

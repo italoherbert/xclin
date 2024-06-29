@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { Exame } from 'src/app/core/bean/exame/exame';
 import { ContaProfissionalService } from 'src/app/core/service/conta-profissional.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
 
@@ -19,7 +21,8 @@ export class ProfissionalContaExamesComponent {
     faPenToSquare: faPenToSquare
   }
 
-  exames : any[] = [];
+  examesColumns : string[] = [ 'nome', 'valorCobrado' ];
+  examesDataSource = new MatTableDataSource<any>([])
 
   constructor( 
     private contaProfissionalService: ContaProfissionalService,
@@ -38,7 +41,7 @@ export class ProfissionalContaExamesComponent {
 
     this.contaProfissionalService.listaExamesVinculos().subscribe({
       next: (resp) => {
-        this.exames = resp;
+        this.examesDataSource.data = resp;
 
         this.showSpinner = false;
       },

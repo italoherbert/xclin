@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 import { ContaProfissionalService } from 'src/app/core/service/conta-profissional.service';
 import { SistemaService } from 'src/app/core/service/sistema.service';
@@ -19,7 +20,8 @@ export class ProfissionalContaProcedimentosComponent {
     faPenToSquare: faPenToSquare
   }
 
-  procedimentos : any[] = [];
+  procedimentosColumns : string[] = [ 'nome', 'valorCobrado' ];
+  procedimentosDataSource = new MatTableDataSource<any>([]);
 
   constructor( 
     private contaProfissionalService: ContaProfissionalService,
@@ -38,7 +40,7 @@ export class ProfissionalContaProcedimentosComponent {
 
     this.contaProfissionalService.listaProcedimentosVinculos().subscribe({
       next: (resp) => {
-        this.procedimentos = resp;
+        this.procedimentosDataSource.data = resp;
 
         this.showSpinner = false;
       },

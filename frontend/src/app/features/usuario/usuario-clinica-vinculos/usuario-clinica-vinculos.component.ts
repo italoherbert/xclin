@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute } from '@angular/router';
 import { faEye, faLink, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { Usuario } from 'src/app/core/bean/usuario/usuario';
@@ -32,7 +33,8 @@ export class UsuarioClinicaVinculosComponent {
 
   clinicaId : number = 0;
 
-  vinculos : any[] = [];
+  vinculosColumns : string[] = [ 'nome', 'remover' ];
+  vinculosDataSource = new MatTableDataSource<any>([]);
 
   constructor(
     private actRoute : ActivatedRoute,    
@@ -55,7 +57,7 @@ export class UsuarioClinicaVinculosComponent {
     this.usuarioService.getClinicasVinculos( usuarioId ).subscribe( {
       next: ( resp ) => {
         this.usuario = resp.usuario;
-        this.vinculos = resp.vinculos;
+        this.vinculosDataSource.data = resp.vinculos;
         
         this.showSpinner = false;        
       },

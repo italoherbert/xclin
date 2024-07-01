@@ -50,42 +50,39 @@
     </mat-card>
 </div>
     
-<div class="d-flex justify-content-center mt-3">
+<div class="mat-elevation-z8 mt-3">
+    
+    <h1 class="px-3 pt-3">Acessos</h1>
 
-    <div class="mat-elevation-z8 mt-3" style="width: 50em">
-        
-        <h1 class="px-3 pt-3">Acessos</h1>
+    <table mat-table [dataSource]="acessosDataSource">
+        <ng-container matColumnDef="recurso">
+            <th mat-header-cell *matHeaderCellDef>Recurso</th>
+            <td mat-cell *matCellDef="let acesso"> {{acesso.recursoNome}} </td>
+        </ng-container>        
+        <ng-container matColumnDef="leitura">
+            <th mat-header-cell *matHeaderCellDef>Leitura</th>
+            <td mat-cell *matCellDef="let acesso">
+                <mat-checkbox [(ngModel)]="acesso.leitura" disabled="true"></mat-checkbox>                
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="escrita">
+            <th mat-header-cell *matHeaderCellDef>Escrita</th>
+            <td mat-cell *matCellDef="let acesso">                
+                <mat-checkbox [(ngModel)]="acesso.escrita" disabled="true"></mat-checkbox>
+            </td>
+        </ng-container> 
+        <ng-container matColumnDef="remocao">
+            <th mat-header-cell *matHeaderCellDef>Remoção</th>
+            <td mat-cell *matCellDef="let acesso">
+                <mat-checkbox [(ngModel)]="acesso.remocao" disabled="true"></mat-checkbox>                
+            </td>
+        </ng-container> 
 
-        <table mat-table [dataSource]="acessosDataSource">
-            <ng-container matColumnDef="recurso">
-                <th mat-header-cell *matHeaderCellDef>Recurso</th>
-                <td mat-cell *matCellDef="let acesso"> {{acesso.recursoNome}} </td>
-            </ng-container>        
-            <ng-container matColumnDef="leitura">
-                <th mat-header-cell *matHeaderCellDef>Leitura</th>
-                <td mat-cell *matCellDef="let acesso">
-                    <mat-checkbox [(ngModel)]="acesso.leitura" disabled="true"></mat-checkbox>                
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="escrita">
-                <th mat-header-cell *matHeaderCellDef>Escrita</th>
-                <td mat-cell *matCellDef="let acesso">                
-                    <mat-checkbox [(ngModel)]="acesso.escrita" disabled="true"></mat-checkbox>
-                </td>
-            </ng-container> 
-            <ng-container matColumnDef="remocao">
-                <th mat-header-cell *matHeaderCellDef>Remoção</th>
-                <td mat-cell *matCellDef="let acesso">
-                    <mat-checkbox [(ngModel)]="acesso.remocao" disabled="true"></mat-checkbox>                
-                </td>
-            </ng-container> 
+        <tr mat-header-row *matHeaderRowDef="acessosColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: acessosColumns;"></tr>
+    </table>
 
-            <tr mat-header-row *matHeaderRowDef="acessosColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: acessosColumns;"></tr>
-        </table>
-
-        <app-paginator [tableDataSource]="acessosDataSource"></app-paginator>
-    </div>
+    <app-paginator [tableDataSource]="acessosDataSource"></app-paginator>
 </div>
 
 <br />
